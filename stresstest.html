@@ -3,9 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Meine Ergebnisse · Ordinum</title>
-<meta name="description" content="Deine bisherigen Testergebnisse bei Ordinum, gespeichert nur in deinem Browser.">
-<meta name="robots" content="noindex">
+<title>Stresstest · Ordinum</title>
+<meta name="description" content="Kostenloser Stresstest: 24 Aussagen, etwa 4 Minuten, sofort dein Profil aus Anspannung, Reizbarkeit, Überforderung und Selbstwirksamkeit, plus deine Belastbarkeit.">
 <meta name="theme-color" content="#0a0d0c">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="stylesheet" href="fonts.css">
@@ -17,8 +16,10 @@
   --line:#1f2724;
   --fg:#e7ece9;
   --muted:#8e9a95;
-  --green:#8fd1a9;
-  --green-soft:#5f9e7b;
+  --green:#7ea8f8;
+  --green-soft:#4f6ea8;
+  --green-l:#2f5cb8;
+  --green-soft-l:#9db8ee;
   --violet:#b9a3f2;
   --violet-soft:#7c69b4;
   --glow:rgba(160,180,220,.10);
@@ -53,7 +54,7 @@ p{margin:0}
 .nav ul a:hover{color:var(--fg)}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:999px;font:500 15px var(--body);text-decoration:none;border:1px solid var(--line);background:transparent;color:var(--fg);cursor:pointer;transition:border-color .2s,background .2s,box-shadow .3s}
 .btn:hover{border-color:var(--violet-soft)}
-.btn.primary{background:linear-gradient(100deg,var(--green),#a9c3d6 55%,var(--violet));color:#0b0f14;border-color:transparent}
+.btn.primary{background:linear-gradient(100deg,var(--green),#9fb2f6 55%,var(--violet));color:#0b0f14;border-color:transparent}
 .btn.primary:hover{box-shadow:0 0 28px rgba(185,163,242,.35)}
 .nav .btn{padding:9px 16px;font-size:14px;white-space:nowrap}
 @media (max-width:820px){.nav ul{display:none}}
@@ -94,7 +95,7 @@ section{padding-block:clamp(64px,9vw,112px);border-bottom:1px solid var(--line)}
 .tests{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
 .test{position:relative;border:1px solid var(--line);border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:10px;background:var(--surface);min-width:0;overflow:hidden;transition:border-color .25s,transform .25s}
 .test:hover{border-color:var(--violet-soft);transform:translateY(-2px)}
-.test::before{content:"";position:absolute;width:160px;height:160px;right:-60px;top:-70px;border-radius:50%;background:radial-gradient(circle,var(--c,rgba(143,209,169,.22)),transparent 70%);pointer-events:none}
+.test::before{content:"";position:absolute;width:160px;height:160px;right:-60px;top:-70px;border-radius:50%;background:radial-gradient(circle,var(--c,rgba(126,168,248,.22)),transparent 70%);pointer-events:none}
 .test .meta{display:flex;justify-content:space-between;gap:8px;font-family:var(--mono);font-size:12px;color:var(--muted)}
 .test h3{font-family:var(--body);font-weight:600;font-size:19px;letter-spacing:0}
 .test p{color:var(--muted);font-size:15px;flex:1}
@@ -113,7 +114,7 @@ section{padding-block:clamp(64px,9vw,112px);border-bottom:1px solid var(--line)}
 .scale button{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--muted);font:500 15px var(--mono);cursor:pointer;transition:all .2s}
 .scale button[aria-pressed="true"]{background:var(--violet);color:#0b0f14;border-color:var(--violet)}
 .scale-l{display:flex;justify-content:space-between;max-width:260px;font-size:12px;color:var(--muted);font-family:var(--mono)}
-.result{border:1px solid var(--line);border-radius:20px;padding:28px;background:linear-gradient(160deg,rgba(143,209,169,.07),rgba(185,163,242,.09)),var(--surface);display:grid;gap:14px}
+.result{border:1px solid var(--line);border-radius:20px;padding:28px;background:linear-gradient(160deg,rgba(126,168,248,.07),rgba(185,163,242,.09)),var(--surface);display:grid;gap:14px}
 .result .score{font-family:var(--display);font-weight:300;font-size:52px;line-height:1;font-variant-numeric:tabular-nums}
 .result .score small{font-size:16px;color:var(--muted)}
 .meter{height:8px;border-radius:8px;background:var(--line);overflow:hidden}
@@ -123,7 +124,7 @@ section{padding-block:clamp(64px,9vw,112px);border-bottom:1px solid var(--line)}
 
 /* report preview */
 .report{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:22px;overflow:hidden}
-.report::before{content:"";position:absolute;inset:-40% -20% auto auto;width:520px;height:520px;background:radial-gradient(circle at 40% 40%,rgba(185,163,242,.18),transparent 60%),radial-gradient(circle at 70% 70%,rgba(143,209,169,.14),transparent 60%);filter:blur(10px);pointer-events:none}
+.report::before{content:"";position:absolute;inset:-40% -20% auto auto;width:520px;height:520px;background:radial-gradient(circle at 40% 40%,rgba(185,163,242,.18),transparent 60%),radial-gradient(circle at 70% 70%,rgba(126,168,248,.14),transparent 60%);filter:blur(10px);pointer-events:none}
 .report-top{position:relative;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:18px 26px;border-bottom:1px solid var(--line)}
 .report-top .t{font-family:var(--display);font-size:16px;font-weight:400}
 .tag{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
@@ -153,7 +154,7 @@ section{padding-block:clamp(64px,9vw,112px);border-bottom:1px solid var(--line)}
 .packs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 @media (max-width:900px){.packs{grid-template-columns:1fr}}
 .pack{border:1px solid var(--line);border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:16px;background:var(--bg);min-width:0}
-.pack.feature{background:linear-gradient(170deg,rgba(185,163,242,.12),rgba(143,209,169,.05) 55%,transparent),var(--surface);border-color:var(--violet-soft)}
+.pack.feature{background:linear-gradient(170deg,rgba(185,163,242,.12),rgba(126,168,248,.05) 55%,transparent),var(--surface);border-color:var(--violet-soft)}
 .pack h3{font-size:22px;font-weight:400}
 .pack .price{font-family:var(--display);font-weight:300;font-size:30px;font-variant-numeric:tabular-nums}
 .pack .price small{font-family:var(--body);font-size:14px;color:var(--muted);margin-left:4px}
@@ -208,7 +209,7 @@ footer nav{display:flex;gap:20px}
 .progress{height:4px;border-radius:4px;background:var(--line);overflow:hidden;margin-bottom:12px}
 .progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--violet));transition:width .3s ease}
 .pcount{font-family:var(--mono);font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:12px}
-.qcard{margin-top:28px;border:1px solid var(--line);border-radius:22px;padding:clamp(24px,5vw,40px);background:linear-gradient(160deg,rgba(143,209,169,.05),rgba(185,163,242,.07)),var(--surface);display:grid;gap:28px}
+.qcard{margin-top:28px;border:1px solid var(--line);border-radius:22px;padding:clamp(24px,5vw,40px);background:linear-gradient(160deg,rgba(126,168,248,.05),rgba(185,163,242,.07)),var(--surface);display:grid;gap:28px}
 .qtext{font-family:var(--display);font-weight:300;font-size:clamp(22px,3.4vw,30px);line-height:1.25;text-wrap:balance;min-height:2.5em}
 .opts{display:grid;gap:10px}
 .opt{display:flex;align-items:center;gap:14px;width:100%;text-align:left;padding:14px 18px;border-radius:14px;border:1px solid var(--line);background:var(--bg);color:var(--fg);font:500 16px var(--body);cursor:pointer;transition:border-color .2s,background .2s}
@@ -218,6 +219,14 @@ footer nav{display:flex;gap:20px}
 .nav-row{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .res-head{display:grid;gap:14px;margin-bottom:36px}
 .res-head h1{font-size:clamp(30px,4.6vw,48px);line-height:1.1}
+.overall{display:grid;gap:12px;padding:28px;margin-bottom:12px;border:1px solid var(--violet-soft);border-radius:22px;background:linear-gradient(160deg,rgba(126,168,248,.08),rgba(185,163,242,.12)),var(--surface)}
+.overall .big{font-family:var(--display);font-weight:300;font-size:64px;line-height:1;font-variant-numeric:tabular-nums}
+.overall .big small{font-size:18px;color:var(--muted)}
+.overall p{color:#c3ccc8}
+.care{margin-top:28px;border:1px solid rgba(185,163,242,.35);border-radius:18px;padding:22px;background:rgba(185,163,242,.06);display:grid;gap:8px}
+.care h3{font-family:var(--body);font-weight:600;font-size:17px;letter-spacing:0}
+.care p{color:#c3ccc8;font-size:15px}
+.care a{color:var(--fg)}
 .trait{padding:24px 0;border-top:1px solid var(--line);display:grid;gap:10px}
 .trait-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
 .trait h2{font-family:var(--body);font-weight:600;font-size:20px;letter-spacing:0}
@@ -234,7 +243,7 @@ footer nav{display:flex;gap:20px}
 @media (hover:none){.keyhint{display:none}}
 .fine{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:28px;line-height:1.7}
 .res-date{font-family:var(--mono);font-size:13px;color:var(--muted)}
-.save-box{margin-top:40px;border:1px solid var(--line);border-radius:20px;padding:28px;display:grid;gap:14px;background:linear-gradient(170deg,rgba(143,209,169,.07),transparent 60%),var(--surface)}
+.save-box{margin-top:40px;border:1px solid var(--line);border-radius:20px;padding:28px;display:grid;gap:14px;background:linear-gradient(170deg,rgba(126,168,248,.07),transparent 60%),var(--surface)}
 .save-box h3{font-size:22px;font-weight:400}
 .save-box p{color:var(--muted)}
 .save-box .fine{margin-top:0}
@@ -246,30 +255,14 @@ footer nav{display:flex;gap:20px}
 @media (max-width:440px){.nav-links{gap:12px}.nav-links .txt{font-size:14px}}
 @media (max-width:400px){.nav-links .btn{display:none}}
 @media print{
-  :root{--bg:#fff;--surface:#fff;--line:#d5dbd8;--fg:#111;--muted:#555;--violet:#5b4a99;--violet-soft:#5b4a99;color-scheme:light}
+  :root{--bg:#fff;--surface:#fff;--green:#2f7a52;--line:#d5dbd8;--fg:#111;--muted:#555;--violet:#5b4a99;--violet-soft:#5b4a99;color-scheme:light}
   .nav,footer,.save-box,.cta-box,#start,#quiz{display:none!important}
   .test-wrap{padding:0}
   .grad{color:#111;background:none}
-  .trait{break-inside:avoid}
+  .trait,.overall,.care{break-inside:avoid}
   .trait p.desc{color:#222}
   .tbar .fill,.tbar .track{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
-.rlist{display:grid;gap:18px;margin-top:36px}
-.rcard{border:1px solid var(--line);border-radius:20px;padding:clamp(20px,4vw,28px);background:linear-gradient(160deg,rgba(143,209,169,.05),rgba(185,163,242,.07)),var(--surface);display:grid;gap:18px}
-.rhead{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
-.rhead h2{font-family:var(--body);font-weight:600;font-size:20px;letter-spacing:0;margin-top:6px}
-.ract{display:flex;gap:10px;flex-wrap:wrap}
-.ract .btn{padding:9px 16px;font-size:14px}
-.mbars{display:grid;gap:8px}
-.mbar{display:grid;grid-template-columns:12em 1fr 2.4em;gap:12px;align-items:center;font-size:14px}
-.mbar .track{height:6px;border-radius:6px;background:var(--line);overflow:hidden}
-.mbar .fill{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--green),var(--violet))}
-.mbar .v{font-family:var(--mono);font-size:13px;text-align:right;font-variant-numeric:tabular-nums}
-@media (max-width:520px){.mbar{grid-template-columns:1fr 2.4em}.mbar .n{grid-column:1 / -1}}
-.empty{margin-top:36px;border:1px dashed var(--line);border-radius:20px;padding:28px;display:grid;gap:14px}
-.empty p{color:var(--muted)}
-.linkbtn{background:none;border:0;padding:0;font:inherit;color:var(--muted);text-decoration:underline;cursor:pointer}
-.linkbtn:hover{color:var(--fg)}
 </style>
 <link rel="stylesheet" href="theme.css">
 <script>try{if(localStorage.getItem('ordinum-theme')==='light')document.documentElement.dataset.theme='light'}catch(e){}</script>
@@ -362,18 +355,56 @@ footer nav{display:flex;gap:20px}
   </div>
 </header>
 <main class="test-wrap">
-  <section class="intro" style="border:0;padding:0">
-    <p class="eyebrow">Meine Ergebnisse</p>
-    <h1>Deine <span class="grad">Ergebnisse</span></h1>
-    <p>Hier findest du alle Tests, die du in diesem Browser gemacht hast. Sie werden nur auf deinem Gerät gespeichert, nicht bei uns. Für andere Geräte nutzt du den persönlichen Link, den du bei jedem Ergebnis kopieren oder dir per E-Mail schicken kannst.</p>
+  <section id="start" class="intro" style="border:0;padding:0">
+    <p class="eyebrow">Stress &amp; Resilienz</p>
+    <h1>Wie gehst du mit <span class="grad">Druck</span> um?</h1>
+    <p>24 kurze Aussagen darüber, wie du typischerweise auf Stress reagierst und was dich dabei stabil hält. Antworte so, wie du meistens bist, wenn es eng wird.</p>
+    <div class="meta-row"><span>ca. 4 Minuten</span><span>24 Aussagen</span><span>Auswertung sofort</span><span>Antworten bleiben in deinem Browser</span></div>
+    <div class="cta-row"><button class="btn primary" id="go" type="button">Test starten</button><button class="btn" id="resume" type="button" hidden>Weitermachen</button></div>
   </section>
-  <div class="rlist" id="list"></div>
-  <div class="empty" id="empty" hidden>
-    <h3 style="font-size:22px">Noch keine Ergebnisse auf diesem Gerät</h3>
-    <p>Du hast einen persönlichen Link gespeichert? Öffne ihn einfach, dann siehst du dein Ergebnis wieder und kannst es hier ablegen.</p>
-    <div class="cta-row"><a class="btn primary" href="persoenlichkeitstest.html">Persönlichkeitstest machen</a><a class="btn" href="staerkentest.html">Charakterstärken-Test machen</a><a class="btn" href="wohlbefinden.html">Wohlbefinden-Test machen</a><a class="btn" href="stresstest.html">Stresstest machen</a></div>
-  </div>
-  <p class="fine" id="clearrow" hidden><button class="linkbtn" id="clear" type="button">Alle Ergebnisse von diesem Gerät löschen</button></p>
+
+  <section id="quiz" hidden style="border:0;padding:0">
+    <div class="progress"><span id="bar"></span></div>
+    <div class="pcount"><span id="count">Aussage 1 von 24</span><span class="keyhint">Tasten 1–5 gehen auch</span></div>
+    <div class="qcard">
+      <p class="qtext" id="qtext" aria-live="polite"></p>
+      <div class="opts" id="opts" role="group" aria-label="Antwort"></div>
+      <div class="nav-row"><button class="btn" id="back" type="button">Zurück</button></div>
+    </div>
+  </section>
+
+  <section id="result" hidden style="border:0;padding:0">
+    <div class="res-head">
+      <p class="eyebrow">Dein Ergebnis</p>
+      <h1>Dein Stressprofil</h1>
+      <p class="muted">Drei Bereiche zeigen, wie du auf Druck reagierst, einer zeigt eine wichtige Ressource. Alle Werte liegen auf einer Skala von 0 bis 100. Hohe Stressreaktionen sind keine Schwäche, sondern ein Hinweis, wo Entlastung am meisten bringt.</p>
+      <p class="res-date" id="resdate"></p>
+    </div>
+    <div class="overall"><p class="eyebrow">Belastbarkeit</p><div class="big"><span id="ov"></span><small> / 100</small></div><div class="tbar"><span class="track"><span class="fill" id="ovbar"></span></span><span></span></div><p id="ovtext"></p></div>
+    <div id="traits"></div>
+    <div class="care" id="care" hidden>
+      <h3>Wenn der Stress zu viel wird</h3>
+      <p>Deine Antworten deuten darauf hin, dass dich Belastungen im Moment stark mitnehmen. Das ist kein Befund, aber ein Grund, gut auf dich zu achten. Sprich mit Menschen, denen du vertraust, oder mit deiner Hausärztin oder deinem Hausarzt. Einen Termin für eine psychotherapeutische Sprechstunde vermittelt die <a href="tel:116117">116117</a>. Rund um die Uhr, anonym und kostenlos erreichst du die TelefonSeelsorge unter <a href="tel:08001110111">0800 111 0 111</a> oder <a href="tel:08001110222">0800 111 0 222</a>.</p>
+    </div>
+    <div class="save-box">
+      <h3>Dein Ergebnis wiederfinden</h3>
+      <p id="savetext">Dein Ergebnis ist in diesem Browser unter „Meine Ergebnisse“ gespeichert. Damit du es auch auf anderen Geräten wiederfindest, oder nachdem du deine Browserdaten gelöscht hast, speichere dir deinen persönlichen Link oder ein PDF.</p>
+      <div class="cta-row">
+        <button class="btn primary" id="copylink" type="button">Link kopieren</button>
+        <a class="btn" id="maillink" href="#">Per E-Mail an mich</a>
+        <button class="btn" id="pdf" type="button">Als PDF speichern</button>
+        <button class="btn" id="keep" type="button" hidden>Auf diesem Gerät speichern</button>
+      </div>
+      <p class="toast" id="toast" aria-live="polite"></p>
+      <p class="fine">Wer deinen persönlichen Link kennt, kann dein Ergebnis sehen. Gib ihn also nur weiter, wenn du das möchtest. <a href="meine-ergebnisse.html">Alle meine Ergebnisse</a></p>
+    </div>
+    <div class="cta-box">
+      <h3>Stress und Persönlichkeit zusammen</h3>
+      <p>Wie du mit Druck umgehst, hängt auch davon ab, wer du bist und welche Stärken du hast. Bald verbindet dein persönlicher Ordinum-Bericht alles zu einem ausführlichen Bild von dir.</p>
+      <div class="cta-row"><a class="btn primary" href="wohlbefinden.html">Zum Wohlbefinden-Test</a><a class="btn" href="staerkentest.html">Zum Charakterstärken-Test</a><a class="btn" href="index.html#warteliste">Auf die Warteliste</a><button class="btn" id="again" type="button">Test neu starten</button></div>
+    </div>
+    <p class="fine">Grundlage: gemeinfreie Facettenskalen des International Personality Item Pool (IPIP-NEO): Anxiety, Anger und Vulnerability aus dem Bereich Neurotizismus sowie Self-Efficacy aus dem Bereich Gewissenhaftigkeit. Pro Bereich sechs Aussagen. Belastbarkeit ist der Mittelwert aus den umgedrehten Werten für Anspannung, Reizbarkeit und Überforderung und dem Wert für Selbstwirksamkeit. Die Werte zeigen deine Antworten auf der Skala von 0 bis 100, noch keine Vergleichswerte mit einer Bevölkerungsstichprobe. Ordinum dient der Selbsterkenntnis und ersetzt keine psychologische Diagnostik oder Behandlung.</p>
+  </section>
 </main>
 <footer>
   <div class="wrap">
@@ -382,63 +413,128 @@ footer nav{display:flex;gap:20px}
   </div>
 </footer>
 <script>
+var ITEMS = [{"t": "Ich mache mir viele Sorgen.", "f": "A", "k": 1}, {"t": "Ich bin schnell gereizt.", "f": "R", "k": 1}, {"t": "Ich gerate schnell in Panik.", "f": "U", "k": 1}, {"t": "Ich bringe Aufgaben erfolgreich zu Ende.", "f": "S", "k": 1}, {"t": "Ich bin die meiste Zeit entspannt.", "f": "A", "k": -1}, {"t": "Ich behalte einen kühlen Kopf.", "f": "R", "k": -1}, {"t": "Unter Druck bleibe ich ruhig.", "f": "U", "k": -1}, {"t": "Ich schätze Situationen falsch ein.", "f": "S", "k": -1}, {"t": "Ich gerate leicht in Stress.", "f": "A", "k": 1}, {"t": "Ich verliere die Beherrschung.", "f": "R", "k": 1}, {"t": "Ereignisse wachsen mir schnell über den Kopf.", "f": "U", "k": 1}, {"t": "Mir fallen gute Lösungen ein.", "f": "S", "k": 1}, {"t": "Mich bringt so schnell nichts aus der Ruhe.", "f": "A", "k": -1}, {"t": "Mich nervt so schnell nichts.", "f": "R", "k": -1}, {"t": "Ich weiß, wie ich mit schwierigen Situationen umgehe.", "f": "U", "k": -1}, {"t": "Ich weiß, wie ich Dinge erledigt bekomme.", "f": "S", "k": 1}, {"t": "Von meinen Problemen komme ich schwer los.", "f": "A", "k": 1}, {"t": "Ich werde schnell wütend.", "f": "R", "k": 1}, {"t": "Meine Gefühle überwältigen mich leicht.", "f": "U", "k": 1}, {"t": "Ich habe wenig beizutragen.", "f": "S", "k": -1}, {"t": "Über Dinge, die schon vorbei sind, grüble ich nicht.", "f": "A", "k": -1}, {"t": "Ich werde selten sauer.", "f": "R", "k": -1}, {"t": "Rückschläge stecke ich gut weg.", "f": "U", "k": -1}, {"t": "Aufgaben erledige ich reibungslos.", "f": "S", "k": 1}];
+var TEXTS = {"A": {"name": "Anspannung", "what": "Wie leicht dich Sorgen und innere Unruhe erfassen, wenn etwas ansteht.", "low": "Sorgen und innere Unruhe halten sich bei dir in Grenzen. Du bleibst meist entspannt, auch wenn vieles offen ist. Das schützt dich, solange du wichtige Warnsignale trotzdem ernst nimmst.", "mid": "Du kennst Phasen, in denen dich Sorgen begleiten, kommst aber meist auch wieder zur Ruhe. Es lohnt sich zu beobachten, welche Situationen die Anspannung zuverlässig hochfahren.", "high": "Sorgen und Anspannung sind dir gut vertraut, und sie lassen dich oft nicht so schnell los. Das kostet Kraft. Bewusste Pausen, Bewegung und das Aufschreiben von Gedanken helfen vielen, den Kopf freier zu bekommen."}, "R": {"name": "Reizbarkeit", "what": "Wie schnell Druck bei dir in Ärger und Gereiztheit umschlägt.", "low": "Du bleibst auch unter Druck meist gelassen und lässt dich nicht so leicht reizen. Andere erleben dich in stressigen Momenten wahrscheinlich als ruhigen Pol.", "mid": "Meistens behältst du die Ruhe, aber an vollen Tagen ist deine Zündschnur kürzer. Wenn du merkst, dass du gereizt reagierst, ist das oft ein frühes Zeichen, dass dir eine Pause fehlt.", "high": "Wenn es stressig wird, reagierst du schnell gereizt oder wütend. Ärger ist eine Stressreaktion wie jede andere. Ein kurzer Moment Abstand, bevor du antwortest, kann viel verändern."}, "U": {"name": "Überforderung", "what": "Wie schnell dir Belastungen über den Kopf wachsen, wenn mehrere Dinge zusammenkommen.", "low": "Auch wenn viel zusammenkommt, behältst du den Überblick und bleibst handlungsfähig. Rückschläge wirfst du nicht so leicht aus der Bahn. Das ist eine der wichtigsten Grundlagen von Resilienz.", "mid": "Meistens kommst du mit Druck gut klar, aber es gibt Situationen, in denen es dir zu viel wird. Zu wissen, wo deine Grenze liegt, hilft dir, rechtzeitig gegenzusteuern.", "high": "Wenn viel zusammenkommt, wächst es dir schnell über den Kopf. Das sagt nichts über deinen Wert aus, sondern zeigt, wo du Unterstützung und Entlastung brauchst. Aufgaben in kleine Schritte zu teilen und um Hilfe zu bitten, macht oft einen großen Unterschied."}, "S": {"name": "Selbstwirksamkeit", "what": "Wie sehr du darauf vertraust, Aufgaben und Probleme aus eigener Kraft zu lösen.", "low": "Du zweifelst im Moment oft daran, ob du Aufgaben gut bewältigen kannst. Das macht Stress schwerer, weil jede Herausforderung größer wirkt. Kleine, erreichbare Ziele helfen, das Vertrauen in dich Schritt für Schritt wieder aufzubauen.", "mid": "Du traust dir vieles zu, bist dir aber nicht immer sicher. Erinnere dich in stressigen Phasen bewusst daran, was du schon geschafft hast.", "high": "Du vertraust darauf, Probleme lösen und Aufgaben gut zu Ende bringen zu können. Dieses Vertrauen ist eine starke Ressource: Es lässt Herausforderungen eher als lösbar erscheinen statt als Bedrohung."}};
+var ORDER = ["A", "R", "U", "S"];
+var SCALE = ["trifft gar nicht zu", "trifft eher nicht zu", "teils, teils", "trifft eher zu", "trifft voll zu"];
+var KEY = 'ordinum-stress';
 var HIST = 'ordinum-ergebnisse', ABC = 'abcdefghijklmnopqrstuvwxy';
-// key: gespeicherter Testfortschritt; top: nur die stärksten n Werte zeigen, absteigend sortiert
-var TESTS = {big5: {name: 'Persönlichkeitstest · Big Five', page: 'persoenlichkeitstest.html', key: 'ordinum-ipip50', order: ['E','A','C','S','O'],
-  names: {E:'Extraversion', A:'Verträglichkeit', C:'Gewissenhaftigkeit', S:'Emotionale Stabilität', O:'Offenheit & Intellekt'}},
-  wohlbefinden: {name: 'Wohlbefinden', page: 'wohlbefinden.html', key: 'ordinum-wohlbefinden', order: ['F','M','O','S','V'],
-  names: {F:'Lebensfreude', M:'Ausgeglichene Stimmung', O:'Zuversicht', S:'Selbstwert', V:'Lebendigkeit'}},
-  stress: {name: 'Stress & Resilienz', page: 'stresstest.html', key: 'ordinum-stress', order: ['A','R','U','S'],
-  names: {A:'Anspannung', R:'Reizbarkeit', U:'Überforderung', S:'Selbstwirksamkeit'}},
-  staerken: {name: 'Charakterstärken · deine Top 5', page: 'staerkentest.html', key: 'ordinum-staerken', top: 5, order: ["ori", "val", "cap", "equ", "for", "app", "cur", "ind", "kin", "lea", "mod", "gra", "jud", "int", "soc", "cit", "pru", "hop", "lov", "zes", "sel", "hum", "per", "spi"],
-  names: {"ori": "Kreativität", "val": "Mut", "cap": "Fähigkeit zu lieben", "equ": "Fairness", "for": "Vergebung", "app": "Sinn für Schönheit", "cur": "Neugier", "ind": "Ausdauer", "kin": "Freundlichkeit", "lea": "Führung", "mod": "Bescheidenheit", "gra": "Dankbarkeit", "jud": "Urteilsvermögen", "int": "Ehrlichkeit", "soc": "Soziale Intelligenz", "cit": "Teamgeist", "pru": "Umsicht", "hop": "Zuversicht", "lov": "Freude am Lernen", "zes": "Tatendrang", "sel": "Selbstregulation", "hum": "Humor", "per": "Weitblick", "spi": "Spiritualität"}}};
+var ans = new Array(ITEMS.length).fill(null), cur = 0, curLink = '';
 function $(id){ return document.getElementById(id); }
-function loadHist(){ try{ var h = JSON.parse(localStorage.getItem(HIST)); if (Array.isArray(h)) return h; }catch(e){} return []; }
-function saveHist(h){ try{ localStorage.setItem(HIST, JSON.stringify(h)); }catch(e){} }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(ans)); }catch(e){} }
+function load(){ try{ var a = JSON.parse(localStorage.getItem(KEY)); if (Array.isArray(a) && a.length === ITEMS.length) return a; }catch(e){} return null; }
+// Persönlicher Link: je zwei Antworten (1–5) werden zu einem Buchstaben a–y (bei ungerader Anzahl mit einer 1 aufgefüllt), plus Datum: #r=<12 Zeichen>-JJJJMMTT
+function encode(a){ a = a.length % 2 ? a.concat([1]) : a; var s = ''; for (var i = 0; i < a.length; i += 2) s += ABC[(a[i]-1)*5 + (a[i+1]-1)]; return s; }
+function decode(c){ var a = []; for (var i = 0; i < c.length; i++){ var n = ABC.indexOf(c[i]); a.push(Math.floor(n/5)+1, n%5+1); } return a.slice(0, ITEMS.length); }
+function parseHash(){ var m = /^#r=([a-y]{12})(?:-(\d{8}))?$/.exec(location.hash); return m ? {code:m[1], date:m[2] || null} : null; }
+function today(){ var d = new Date(); return '' + d.getFullYear() + String(d.getMonth()+1).padStart(2,'0') + String(d.getDate()).padStart(2,'0'); }
 function fmtDate(s){ return new Date(+s.slice(0,4), +s.slice(4,6)-1, +s.slice(6,8)).toLocaleDateString('de-DE', {day:'numeric', month:'long', year:'numeric'}); }
-function encode(a){ var s = ''; for (var i = 0; i < a.length; i += 2) s += ABC[(a[i]-1)*5 + (a[i+1]-1)]; return s; }
-// Gespeicherten Testfortschritt mitlöschen, sonst trägt die Testseite das Ergebnis wieder ein
-function dropProgress(code){
-  Object.keys(TESTS).forEach(function(t){
-    var key = TESTS[t].key;
-    try{ var a = JSON.parse(localStorage.getItem(key)); if (Array.isArray(a) && a.indexOf(null) < 0 && (code == null || encode(a) === code)) localStorage.removeItem(key); }catch(e){}
+function loadHist(){ try{ var h = JSON.parse(localStorage.getItem(HIST)); if (Array.isArray(h)) return h; }catch(e){} return []; }
+function saveHist(h){ try{ localStorage.setItem(HIST, JSON.stringify(h.slice(0,50))); }catch(e){} }
+function findHist(code){ return loadHist().filter(function(r){ return r.code === code; })[0] || null; }
+function addHist(code, date){ var h = loadHist(); if (h.some(function(r){ return r.code === code; })) return; h.unshift({test:'stress', date:date, code:code, scores:scores(decode(code))}); saveHist(h); }
+function scores(a){
+  var sums = {}, n = {}, out = {};
+  ITEMS.forEach(function(it, i){
+    var v = a[i]; if (v == null) return;
+    var s = it.k === 1 ? v : 6 - v;
+    sums[it.f] = (sums[it.f]||0) + s; n[it.f] = (n[it.f]||0) + 1;
   });
+  ORDER.forEach(function(f){ out[f] = Math.round((sums[f] / n[f] - 1) / 4 * 100); });
+  return out;
 }
+function toast(t){ $('toast').textContent = t; }
+function show(id){ ['start','quiz','result'].forEach(function(s){ $(s).hidden = s !== id; }); window.scrollTo(0,0); }
 function render(){
-  var h = loadHist(), list = $('list'); list.innerHTML = '';
-  $('empty').hidden = h.length > 0; $('clearrow').hidden = h.length === 0;
-  h.forEach(function(r){
-    var T = TESTS[r.test]; if (!T) return;
-    var el = document.createElement('article'); el.className = 'rcard';
-    el.innerHTML = '<div class="rhead"><div><p class="eyebrow"></p><h2></h2></div><div class="ract"><a class="btn primary">Ansehen</a><button class="btn" type="button">Löschen</button></div></div><div class="mbars"></div>';
-    el.querySelector('.eyebrow').textContent = T.name;
-    el.querySelector('h2').textContent = 'Ergebnis vom ' + fmtDate(r.date);
-    el.querySelector('a').href = T.page + '#r=' + r.code + '-' + r.date;
-    el.querySelector('button').addEventListener('click', function(){
-      if (!confirm('Dieses Ergebnis von diesem Gerät löschen?')) return;
-      saveHist(loadHist().filter(function(x){ return x.code !== r.code; }));
-      dropProgress(r.code); render();
-    });
-    var bars = el.querySelector('.mbars');
-    var keys = T.order;
-    if (T.top) keys = keys.slice().sort(function(a, b){ return r.scores[b] - r.scores[a] || T.order.indexOf(a) - T.order.indexOf(b); }).slice(0, T.top);
-    keys.forEach(function(f){
-      var row = document.createElement('div'); row.className = 'mbar';
-      row.innerHTML = '<span class="n"></span><span class="track"><span class="fill"></span></span><span class="v"></span>';
-      row.querySelector('.n').textContent = T.names[f];
-      row.querySelector('.fill').style.width = r.scores[f] + '%';
-      row.querySelector('.v').textContent = r.scores[f];
-      bars.appendChild(row);
-    });
-    list.appendChild(el);
+  var it = ITEMS[cur];
+  $('qtext').textContent = it.t;
+  $('count').textContent = 'Aussage ' + (cur+1) + ' von ' + ITEMS.length;
+  $('bar').style.width = (cur/ITEMS.length*100) + '%';
+  var o = $('opts'); o.innerHTML = '';
+  SCALE.forEach(function(lbl, i){
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'opt'; b.id = 'opt-' + (i+1);
+    b.setAttribute('aria-pressed', ans[cur] === i+1 ? 'true' : 'false');
+    b.innerHTML = '<kbd>' + (i+1) + '</kbd><span></span>';
+    b.lastChild.textContent = lbl;
+    b.addEventListener('click', function(){ pick(i+1); });
+    o.appendChild(b);
   });
+  $('back').disabled = cur === 0;
 }
-$('clear').addEventListener('click', function(){
-  if (!confirm('Wirklich alle Ergebnisse von diesem Gerät löschen? Persönliche Links, die du gespeichert hast, funktionieren weiterhin.')) return;
-  try{ localStorage.removeItem(HIST); }catch(e){}
-  dropProgress(null); render();
+function pick(v){
+  ans[cur] = v; save();
+  if (cur < ITEMS.length - 1) { cur++; render(); }
+  else results();
+}
+// linkDate gesetzt: Ergebnis kommt aus einem persönlichen Link und wird nicht automatisch gespeichert
+function results(linkDate){
+  var sc = scores(ans), code = encode(ans), known = findHist(code);
+  if (!known && linkDate === undefined) { addHist(code, today()); known = findHist(code); }
+  var date = linkDate || (known && known.date) || today();
+  history.replaceState(null, '', '#r=' + code + '-' + date);
+  curLink = location.href;
+  $('resdate').textContent = 'Ergebnis vom ' + fmtDate(date);
+  $('keep').hidden = !!known;
+  $('keep').onclick = function(){ addHist(code, date); $('keep').hidden = true; toast('Gespeichert. Du findest es jetzt unter „Meine Ergebnisse“.'); };
+  $('savetext').hidden = !known;
+  $('maillink').href = 'mailto:?subject=' + encodeURIComponent('Mein Ordinum-Stressprofil') + '&body=' + encodeURIComponent('Mein Ergebnis im Ordinum-Stresstest vom ' + fmtDate(date) + ':\n' + curLink);
+  toast('');
+  var ov = Math.round(((100 - sc.A) + (100 - sc.R) + (100 - sc.U) + sc.S) / 4);
+  $('ov').textContent = ov; $('ovbar').style.width = ov + '%';
+  $('ovtext').textContent = ov < 40 ? 'Druck setzt dir im Moment spürbar zu. Schau dir an, welcher Bereich am stärksten ausschlägt: Dort bringt Entlastung oft am meisten.' : ov > 60 ? 'Du bist insgesamt gut belastbar und findest auch unter Druck meist zurück in die Balance. Die einzelnen Bereiche zeigen, wo deine Stabilität herkommt.' : 'Du bist insgesamt mittelmäßig belastbar: Vieles steckst du gut weg, manches nimmt dich mit. Die einzelnen Bereiche zeigen, wo du ansetzen kannst.';
+  // Hinweis auf Hilfe bei starker Belastung
+  $('care').hidden = !(sc.U > 70 || ov < 30);
+  var box = $('traits'); box.innerHTML = '';
+  ORDER.forEach(function(f){
+    var score = sc[f];
+    var lv = score < 40 ? 'low' : score > 60 ? 'high' : 'mid';
+    var lvName = {low:'eher niedrig', mid:'mittel', high:'eher hoch'}[lv];
+    var T = TEXTS[f], el = document.createElement('div');
+    el.className = 'trait';
+    el.innerHTML = '<div class="trait-top"><h2></h2><span class="lvl"></span></div>' +
+      '<div class="tbar"><span class="track"><span class="fill"></span></span><span class="v"></span></div>' +
+      '<p class="what"></p><p class="desc"></p>';
+    el.querySelector('h2').textContent = T.name;
+    el.querySelector('.lvl').textContent = lvName;
+    el.querySelector('.fill').style.width = score + '%';
+    el.querySelector('.v').textContent = score;
+    el.querySelector('.what').textContent = T.what;
+    el.querySelector('.desc').textContent = T[lv];
+    box.appendChild(el);
+  });
+  show('result');
+}
+function restart(){ ans = new Array(ITEMS.length).fill(null); cur = 0; save(); history.replaceState(null, '', location.pathname); show('quiz'); render(); }
+$('go').addEventListener('click', restart);
+$('resume').addEventListener('click', function(){ cur = ans.indexOf(null); if (cur < 0) { results(); return; } show('quiz'); render(); });
+$('back').addEventListener('click', function(){ if (cur > 0) { cur--; render(); } });
+$('again').addEventListener('click', restart);
+$('copylink').addEventListener('click', function(){
+  var done = function(){ toast('Link kopiert. Speicher ihn dir zum Beispiel als Lesezeichen oder in deinen Notizen.'); };
+  if (navigator.clipboard) navigator.clipboard.writeText(curLink).then(done, function(){ window.prompt('Dein persönlicher Link:', curLink); });
+  else window.prompt('Dein persönlicher Link:', curLink);
 });
-render();
+$('pdf').addEventListener('click', function(){ window.print(); });
+document.addEventListener('keydown', function(e){
+  if ($('quiz').hidden) return;
+  var k = parseInt(e.key, 10);
+  if (k >= 1 && k <= 5) pick(k);
+  else if (e.key === 'Backspace' || e.key === 'ArrowLeft') { if (cur > 0) { cur--; render(); } }
+});
+function route(){
+  var r = parseHash();
+  if (r) { ans = decode(r.code); results(r.date); return true; }
+  return false;
+}
+window.addEventListener('hashchange', function(){ if (!location.hash.indexOf('#r=')) route(); });
+(function(){
+  var a = load();
+  // Ergebnisse von vor der Ergebnisliste nachtragen
+  if (a && a.indexOf(null) < 0) addHist(encode(a), today());
+  if (route()) return;
+  if (a && a.some(function(x){ return x != null; })) { ans = a; $('resume').hidden = false; $('resume').textContent = a.indexOf(null) < 0 ? 'Letztes Ergebnis ansehen' : 'Weitermachen'; }
+})();
 </script>
 <script src="theme.js"></script>
 </body>
