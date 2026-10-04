@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Persönlichkeitstest · Ordinum</title>
-<meta name="description" content="Kostenloser Persönlichkeitstest nach dem Big-Five-Modell: 50 Aussagen, etwa 8 Minuten, sofortige Auswertung.">
+<title>Charakterstärken-Test · Ordinum</title>
+<meta name="description" content="Kostenloser Test deiner Charakterstärken: 72 Aussagen, etwa 12 Minuten, sofort deine fünf stärksten Seiten und alle 24 Stärken im Überblick.">
 <meta name="theme-color" content="#0a0d0c">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="stylesheet" href="fonts.css">
@@ -249,10 +249,29 @@ footer nav{display:flex;gap:20px}
   .nav,footer,.save-box,.cta-box,#start,#quiz{display:none!important}
   .test-wrap{padding:0}
   .grad{color:#111;background:none}
-  .trait{break-inside:avoid}
+  .trait,.sig,.all-row{break-inside:avoid}
   .trait p.desc{color:#222}
   .tbar .fill,.tbar .track{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
+.sig{padding:24px 0;border-top:1px solid var(--line);display:grid;grid-template-columns:auto 1fr;gap:6px 18px}
+.sig .rk{font-family:var(--display);font-weight:300;font-size:36px;line-height:1;color:var(--green);grid-row:span 4}
+.sig:nth-child(even) .rk{color:var(--violet)}
+.sig .trait-top,.sig .tbar,.sig p{grid-column:2}
+.sig h2{font-family:var(--body);font-weight:600;font-size:20px;letter-spacing:0}
+.sig .what{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.sig p.desc{color:#c3ccc8}
+.vir{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.all-head{margin-top:48px;display:grid;gap:10px;margin-bottom:12px}
+.all-head h2{font-size:clamp(22px,3vw,30px)}
+.all{display:grid;gap:10px;border-top:1px solid var(--line);padding-top:20px}
+.all-row{display:grid;grid-template-columns:1.6em 11em 1fr 2.4em;gap:12px;align-items:center;font-size:15px}
+.all-row .n{font-family:var(--mono);font-size:12px;color:var(--muted);text-align:right}
+.all-row .track{height:6px;border-radius:6px;background:var(--line);overflow:hidden}
+.all-row .fill{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--green),var(--violet))}
+.all-row.top .fill{box-shadow:0 0 12px rgba(185,163,242,.45)}
+.all-row .v{font-family:var(--mono);font-size:13px;color:var(--muted);text-align:right;font-variant-numeric:tabular-nums}
+@media (max-width:480px){.all-row{grid-template-columns:1.4em 8.5em 1fr 2em;font-size:14px}}
+@media print{.all-row .fill,.all-row .track{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
 </style>
 </head>
 <body>
@@ -344,16 +363,16 @@ footer nav{display:flex;gap:20px}
 </header>
 <main class="test-wrap">
   <section id="start" class="intro" style="border:0;padding:0">
-    <p class="eyebrow">Persönlichkeitstest · Big Five</p>
-    <h1>Wie tickst du <span class="grad">wirklich</span>?</h1>
-    <p>50 kurze Aussagen über dich. Antworte spontan und so, wie du meistens bist, nicht wie du gern wärst. Es gibt keine richtigen oder falschen Antworten.</p>
-    <div class="meta-row"><span>ca. 8 Minuten</span><span>50 Aussagen</span><span>Auswertung sofort</span><span>Antworten bleiben in deinem Browser</span></div>
+    <p class="eyebrow">Charakterstärken</p>
+    <h1>Was sind deine <span class="grad">Stärken</span>?</h1>
+    <p>72 kurze Aussagen über dich. Am Ende siehst du, welche deiner 24 Charakterstärken am deutlichsten ausgeprägt sind. Antworte spontan und so, wie du meistens bist, nicht wie du gern wärst.</p>
+    <div class="meta-row"><span>ca. 12 Minuten</span><span>72 Aussagen</span><span>Auswertung sofort</span><span>Antworten bleiben in deinem Browser</span></div>
     <div class="cta-row"><button class="btn primary" id="go" type="button">Test starten</button><button class="btn" id="resume" type="button" hidden>Weitermachen</button></div>
   </section>
 
   <section id="quiz" hidden style="border:0;padding:0">
     <div class="progress"><span id="bar"></span></div>
-    <div class="pcount"><span id="count">Aussage 1 von 50</span><span class="keyhint">Tasten 1–5 gehen auch</span></div>
+    <div class="pcount"><span id="count">Aussage 1 von 72</span><span class="keyhint">Tasten 1–5 gehen auch</span></div>
     <div class="qcard">
       <p class="qtext" id="qtext" aria-live="polite"></p>
       <div class="opts" id="opts" role="group" aria-label="Antwort"></div>
@@ -364,11 +383,16 @@ footer nav{display:flex;gap:20px}
   <section id="result" hidden style="border:0;padding:0">
     <div class="res-head">
       <p class="eyebrow">Dein Ergebnis</p>
-      <h1>Dein Persönlichkeitsprofil</h1>
-      <p class="muted">Die Werte zeigen, wie stark jede Eigenschaft bei dir ausgeprägt ist, auf einer Skala von 0 bis 100. Kein Wert ist besser oder schlechter: Jede Ausprägung hat ihre Stärken.</p>
+      <h1>Deine Charakterstärken</h1>
+      <p class="muted">Jeder Mensch hat alle 24 Stärken, nur unterschiedlich stark. Am meisten sagen deine obersten fünf: Das sind die Seiten, die dich besonders ausmachen und die dir oft Energie geben, wenn du sie einsetzt.</p>
       <p class="res-date" id="resdate"></p>
     </div>
-    <div id="traits"></div>
+    <div id="sigs"></div>
+    <div class="all-head">
+      <h2>Alle 24 Stärken</h2>
+      <p class="muted">Von deiner stärksten bis zur am wenigsten ausgeprägten. Stärken weiter unten sind keine Schwächen, du greifst nur seltener auf sie zurück.</p>
+    </div>
+    <div class="all" id="all"></div>
     <div class="save-box">
       <h3>Dein Ergebnis wiederfinden</h3>
       <p id="savetext">Dein Ergebnis ist in diesem Browser unter „Meine Ergebnisse“ gespeichert. Damit du es auch auf anderen Geräten wiederfindest, oder nachdem du deine Browserdaten gelöscht hast, speichere dir deinen persönlichen Link oder ein PDF.</p>
@@ -382,11 +406,11 @@ footer nav{display:flex;gap:20px}
       <p class="fine">Wer deinen persönlichen Link kennt, kann dein Ergebnis sehen. Gib ihn also nur weiter, wenn du das möchtest. <a href="meine-ergebnisse.html">Alle meine Ergebnisse</a></p>
     </div>
     <div class="cta-box">
-      <h3>Das ist erst der Anfang.</h3>
-      <p>Bald verbindet dein persönlicher Ordinum-Bericht dieses Ergebnis mit deinen Stärken, Werten und deiner Motivation zu einem ausführlichen Bild von dir. Deine Charakterstärken kannst du schon jetzt testen.</p>
-      <div class="cta-row"><a class="btn primary" href="staerkentest.html">Zum Charakterstärken-Test</a><a class="btn" href="index.html#warteliste">Auf die Warteliste</a><button class="btn" id="again" type="button">Test neu starten</button></div>
+      <h3>Stärken und Persönlichkeit zusammen</h3>
+      <p>Mach auch den Persönlichkeitstest. Bald verbindet dein persönlicher Ordinum-Bericht beide Ergebnisse mit deinen Werten und deiner Motivation zu einem ausführlichen Bild von dir.</p>
+      <div class="cta-row"><a class="btn primary" href="persoenlichkeitstest.html">Zum Persönlichkeitstest</a><a class="btn" href="index.html#warteliste">Auf die Warteliste</a><button class="btn" id="again" type="button">Test neu starten</button></div>
     </div>
-    <p class="fine">Grundlage: IPIP Big-Five Factor Markers (Goldberg, 1992), International Personality Item Pool. Die Werte sind Ausprägungen auf der Antwortskala, noch keine Vergleichswerte mit einer Bevölkerungsstichprobe. Ordinum dient der Selbsterkenntnis und ersetzt keine psychologische Diagnostik.</p>
+    <p class="fine">Grundlage: IPIP-VIA-Skalen des International Personality Item Pool (gemeinfrei), angelehnt an die Klassifikation der Charakterstärken von Peterson und Seligman (2004). Pro Stärke drei Aussagen. Die Werte zeigen deine Antworten auf der Skala von 0 bis 100, noch keine Vergleichswerte mit einer Bevölkerungsstichprobe. Ordinum dient der Selbsterkenntnis und ersetzt keine psychologische Diagnostik.</p>
   </section>
 </main>
 <footer>
@@ -396,26 +420,26 @@ footer nav{display:flex;gap:20px}
   </div>
 </footer>
 <script>
-var ITEMS = [{"t": "Ich bringe Stimmung in jede Party.", "f": "E", "k": 1}, {"t": "Ich mache mir wenig Gedanken um andere.", "f": "A", "k": -1}, {"t": "Ich bin immer gut vorbereitet.", "f": "C", "k": 1}, {"t": "Ich gerate leicht in Stress.", "f": "S", "k": -1}, {"t": "Ich habe einen großen Wortschatz.", "f": "O", "k": 1}, {"t": "Ich rede nicht viel.", "f": "E", "k": -1}, {"t": "Ich interessiere mich für Menschen.", "f": "A", "k": 1}, {"t": "Ich lasse meine Sachen herumliegen.", "f": "C", "k": -1}, {"t": "Ich bin meistens entspannt.", "f": "S", "k": 1}, {"t": "Es fällt mir schwer, abstrakte Ideen zu verstehen.", "f": "O", "k": -1}, {"t": "Ich fühle mich unter Menschen wohl.", "f": "E", "k": 1}, {"t": "Ich beleidige andere.", "f": "A", "k": -1}, {"t": "Ich achte auf Details.", "f": "C", "k": 1}, {"t": "Ich mache mir viele Sorgen.", "f": "S", "k": -1}, {"t": "Ich habe eine lebhafte Fantasie.", "f": "O", "k": 1}, {"t": "Ich halte mich im Hintergrund.", "f": "E", "k": -1}, {"t": "Ich habe Mitgefühl mit den Gefühlen anderer.", "f": "A", "k": 1}, {"t": "Ich vermassle Dinge.", "f": "C", "k": -1}, {"t": "Ich bin selten niedergeschlagen.", "f": "S", "k": 1}, {"t": "Abstrakte Ideen interessieren mich nicht.", "f": "O", "k": -1}, {"t": "Ich fange Gespräche an.", "f": "E", "k": 1}, {"t": "Die Probleme anderer interessieren mich nicht.", "f": "A", "k": -1}, {"t": "Ich erledige Aufgaben sofort.", "f": "C", "k": 1}, {"t": "Ich lasse mich leicht aus der Ruhe bringen.", "f": "S", "k": -1}, {"t": "Ich habe hervorragende Ideen.", "f": "O", "k": 1}, {"t": "Ich habe wenig zu sagen.", "f": "E", "k": -1}, {"t": "Ich habe ein weiches Herz.", "f": "A", "k": 1}, {"t": "Ich vergesse oft, Dinge an ihren Platz zurückzulegen.", "f": "C", "k": -1}, {"t": "Ich rege mich leicht auf.", "f": "S", "k": -1}, {"t": "Ich habe wenig Fantasie.", "f": "O", "k": -1}, {"t": "Auf Partys rede ich mit vielen verschiedenen Leuten.", "f": "E", "k": 1}, {"t": "Ich interessiere mich nicht wirklich für andere.", "f": "A", "k": -1}, {"t": "Ich mag Ordnung.", "f": "C", "k": 1}, {"t": "Meine Stimmung wechselt oft.", "f": "S", "k": -1}, {"t": "Ich verstehe Dinge schnell.", "f": "O", "k": 1}, {"t": "Ich ziehe ungern Aufmerksamkeit auf mich.", "f": "E", "k": -1}, {"t": "Ich nehme mir Zeit für andere.", "f": "A", "k": 1}, {"t": "Ich drücke mich vor meinen Pflichten.", "f": "C", "k": -1}, {"t": "Ich habe häufig Stimmungsschwankungen.", "f": "S", "k": -1}, {"t": "Ich benutze schwierige Wörter.", "f": "O", "k": 1}, {"t": "Es macht mir nichts aus, im Mittelpunkt zu stehen.", "f": "E", "k": 1}, {"t": "Ich spüre, was andere fühlen.", "f": "A", "k": 1}, {"t": "Ich halte mich an einen Zeitplan.", "f": "C", "k": 1}, {"t": "Ich bin schnell gereizt.", "f": "S", "k": -1}, {"t": "Ich nehme mir Zeit, über Dinge nachzudenken.", "f": "O", "k": 1}, {"t": "Unter Fremden bin ich still.", "f": "E", "k": -1}, {"t": "Bei mir fühlen sich andere wohl.", "f": "A", "k": 1}, {"t": "Ich arbeite sehr genau.", "f": "C", "k": 1}, {"t": "Ich bin oft niedergeschlagen.", "f": "S", "k": -1}, {"t": "Ich stecke voller Ideen.", "f": "O", "k": 1}];
-var TEXTS = {"E": {"name": "Extraversion", "what": "Wie sehr du Energie aus Kontakt, Austausch und Aktivität ziehst.", "low": "Du bist eher zurückhaltend und tankst in ruhigen Momenten oder kleinen Runden auf. Das heißt nicht schüchtern: Du wählst einfach bewusster, wann und mit wem du redest.", "mid": "Du bist gern unter Menschen, brauchst aber auch Zeit für dich. Je nach Situation kannst du gesellig oder ruhig sein, und genau diese Flexibilität ist eine Stärke.", "high": "Du blühst im Austausch auf. Neue Leute, Gespräche und gemeinsame Aktivitäten geben dir Energie, und andere erleben dich oft als offen und ansteckend."}, "A": {"name": "Verträglichkeit", "what": "Wie sehr du auf Harmonie, Mitgefühl und Kooperation ausgerichtet bist.", "low": "Du bist direkt und lässt dich nicht leicht vereinnahmen. Du vertrittst deinen Standpunkt, auch wenn es unbequem wird, und schaust kritisch auf das, was andere wollen.", "mid": "Du bist hilfsbereit und rücksichtsvoll, kannst aber auch klar Nein sagen. Du findest meist eine gute Balance zwischen deinen Bedürfnissen und denen anderer.", "high": "Du bist warmherzig, mitfühlend und kooperativ. Andere fühlen sich bei dir gut aufgehoben. Achte darauf, dass deine eigenen Bedürfnisse dabei nicht zu kurz kommen."}, "C": {"name": "Gewissenhaftigkeit", "what": "Wie organisiert, zuverlässig und zielstrebig du an Aufgaben gehst.", "low": "Du bist spontan und flexibel und lässt dich ungern in starre Pläne pressen. Struktur hilft dir vor allem dann, wenn sie leicht ist und Spielraum lässt.", "mid": "Du kannst planvoll arbeiten, wenn es darauf ankommt, bleibst aber offen für Spontanes. Bei Dingen, die dir wichtig sind, bist du verlässlich.", "high": "Du bist organisiert, gründlich und zuverlässig. Pläne und Ordnung geben dir Halt. Erlaube dir ab und zu, Dinge auch einfach gut genug sein zu lassen."}, "S": {"name": "Emotionale Stabilität", "what": "Wie gelassen du mit Stress, Sorgen und Stimmungsschwankungen umgehst.", "low": "Du nimmst Gefühle intensiv wahr und reagierst feinfühlig auf Stress. Diese Sensibilität hat auch eine Kehrseite: Gezielte Erholung und Strategien gegen Grübeln können dir viel Last abnehmen.", "mid": "Meist bleibst du gelassen, aber in belastenden Phasen merkst du Stress deutlich. Du kennst beide Seiten, das macht dich verständnisvoll für andere.", "high": "Du bleibst auch unter Druck meist ruhig und findest schnell wieder ins Gleichgewicht. Das macht dich für andere zu einem stabilen Gegenüber."}, "O": {"name": "Offenheit & Intellekt", "what": "Wie neugierig du auf Ideen, Fantasie und gedankliche Herausforderungen bist.", "low": "Du bist bodenständig und praktisch. Du schätzt Bewährtes und konzentrierst dich lieber auf das Konkrete als auf abstrakte Gedankenspiele.", "mid": "Du bist offen für neue Ideen, ohne den Boden zu verlieren. Du interessierst dich für Neues, wenn du einen Sinn darin siehst.", "high": "Du bist neugierig, fantasievoll und denkst gern in Möglichkeiten. Neue Ideen und komplexe Fragen geben dir Energie."}};
-var ORDER = ["E", "A", "C", "S", "O"];
+var ITEMS = [{"t": "Mir fallen neue und ungewöhnliche Ideen ein.", "f": "ori", "k": 1}, {"t": "Ich kann mich meinen Ängsten stellen.", "f": "val", "k": 1}, {"t": "Ich kann anderen zeigen, dass ich sie liebe.", "f": "cap", "k": 1}, {"t": "Ich behandle alle Menschen gleich.", "f": "equ", "k": 1}, {"t": "Ich gebe anderen die Chance auf einen Neuanfang.", "f": "for", "k": 1}, {"t": "Schöne Dinge berühren mich tief.", "f": "app", "k": 1}, {"t": "Ich finde die Welt unglaublich spannend.", "f": "cur", "k": 1}, {"t": "Ich bringe Dinge zu Ende, auch wenn Hindernisse auftauchen.", "f": "ind", "k": 1}, {"t": "Ich mache anderen gern eine Freude.", "f": "kin", "k": 1}, {"t": "Ich kann gut dafür sorgen, dass Menschen gut zusammenarbeiten.", "f": "lea", "k": 1}, {"t": "Ich prahle nicht mit meinen Erfolgen.", "f": "mod", "k": 1}, {"t": "Ich zeige Menschen, die sich um mich kümmern, dass ich dankbar bin.", "f": "gra", "k": 1}, {"t": "Ich wäge Vor- und Nachteile ab.", "f": "jud", "k": 1}, {"t": "Ich halte meine Versprechen.", "f": "int", "k": 1}, {"t": "Ich merke gut, wie es anderen gerade geht.", "f": "soc", "k": 1}, {"t": "Ich bin gern Teil einer Gruppe.", "f": "cit", "k": 1}, {"t": "Ich denke nach, bevor ich etwas sage.", "f": "pru", "k": 1}, {"t": "Ich sehe eher die positive Seite der Dinge.", "f": "hop", "k": 1}, {"t": "Es begeistert mich, etwas Neues zu lernen.", "f": "lov", "k": 1}, {"t": "Ich freue mich auf jeden neuen Tag.", "f": "zes", "k": 1}, {"t": "Ich bin sehr diszipliniert.", "f": "sel", "k": 1}, {"t": "Ich bringe in alles, was ich tue, etwas Humor.", "f": "hum", "k": 1}, {"t": "Ich habe einen weiten Blick auf das, was um mich herum geschieht.", "f": "per", "k": 1}, {"t": "Ich bin ein spiritueller Mensch.", "f": "spi", "k": 1}, {"t": "Ich überlege mir gern neue Wege, Dinge anzugehen.", "f": "ori", "k": 1}, {"t": "Ich zögere nicht, eine unbeliebte Meinung zu äußern.", "f": "val", "k": 1}, {"t": "Es gibt Menschen in meinem Leben, denen ich so wichtig bin wie sie sich selbst.", "f": "cap", "k": 1}, {"t": "Ich gebe jedem eine Chance.", "f": "equ", "k": 1}, {"t": "Was vorbei ist, lasse ich ruhen.", "f": "for", "k": 1}, {"t": "Einfache Dinge, die andere für selbstverständlich halten, lassen mich staunen.", "f": "app", "k": 1}, {"t": "Ich finde in jeder Situation etwas Interessantes.", "f": "cur", "k": 1}, {"t": "Ich höre mit einer Aufgabe nicht auf, bevor sie erledigt ist.", "f": "ind", "k": 1}, {"t": "Ich gebe mir Mühe, andere aufzumuntern, wenn sie bedrückt wirken.", "f": "kin", "k": 1}, {"t": "In einer Gruppe achte ich darauf, dass sich alle einbezogen fühlen.", "f": "lea", "k": 1}, {"t": "Ich tue nicht so, als wäre ich etwas Besonderes.", "f": "mod", "k": 1}, {"t": "Ich bin dankbar für das, was mir das Leben gegeben hat.", "f": "gra", "k": 1}, {"t": "Ich entscheide erst, wenn ich alle Fakten kenne.", "f": "jud", "k": 1}, {"t": "Ich bleibe meinen Werten treu.", "f": "int", "k": 1}, {"t": "Ich verstehe, wie andere ticken.", "f": "soc", "k": 1}, {"t": "Ich unterstütze die anderen in meinem Team.", "f": "cit", "k": 1}, {"t": "Ich entscheide mit Bedacht.", "f": "pru", "k": 1}, {"t": "Auch wenn es schwierig wird, bleibe ich zuversichtlich.", "f": "hop", "k": 1}, {"t": "Ich freue mich über jede Gelegenheit, dazuzulernen und zu wachsen.", "f": "lov", "k": 1}, {"t": "Ich gehe Dinge nicht halbherzig an.", "f": "zes", "k": 1}, {"t": "Ich kann jederzeit sagen: Jetzt reicht es.", "f": "sel", "k": 1}, {"t": "Auch in trüben Situationen behalte ich meinen Humor.", "f": "hum", "k": 1}, {"t": "Ich habe eine reife Sicht auf das Leben.", "f": "per", "k": 1}, {"t": "Ich glaube, dass jeder Mensch eine Bestimmung im Leben hat.", "f": "spi", "k": 1}, {"t": "Ich habe kein besonderes Bedürfnis, etwas Originelles zu schaffen.", "f": "ori", "k": -1}, {"t": "Ich widerspreche, wenn jemand gemeine Dinge sagt.", "f": "val", "k": 1}, {"t": "Es fällt mir schwer, Liebe anzunehmen.", "f": "cap", "k": -1}, {"t": "Wen ich nicht mag, behandle ich anders.", "f": "equ", "k": -1}, {"t": "Ich bin nachtragend.", "f": "for", "k": -1}, {"t": "Schönheit fällt mir erst auf, wenn andere mich darauf hinweisen.", "f": "app", "k": -1}, {"t": "So neugierig auf die Welt bin ich gar nicht.", "f": "cur", "k": -1}, {"t": "Ich gebe schnell auf.", "f": "ind", "k": -1}, {"t": "Ich bin nie zu beschäftigt, um Freunden zu helfen.", "f": "kin", "k": 1}, {"t": "Eine Gruppe anzuleiten, liegt mir nicht.", "f": "lea", "k": -1}, {"t": "Ich rede gern über mich selbst.", "f": "mod", "k": -1}, {"t": "Ich finde in meinem Leben wenig, wofür ich dankbar sein kann.", "f": "gra", "k": -1}, {"t": "Ich denke Dinge selten kritisch durch.", "f": "jud", "k": -1}, {"t": "Ich lüge, um mich aus der Affäre zu ziehen.", "f": "int", "k": -1}, {"t": "Ich finde mich in jeder Situation zurecht.", "f": "soc", "k": 1}, {"t": "Ich mache am liebsten alles allein.", "f": "cit", "k": -1}, {"t": "Ich gehe lieber auf Nummer sicher.", "f": "pru", "k": 1}, {"t": "Ich rechne mit dem Schlimmsten.", "f": "hop", "k": -1}, {"t": "Ich lerne nicht gern Neues.", "f": "lov", "k": -1}, {"t": "Ich habe nicht viel Energie.", "f": "zes", "k": -1}, {"t": "Ich gebe meinen Impulsen nach.", "f": "sel", "k": -1}, {"t": "Für meinen Humor bin ich nicht gerade bekannt.", "f": "hum", "k": -1}, {"t": "Andere fragen mich selten um Rat.", "f": "per", "k": -1}, {"t": "Meine Überzeugungen geben meinem Leben Bedeutung.", "f": "spi", "k": 1}];
+var TEXTS = {"ori": {"name": "Kreativität", "virtue": "Weisheit", "what": "Neue Ideen entwickeln und Dinge auf eigene Weise lösen.", "top": "Du siehst oft Möglichkeiten, die anderen nicht auffallen, und gibst dich ungern mit dem Üblichen zufrieden. Gib dir Raum für Projekte, bei denen du etwas Eigenes gestalten kannst."}, "val": {"name": "Mut", "virtue": "Mut", "what": "Für das einstehen, was dir richtig erscheint, auch gegen Widerstand.", "top": "Du sprichst Unbequemes an und stellst dich Herausforderungen, statt ihnen auszuweichen. Setze diesen Mut gezielt für Dinge ein, die dir wirklich am Herzen liegen."}, "cap": {"name": "Fähigkeit zu lieben", "virtue": "Menschlichkeit", "what": "Enge Beziehungen eingehen, Nähe geben und annehmen.", "top": "Nähe und tiefe Verbindungen sind dir wichtig, und du kannst Zuneigung zeigen und annehmen. Investiere Zeit in die Menschen, die dir am meisten bedeuten."}, "equ": {"name": "Fairness", "virtue": "Gerechtigkeit", "what": "Alle gerecht behandeln und jedem eine Chance geben.", "top": "Gerechtigkeit ist dir wichtig, und du lässt persönliche Sympathie nicht über dein Urteil entscheiden. Damit bist du oft eine Stimme für die, die sonst übergangen werden."}, "for": {"name": "Vergebung", "virtue": "Mäßigung", "what": "Anderen verzeihen und ihnen einen Neuanfang ermöglichen.", "top": "Du trägst anderen ihre Fehler nicht lange nach und gibst ihnen eine neue Chance. Das entlastet nicht nur deine Beziehungen, sondern auch dich selbst."}, "app": {"name": "Sinn für Schönheit", "virtue": "Transzendenz", "what": "Schönheit und Besonderes im Alltag wahrnehmen.", "top": "Kunst, Natur oder kleine Momente können dich tief berühren. Gönn dir regelmäßig solche Erlebnisse, sie sind für dich eine echte Kraftquelle."}, "cur": {"name": "Neugier", "virtue": "Weisheit", "what": "Interesse an der Welt, an Neuem und an offenen Fragen.", "top": "Du gehst mit offenen Augen durch die Welt und findest fast überall etwas, das dich fesselt. Nimm dir bewusst Zeit, Fragen nachzugehen, statt sie nur zu notieren."}, "ind": {"name": "Ausdauer", "virtue": "Mut", "what": "Dranbleiben und Begonnenes zu Ende bringen.", "top": "Hindernisse halten dich nicht lange auf: Was du anfängst, bringst du meistens auch zu Ende. Achte darauf, auch mal bewusst loszulassen, wenn sich ein Ziel nicht mehr lohnt."}, "kin": {"name": "Freundlichkeit", "virtue": "Menschlichkeit", "what": "Anderen helfen und ihnen Gutes tun.", "top": "Du hilfst gern und merkst, wenn jemand Unterstützung braucht. Denk daran, dass Freundlichkeit dir selbst gegenüber genauso zählt."}, "lea": {"name": "Führung", "virtue": "Gerechtigkeit", "what": "Gruppen zusammenhalten und gemeinsam etwas erreichen.", "top": "Du kannst Menschen zusammenbringen und achtest darauf, dass sich alle einbezogen fühlen. Übernimm ruhig Verantwortung, wenn eine Gruppe Orientierung braucht."}, "mod": {"name": "Bescheidenheit", "virtue": "Mäßigung", "what": "Deine Erfolge für sich sprechen lassen.", "top": "Du stellst dich nicht in den Vordergrund und kommst ohne große Worte aus. Andere schätzen das. Achte nur darauf, dass deine Beiträge trotzdem gesehen werden."}, "gra": {"name": "Dankbarkeit", "virtue": "Transzendenz", "what": "Das Gute im Leben bemerken und wertschätzen.", "top": "Du nimmst bewusst wahr, was gut ist, und zeigst anderen deine Wertschätzung. Diese Haltung tut deinen Beziehungen und dir selbst gut."}, "jud": {"name": "Urteilsvermögen", "virtue": "Weisheit", "what": "Dinge von mehreren Seiten durchdenken, bevor du entscheidest.", "top": "Du prüfst Argumente, wägst ab und lässt dich nicht vorschnell mitreißen. Bei wichtigen Entscheidungen bist du für andere ein wertvolles Gegenüber."}, "int": {"name": "Ehrlichkeit", "virtue": "Mut", "what": "Aufrichtig sein, zu dir stehen und Wort halten.", "top": "Andere können sich auf dich verlassen, und du lebst nach deinen eigenen Werten. Diese Stimmigkeit ist eine stille, aber starke Grundlage für Vertrauen."}, "soc": {"name": "Soziale Intelligenz", "virtue": "Menschlichkeit", "what": "Gespür für die Gefühle und Beweggründe anderer.", "top": "Du liest Stimmungen gut und findest dich in neuen sozialen Situationen schnell zurecht. Dieses Gespür hilft dir, Brücken zu bauen und Konflikte früh zu erkennen."}, "cit": {"name": "Teamgeist", "virtue": "Gerechtigkeit", "what": "Gut in Gruppen arbeiten und zu deinem Team stehen.", "top": "Du fühlst dich als Teil einer Gemeinschaft wohl und trägst gern zum gemeinsamen Erfolg bei. Teams, in denen Zusammenhalt zählt, holen das Beste aus dir heraus."}, "pru": {"name": "Umsicht", "virtue": "Mäßigung", "what": "Vorsichtig und überlegt handeln.", "top": "Du denkst nach, bevor du handelst, und gehst keine unnötigen Risiken ein. Das bewahrt dich und andere vor manchem Fehler, besonders bei folgenreichen Entscheidungen."}, "hop": {"name": "Zuversicht", "virtue": "Transzendenz", "what": "Positiv in die Zukunft blicken und an deine Ziele glauben.", "top": "Auch wenn es schwierig wird, rechnest du mit einem guten Ausgang und bleibst dran. Deine Zuversicht kann anderen in unsicheren Zeiten Halt geben."}, "lov": {"name": "Freude am Lernen", "virtue": "Weisheit", "what": "Lust darauf, Wissen und Fähigkeiten zu vertiefen.", "top": "Lernen ist für dich keine Pflicht, sondern eine Quelle von Energie. Such dir Themen, in die du über längere Zeit tief einsteigen kannst."}, "zes": {"name": "Tatendrang", "virtue": "Mut", "what": "Mit Energie und Begeisterung an das Leben herangehen.", "top": "Du gehst Dinge mit ganzem Herzen an und steckst andere mit deiner Energie an. Pflege, was dir Kraft gibt, damit diese Lebendigkeit lange anhält."}, "sel": {"name": "Selbstregulation", "virtue": "Mäßigung", "what": "Deine Impulse, Gefühle und Gewohnheiten steuern.", "top": "Du hast dich gut im Griff und kannst kurzfristigen Versuchungen widerstehen, wenn dir etwas anderes wichtiger ist. Das hilft dir, langfristige Ziele zu erreichen."}, "hum": {"name": "Humor", "virtue": "Transzendenz", "what": "Leichtigkeit und Lachen in den Alltag bringen.", "top": "Du bringst andere zum Lachen und behältst auch in trüben Momenten deine Leichtigkeit. Humor verbindet und hilft, Schwieriges gemeinsam durchzustehen."}, "per": {"name": "Weitblick", "virtue": "Weisheit", "what": "Das große Ganze sehen und anderen gute Ratschläge geben.", "top": "Du behältst den Überblick, auch wenn es kompliziert wird, und andere schätzen deinen Rat. Teile deine Sicht, gerade wenn sich andere in Details verlieren."}, "spi": {"name": "Spiritualität", "virtue": "Transzendenz", "what": "Sinn, Verbundenheit mit etwas Größerem und tiefe Überzeugungen.", "top": "Du spürst eine Verbindung zu etwas, das über dich hinausgeht, und deine Überzeugungen geben deinem Leben Richtung. Diese Sinnquelle trägt dich auch durch schwierige Zeiten."}};
+var ORDER = ["ori", "val", "cap", "equ", "for", "app", "cur", "ind", "kin", "lea", "mod", "gra", "jud", "int", "soc", "cit", "pru", "hop", "lov", "zes", "sel", "hum", "per", "spi"];
 var SCALE = ["trifft gar nicht zu", "trifft eher nicht zu", "teils, teils", "trifft eher zu", "trifft voll zu"];
-var KEY = 'ordinum-ipip50';
+var KEY = 'ordinum-staerken';
 var HIST = 'ordinum-ergebnisse', ABC = 'abcdefghijklmnopqrstuvwxy';
 var ans = new Array(ITEMS.length).fill(null), cur = 0, curLink = '';
 function $(id){ return document.getElementById(id); }
 function save(){ try{ localStorage.setItem(KEY, JSON.stringify(ans)); }catch(e){} }
 function load(){ try{ var a = JSON.parse(localStorage.getItem(KEY)); if (Array.isArray(a) && a.length === ITEMS.length) return a; }catch(e){} return null; }
-// Persönlicher Link: je zwei Antworten (1–5) werden zu einem Buchstaben a–y, plus Datum: #r=<25 Zeichen>-JJJJMMTT
+// Persönlicher Link: je zwei Antworten (1–5) werden zu einem Buchstaben a–y, plus Datum: #r=<36 Zeichen>-JJJJMMTT
 function encode(a){ var s = ''; for (var i = 0; i < a.length; i += 2) s += ABC[(a[i]-1)*5 + (a[i+1]-1)]; return s; }
 function decode(c){ var a = []; for (var i = 0; i < c.length; i++){ var n = ABC.indexOf(c[i]); a.push(Math.floor(n/5)+1, n%5+1); } return a; }
-function parseHash(){ var m = /^#r=([a-y]{25})(?:-(\d{8}))?$/.exec(location.hash); return m ? {code:m[1], date:m[2] || null} : null; }
+function parseHash(){ var m = /^#r=([a-y]{36})(?:-(\d{8}))?$/.exec(location.hash); return m ? {code:m[1], date:m[2] || null} : null; }
 function today(){ var d = new Date(); return '' + d.getFullYear() + String(d.getMonth()+1).padStart(2,'0') + String(d.getDate()).padStart(2,'0'); }
 function fmtDate(s){ return new Date(+s.slice(0,4), +s.slice(4,6)-1, +s.slice(6,8)).toLocaleDateString('de-DE', {day:'numeric', month:'long', year:'numeric'}); }
 function loadHist(){ try{ var h = JSON.parse(localStorage.getItem(HIST)); if (Array.isArray(h)) return h; }catch(e){} return []; }
 function saveHist(h){ try{ localStorage.setItem(HIST, JSON.stringify(h.slice(0,50))); }catch(e){} }
 function findHist(code){ return loadHist().filter(function(r){ return r.code === code; })[0] || null; }
-function addHist(code, date){ var h = loadHist(); if (h.some(function(r){ return r.code === code; })) return; h.unshift({test:'big5', date:date, code:code, scores:scores(decode(code))}); saveHist(h); }
+function addHist(code, date){ var h = loadHist(); if (h.some(function(r){ return r.code === code; })) return; h.unshift({test:'staerken', date:date, code:code, scores:scores(decode(code))}); saveHist(h); }
 function scores(a){
   var sums = {}, n = {}, out = {};
   ITEMS.forEach(function(it, i){
@@ -461,25 +485,36 @@ function results(linkDate){
   $('keep').hidden = !!known;
   $('keep').onclick = function(){ addHist(code, date); $('keep').hidden = true; toast('Gespeichert. Du findest es jetzt unter „Meine Ergebnisse“.'); };
   $('savetext').hidden = !known;
-  $('maillink').href = 'mailto:?subject=' + encodeURIComponent('Mein Ordinum-Persönlichkeitsprofil') + '&body=' + encodeURIComponent('Mein Ergebnis im Ordinum-Persönlichkeitstest vom ' + fmtDate(date) + ':\n' + curLink);
+  $('maillink').href = 'mailto:?subject=' + encodeURIComponent('Meine Ordinum-Charakterstärken') + '&body=' + encodeURIComponent('Mein Ergebnis im Ordinum-Charakterstärken-Test vom ' + fmtDate(date) + ':\n' + curLink);
   toast('');
-  var box = $('traits'); box.innerHTML = '';
-  ORDER.forEach(function(f){
-    var score = sc[f];
-    var lv = score < 40 ? 'low' : score > 60 ? 'high' : 'mid';
-    var lvName = {low:'eher niedrig', mid:'mittel', high:'eher hoch'}[lv];
+  // Rangfolge: höchster Wert zuerst, bei Gleichstand bleibt die feste Reihenfolge
+  var ranked = ORDER.slice().sort(function(a, b){ return sc[b] - sc[a] || ORDER.indexOf(a) - ORDER.indexOf(b); });
+  var box = $('sigs'); box.innerHTML = '';
+  ranked.slice(0, 5).forEach(function(f, i){
     var T = TEXTS[f], el = document.createElement('div');
-    el.className = 'trait';
-    el.innerHTML = '<div class="trait-top"><h2></h2><span class="lvl"></span></div>' +
+    el.className = 'sig';
+    el.innerHTML = '<span class="rk"></span><div class="trait-top"><h2></h2><span class="vir"></span></div>' +
       '<div class="tbar"><span class="track"><span class="fill"></span></span><span class="v"></span></div>' +
       '<p class="what"></p><p class="desc"></p>';
+    el.querySelector('.rk').textContent = i + 1;
     el.querySelector('h2').textContent = T.name;
-    el.querySelector('.lvl').textContent = lvName;
-    el.querySelector('.fill').style.width = score + '%';
-    el.querySelector('.v').textContent = score;
+    el.querySelector('.vir').textContent = T.virtue;
+    el.querySelector('.fill').style.width = sc[f] + '%';
+    el.querySelector('.v').textContent = sc[f];
     el.querySelector('.what').textContent = T.what;
-    el.querySelector('.desc').textContent = T[lv];
+    el.querySelector('.desc').textContent = T.top;
     box.appendChild(el);
+  });
+  var all = $('all'); all.innerHTML = '';
+  ranked.forEach(function(f, i){
+    var row = document.createElement('div');
+    row.className = 'all-row' + (i < 5 ? ' top' : '');
+    row.innerHTML = '<span class="n"></span><span class="name"></span><span class="track"><span class="fill"></span></span><span class="v"></span>';
+    row.querySelector('.n').textContent = i + 1;
+    row.querySelector('.name').textContent = TEXTS[f].name;
+    row.querySelector('.fill').style.width = sc[f] + '%';
+    row.querySelector('.v').textContent = sc[f];
+    all.appendChild(row);
   });
   show('result');
 }
