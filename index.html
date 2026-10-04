@@ -519,11 +519,13 @@ footer nav{display:flex;gap:20px}
         <h2>Sei dabei, wenn Ordinum startet.</h2>
         <p>Trag dich ein und bekomm als Erstes Zugang zu allen Tests, plus deinen persönlichen Bericht zum Startpreis.</p>
       </div>
-      <form id="nl" novalidate>
+      <form id="nl" method="POST" action="https://1df80393.sibforms.com/serve/MUIFAJank0WJ0hH80g8wV9zj1yntY2_b1uqajTen2muUmGBLduL6USIjzfmm-V_OB4wUWzjTcUacg7j8J_s6jQpb8MyDWw6j7--mUh66-lMvDVt1QGDBkc63ZbY9cvXxSlMwTE_nLogdEmne5VcbbM_DtTsLlaq8BmL9t17Dk4m5s9nrOqS4R4CwQpBTG4HRqIc676CcozdKMXvR1g==" novalidate>
         <label for="nl-mail" style="position:absolute;left:-9999px">E-Mail</label>
-        <input id="nl-mail" type="email" placeholder="deine@email.de" autocomplete="email">
+        <input id="nl-mail" name="EMAIL" type="email" placeholder="deine@email.de" autocomplete="email" required>
+        <input type="text" name="email_address_check" value="" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
         <button class="btn primary" type="submit">Eintragen</button>
-        <span id="nl-done" class="done" hidden>Danke! Wir melden uns, sobald Ordinum startet.</span>
+        <span id="nl-done" class="done" hidden>Danke! Du stehst auf der Warteliste. Wir melden uns, sobald Ordinum startet.</span>
+        <span id="nl-err" class="done" style="color:var(--violet)" hidden></span>
         <span class="note" style="flex-basis:100%">Mit dem Eintragen stimmst du zu, dass wir dir zum Start von Ordinum E-Mails schicken. Abmelden geht jederzeit. Mehr in der <a href="datenschutz.html">Datenschutzerklärung</a>.</span>
       </form>
     </div>
@@ -538,8 +540,26 @@ footer nav{display:flex;gap:20px}
 </footer>
 
 <script>
-// TODO: Newsletter-Anbieter (z. B. Brevo oder MailerLite) anbinden, bevor die Seite beworben wird.
-document.getElementById('nl').addEventListener('submit', function(e){ e.preventDefault(); document.getElementById('nl-done').hidden = false; });
+// Warteliste: sendet an das Brevo-Formular "Ordinum Warteliste"
+(function(){
+  var f = document.getElementById('nl'), mail = document.getElementById('nl-mail');
+  var ok = document.getElementById('nl-done'), err = document.getElementById('nl-err');
+  var btn = f.querySelector('button[type="submit"]');
+  f.addEventListener('submit', function(e){
+    e.preventDefault();
+    ok.hidden = true; err.hidden = true;
+    var v = mail.value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) {
+      err.textContent = 'Bitte gib eine gültige E-Mail-Adresse ein.'; err.hidden = false; mail.focus(); return;
+    }
+    var body = new URLSearchParams({ EMAIL: v, email_address_check: f.elements.email_address_check.value, locale: 'de', html_type: 'simple' });
+    btn.disabled = true; btn.textContent = 'Wird gesendet …';
+    fetch(f.action, { method: 'POST', mode: 'no-cors', body: body })
+      .then(function(){ ok.hidden = false; f.reset(); })
+      .catch(function(){ err.textContent = 'Das hat nicht geklappt. Bitte versuch es gleich noch einmal.'; err.hidden = false; })
+      .then(function(){ btn.disabled = false; btn.textContent = 'Eintragen'; });
+  });
+})();
 
 // filters
 (function(){
