@@ -179,6 +179,8 @@ section{padding-block:clamp(64px,9vw,112px);border-bottom:1px solid var(--line)}
 .articles{display:grid;gap:0;margin-top:6px}
 .articles a{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-top:1px solid var(--line);text-decoration:none;transition:color .2s}
 .articles a:hover{color:var(--violet)}
+.articles .soon{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-top:1px solid var(--line);color:var(--muted)}
+.articles .soon span:last-child{font-family:var(--mono);font-size:12px;white-space:nowrap}
 .articles span:last-child{font-family:var(--mono);font-size:12px;color:var(--muted);white-space:nowrap}
 
 /* trust */
@@ -461,10 +463,10 @@ footer nav{display:flex;gap:20px}
         <h2 style="font-size:clamp(28px,3.8vw,44px);line-height:1.12">Verstehen, warum du so tickst.</h2>
         <p>Zu jedem Test gibt es kurze Artikel, die erklären, was hinter deinen Ergebnissen steckt. Ohne Fachchinesisch, mit Quellen.</p>
         <div class="articles">
-          <a href="#wissen"><span>Warum Flow kein Zufall ist</span><span>4 Min</span></a>
-          <a href="#wissen"><span>Introvertiert heißt nicht schüchtern</span><span>5 Min</span></a>
-          <a href="#wissen"><span>Was deine Werte über deine Entscheidungen verraten</span><span>6 Min</span></a>
-          <a href="#wissen"><span>Aufschieben ist ein Gefühlsproblem, kein Zeitproblem</span><span>5 Min</span></a>
+          <a href="wissen/big-five.html"><span>Die Big Five einfach erklärt</span><span>8 Min</span></a>
+          <a href="wissen/introvertiert-extravertiert.html"><span>Introvertiert heißt nicht schüchtern</span><span>7 Min</span></a>
+          <span class="soon"><span>Warum Flow kein Zufall ist</span><span>bald</span></span>
+          <span class="soon"><span>Aufschieben ist ein Gefühlsproblem, kein Zeitproblem</span><span>bald</span></span>
         </div>
       </div>
     </div>
