@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Persönlichkeitstest · Ordinum</title>
+<meta name="description" content="Kostenloser Persönlichkeitstest nach dem Big-Five-Modell: 50 Aussagen, etwa 8 Minuten, sofortige Auswertung.">
+<meta name="theme-color" content="#0a0d0c">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="stylesheet" href="fonts.css">
+<style>
+/* Layout: dark, quiet canvas; a slow liquid of green and violet pours behind the hero; content in a 1120px column with hairline structure. */
+:root{
+  --bg:#0a0d0c;
+  --surface:#111513;
+  --line:#1f2724;
+  --fg:#e7ece9;
+  --muted:#8e9a95;
+  --green:#8fd1a9;
+  --green-soft:#5f9e7b;
+  --violet:#b9a3f2;
+  --violet-soft:#7c69b4;
+  --glow:rgba(160,180,220,.10);
+  --display:"Unbounded", "Segoe UI", system-ui, sans-serif;
+  --body:"Hanken Grotesk", "Segoe UI", system-ui, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:clamp(16px,4vw,40px)}
+h1,h2,h3{font-family:var(--display);font-weight:300;letter-spacing:-.02em;text-wrap:balance;margin:0}
+p{margin:0}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--green)}
+.eyebrow.v{color:var(--violet)}
+.muted{color:var(--muted)}
+.grad{background:linear-gradient(100deg,var(--green) 10%,var(--violet) 90%);-webkit-background-clip:text;background-clip:text;color:transparent}
+:focus-visible{outline:2px solid var(--violet);outline-offset:3px;border-radius:6px}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:rgba(10,13,12,.74);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-block:12px}
+.logo{display:flex;align-items:center;text-decoration:none}
+.logo svg{flex:none;width:auto;height:42px;display:block}
+.nav ul{display:flex;gap:28px;list-style:none;margin:0;padding:0;font-size:15px}
+.nav ul a{text-decoration:none;color:var(--muted);transition:color .2s}
+.nav ul a:hover{color:var(--fg)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:999px;font:500 15px var(--body);text-decoration:none;border:1px solid var(--line);background:transparent;color:var(--fg);cursor:pointer;transition:border-color .2s,background .2s,box-shadow .3s}
+.btn:hover{border-color:var(--violet-soft)}
+.btn.primary{background:linear-gradient(100deg,var(--green),#a9c3d6 55%,var(--violet));color:#0b0f14;border-color:transparent}
+.btn.primary:hover{box-shadow:0 0 28px rgba(185,163,242,.35)}
+.nav .btn{padding:9px 16px;font-size:14px;white-space:nowrap}
+@media (max-width:820px){.nav ul{display:none}}
+@media (max-width:440px){.logo svg{height:34px}.nav .btn{padding:8px 12px;font-size:13px}}
+
+/* hero */
+.hero{position:relative;overflow:hidden}
+#liquid{position:absolute;inset:-10%;width:120%;height:120%;filter:blur(46px) saturate(1.15);opacity:.85}
+#lines{position:absolute;inset:0;width:100%;height:100%}
+#liquid,#lines{-webkit-mask-image:linear-gradient(to bottom,#000 55%,rgba(0,0,0,.35) 88%,rgba(0,0,0,.25));mask-image:linear-gradient(to bottom,#000 55%,rgba(0,0,0,.35) 88%,rgba(0,0,0,.25))}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 25% 45%,rgba(10,13,12,.55) 0,rgba(10,13,12,.2) 45%,transparent 70%);pointer-events:none}
+.hero .wrap{position:relative;z-index:1;padding-block:clamp(80px,13vw,150px) clamp(64px,9vw,104px);display:grid;gap:28px}
+.hero h1{font-size:clamp(38px,6.6vw,80px);line-height:1.04;max-width:13ch}
+.hero .lead{font-size:clamp(17px,2vw,20px);color:#b7c2bd;max-width:54ch}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px}
+.facts{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:12px;font-family:var(--mono);font-size:13px;color:var(--muted)}
+.facts span::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--violet);margin-right:10px;vertical-align:middle;box-shadow:0 0 10px var(--violet)}
+.facts span:nth-child(odd)::before{background:var(--green);box-shadow:0 0 10px var(--green)}
+.pour{display:block;width:100%;height:auto;margin-top:-1px}
+
+section{padding-block:clamp(64px,9vw,112px);border-bottom:1px solid var(--line)}
+.head{display:grid;gap:16px;margin-bottom:48px;max-width:720px}
+.head h2{font-size:clamp(28px,3.8vw,44px);line-height:1.12}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line)}
+.stepc{padding:32px 28px 8px 0;display:grid;gap:12px;align-content:start;min-width:0}
+.stepc + .stepc{padding-left:28px;border-left:1px solid var(--line)}
+.stepc .n{font-family:var(--mono);font-size:12px;color:var(--violet)}
+.stepc h3{font-size:22px}
+.stepc p{color:var(--muted);font-size:16px}
+@media (max-width:820px){.steps{grid-template-columns:1fr}.stepc,.stepc + .stepc{padding:28px 0;border-left:0;border-bottom:1px solid var(--line)}}
+
+/* test library */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.chip{font:500 14px var(--body);padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer}
+.chip[aria-pressed="true"]{color:var(--fg);border-color:var(--violet-soft);background:rgba(185,163,242,.08)}
+.tests{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.test{position:relative;border:1px solid var(--line);border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:10px;background:var(--surface);min-width:0;overflow:hidden;transition:border-color .25s,transform .25s}
+.test:hover{border-color:var(--violet-soft);transform:translateY(-2px)}
+.test::before{content:"";position:absolute;width:160px;height:160px;right:-60px;top:-70px;border-radius:50%;background:radial-gradient(circle,var(--c,rgba(143,209,169,.22)),transparent 70%);pointer-events:none}
+.test .meta{display:flex;justify-content:space-between;gap:8px;font-family:var(--mono);font-size:12px;color:var(--muted)}
+.test h3{font-family:var(--body);font-weight:600;font-size:19px;letter-spacing:0}
+.test p{color:var(--muted);font-size:15px;flex:1}
+.test .basis{font-family:var(--mono);font-size:11px;color:var(--muted);border-top:1px solid var(--line);padding-top:10px}
+.badge{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid var(--line)}
+.badge.free{color:var(--green);border-color:var(--green-soft)}
+.badge.new{color:var(--violet);border-color:var(--violet-soft)}
+
+/* mini test */
+.mini{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,64px);align-items:start}
+.mini > *{min-width:0}
+@media (max-width:860px){.mini{grid-template-columns:1fr}}
+.q{display:grid;gap:10px;padding:18px 0;border-top:1px solid var(--line)}
+.q p{font-size:17px}
+.scale{display:flex;gap:8px;flex-wrap:wrap}
+.scale button{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--muted);font:500 15px var(--mono);cursor:pointer;transition:all .2s}
+.scale button[aria-pressed="true"]{background:var(--violet);color:#0b0f14;border-color:var(--violet)}
+.scale-l{display:flex;justify-content:space-between;max-width:260px;font-size:12px;color:var(--muted);font-family:var(--mono)}
+.result{border:1px solid var(--line);border-radius:20px;padding:28px;background:linear-gradient(160deg,rgba(143,209,169,.07),rgba(185,163,242,.09)),var(--surface);display:grid;gap:14px}
+.result .score{font-family:var(--display);font-weight:300;font-size:52px;line-height:1;font-variant-numeric:tabular-nums}
+.result .score small{font-size:16px;color:var(--muted)}
+.meter{height:8px;border-radius:8px;background:var(--line);overflow:hidden}
+.meter span{display:block;height:100%;width:0;border-radius:8px;background:linear-gradient(90deg,var(--green),var(--violet));transition:width .6s ease}
+.result p{color:var(--muted)}
+.note{font-family:var(--mono);font-size:12px;color:var(--muted)}
+
+/* report preview */
+.report{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:22px;overflow:hidden}
+.report::before{content:"";position:absolute;inset:-40% -20% auto auto;width:520px;height:520px;background:radial-gradient(circle at 40% 40%,rgba(185,163,242,.18),transparent 60%),radial-gradient(circle at 70% 70%,rgba(143,209,169,.14),transparent 60%);filter:blur(10px);pointer-events:none}
+.report-top{position:relative;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:18px 26px;border-bottom:1px solid var(--line)}
+.report-top .t{font-family:var(--display);font-size:16px;font-weight:400}
+.tag{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.report-body{position:relative;display:grid;grid-template-columns:1fr 1.15fr}
+.report-body > div{padding:26px;min-width:0}
+.report-body > div + div{border-left:1px solid var(--line)}
+@media (max-width:820px){.report-body{grid-template-columns:1fr}.report-body > div + div{border-left:0;border-top:1px solid var(--line)}}
+.label{font-family:var(--mono);font-size:12px;color:var(--muted);margin-bottom:16px}
+.bars{display:grid;gap:14px}
+.bar{display:grid;grid-template-columns:10em 1fr 2.4em;gap:12px;align-items:center;font-size:15px}
+.bar .track{height:6px;border-radius:6px;background:var(--line);overflow:hidden}
+.bar .fill{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--green),var(--violet))}
+.bar .v{font-family:var(--mono);font-size:13px;color:var(--muted);text-align:right;font-variant-numeric:tabular-nums}
+@media (max-width:420px){.bar{grid-template-columns:8em 1fr 2.2em;font-size:14px}}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.chips span{font-size:13px;padding:6px 12px;border-radius:999px;border:1px solid var(--line);color:var(--fg)}
+.chips span:nth-child(odd){border-color:var(--green-soft)}
+.chips span:nth-child(even){border-color:var(--violet-soft)}
+.excerpt{display:grid;gap:18px}
+.excerpt h3{font-size:22px;line-height:1.25}
+.excerpt p{color:#bcc6c1}
+.excerpt blockquote{margin:0;padding:16px 18px;border-radius:14px;background:rgba(185,163,242,.07);border:1px solid rgba(185,163,242,.2);font-size:15px;color:var(--fg)}
+.excerpt blockquote b{display:block;font-family:var(--mono);font-weight:400;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--violet);margin-bottom:6px}
+.toc{display:flex;flex-wrap:wrap;gap:6px 18px;font-family:var(--mono);font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:16px}
+
+/* pricing */
+.packs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media (max-width:900px){.packs{grid-template-columns:1fr}}
+.pack{border:1px solid var(--line);border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:16px;background:var(--bg);min-width:0}
+.pack.feature{background:linear-gradient(170deg,rgba(185,163,242,.12),rgba(143,209,169,.05) 55%,transparent),var(--surface);border-color:var(--violet-soft)}
+.pack h3{font-size:22px;font-weight:400}
+.pack .price{font-family:var(--display);font-weight:300;font-size:30px;font-variant-numeric:tabular-nums}
+.pack .price small{font-family:var(--body);font-size:14px;color:var(--muted);margin-left:4px}
+.pack ul{list-style:none;margin:0;padding:0;display:grid;gap:10px;font-size:15px;color:var(--muted);flex:1}
+.pack li{display:flex;gap:10px}
+.pack li::before{content:"";flex:none;width:14px;height:14px;margin-top:5px;border-radius:50%;border:1px solid var(--violet-soft);background:radial-gradient(circle,var(--green) 0 2.5px,transparent 3px)}
+
+/* flow / wissen */
+.split{display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(32px,6vw,80px);align-items:center}
+.split > *{min-width:0}
+@media (max-width:860px){.split{grid-template-columns:1fr}}
+.flowcard{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:24px;margin:0}
+.flowcard svg{width:100%;height:auto;display:block}
+.flowcard figcaption{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:12px}
+.prose{display:grid;gap:18px;max-width:56ch}
+.prose p{color:var(--muted)}
+.articles{display:grid;gap:0;margin-top:6px}
+.articles a{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-top:1px solid var(--line);text-decoration:none;transition:color .2s}
+.articles a:hover{color:var(--violet)}
+.articles span:last-child{font-family:var(--mono);font-size:12px;color:var(--muted);white-space:nowrap}
+
+/* trust */
+.trust{display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid var(--line)}
+.trust > div{padding:28px 28px 28px 0;border-bottom:1px solid var(--line);display:grid;gap:8px;min-width:0}
+.trust > div:nth-child(even){padding-left:28px;border-left:1px solid var(--line)}
+.trust h3{font-family:var(--body);font-weight:600;font-size:18px;letter-spacing:0}
+.trust p{color:var(--muted);font-size:15px}
+@media (max-width:760px){.trust{grid-template-columns:1fr}.trust > div,.trust > div:nth-child(even){padding:24px 0;border-left:0}}
+
+/* newsletter */
+.news{display:flex;justify-content:space-between;align-items:center;gap:28px;flex-wrap:wrap}
+.news h2{font-size:clamp(24px,3vw,34px);max-width:20ch}
+.news p{color:var(--muted);max-width:48ch;margin-top:12px}
+form{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+input{font:inherit;font-size:16px;color:var(--fg);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:12px 18px;min-width:0;width:min(320px,100%)}
+input:focus{outline:none;border-color:var(--violet-soft);box-shadow:0 0 0 3px rgba(185,163,242,.15)}
+.done{font-family:var(--mono);font-size:13px;color:var(--green);flex-basis:100%}
+
+footer{padding-block:40px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:14px;color:var(--muted)}
+footer nav{display:flex;gap:20px}
+
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+.soon{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--violet);border:1px solid var(--violet-soft);border-radius:999px;padding:6px 14px;width:max-content;max-width:100%}
+.soon::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--violet);box-shadow:0 0 10px var(--violet)}
+
+.test-wrap{max-width:760px;margin:0 auto;padding-inline:clamp(16px,4vw,40px);padding-block:clamp(48px,8vw,96px)}
+.intro{display:grid;gap:18px}
+.intro h1{font-size:clamp(32px,5vw,52px);line-height:1.08}
+.intro p{color:var(--muted)}
+.meta-row{display:flex;flex-wrap:wrap;gap:10px 24px;font-family:var(--mono);font-size:13px;color:var(--muted)}
+.progress{height:4px;border-radius:4px;background:var(--line);overflow:hidden;margin-bottom:12px}
+.progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--violet));transition:width .3s ease}
+.pcount{font-family:var(--mono);font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:12px}
+.qcard{margin-top:28px;border:1px solid var(--line);border-radius:22px;padding:clamp(24px,5vw,40px);background:linear-gradient(160deg,rgba(143,209,169,.05),rgba(185,163,242,.07)),var(--surface);display:grid;gap:28px}
+.qtext{font-family:var(--display);font-weight:300;font-size:clamp(22px,3.4vw,30px);line-height:1.25;text-wrap:balance;min-height:2.5em}
+.opts{display:grid;gap:10px}
+.opt{display:flex;align-items:center;gap:14px;width:100%;text-align:left;padding:14px 18px;border-radius:14px;border:1px solid var(--line);background:var(--bg);color:var(--fg);font:500 16px var(--body);cursor:pointer;transition:border-color .2s,background .2s}
+.opt:hover{border-color:var(--violet-soft)}
+.opt[aria-pressed="true"]{border-color:var(--violet);background:rgba(185,163,242,.1)}
+.opt kbd{font-family:var(--mono);font-size:12px;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:2px 7px}
+.nav-row{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.res-head{display:grid;gap:14px;margin-bottom:36px}
+.res-head h1{font-size:clamp(30px,4.6vw,48px);line-height:1.1}
+.trait{padding:24px 0;border-top:1px solid var(--line);display:grid;gap:10px}
+.trait-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.trait h2{font-family:var(--body);font-weight:600;font-size:20px;letter-spacing:0}
+.lvl{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:999px;border:1px solid var(--violet-soft);color:var(--violet)}
+.tbar{display:grid;grid-template-columns:1fr 3em;gap:12px;align-items:center}
+.tbar .track{height:8px;border-radius:8px;background:var(--line);overflow:hidden}
+.tbar .fill{display:block;height:100%;border-radius:8px;background:linear-gradient(90deg,var(--green),var(--violet))}
+.tbar .v{font-family:var(--mono);font-size:14px;text-align:right;font-variant-numeric:tabular-nums}
+.trait .what{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.trait p.desc{color:#c3ccc8}
+.cta-box{margin-top:40px;border:1px solid var(--violet-soft);border-radius:20px;padding:28px;display:grid;gap:14px;background:linear-gradient(170deg,rgba(185,163,242,.10),transparent 60%),var(--surface)}
+.cta-box h3{font-size:22px;font-weight:400}
+.cta-box p{color:var(--muted)}
+@media (hover:none){.keyhint{display:none}}
+.fine{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:28px;line-height:1.7}
+</style>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="index.html" aria-label="Ordinum Startseite"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 465 120" height="40" aria-hidden="true">
+  <defs>
+    <linearGradient id="ob-a" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2A302E"/><stop offset="0.45" stop-color="#0C0F0E"/><stop offset="1" stop-color="#030404"/>
+    </linearGradient>
+    <linearGradient id="ob-b" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1B2120"/><stop offset="0.6" stop-color="#070909"/><stop offset="1" stop-color="#020303"/>
+    </linearGradient>
+    <linearGradient id="ob-c" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#010202"/><stop offset="0.7" stop-color="#0A0D0C"/><stop offset="1" stop-color="#151A18"/>
+    </linearGradient>
+    <linearGradient id="ob-g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0B3A26" stop-opacity="0.6"/><stop offset="0.5" stop-color="#05140D"/><stop offset="1" stop-color="#020403"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0"/><stop offset="0.5" stop-color="#E8F5EE" stop-opacity="0.55"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="vein" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3FE89A" stop-opacity="0"/><stop offset="0.25" stop-color="#7DF7BC"/><stop offset="0.7" stop-color="#2FD488"/><stop offset="1" stop-color="#1C9E63" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="1.6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6"/></filter>
+    <clipPath id="stone"><path d="M48,52 L96,26 L124,32 L160,22 L182,58 L176,96 L188,128 L150,166 L104,176 L84,168 L42,170 L22,134 L30,96 L16,74 Z"/></clipPath>
+  <clipPath id="capband"><rect x="-5" y="0" width="400" height="40"/></clipPath>
+    <filter id="wglow" filterUnits="userSpaceOnUse" x="-20" y="-20" width="440" height="80">
+      <feGaussianBlur stdDeviation="1.6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+  <g transform="scale(0.6)">
+
+  
+  <ellipse cx="104" cy="112" rx="70" ry="58" fill="#2EE88E" opacity="0.06" filter="url(#soft)"/>
+
+  <g clip-path="url(#stone)">
+    <rect width="200" height="200" fill="#050606"/>
+    <path d="M48,52 L96,26 L124,32 L160,22 L130,74 L72,80 Z" fill="url(#ob-a)"/>
+    <path d="M160,22 L182,58 L176,96 L140,100 L130,74 Z" fill="url(#ob-b)"/>
+    <path d="M48,52 L72,80 L52,116 L30,96 L16,74 Z" fill="url(#ob-a)" opacity="0.75"/>
+    <path d="M72,80 L130,74 L140,100 L116,128 L70,124 L52,116 Z" fill="url(#ob-g)"/>
+    <path d="M176,96 L188,128 L150,166 L116,128 L140,100 Z" fill="#060808"/>
+    <path d="M52,116 L70,124 L116,128 L150,166 L104,176 L84,168 L42,170 L22,134 L30,96 Z" fill="url(#ob-c)" opacity="0.9"/>
+    <path d="M84,168 L116,128 L104,176 Z" fill="#0C1110"/>
+    <path d="M72,80 L96,26 L124,32 Z" fill="#FFFFFF" opacity="0.025"/>
+    <g fill="none" stroke="#FFFFFF" stroke-linecap="round">
+      <path d="M70,58 Q98,44 136,44" stroke-opacity="0.05" stroke-width="0.9"/>
+      <path d="M164,46 Q172,68 170,86" stroke-opacity="0.04" stroke-width="0.9"/>
+    </g>
+  </g>
+
+  
+  <g fill="none" stroke-linecap="round">
+    <path d="M48,52 L96,26 L124,32 L160,22" stroke="url(#shine)" stroke-width="1.4"/>
+    <path d="M72,80 L130,74" stroke="url(#shine)" stroke-width="1" opacity="0.7"/>
+    <path d="M130,74 L160,22" stroke="url(#shine)" stroke-width="0.9" opacity="0.6"/>
+    <path d="M96,26 L72,80" stroke="url(#shine)" stroke-width="0.7" opacity="0.35"/>
+    <path d="M16,74 L48,52" stroke="url(#shine)" stroke-width="0.9" opacity="0.5"/>
+    <path d="M160,22 L182,58" stroke="url(#shine)" stroke-width="0.8" opacity="0.4"/>
+  </g>
+  
+  <path d="M182,58 L176,96 L188,128 L150,166 L104,176 L84,168 L42,170 L22,134 L30,96 L16,74" fill="none" stroke="#18201D" stroke-width="0.8" stroke-opacity="0.8"/>
+
+  
+  <g clip-path="url(#stone)" fill="none" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)">
+    <path d="M22,100 L52,108 L80,102 L104,112 L128,110 L150,126 L186,130" stroke="url(#vein)" stroke-width="1.5"/>
+    <path d="M104,112 L110,130 L104,154" stroke="#3FE89A" stroke-opacity="0.45" stroke-width="0.8"/>
+    <path d="M80,102 L86,88" stroke="#3FE89A" stroke-opacity="0.35" stroke-width="0.7"/>
+  </g>
+  <circle cx="104" cy="112" r="1.6" fill="#D2FFE6" filter="url(#glow)"/>
+</g>
+  <g transform="translate(148,40.0) scale(1.0)" fill="none" stroke="#E4ECE8" stroke-width="3.0" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" clip-path="url(#capband)">
+    <ellipse cx="20" cy="20" rx="18.5" ry="18.5"/>
+    <path d="M56.5,40 V1.5 H70 A10.5,10.5 0 0 1 70,22.0 H56.5 M68,22 L81.5,40"/>
+    <path d="M99.5,1.5 V38.5 H112 A18.5,18.5 0 0 0 112,1.5 Z"/>
+    <path stroke="#3FE89A" filter="url(#wglow)" d="M153.5,0 V40"/>
+    <path d="M176.5,40 V1.5 L205.5,38.5 V0"/>
+    <path d="M223.5,0 V24 A14.5,14.5 0 0 0 252.5,24 V0"/>
+    <path d="M270.5,40 V1.5 L288.0,30 L305.5,1.5 V40"/>
+  </g>
+</svg>
+</a>
+    <a class="btn" href="index.html#warteliste">Warteliste</a>
+  </div>
+</header>
+<main class="test-wrap">
+  <section id="start" class="intro" style="border:0;padding:0">
+    <p class="eyebrow">Persönlichkeitstest · Big Five</p>
+    <h1>Wie tickst du <span class="grad">wirklich</span>?</h1>
+    <p>50 kurze Aussagen über dich. Antworte spontan und so, wie du meistens bist, nicht wie du gern wärst. Es gibt keine richtigen oder falschen Antworten.</p>
+    <div class="meta-row"><span>ca. 8 Minuten</span><span>50 Aussagen</span><span>Auswertung sofort</span><span>Antworten bleiben in deinem Browser</span></div>
+    <div class="cta-row"><button class="btn primary" id="go" type="button">Test starten</button><button class="btn" id="resume" type="button" hidden>Weitermachen</button></div>
+  </section>
+
+  <section id="quiz" hidden style="border:0;padding:0">
+    <div class="progress"><span id="bar"></span></div>
+    <div class="pcount"><span id="count">Aussage 1 von 50</span><span class="keyhint">Tasten 1–5 gehen auch</span></div>
+    <div class="qcard">
+      <p class="qtext" id="qtext" aria-live="polite"></p>
+      <div class="opts" id="opts" role="group" aria-label="Antwort"></div>
+      <div class="nav-row"><button class="btn" id="back" type="button">Zurück</button></div>
+    </div>
+  </section>
+
+  <section id="result" hidden style="border:0;padding:0">
+    <div class="res-head">
+      <p class="eyebrow">Dein Ergebnis</p>
+      <h1>Dein Persönlichkeitsprofil</h1>
+      <p class="muted">Die Werte zeigen, wie stark jede Eigenschaft bei dir ausgeprägt ist, auf einer Skala von 0 bis 100. Kein Wert ist besser oder schlechter: Jede Ausprägung hat ihre Stärken.</p>
+    </div>
+    <div id="traits"></div>
+    <div class="cta-box">
+      <h3>Das ist erst der Anfang.</h3>
+      <p>Bald verbindet dein persönlicher Ordinum-Bericht dieses Ergebnis mit deinen Stärken, Werten und deiner Motivation zu einem ausführlichen Bild von dir.</p>
+      <div class="cta-row"><a class="btn primary" href="index.html#warteliste">Auf die Warteliste</a><button class="btn" id="again" type="button">Test neu starten</button></div>
+    </div>
+    <p class="fine">Grundlage: IPIP Big-Five Factor Markers (Goldberg, 1992), International Personality Item Pool. Die Werte sind Ausprägungen auf der Antwortskala, noch keine Vergleichswerte mit einer Bevölkerungsstichprobe. Ordinum dient der Selbsterkenntnis und ersetzt keine psychologische Diagnostik.</p>
+  </section>
+</main>
+<footer>
+  <div class="wrap">
+    <span>© 2026 Ordinum · Psychologie zum Selbstverstehen. Keine Diagnostik oder Therapie.</span>
+    <nav><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></nav>
+  </div>
+</footer>
+<script>
+var ITEMS = [{"t": "Ich bringe Stimmung in jede Party.", "f": "E", "k": 1}, {"t": "Ich mache mir wenig Gedanken um andere.", "f": "A", "k": -1}, {"t": "Ich bin immer gut vorbereitet.", "f": "C", "k": 1}, {"t": "Ich gerate leicht in Stress.", "f": "S", "k": -1}, {"t": "Ich habe einen großen Wortschatz.", "f": "O", "k": 1}, {"t": "Ich rede nicht viel.", "f": "E", "k": -1}, {"t": "Ich interessiere mich für Menschen.", "f": "A", "k": 1}, {"t": "Ich lasse meine Sachen herumliegen.", "f": "C", "k": -1}, {"t": "Ich bin meistens entspannt.", "f": "S", "k": 1}, {"t": "Es fällt mir schwer, abstrakte Ideen zu verstehen.", "f": "O", "k": -1}, {"t": "Ich fühle mich unter Menschen wohl.", "f": "E", "k": 1}, {"t": "Ich beleidige andere.", "f": "A", "k": -1}, {"t": "Ich achte auf Details.", "f": "C", "k": 1}, {"t": "Ich mache mir viele Sorgen.", "f": "S", "k": -1}, {"t": "Ich habe eine lebhafte Fantasie.", "f": "O", "k": 1}, {"t": "Ich halte mich im Hintergrund.", "f": "E", "k": -1}, {"t": "Ich habe Mitgefühl mit den Gefühlen anderer.", "f": "A", "k": 1}, {"t": "Ich vermassle Dinge.", "f": "C", "k": -1}, {"t": "Ich bin selten niedergeschlagen.", "f": "S", "k": 1}, {"t": "Abstrakte Ideen interessieren mich nicht.", "f": "O", "k": -1}, {"t": "Ich fange Gespräche an.", "f": "E", "k": 1}, {"t": "Die Probleme anderer interessieren mich nicht.", "f": "A", "k": -1}, {"t": "Ich erledige Aufgaben sofort.", "f": "C", "k": 1}, {"t": "Ich lasse mich leicht aus der Ruhe bringen.", "f": "S", "k": -1}, {"t": "Ich habe hervorragende Ideen.", "f": "O", "k": 1}, {"t": "Ich habe wenig zu sagen.", "f": "E", "k": -1}, {"t": "Ich habe ein weiches Herz.", "f": "A", "k": 1}, {"t": "Ich vergesse oft, Dinge an ihren Platz zurückzulegen.", "f": "C", "k": -1}, {"t": "Ich rege mich leicht auf.", "f": "S", "k": -1}, {"t": "Ich habe wenig Fantasie.", "f": "O", "k": -1}, {"t": "Auf Partys rede ich mit vielen verschiedenen Leuten.", "f": "E", "k": 1}, {"t": "Ich interessiere mich nicht wirklich für andere.", "f": "A", "k": -1}, {"t": "Ich mag Ordnung.", "f": "C", "k": 1}, {"t": "Meine Stimmung wechselt oft.", "f": "S", "k": -1}, {"t": "Ich verstehe Dinge schnell.", "f": "O", "k": 1}, {"t": "Ich ziehe ungern Aufmerksamkeit auf mich.", "f": "E", "k": -1}, {"t": "Ich nehme mir Zeit für andere.", "f": "A", "k": 1}, {"t": "Ich drücke mich vor meinen Pflichten.", "f": "C", "k": -1}, {"t": "Ich habe häufig Stimmungsschwankungen.", "f": "S", "k": -1}, {"t": "Ich benutze schwierige Wörter.", "f": "O", "k": 1}, {"t": "Es macht mir nichts aus, im Mittelpunkt zu stehen.", "f": "E", "k": 1}, {"t": "Ich spüre, was andere fühlen.", "f": "A", "k": 1}, {"t": "Ich halte mich an einen Zeitplan.", "f": "C", "k": 1}, {"t": "Ich bin schnell gereizt.", "f": "S", "k": -1}, {"t": "Ich nehme mir Zeit, über Dinge nachzudenken.", "f": "O", "k": 1}, {"t": "Unter Fremden bin ich still.", "f": "E", "k": -1}, {"t": "Bei mir fühlen sich andere wohl.", "f": "A", "k": 1}, {"t": "Ich arbeite sehr genau.", "f": "C", "k": 1}, {"t": "Ich bin oft niedergeschlagen.", "f": "S", "k": -1}, {"t": "Ich stecke voller Ideen.", "f": "O", "k": 1}];
+var TEXTS = {"E": {"name": "Extraversion", "what": "Wie sehr du Energie aus Kontakt, Austausch und Aktivität ziehst.", "low": "Du bist eher zurückhaltend und tankst in ruhigen Momenten oder kleinen Runden auf. Das heißt nicht schüchtern: Du wählst einfach bewusster, wann und mit wem du redest.", "mid": "Du bist gern unter Menschen, brauchst aber auch Zeit für dich. Je nach Situation kannst du gesellig oder ruhig sein, und genau diese Flexibilität ist eine Stärke.", "high": "Du blühst im Austausch auf. Neue Leute, Gespräche und gemeinsame Aktivitäten geben dir Energie, und andere erleben dich oft als offen und ansteckend."}, "A": {"name": "Verträglichkeit", "what": "Wie sehr du auf Harmonie, Mitgefühl und Kooperation ausgerichtet bist.", "low": "Du bist direkt und lässt dich nicht leicht vereinnahmen. Du vertrittst deinen Standpunkt, auch wenn es unbequem wird, und schaust kritisch auf das, was andere wollen.", "mid": "Du bist hilfsbereit und rücksichtsvoll, kannst aber auch klar Nein sagen. Du findest meist eine gute Balance zwischen deinen Bedürfnissen und denen anderer.", "high": "Du bist warmherzig, mitfühlend und kooperativ. Andere fühlen sich bei dir gut aufgehoben. Achte darauf, dass deine eigenen Bedürfnisse dabei nicht zu kurz kommen."}, "C": {"name": "Gewissenhaftigkeit", "what": "Wie organisiert, zuverlässig und zielstrebig du an Aufgaben gehst.", "low": "Du bist spontan und flexibel und lässt dich ungern in starre Pläne pressen. Struktur hilft dir vor allem dann, wenn sie leicht ist und Spielraum lässt.", "mid": "Du kannst planvoll arbeiten, wenn es darauf ankommt, bleibst aber offen für Spontanes. Bei Dingen, die dir wichtig sind, bist du verlässlich.", "high": "Du bist organisiert, gründlich und zuverlässig. Pläne und Ordnung geben dir Halt. Erlaube dir ab und zu, Dinge auch einfach gut genug sein zu lassen."}, "S": {"name": "Emotionale Stabilität", "what": "Wie gelassen du mit Stress, Sorgen und Stimmungsschwankungen umgehst.", "low": "Du nimmst Gefühle intensiv wahr und reagierst feinfühlig auf Stress. Diese Sensibilität hat auch eine Kehrseite: Gezielte Erholung und Strategien gegen Grübeln können dir viel Last abnehmen.", "mid": "Meist bleibst du gelassen, aber in belastenden Phasen merkst du Stress deutlich. Du kennst beide Seiten, das macht dich verständnisvoll für andere.", "high": "Du bleibst auch unter Druck meist ruhig und findest schnell wieder ins Gleichgewicht. Das macht dich für andere zu einem stabilen Gegenüber."}, "O": {"name": "Offenheit & Intellekt", "what": "Wie neugierig du auf Ideen, Fantasie und gedankliche Herausforderungen bist.", "low": "Du bist bodenständig und praktisch. Du schätzt Bewährtes und konzentrierst dich lieber auf das Konkrete als auf abstrakte Gedankenspiele.", "mid": "Du bist offen für neue Ideen, ohne den Boden zu verlieren. Du interessierst dich für Neues, wenn du einen Sinn darin siehst.", "high": "Du bist neugierig, fantasievoll und denkst gern in Möglichkeiten. Neue Ideen und komplexe Fragen geben dir Energie."}};
+var ORDER = ["E", "A", "C", "S", "O"];
+var SCALE = ["trifft gar nicht zu", "trifft eher nicht zu", "teils, teils", "trifft eher zu", "trifft voll zu"];
+var KEY = 'ordinum-ipip50';
+var ans = new Array(ITEMS.length).fill(null), cur = 0;
+function $(id){ return document.getElementById(id); }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(ans)); }catch(e){} }
+function load(){ try{ var a = JSON.parse(localStorage.getItem(KEY)); if (Array.isArray(a) && a.length === ITEMS.length) return a; }catch(e){} return null; }
+function show(id){ ['start','quiz','result'].forEach(function(s){ $(s).hidden = s !== id; }); window.scrollTo(0,0); }
+function render(){
+  var it = ITEMS[cur];
+  $('qtext').textContent = it.t;
+  $('count').textContent = 'Aussage ' + (cur+1) + ' von ' + ITEMS.length;
+  $('bar').style.width = (cur/ITEMS.length*100) + '%';
+  var o = $('opts'); o.innerHTML = '';
+  SCALE.forEach(function(lbl, i){
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'opt'; b.id = 'opt-' + (i+1);
+    b.setAttribute('aria-pressed', ans[cur] === i+1 ? 'true' : 'false');
+    b.innerHTML = '<kbd>' + (i+1) + '</kbd><span></span>';
+    b.lastChild.textContent = lbl;
+    b.addEventListener('click', function(){ pick(i+1); });
+    o.appendChild(b);
+  });
+  $('back').disabled = cur === 0;
+}
+function pick(v){
+  ans[cur] = v; save();
+  if (cur < ITEMS.length - 1) { cur++; render(); }
+  else results();
+}
+function results(){
+  var sums = {}, n = {};
+  ITEMS.forEach(function(it, i){
+    var v = ans[i]; if (v == null) return;
+    var s = it.k === 1 ? v : 6 - v;
+    sums[it.f] = (sums[it.f]||0) + s; n[it.f] = (n[it.f]||0) + 1;
+  });
+  var box = $('traits'); box.innerHTML = '';
+  ORDER.forEach(function(f){
+    var mean = sums[f] / n[f], score = Math.round((mean - 1) / 4 * 100);
+    var lv = score < 40 ? 'low' : score > 60 ? 'high' : 'mid';
+    var lvName = {low:'eher niedrig', mid:'mittel', high:'eher hoch'}[lv];
+    var T = TEXTS[f], el = document.createElement('div');
+    el.className = 'trait';
+    el.innerHTML = '<div class="trait-top"><h2></h2><span class="lvl"></span></div>' +
+      '<div class="tbar"><span class="track"><span class="fill"></span></span><span class="v"></span></div>' +
+      '<p class="what"></p><p class="desc"></p>';
+    el.querySelector('h2').textContent = T.name;
+    el.querySelector('.lvl').textContent = lvName;
+    el.querySelector('.fill').style.width = score + '%';
+    el.querySelector('.v').textContent = score;
+    el.querySelector('.what').textContent = T.what;
+    el.querySelector('.desc').textContent = T[lv];
+    box.appendChild(el);
+  });
+  show('result');
+}
+$('go').addEventListener('click', function(){ ans.fill(null); cur = 0; save(); show('quiz'); render(); });
+$('resume').addEventListener('click', function(){ cur = ans.indexOf(null); if (cur < 0) { results(); return; } show('quiz'); render(); });
+$('back').addEventListener('click', function(){ if (cur > 0) { cur--; render(); } });
+$('again').addEventListener('click', function(){ ans.fill(null); cur = 0; save(); show('quiz'); render(); });
+document.addEventListener('keydown', function(e){
+  if ($('quiz').hidden) return;
+  var k = parseInt(e.key, 10);
+  if (k >= 1 && k <= 5) pick(k);
+  else if (e.key === 'Backspace' || e.key === 'ArrowLeft') { if (cur > 0) { cur--; render(); } }
+});
+(function(){ var a = load(); if (a && a.some(function(x){ return x != null; })) { ans = a; $('resume').hidden = false; $('resume').textContent = a.indexOf(null) < 0 ? 'Letztes Ergebnis ansehen' : 'Weitermachen'; } })();
+</script>
+</body>
+</html>
