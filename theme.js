@@ -1,7 +1,7 @@
 // Light/Dark-Umschalter: Wahl wird im Browser gespeichert, Standard ist der Dark Mode
 (function(){
   var KEY = 'ordinum-theme', root = document.documentElement;
-  function setMeta(){ var m = document.querySelector('meta[name="theme-color"]'); if (m) m.content = root.dataset.theme === 'light' ? '#f4f5f1' : '#0a0d0c'; }
+  function setMeta(){ var m = document.querySelector('meta[name="theme-color"]'); if (m) m.content = root.dataset.theme === 'light' ? '#e6e9e3' : '#0a0d0c'; }
   function apply(t){
     if (t === 'light') root.dataset.theme = 'light'; else delete root.dataset.theme;
     try{ localStorage.setItem(KEY, t); }catch(e){}
