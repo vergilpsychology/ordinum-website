@@ -279,6 +279,8 @@ section > .wrap{position:relative}
 .test .live-dot::before{background:currentColor;animation-name:pulse-a}
 @keyframes pulse-a{0%{box-shadow:0 0 0 0 currentColor}70%,100%{box-shadow:0 0 0 7px transparent}}
 </style>
+<link rel="stylesheet" href="theme.css">
+<script>try{if(localStorage.getItem('ordinum-theme')==='light')document.documentElement.dataset.theme='light'}catch(e){}</script>
 </head>
 <body>
 
@@ -776,5 +778,6 @@ section > .wrap{position:relative}
   if (!reduce) requestAnimationFrame(frame);
 })();
 </script>
+<script src="theme.js"></script>
 </body>
 </html>

@@ -1,0 +1,99 @@
+/* Light Mode: wird aktiv, wenn <html data-theme="light"> gesetzt ist (Umschalter in theme.js). */
+:root[data-theme="light"]{
+  --bg:#f4f5f1;
+  --surface:#ffffff;
+  --line:#dde3de;
+  --fg:#151b18;
+  --muted:#5a6762;
+  --green:var(--green-l,#2b8257);
+  --green-soft:var(--green-soft-l,#86c2a0);
+  --violet:var(--violet-l,#6650bd);
+  --violet-soft:var(--violet-soft-l,#a898e0);
+  --glow:rgba(102,80,189,.08);
+  color-scheme:light;
+}
+:root[data-theme="light"] body{background:var(--bg);color:var(--fg)}
+
+/* fest eingestellte helle Textfarben aus dem Dark Mode */
+:root[data-theme="light"] .hero .lead,
+:root[data-theme="light"] .excerpt p,
+:root[data-theme="light"] .trait p.desc,
+:root[data-theme="light"] .sig p.desc,
+:root[data-theme="light"] .overall p,
+:root[data-theme="light"] .care p,
+:root[data-theme="light"] p,
+:root[data-theme="light"] li,
+:root[data-theme="light"] td{color:#36423d}
+:root[data-theme="light"] .muted,
+:root[data-theme="light"] .intro p,
+:root[data-theme="light"] .head p,
+:root[data-theme="light"] .prose p,
+:root[data-theme="light"] .result p,
+:root[data-theme="light"] .test p,
+:root[data-theme="light"] .stepc p,
+:root[data-theme="light"] .trust p,
+:root[data-theme="light"] .pack ul,
+:root[data-theme="light"] .pack li,
+:root[data-theme="light"] .news p,
+:root[data-theme="light"] .cta-box p,
+:root[data-theme="light"] .save-box p,
+:root[data-theme="light"] .fine,
+:root[data-theme="light"] .note,
+:root[data-theme="light"] .what,
+:root[data-theme="light"] .meta,
+:root[data-theme="light"] .sources li{color:var(--muted)}
+:root[data-theme="light"] .excerpt blockquote,
+:root[data-theme="light"] .test h3,
+:root[data-theme="light"] .lead{color:var(--fg)}
+
+/* Flächen */
+:root[data-theme="light"] .nav{background:rgba(244,245,241,.82)}
+:root[data-theme="light"] .hero::after{background:radial-gradient(ellipse at 25% 45%,rgba(244,245,241,.7) 0,rgba(244,245,241,.3) 45%,transparent 70%)}
+:root[data-theme="light"] #liquid{opacity:.55}
+:root[data-theme="light"] .tint{background:linear-gradient(180deg,rgba(43,130,87,.05),rgba(102,80,189,.06)),#eef1ec}
+:root[data-theme="light"] .news-card input{background:rgba(255,255,255,.8)}
+:root[data-theme="light"] .test,
+:root[data-theme="light"] .stepc,
+:root[data-theme="light"] .trust > div,
+:root[data-theme="light"] .report,
+:root[data-theme="light"] .pack,
+:root[data-theme="light"] .result,
+:root[data-theme="light"] .qcard,
+:root[data-theme="light"] .rcard,
+:root[data-theme="light"] .flowcard{box-shadow:0 1px 2px rgba(20,30,25,.04),0 8px 24px -12px rgba(20,30,25,.12)}
+:root[data-theme="light"] .btn.primary{background:linear-gradient(100deg,var(--green-soft),var(--violet-soft));color:#0b0f14}
+:root[data-theme="light"] .scale button[aria-pressed="true"]{color:#fff}
+:root[data-theme="light"] .cta .btn{color:#fff}
+
+/* Testkarten: Akzentfarbe für Text und Linien abdunkeln, damit sie auf Weiß lesbar bleibt */
+:root[data-theme="light"] .test .go,
+:root[data-theme="light"] .test .badge,
+:root[data-theme="light"] .test .badge.free,
+:root[data-theme="light"] .test .badge.new{color:color-mix(in srgb,rgb(var(--a)) 58%,#000)}
+:root[data-theme="light"] .test .ico,
+:root[data-theme="light"] .test:nth-child(even) .ico{stroke:color-mix(in srgb,rgb(var(--a)) 70%,#000);filter:none}
+:root[data-theme="light"] .test{background:linear-gradient(165deg,rgba(var(--a),.14),transparent 55%),var(--surface)}
+
+/* SVG-Elemente mit fest eingebauten Farben */
+:root[data-theme="light"] .logo svg g[stroke="#E4ECE8"]{stroke:#1b231f}
+:root[data-theme="light"] .flowcard text[fill="#e7ece9"]{fill:var(--fg)}
+:root[data-theme="light"] .flowcard g[stroke="#1f2724"]{stroke:var(--line)}
+
+/* Umschalter */
+.theme-btn{display:inline-flex;align-items:center;justify-content:center;flex:none;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;transition:color .2s,border-color .2s}
+.theme-btn:hover{color:var(--fg);border-color:var(--violet-soft)}
+.theme-btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.theme-btn .sun{display:none}
+:root[data-theme="light"] .theme-btn .sun{display:block}
+:root[data-theme="light"] .theme-btn .moon{display:none}
+.theme-btn.floating{position:fixed;top:14px;right:14px;z-index:20;background:var(--bg)}
+.nav-end{display:flex;align-items:center;gap:12px}
+@media (max-width:440px){.theme-btn{width:34px;height:34px}}
+@media print{.theme-btn{display:none!important}}
+:root[data-theme="light"] p.eyebrow,
+:root[data-theme="light"] .eyebrow{color:var(--green)}
+:root[data-theme="light"] p.eyebrow.v,
+:root[data-theme="light"] p.kicker{color:var(--violet)}
+:root[data-theme="light"] .res-date{color:var(--muted)}
+:root[data-theme="light"] .toast,
+:root[data-theme="light"] .done{color:var(--green)}
