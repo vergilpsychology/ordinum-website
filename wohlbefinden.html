@@ -18,6 +18,8 @@
   --muted:#8e9a95;
   --green:#f0cf6e;
   --green-soft:#a8904a;
+  --green-l:#9a7413;
+  --green-soft-l:#d9bf73;
   --violet:#b9a3f2;
   --violet-soft:#7c69b4;
   --glow:rgba(160,180,220,.10);
@@ -262,6 +264,8 @@ footer nav{display:flex;gap:20px}
   .tbar .fill,.tbar .track{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
 </style>
+<link rel="stylesheet" href="theme.css">
+<script>try{if(localStorage.getItem('ordinum-theme')==='light')document.documentElement.dataset.theme='light'}catch(e){}</script>
 </head>
 <body>
 <header class="nav">
@@ -532,5 +536,6 @@ window.addEventListener('hashchange', function(){ if (!location.hash.indexOf('#r
   if (a && a.some(function(x){ return x != null; })) { ans = a; $('resume').hidden = false; $('resume').textContent = a.indexOf(null) < 0 ? 'Letztes Ergebnis ansehen' : 'Weitermachen'; }
 })();
 </script>
+<script src="theme.js"></script>
 </body>
 </html>

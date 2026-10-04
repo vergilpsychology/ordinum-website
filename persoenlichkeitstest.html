@@ -254,6 +254,8 @@ footer nav{display:flex;gap:20px}
   .tbar .fill,.tbar .track{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
 </style>
+<link rel="stylesheet" href="theme.css">
+<script>try{if(localStorage.getItem('ordinum-theme')==='light')document.documentElement.dataset.theme='light'}catch(e){}</script>
 </head>
 <body>
 <header class="nav">
@@ -514,5 +516,6 @@ window.addEventListener('hashchange', function(){ if (!location.hash.indexOf('#r
   if (a && a.some(function(x){ return x != null; })) { ans = a; $('resume').hidden = false; $('resume').textContent = a.indexOf(null) < 0 ? 'Letztes Ergebnis ansehen' : 'Weitermachen'; }
 })();
 </script>
+<script src="theme.js"></script>
 </body>
 </html>

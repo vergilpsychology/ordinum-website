@@ -20,6 +20,10 @@
   --green-soft:#7c69b4;
   --violet:#ec8cce;
   --violet-soft:#a35d8d;
+  --green-l:#6650bd;
+  --green-soft-l:#a898e0;
+  --violet-l:#b0408c;
+  --violet-soft-l:#de9cc8;
   --glow:rgba(160,180,220,.10);
   --display:"Unbounded", "Segoe UI", system-ui, sans-serif;
   --body:"Hanken Grotesk", "Segoe UI", system-ui, sans-serif;
@@ -273,6 +277,8 @@ footer nav{display:flex;gap:20px}
 @media (max-width:480px){.all-row{grid-template-columns:1.4em 8.5em 1fr 2em;font-size:14px}}
 @media print{.all-row .fill,.all-row .track{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
 </style>
+<link rel="stylesheet" href="theme.css">
+<script>try{if(localStorage.getItem('ordinum-theme')==='light')document.documentElement.dataset.theme='light'}catch(e){}</script>
 </head>
 <body>
 <header class="nav">
@@ -549,5 +555,6 @@ window.addEventListener('hashchange', function(){ if (!location.hash.indexOf('#r
   if (a && a.some(function(x){ return x != null; })) { ans = a; $('resume').hidden = false; $('resume').textContent = a.indexOf(null) < 0 ? 'Letztes Ergebnis ansehen' : 'Weitermachen'; }
 })();
 </script>
+<script src="theme.js"></script>
 </body>
 </html>
