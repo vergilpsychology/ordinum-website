@@ -369,7 +369,7 @@ footer nav{display:flex;gap:20px}
   <div class="empty" id="empty" hidden>
     <h3 style="font-size:22px">Noch keine Ergebnisse auf diesem Gerät</h3>
     <p>Du hast einen persönlichen Link gespeichert? Öffne ihn einfach, dann siehst du dein Ergebnis wieder und kannst es hier ablegen.</p>
-    <div class="cta-row"><a class="btn primary" href="persoenlichkeitstest.html">Persönlichkeitstest machen</a></div>
+    <div class="cta-row"><a class="btn primary" href="persoenlichkeitstest.html">Persönlichkeitstest machen</a><a class="btn" href="staerkentest.html">Charakterstärken-Test machen</a></div>
   </div>
   <p class="fine" id="clearrow" hidden><button class="linkbtn" id="clear" type="button">Alle Ergebnisse von diesem Gerät löschen</button></p>
 </main>
@@ -380,9 +380,12 @@ footer nav{display:flex;gap:20px}
   </div>
 </footer>
 <script>
-var HIST = 'ordinum-ergebnisse', KEY = 'ordinum-ipip50', ABC = 'abcdefghijklmnopqrstuvwxy';
-var TESTS = {big5: {name: 'Persönlichkeitstest · Big Five', page: 'persoenlichkeitstest.html', order: ['E','A','C','S','O'],
-  names: {E:'Extraversion', A:'Verträglichkeit', C:'Gewissenhaftigkeit', S:'Emotionale Stabilität', O:'Offenheit & Intellekt'}}};
+var HIST = 'ordinum-ergebnisse', ABC = 'abcdefghijklmnopqrstuvwxy';
+// key: gespeicherter Testfortschritt; top: nur die stärksten n Werte zeigen, absteigend sortiert
+var TESTS = {big5: {name: 'Persönlichkeitstest · Big Five', page: 'persoenlichkeitstest.html', key: 'ordinum-ipip50', order: ['E','A','C','S','O'],
+  names: {E:'Extraversion', A:'Verträglichkeit', C:'Gewissenhaftigkeit', S:'Emotionale Stabilität', O:'Offenheit & Intellekt'}},
+  staerken: {name: 'Charakterstärken · deine Top 5', page: 'staerkentest.html', key: 'ordinum-staerken', top: 5, order: ["ori", "val", "cap", "equ", "for", "app", "cur", "ind", "kin", "lea", "mod", "gra", "jud", "int", "soc", "cit", "pru", "hop", "lov", "zes", "sel", "hum", "per", "spi"],
+  names: {"ori": "Kreativität", "val": "Mut", "cap": "Fähigkeit zu lieben", "equ": "Fairness", "for": "Vergebung", "app": "Sinn für Schönheit", "cur": "Neugier", "ind": "Ausdauer", "kin": "Freundlichkeit", "lea": "Führung", "mod": "Bescheidenheit", "gra": "Dankbarkeit", "jud": "Urteilsvermögen", "int": "Ehrlichkeit", "soc": "Soziale Intelligenz", "cit": "Teamgeist", "pru": "Umsicht", "hop": "Zuversicht", "lov": "Freude am Lernen", "zes": "Tatendrang", "sel": "Selbstregulation", "hum": "Humor", "per": "Weitblick", "spi": "Spiritualität"}}};
 function $(id){ return document.getElementById(id); }
 function loadHist(){ try{ var h = JSON.parse(localStorage.getItem(HIST)); if (Array.isArray(h)) return h; }catch(e){} return []; }
 function saveHist(h){ try{ localStorage.setItem(HIST, JSON.stringify(h)); }catch(e){} }
@@ -390,7 +393,10 @@ function fmtDate(s){ return new Date(+s.slice(0,4), +s.slice(4,6)-1, +s.slice(6,
 function encode(a){ var s = ''; for (var i = 0; i < a.length; i += 2) s += ABC[(a[i]-1)*5 + (a[i+1]-1)]; return s; }
 // Gespeicherten Testfortschritt mitlöschen, sonst trägt die Testseite das Ergebnis wieder ein
 function dropProgress(code){
-  try{ var a = JSON.parse(localStorage.getItem(KEY)); if (Array.isArray(a) && a.indexOf(null) < 0 && (code == null || encode(a) === code)) localStorage.removeItem(KEY); }catch(e){}
+  Object.keys(TESTS).forEach(function(t){
+    var key = TESTS[t].key;
+    try{ var a = JSON.parse(localStorage.getItem(key)); if (Array.isArray(a) && a.indexOf(null) < 0 && (code == null || encode(a) === code)) localStorage.removeItem(key); }catch(e){}
+  });
 }
 function render(){
   var h = loadHist(), list = $('list'); list.innerHTML = '';
@@ -408,7 +414,9 @@ function render(){
       dropProgress(r.code); render();
     });
     var bars = el.querySelector('.mbars');
-    T.order.forEach(function(f){
+    var keys = T.order;
+    if (T.top) keys = keys.slice().sort(function(a, b){ return r.scores[b] - r.scores[a] || T.order.indexOf(a) - T.order.indexOf(b); }).slice(0, T.top);
+    keys.forEach(function(f){
       var row = document.createElement('div'); row.className = 'mbar';
       row.innerHTML = '<span class="n"></span><span class="track"><span class="fill"></span></span><span class="v"></span>';
       row.querySelector('.n').textContent = T.names[f];
