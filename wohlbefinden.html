@@ -3,9 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Meine Ergebnisse · Ordinum</title>
-<meta name="description" content="Deine bisherigen Testergebnisse bei Ordinum, gespeichert nur in deinem Browser.">
-<meta name="robots" content="noindex">
+<title>Wohlbefinden-Test · Ordinum</title>
+<meta name="description" content="Kostenloser Test zu deinem Wohlbefinden: 25 Aussagen, etwa 4 Minuten, sofort dein Profil aus Lebensfreude, Stimmung, Zuversicht, Selbstwert und Lebendigkeit.">
 <meta name="theme-color" content="#0a0d0c">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="stylesheet" href="fonts.css">
@@ -218,6 +217,14 @@ footer nav{display:flex;gap:20px}
 .nav-row{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .res-head{display:grid;gap:14px;margin-bottom:36px}
 .res-head h1{font-size:clamp(30px,4.6vw,48px);line-height:1.1}
+.overall{display:grid;gap:12px;padding:28px;margin-bottom:12px;border:1px solid var(--violet-soft);border-radius:22px;background:linear-gradient(160deg,rgba(143,209,169,.08),rgba(185,163,242,.12)),var(--surface)}
+.overall .big{font-family:var(--display);font-weight:300;font-size:64px;line-height:1;font-variant-numeric:tabular-nums}
+.overall .big small{font-size:18px;color:var(--muted)}
+.overall p{color:#c3ccc8}
+.care{margin-top:28px;border:1px solid rgba(185,163,242,.35);border-radius:18px;padding:22px;background:rgba(185,163,242,.06);display:grid;gap:8px}
+.care h3{font-family:var(--body);font-weight:600;font-size:17px;letter-spacing:0}
+.care p{color:#c3ccc8;font-size:15px}
+.care a{color:var(--fg)}
 .trait{padding:24px 0;border-top:1px solid var(--line);display:grid;gap:10px}
 .trait-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
 .trait h2{font-family:var(--body);font-weight:600;font-size:20px;letter-spacing:0}
@@ -246,30 +253,14 @@ footer nav{display:flex;gap:20px}
 @media (max-width:440px){.nav-links{gap:12px}.nav-links .txt{font-size:14px}}
 @media (max-width:400px){.nav-links .btn{display:none}}
 @media print{
-  :root{--bg:#fff;--surface:#fff;--line:#d5dbd8;--fg:#111;--muted:#555;--violet:#5b4a99;--violet-soft:#5b4a99;color-scheme:light}
+  :root{--bg:#fff;--surface:#fff;--green:#2f7a52;--line:#d5dbd8;--fg:#111;--muted:#555;--violet:#5b4a99;--violet-soft:#5b4a99;color-scheme:light}
   .nav,footer,.save-box,.cta-box,#start,#quiz{display:none!important}
   .test-wrap{padding:0}
   .grad{color:#111;background:none}
-  .trait{break-inside:avoid}
+  .trait,.overall,.care{break-inside:avoid}
   .trait p.desc{color:#222}
   .tbar .fill,.tbar .track{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
-.rlist{display:grid;gap:18px;margin-top:36px}
-.rcard{border:1px solid var(--line);border-radius:20px;padding:clamp(20px,4vw,28px);background:linear-gradient(160deg,rgba(143,209,169,.05),rgba(185,163,242,.07)),var(--surface);display:grid;gap:18px}
-.rhead{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
-.rhead h2{font-family:var(--body);font-weight:600;font-size:20px;letter-spacing:0;margin-top:6px}
-.ract{display:flex;gap:10px;flex-wrap:wrap}
-.ract .btn{padding:9px 16px;font-size:14px}
-.mbars{display:grid;gap:8px}
-.mbar{display:grid;grid-template-columns:12em 1fr 2.4em;gap:12px;align-items:center;font-size:14px}
-.mbar .track{height:6px;border-radius:6px;background:var(--line);overflow:hidden}
-.mbar .fill{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--green),var(--violet))}
-.mbar .v{font-family:var(--mono);font-size:13px;text-align:right;font-variant-numeric:tabular-nums}
-@media (max-width:520px){.mbar{grid-template-columns:1fr 2.4em}.mbar .n{grid-column:1 / -1}}
-.empty{margin-top:36px;border:1px dashed var(--line);border-radius:20px;padding:28px;display:grid;gap:14px}
-.empty p{color:var(--muted)}
-.linkbtn{background:none;border:0;padding:0;font:inherit;color:var(--muted);text-decoration:underline;cursor:pointer}
-.linkbtn:hover{color:var(--fg)}
 </style>
 </head>
 <body>
@@ -360,18 +351,56 @@ footer nav{display:flex;gap:20px}
   </div>
 </header>
 <main class="test-wrap">
-  <section class="intro" style="border:0;padding:0">
-    <p class="eyebrow">Meine Ergebnisse</p>
-    <h1>Deine <span class="grad">Ergebnisse</span></h1>
-    <p>Hier findest du alle Tests, die du in diesem Browser gemacht hast. Sie werden nur auf deinem Gerät gespeichert, nicht bei uns. Für andere Geräte nutzt du den persönlichen Link, den du bei jedem Ergebnis kopieren oder dir per E-Mail schicken kannst.</p>
+  <section id="start" class="intro" style="border:0;padding:0">
+    <p class="eyebrow">Wohlbefinden</p>
+    <h1>Wie geht es dir <span class="grad">gerade</span>?</h1>
+    <p>25 kurze Aussagen darüber, wie du dich in letzter Zeit fühlst. Anders als bei einem Persönlichkeitstest geht es hier um eine Momentaufnahme: Antworte so, wie es in den letzten Wochen für dich war.</p>
+    <div class="meta-row"><span>ca. 4 Minuten</span><span>25 Aussagen</span><span>Auswertung sofort</span><span>Antworten bleiben in deinem Browser</span></div>
+    <div class="cta-row"><button class="btn primary" id="go" type="button">Test starten</button><button class="btn" id="resume" type="button" hidden>Weitermachen</button></div>
   </section>
-  <div class="rlist" id="list"></div>
-  <div class="empty" id="empty" hidden>
-    <h3 style="font-size:22px">Noch keine Ergebnisse auf diesem Gerät</h3>
-    <p>Du hast einen persönlichen Link gespeichert? Öffne ihn einfach, dann siehst du dein Ergebnis wieder und kannst es hier ablegen.</p>
-    <div class="cta-row"><a class="btn primary" href="persoenlichkeitstest.html">Persönlichkeitstest machen</a><a class="btn" href="staerkentest.html">Charakterstärken-Test machen</a><a class="btn" href="wohlbefinden.html">Wohlbefinden-Test machen</a></div>
-  </div>
-  <p class="fine" id="clearrow" hidden><button class="linkbtn" id="clear" type="button">Alle Ergebnisse von diesem Gerät löschen</button></p>
+
+  <section id="quiz" hidden style="border:0;padding:0">
+    <div class="progress"><span id="bar"></span></div>
+    <div class="pcount"><span id="count">Aussage 1 von 25</span><span class="keyhint">Tasten 1–5 gehen auch</span></div>
+    <div class="qcard">
+      <p class="qtext" id="qtext" aria-live="polite"></p>
+      <div class="opts" id="opts" role="group" aria-label="Antwort"></div>
+      <div class="nav-row"><button class="btn" id="back" type="button">Zurück</button></div>
+    </div>
+  </section>
+
+  <section id="result" hidden style="border:0;padding:0">
+    <div class="res-head">
+      <p class="eyebrow">Dein Ergebnis</p>
+      <h1>Dein Wohlbefinden</h1>
+      <p class="muted">Eine Momentaufnahme aus fünf Bereichen, jeweils auf einer Skala von 0 bis 100. Wohlbefinden verändert sich: Wenn du den Test in ein paar Wochen wiederholst, siehst du, was sich bewegt hat.</p>
+      <p class="res-date" id="resdate"></p>
+    </div>
+    <div class="overall"><p class="eyebrow">Gesamtwert</p><div class="big"><span id="ov"></span><small> / 100</small></div><div class="tbar"><span class="track"><span class="fill" id="ovbar"></span></span><span></span></div><p id="ovtext"></p></div>
+    <div id="traits"></div>
+    <div class="care" id="care" hidden>
+      <h3>Wenn es dir gerade nicht gut geht</h3>
+      <p>Deine Antworten deuten darauf hin, dass es dir im Moment eher schwer fällt. Das ist kein Befund, aber ein Grund, gut auf dich zu achten. Sprich mit Menschen, denen du vertraust, oder mit deiner Hausärztin oder deinem Hausarzt. Rund um die Uhr, anonym und kostenlos erreichst du die TelefonSeelsorge unter <a href="tel:08001110111">0800 111 0 111</a> oder <a href="tel:08001110222">0800 111 0 222</a>.</p>
+    </div>
+    <div class="save-box">
+      <h3>Dein Ergebnis wiederfinden</h3>
+      <p id="savetext">Dein Ergebnis ist in diesem Browser unter „Meine Ergebnisse“ gespeichert. Damit du es auch auf anderen Geräten wiederfindest, oder nachdem du deine Browserdaten gelöscht hast, speichere dir deinen persönlichen Link oder ein PDF.</p>
+      <div class="cta-row">
+        <button class="btn primary" id="copylink" type="button">Link kopieren</button>
+        <a class="btn" id="maillink" href="#">Per E-Mail an mich</a>
+        <button class="btn" id="pdf" type="button">Als PDF speichern</button>
+        <button class="btn" id="keep" type="button" hidden>Auf diesem Gerät speichern</button>
+      </div>
+      <p class="toast" id="toast" aria-live="polite"></p>
+      <p class="fine">Wer deinen persönlichen Link kennt, kann dein Ergebnis sehen. Gib ihn also nur weiter, wenn du das möchtest. <a href="meine-ergebnisse.html">Alle meine Ergebnisse</a></p>
+    </div>
+    <div class="cta-box">
+      <h3>Wohlbefinden und Persönlichkeit zusammen</h3>
+      <p>Wie es dir geht, hängt auch davon ab, wer du bist und welche Stärken du einsetzt. Bald verbindet dein persönlicher Ordinum-Bericht beides zu einem ausführlichen Bild von dir.</p>
+      <div class="cta-row"><a class="btn primary" href="staerkentest.html">Zum Charakterstärken-Test</a><a class="btn" href="persoenlichkeitstest.html">Zum Persönlichkeitstest</a><a class="btn" href="index.html#warteliste">Auf die Warteliste</a><button class="btn" id="again" type="button">Test neu starten</button></div>
+    </div>
+    <p class="fine">Grundlage: gemeinfreie Skalen des International Personality Item Pool (IPIP): Cheerfulness und Depression aus dem IPIP-NEO, IPIP-Skalen zu Optimismus (nach Scheier, Carver und Bridges) und Selbstwert (nach Rosenberg) sowie Zest aus den IPIP-VIA-Skalen. Pro Bereich fünf Aussagen. Die Werte zeigen deine Antworten auf der Skala von 0 bis 100, noch keine Vergleichswerte mit einer Bevölkerungsstichprobe. Ordinum dient der Selbsterkenntnis und ersetzt keine psychologische Diagnostik oder Behandlung.</p>
+  </section>
 </main>
 <footer>
   <div class="wrap">
@@ -380,61 +409,128 @@ footer nav{display:flex;gap:20px}
   </div>
 </footer>
 <script>
+var ITEMS = [{"t": "Ich liebe das Leben.", "f": "F", "k": 1}, {"t": "Ich bin selten niedergeschlagen.", "f": "M", "k": 1}, {"t": "Ich weiß einfach, dass ich es schaffen werde.", "f": "O", "k": 1}, {"t": "Ich fühle mich wohl mit mir.", "f": "S", "k": 1}, {"t": "Ich freue mich auf jeden neuen Tag.", "f": "V", "k": 1}, {"t": "Ich strahle Freude aus.", "f": "F", "k": 1}, {"t": "Ich fühle mich oft bedrückt.", "f": "M", "k": -1}, {"t": "Ich sehe die Sonnenseite des Lebens.", "f": "O", "k": 1}, {"t": "Ich kenne meine Stärken.", "f": "S", "k": 1}, {"t": "Ich wache mit Vorfreude auf das auf, was der Tag bringt.", "f": "V", "k": 1}, {"t": "Ich habe viel Spaß.", "f": "F", "k": 1}, {"t": "Ich bin oft am Boden.", "f": "M", "k": -1}, {"t": "Ich sehe schwarz für die Zukunft.", "f": "O", "k": -1}, {"t": "Ich mag mich nicht.", "f": "S", "k": -1}, {"t": "Ich liebe, was ich tue.", "f": "V", "k": 1}, {"t": "Ich gehe mit einem Lachen durchs Leben.", "f": "F", "k": 1}, {"t": "Ich fühle mich verzweifelt.", "f": "M", "k": -1}, {"t": "Ich sehe überall Schwierigkeiten.", "f": "O", "k": -1}, {"t": "Ich kann weniger als die meisten anderen.", "f": "S", "k": -1}, {"t": "Ich habe nicht viel Energie.", "f": "V", "k": -1}, {"t": "Ich kann mich freuen wie ein Kind.", "f": "F", "k": 1}, {"t": "Ich bin oft schlecht gelaunt.", "f": "M", "k": -1}, {"t": "Ich befürchte das Schlimmste.", "f": "O", "k": -1}, {"t": "Ich habe das Gefühl, mit den Dingen nicht fertig zu werden.", "f": "S", "k": -1}, {"t": "Mir graut davor, morgens aufzustehen.", "f": "V", "k": -1}];
+var TEXTS = {"F": {"name": "Lebensfreude", "what": "Wie viel Freude, Spaß und Leichtigkeit du gerade erlebst.", "low": "Freude und Leichtigkeit kommen bei dir im Moment eher kurz. Das kann an einer anstrengenden Phase liegen. Kleine, bewusst eingeplante Dinge, die dir früher Spaß gemacht haben, sind oft ein guter Anfang.", "mid": "Du erlebst Freude, aber nicht immer und nicht überall. Es lohnt sich, darauf zu achten, wann sie auftaucht, und davon mehr in deinen Alltag zu holen.", "high": "Du erlebst viel Freude und kannst das Leben genießen. Diese Leichtigkeit ist eine Ressource, die dich auch durch schwierigere Zeiten trägt."}, "M": {"name": "Ausgeglichene Stimmung", "what": "Wie selten dich Niedergeschlagenheit und schlechte Laune begleiten.", "low": "Du fühlst dich im Moment oft niedergeschlagen oder schlecht gelaunt. Das ist ernst zu nehmen. Sprich mit Menschen, denen du vertraust, und hol dir Unterstützung, wenn es länger so bleibt.", "mid": "Deine Stimmung ist meistens stabil, aber gedrückte Phasen kennst du. Achte darauf, was dich in solchen Zeiten stärkt, und was dich eher runterzieht.", "high": "Niedergeschlagenheit spielt bei dir gerade kaum eine Rolle. Deine Grundstimmung ist stabil und hell."}, "O": {"name": "Zuversicht", "what": "Wie hoffnungsvoll du auf die Zukunft und deine Möglichkeiten blickst.", "low": "Der Blick nach vorn fühlt sich für dich gerade eher schwer an, und du rechnest oft mit Schwierigkeiten. Es kann helfen, bewusst auf kleine Schritte zu schauen, die gelungen sind.", "mid": "Du blickst meist realistisch nach vorn: Du hoffst auf das Gute, rechnest aber auch mit Hindernissen. Diese Mischung schützt dich vor bösen Überraschungen.", "high": "Du blickst zuversichtlich nach vorn und traust dir zu, deine Ziele zu erreichen. Diese Haltung gibt dir Kraft, dranzubleiben."}, "S": {"name": "Selbstwert", "what": "Wie wohl du dich mit dir selbst fühlst und wie sehr du dir vertraust.", "low": "Du gehst im Moment eher hart mit dir ins Gericht und traust dir wenig zu. Versuch, mit dir so zu sprechen, wie du mit einer guten Freundin oder einem guten Freund sprechen würdest.", "mid": "Meistens fühlst du dich mit dir wohl, aber Selbstzweifel kennst du auch. Es hilft, deine Stärken bewusst im Blick zu behalten.", "high": "Du fühlst dich wohl mit dir, kennst deine Stärken und traust dir etwas zu. Das ist eine stabile Grundlage für fast alles andere."}, "V": {"name": "Lebendigkeit", "what": "Wie viel Energie und Vorfreude du in deinen Alltag mitbringst.", "low": "Dir fehlt im Moment Energie, und der Tag fühlt sich oft eher schwer an. Schlaf, Bewegung und Pausen sind unspektakulär, machen hier aber oft den größten Unterschied.", "mid": "Du hast Tage voller Energie und Tage, an denen es zäh läuft. Achte darauf, was dir Kraft gibt und was sie dir nimmt.", "high": "Du gehst mit Energie und Vorfreude durch den Tag. Diese Lebendigkeit steckt oft auch die Menschen um dich herum an."}};
+var ORDER = ["F", "M", "O", "S", "V"];
+var SCALE = ["trifft gar nicht zu", "trifft eher nicht zu", "teils, teils", "trifft eher zu", "trifft voll zu"];
+var KEY = 'ordinum-wohlbefinden';
 var HIST = 'ordinum-ergebnisse', ABC = 'abcdefghijklmnopqrstuvwxy';
-// key: gespeicherter Testfortschritt; top: nur die stärksten n Werte zeigen, absteigend sortiert
-var TESTS = {big5: {name: 'Persönlichkeitstest · Big Five', page: 'persoenlichkeitstest.html', key: 'ordinum-ipip50', order: ['E','A','C','S','O'],
-  names: {E:'Extraversion', A:'Verträglichkeit', C:'Gewissenhaftigkeit', S:'Emotionale Stabilität', O:'Offenheit & Intellekt'}},
-  wohlbefinden: {name: 'Wohlbefinden', page: 'wohlbefinden.html', key: 'ordinum-wohlbefinden', order: ['F','M','O','S','V'],
-  names: {F:'Lebensfreude', M:'Ausgeglichene Stimmung', O:'Zuversicht', S:'Selbstwert', V:'Lebendigkeit'}},
-  staerken: {name: 'Charakterstärken · deine Top 5', page: 'staerkentest.html', key: 'ordinum-staerken', top: 5, order: ["ori", "val", "cap", "equ", "for", "app", "cur", "ind", "kin", "lea", "mod", "gra", "jud", "int", "soc", "cit", "pru", "hop", "lov", "zes", "sel", "hum", "per", "spi"],
-  names: {"ori": "Kreativität", "val": "Mut", "cap": "Fähigkeit zu lieben", "equ": "Fairness", "for": "Vergebung", "app": "Sinn für Schönheit", "cur": "Neugier", "ind": "Ausdauer", "kin": "Freundlichkeit", "lea": "Führung", "mod": "Bescheidenheit", "gra": "Dankbarkeit", "jud": "Urteilsvermögen", "int": "Ehrlichkeit", "soc": "Soziale Intelligenz", "cit": "Teamgeist", "pru": "Umsicht", "hop": "Zuversicht", "lov": "Freude am Lernen", "zes": "Tatendrang", "sel": "Selbstregulation", "hum": "Humor", "per": "Weitblick", "spi": "Spiritualität"}}};
+var ans = new Array(ITEMS.length).fill(null), cur = 0, curLink = '';
 function $(id){ return document.getElementById(id); }
-function loadHist(){ try{ var h = JSON.parse(localStorage.getItem(HIST)); if (Array.isArray(h)) return h; }catch(e){} return []; }
-function saveHist(h){ try{ localStorage.setItem(HIST, JSON.stringify(h)); }catch(e){} }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(ans)); }catch(e){} }
+function load(){ try{ var a = JSON.parse(localStorage.getItem(KEY)); if (Array.isArray(a) && a.length === ITEMS.length) return a; }catch(e){} return null; }
+// Persönlicher Link: je zwei Antworten (1–5) werden zu einem Buchstaben a–y (bei ungerader Anzahl mit einer 1 aufgefüllt), plus Datum: #r=<13 Zeichen>-JJJJMMTT
+function encode(a){ a = a.length % 2 ? a.concat([1]) : a; var s = ''; for (var i = 0; i < a.length; i += 2) s += ABC[(a[i]-1)*5 + (a[i+1]-1)]; return s; }
+function decode(c){ var a = []; for (var i = 0; i < c.length; i++){ var n = ABC.indexOf(c[i]); a.push(Math.floor(n/5)+1, n%5+1); } return a.slice(0, ITEMS.length); }
+function parseHash(){ var m = /^#r=([a-y]{13})(?:-(\d{8}))?$/.exec(location.hash); return m ? {code:m[1], date:m[2] || null} : null; }
+function today(){ var d = new Date(); return '' + d.getFullYear() + String(d.getMonth()+1).padStart(2,'0') + String(d.getDate()).padStart(2,'0'); }
 function fmtDate(s){ return new Date(+s.slice(0,4), +s.slice(4,6)-1, +s.slice(6,8)).toLocaleDateString('de-DE', {day:'numeric', month:'long', year:'numeric'}); }
-function encode(a){ var s = ''; for (var i = 0; i < a.length; i += 2) s += ABC[(a[i]-1)*5 + (a[i+1]-1)]; return s; }
-// Gespeicherten Testfortschritt mitlöschen, sonst trägt die Testseite das Ergebnis wieder ein
-function dropProgress(code){
-  Object.keys(TESTS).forEach(function(t){
-    var key = TESTS[t].key;
-    try{ var a = JSON.parse(localStorage.getItem(key)); if (Array.isArray(a) && a.indexOf(null) < 0 && (code == null || encode(a) === code)) localStorage.removeItem(key); }catch(e){}
+function loadHist(){ try{ var h = JSON.parse(localStorage.getItem(HIST)); if (Array.isArray(h)) return h; }catch(e){} return []; }
+function saveHist(h){ try{ localStorage.setItem(HIST, JSON.stringify(h.slice(0,50))); }catch(e){} }
+function findHist(code){ return loadHist().filter(function(r){ return r.code === code; })[0] || null; }
+function addHist(code, date){ var h = loadHist(); if (h.some(function(r){ return r.code === code; })) return; h.unshift({test:'wohlbefinden', date:date, code:code, scores:scores(decode(code))}); saveHist(h); }
+function scores(a){
+  var sums = {}, n = {}, out = {};
+  ITEMS.forEach(function(it, i){
+    var v = a[i]; if (v == null) return;
+    var s = it.k === 1 ? v : 6 - v;
+    sums[it.f] = (sums[it.f]||0) + s; n[it.f] = (n[it.f]||0) + 1;
   });
+  ORDER.forEach(function(f){ out[f] = Math.round((sums[f] / n[f] - 1) / 4 * 100); });
+  return out;
 }
+function toast(t){ $('toast').textContent = t; }
+function show(id){ ['start','quiz','result'].forEach(function(s){ $(s).hidden = s !== id; }); window.scrollTo(0,0); }
 function render(){
-  var h = loadHist(), list = $('list'); list.innerHTML = '';
-  $('empty').hidden = h.length > 0; $('clearrow').hidden = h.length === 0;
-  h.forEach(function(r){
-    var T = TESTS[r.test]; if (!T) return;
-    var el = document.createElement('article'); el.className = 'rcard';
-    el.innerHTML = '<div class="rhead"><div><p class="eyebrow"></p><h2></h2></div><div class="ract"><a class="btn primary">Ansehen</a><button class="btn" type="button">Löschen</button></div></div><div class="mbars"></div>';
-    el.querySelector('.eyebrow').textContent = T.name;
-    el.querySelector('h2').textContent = 'Ergebnis vom ' + fmtDate(r.date);
-    el.querySelector('a').href = T.page + '#r=' + r.code + '-' + r.date;
-    el.querySelector('button').addEventListener('click', function(){
-      if (!confirm('Dieses Ergebnis von diesem Gerät löschen?')) return;
-      saveHist(loadHist().filter(function(x){ return x.code !== r.code; }));
-      dropProgress(r.code); render();
-    });
-    var bars = el.querySelector('.mbars');
-    var keys = T.order;
-    if (T.top) keys = keys.slice().sort(function(a, b){ return r.scores[b] - r.scores[a] || T.order.indexOf(a) - T.order.indexOf(b); }).slice(0, T.top);
-    keys.forEach(function(f){
-      var row = document.createElement('div'); row.className = 'mbar';
-      row.innerHTML = '<span class="n"></span><span class="track"><span class="fill"></span></span><span class="v"></span>';
-      row.querySelector('.n').textContent = T.names[f];
-      row.querySelector('.fill').style.width = r.scores[f] + '%';
-      row.querySelector('.v').textContent = r.scores[f];
-      bars.appendChild(row);
-    });
-    list.appendChild(el);
+  var it = ITEMS[cur];
+  $('qtext').textContent = it.t;
+  $('count').textContent = 'Aussage ' + (cur+1) + ' von ' + ITEMS.length;
+  $('bar').style.width = (cur/ITEMS.length*100) + '%';
+  var o = $('opts'); o.innerHTML = '';
+  SCALE.forEach(function(lbl, i){
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'opt'; b.id = 'opt-' + (i+1);
+    b.setAttribute('aria-pressed', ans[cur] === i+1 ? 'true' : 'false');
+    b.innerHTML = '<kbd>' + (i+1) + '</kbd><span></span>';
+    b.lastChild.textContent = lbl;
+    b.addEventListener('click', function(){ pick(i+1); });
+    o.appendChild(b);
   });
+  $('back').disabled = cur === 0;
 }
-$('clear').addEventListener('click', function(){
-  if (!confirm('Wirklich alle Ergebnisse von diesem Gerät löschen? Persönliche Links, die du gespeichert hast, funktionieren weiterhin.')) return;
-  try{ localStorage.removeItem(HIST); }catch(e){}
-  dropProgress(null); render();
+function pick(v){
+  ans[cur] = v; save();
+  if (cur < ITEMS.length - 1) { cur++; render(); }
+  else results();
+}
+// linkDate gesetzt: Ergebnis kommt aus einem persönlichen Link und wird nicht automatisch gespeichert
+function results(linkDate){
+  var sc = scores(ans), code = encode(ans), known = findHist(code);
+  if (!known && linkDate === undefined) { addHist(code, today()); known = findHist(code); }
+  var date = linkDate || (known && known.date) || today();
+  history.replaceState(null, '', '#r=' + code + '-' + date);
+  curLink = location.href;
+  $('resdate').textContent = 'Ergebnis vom ' + fmtDate(date);
+  $('keep').hidden = !!known;
+  $('keep').onclick = function(){ addHist(code, date); $('keep').hidden = true; toast('Gespeichert. Du findest es jetzt unter „Meine Ergebnisse“.'); };
+  $('savetext').hidden = !known;
+  $('maillink').href = 'mailto:?subject=' + encodeURIComponent('Mein Ordinum-Wohlbefinden') + '&body=' + encodeURIComponent('Mein Ergebnis im Ordinum-Wohlbefinden-Test vom ' + fmtDate(date) + ':\n' + curLink);
+  toast('');
+  var ov = Math.round(ORDER.reduce(function(a, f){ return a + sc[f]; }, 0) / ORDER.length);
+  $('ov').textContent = ov; $('ovbar').style.width = ov + '%';
+  $('ovtext').textContent = ov < 40 ? 'Im Moment geht es dir insgesamt eher nicht so gut. Schau dir an, welche Bereiche besonders niedrig sind, dort liegt oft der beste Ansatzpunkt.' : ov > 60 ? 'Insgesamt geht es dir gerade gut. Schau trotzdem auf die einzelnen Bereiche: Oft gibt es einen, der noch Luft nach oben hat.' : 'Insgesamt geht es dir gerade mittelmäßig, mit Licht und Schatten. Die einzelnen Bereiche zeigen, wo es gut läuft und wo du ansetzen kannst.';
+  // Hinweis auf Hilfe bei deutlich gedrückter Stimmung
+  $('care').hidden = !(sc.M < 40 || ov < 35);
+  var box = $('traits'); box.innerHTML = '';
+  ORDER.forEach(function(f){
+    var score = sc[f];
+    var lv = score < 40 ? 'low' : score > 60 ? 'high' : 'mid';
+    var lvName = {low:'eher niedrig', mid:'mittel', high:'eher hoch'}[lv];
+    var T = TEXTS[f], el = document.createElement('div');
+    el.className = 'trait';
+    el.innerHTML = '<div class="trait-top"><h2></h2><span class="lvl"></span></div>' +
+      '<div class="tbar"><span class="track"><span class="fill"></span></span><span class="v"></span></div>' +
+      '<p class="what"></p><p class="desc"></p>';
+    el.querySelector('h2').textContent = T.name;
+    el.querySelector('.lvl').textContent = lvName;
+    el.querySelector('.fill').style.width = score + '%';
+    el.querySelector('.v').textContent = score;
+    el.querySelector('.what').textContent = T.what;
+    el.querySelector('.desc').textContent = T[lv];
+    box.appendChild(el);
+  });
+  show('result');
+}
+function restart(){ ans = new Array(ITEMS.length).fill(null); cur = 0; save(); history.replaceState(null, '', location.pathname); show('quiz'); render(); }
+$('go').addEventListener('click', restart);
+$('resume').addEventListener('click', function(){ cur = ans.indexOf(null); if (cur < 0) { results(); return; } show('quiz'); render(); });
+$('back').addEventListener('click', function(){ if (cur > 0) { cur--; render(); } });
+$('again').addEventListener('click', restart);
+$('copylink').addEventListener('click', function(){
+  var done = function(){ toast('Link kopiert. Speicher ihn dir zum Beispiel als Lesezeichen oder in deinen Notizen.'); };
+  if (navigator.clipboard) navigator.clipboard.writeText(curLink).then(done, function(){ window.prompt('Dein persönlicher Link:', curLink); });
+  else window.prompt('Dein persönlicher Link:', curLink);
 });
-render();
+$('pdf').addEventListener('click', function(){ window.print(); });
+document.addEventListener('keydown', function(e){
+  if ($('quiz').hidden) return;
+  var k = parseInt(e.key, 10);
+  if (k >= 1 && k <= 5) pick(k);
+  else if (e.key === 'Backspace' || e.key === 'ArrowLeft') { if (cur > 0) { cur--; render(); } }
+});
+function route(){
+  var r = parseHash();
+  if (r) { ans = decode(r.code); results(r.date); return true; }
+  return false;
+}
+window.addEventListener('hashchange', function(){ if (!location.hash.indexOf('#r=')) route(); });
+(function(){
+  var a = load();
+  // Ergebnisse von vor der Ergebnisliste nachtragen
+  if (a && a.indexOf(null) < 0) addHist(encode(a), today());
+  if (route()) return;
+  if (a && a.some(function(x){ return x != null; })) { ans = a; $('resume').hidden = false; $('resume').textContent = a.indexOf(null) < 0 ? 'Letztes Ergebnis ansehen' : 'Weitermachen'; }
+})();
 </script>
 </body>
 </html>
