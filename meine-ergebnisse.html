@@ -3,8 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Persönlichkeitstest · Ordinum</title>
-<meta name="description" content="Kostenloser Persönlichkeitstest nach dem Big-Five-Modell: 50 Aussagen, etwa 8 Minuten, sofortige Auswertung.">
+<title>Meine Ergebnisse · Ordinum</title>
+<meta name="description" content="Deine bisherigen Testergebnisse bei Ordinum, gespeichert nur in deinem Browser.">
+<meta name="robots" content="noindex">
 <meta name="theme-color" content="#0a0d0c">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="stylesheet" href="fonts.css">
@@ -245,7 +246,7 @@ footer nav{display:flex;gap:20px}
 @media (max-width:440px){.nav-links{gap:12px}.nav-links .txt{font-size:14px}}
 @media (max-width:400px){.nav-links .btn{display:none}}
 @media print{
-  :root{--bg:#fff;--surface:#fff;--green:#2f7a52;--line:#d5dbd8;--fg:#111;--muted:#555;--violet:#5b4a99;--violet-soft:#5b4a99;color-scheme:light}
+  :root{--bg:#fff;--surface:#fff;--line:#d5dbd8;--fg:#111;--muted:#555;--violet:#5b4a99;--violet-soft:#5b4a99;color-scheme:light}
   .nav,footer,.save-box,.cta-box,#start,#quiz{display:none!important}
   .test-wrap{padding:0}
   .grad{color:#111;background:none}
@@ -253,6 +254,22 @@ footer nav{display:flex;gap:20px}
   .trait p.desc{color:#222}
   .tbar .fill,.tbar .track{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
+.rlist{display:grid;gap:18px;margin-top:36px}
+.rcard{border:1px solid var(--line);border-radius:20px;padding:clamp(20px,4vw,28px);background:linear-gradient(160deg,rgba(143,209,169,.05),rgba(185,163,242,.07)),var(--surface);display:grid;gap:18px}
+.rhead{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.rhead h2{font-family:var(--body);font-weight:600;font-size:20px;letter-spacing:0;margin-top:6px}
+.ract{display:flex;gap:10px;flex-wrap:wrap}
+.ract .btn{padding:9px 16px;font-size:14px}
+.mbars{display:grid;gap:8px}
+.mbar{display:grid;grid-template-columns:12em 1fr 2.4em;gap:12px;align-items:center;font-size:14px}
+.mbar .track{height:6px;border-radius:6px;background:var(--line);overflow:hidden}
+.mbar .fill{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--green),var(--violet))}
+.mbar .v{font-family:var(--mono);font-size:13px;text-align:right;font-variant-numeric:tabular-nums}
+@media (max-width:520px){.mbar{grid-template-columns:1fr 2.4em}.mbar .n{grid-column:1 / -1}}
+.empty{margin-top:36px;border:1px dashed var(--line);border-radius:20px;padding:28px;display:grid;gap:14px}
+.empty p{color:var(--muted)}
+.linkbtn{background:none;border:0;padding:0;font:inherit;color:var(--muted);text-decoration:underline;cursor:pointer}
+.linkbtn:hover{color:var(--fg)}
 </style>
 </head>
 <body>
@@ -343,51 +360,18 @@ footer nav{display:flex;gap:20px}
   </div>
 </header>
 <main class="test-wrap">
-  <section id="start" class="intro" style="border:0;padding:0">
-    <p class="eyebrow">Persönlichkeitstest · Big Five</p>
-    <h1>Wie tickst du <span class="grad">wirklich</span>?</h1>
-    <p>50 kurze Aussagen über dich. Antworte spontan und so, wie du meistens bist, nicht wie du gern wärst. Es gibt keine richtigen oder falschen Antworten.</p>
-    <div class="meta-row"><span>ca. 8 Minuten</span><span>50 Aussagen</span><span>Auswertung sofort</span><span>Antworten bleiben in deinem Browser</span></div>
-    <div class="cta-row"><button class="btn primary" id="go" type="button">Test starten</button><button class="btn" id="resume" type="button" hidden>Weitermachen</button></div>
+  <section class="intro" style="border:0;padding:0">
+    <p class="eyebrow">Meine Ergebnisse</p>
+    <h1>Deine <span class="grad">Ergebnisse</span></h1>
+    <p>Hier findest du alle Tests, die du in diesem Browser gemacht hast. Sie werden nur auf deinem Gerät gespeichert, nicht bei uns. Für andere Geräte nutzt du den persönlichen Link, den du bei jedem Ergebnis kopieren oder dir per E-Mail schicken kannst.</p>
   </section>
-
-  <section id="quiz" hidden style="border:0;padding:0">
-    <div class="progress"><span id="bar"></span></div>
-    <div class="pcount"><span id="count">Aussage 1 von 50</span><span class="keyhint">Tasten 1–5 gehen auch</span></div>
-    <div class="qcard">
-      <p class="qtext" id="qtext" aria-live="polite"></p>
-      <div class="opts" id="opts" role="group" aria-label="Antwort"></div>
-      <div class="nav-row"><button class="btn" id="back" type="button">Zurück</button></div>
-    </div>
-  </section>
-
-  <section id="result" hidden style="border:0;padding:0">
-    <div class="res-head">
-      <p class="eyebrow">Dein Ergebnis</p>
-      <h1>Dein Persönlichkeitsprofil</h1>
-      <p class="muted">Die Werte zeigen, wie stark jede Eigenschaft bei dir ausgeprägt ist, auf einer Skala von 0 bis 100. Kein Wert ist besser oder schlechter: Jede Ausprägung hat ihre Stärken.</p>
-      <p class="res-date" id="resdate"></p>
-    </div>
-    <div id="traits"></div>
-    <div class="save-box">
-      <h3>Dein Ergebnis wiederfinden</h3>
-      <p id="savetext">Dein Ergebnis ist in diesem Browser unter „Meine Ergebnisse“ gespeichert. Damit du es auch auf anderen Geräten wiederfindest, oder nachdem du deine Browserdaten gelöscht hast, speichere dir deinen persönlichen Link oder ein PDF.</p>
-      <div class="cta-row">
-        <button class="btn primary" id="copylink" type="button">Link kopieren</button>
-        <a class="btn" id="maillink" href="#">Per E-Mail an mich</a>
-        <button class="btn" id="pdf" type="button">Als PDF speichern</button>
-        <button class="btn" id="keep" type="button" hidden>Auf diesem Gerät speichern</button>
-      </div>
-      <p class="toast" id="toast" aria-live="polite"></p>
-      <p class="fine">Wer deinen persönlichen Link kennt, kann dein Ergebnis sehen. Gib ihn also nur weiter, wenn du das möchtest. <a href="meine-ergebnisse.html">Alle meine Ergebnisse</a></p>
-    </div>
-    <div class="cta-box">
-      <h3>Das ist erst der Anfang.</h3>
-      <p>Bald verbindet dein persönlicher Ordinum-Bericht dieses Ergebnis mit deinen Stärken, Werten und deiner Motivation zu einem ausführlichen Bild von dir.</p>
-      <div class="cta-row"><a class="btn primary" href="index.html#warteliste">Auf die Warteliste</a><button class="btn" id="again" type="button">Test neu starten</button></div>
-    </div>
-    <p class="fine">Grundlage: IPIP Big-Five Factor Markers (Goldberg, 1992), International Personality Item Pool. Die Werte sind Ausprägungen auf der Antwortskala, noch keine Vergleichswerte mit einer Bevölkerungsstichprobe. Ordinum dient der Selbsterkenntnis und ersetzt keine psychologische Diagnostik.</p>
-  </section>
+  <div class="rlist" id="list"></div>
+  <div class="empty" id="empty" hidden>
+    <h3 style="font-size:22px">Noch keine Ergebnisse auf diesem Gerät</h3>
+    <p>Du hast einen persönlichen Link gespeichert? Öffne ihn einfach, dann siehst du dein Ergebnis wieder und kannst es hier ablegen.</p>
+    <div class="cta-row"><a class="btn primary" href="persoenlichkeitstest.html">Persönlichkeitstest machen</a></div>
+  </div>
+  <p class="fine" id="clearrow" hidden><button class="linkbtn" id="clear" type="button">Alle Ergebnisse von diesem Gerät löschen</button></p>
 </main>
 <footer>
   <div class="wrap">
@@ -396,123 +380,51 @@ footer nav{display:flex;gap:20px}
   </div>
 </footer>
 <script>
-var ITEMS = [{"t": "Ich bringe Stimmung in jede Party.", "f": "E", "k": 1}, {"t": "Ich mache mir wenig Gedanken um andere.", "f": "A", "k": -1}, {"t": "Ich bin immer gut vorbereitet.", "f": "C", "k": 1}, {"t": "Ich gerate leicht in Stress.", "f": "S", "k": -1}, {"t": "Ich habe einen großen Wortschatz.", "f": "O", "k": 1}, {"t": "Ich rede nicht viel.", "f": "E", "k": -1}, {"t": "Ich interessiere mich für Menschen.", "f": "A", "k": 1}, {"t": "Ich lasse meine Sachen herumliegen.", "f": "C", "k": -1}, {"t": "Ich bin meistens entspannt.", "f": "S", "k": 1}, {"t": "Es fällt mir schwer, abstrakte Ideen zu verstehen.", "f": "O", "k": -1}, {"t": "Ich fühle mich unter Menschen wohl.", "f": "E", "k": 1}, {"t": "Ich beleidige andere.", "f": "A", "k": -1}, {"t": "Ich achte auf Details.", "f": "C", "k": 1}, {"t": "Ich mache mir viele Sorgen.", "f": "S", "k": -1}, {"t": "Ich habe eine lebhafte Fantasie.", "f": "O", "k": 1}, {"t": "Ich halte mich im Hintergrund.", "f": "E", "k": -1}, {"t": "Ich habe Mitgefühl mit den Gefühlen anderer.", "f": "A", "k": 1}, {"t": "Ich vermassle Dinge.", "f": "C", "k": -1}, {"t": "Ich bin selten niedergeschlagen.", "f": "S", "k": 1}, {"t": "Abstrakte Ideen interessieren mich nicht.", "f": "O", "k": -1}, {"t": "Ich fange Gespräche an.", "f": "E", "k": 1}, {"t": "Die Probleme anderer interessieren mich nicht.", "f": "A", "k": -1}, {"t": "Ich erledige Aufgaben sofort.", "f": "C", "k": 1}, {"t": "Ich lasse mich leicht aus der Ruhe bringen.", "f": "S", "k": -1}, {"t": "Ich habe hervorragende Ideen.", "f": "O", "k": 1}, {"t": "Ich habe wenig zu sagen.", "f": "E", "k": -1}, {"t": "Ich habe ein weiches Herz.", "f": "A", "k": 1}, {"t": "Ich vergesse oft, Dinge an ihren Platz zurückzulegen.", "f": "C", "k": -1}, {"t": "Ich rege mich leicht auf.", "f": "S", "k": -1}, {"t": "Ich habe wenig Fantasie.", "f": "O", "k": -1}, {"t": "Auf Partys rede ich mit vielen verschiedenen Leuten.", "f": "E", "k": 1}, {"t": "Ich interessiere mich nicht wirklich für andere.", "f": "A", "k": -1}, {"t": "Ich mag Ordnung.", "f": "C", "k": 1}, {"t": "Meine Stimmung wechselt oft.", "f": "S", "k": -1}, {"t": "Ich verstehe Dinge schnell.", "f": "O", "k": 1}, {"t": "Ich ziehe ungern Aufmerksamkeit auf mich.", "f": "E", "k": -1}, {"t": "Ich nehme mir Zeit für andere.", "f": "A", "k": 1}, {"t": "Ich drücke mich vor meinen Pflichten.", "f": "C", "k": -1}, {"t": "Ich habe häufig Stimmungsschwankungen.", "f": "S", "k": -1}, {"t": "Ich benutze schwierige Wörter.", "f": "O", "k": 1}, {"t": "Es macht mir nichts aus, im Mittelpunkt zu stehen.", "f": "E", "k": 1}, {"t": "Ich spüre, was andere fühlen.", "f": "A", "k": 1}, {"t": "Ich halte mich an einen Zeitplan.", "f": "C", "k": 1}, {"t": "Ich bin schnell gereizt.", "f": "S", "k": -1}, {"t": "Ich nehme mir Zeit, über Dinge nachzudenken.", "f": "O", "k": 1}, {"t": "Unter Fremden bin ich still.", "f": "E", "k": -1}, {"t": "Bei mir fühlen sich andere wohl.", "f": "A", "k": 1}, {"t": "Ich arbeite sehr genau.", "f": "C", "k": 1}, {"t": "Ich bin oft niedergeschlagen.", "f": "S", "k": -1}, {"t": "Ich stecke voller Ideen.", "f": "O", "k": 1}];
-var TEXTS = {"E": {"name": "Extraversion", "what": "Wie sehr du Energie aus Kontakt, Austausch und Aktivität ziehst.", "low": "Du bist eher zurückhaltend und tankst in ruhigen Momenten oder kleinen Runden auf. Das heißt nicht schüchtern: Du wählst einfach bewusster, wann und mit wem du redest.", "mid": "Du bist gern unter Menschen, brauchst aber auch Zeit für dich. Je nach Situation kannst du gesellig oder ruhig sein, und genau diese Flexibilität ist eine Stärke.", "high": "Du blühst im Austausch auf. Neue Leute, Gespräche und gemeinsame Aktivitäten geben dir Energie, und andere erleben dich oft als offen und ansteckend."}, "A": {"name": "Verträglichkeit", "what": "Wie sehr du auf Harmonie, Mitgefühl und Kooperation ausgerichtet bist.", "low": "Du bist direkt und lässt dich nicht leicht vereinnahmen. Du vertrittst deinen Standpunkt, auch wenn es unbequem wird, und schaust kritisch auf das, was andere wollen.", "mid": "Du bist hilfsbereit und rücksichtsvoll, kannst aber auch klar Nein sagen. Du findest meist eine gute Balance zwischen deinen Bedürfnissen und denen anderer.", "high": "Du bist warmherzig, mitfühlend und kooperativ. Andere fühlen sich bei dir gut aufgehoben. Achte darauf, dass deine eigenen Bedürfnisse dabei nicht zu kurz kommen."}, "C": {"name": "Gewissenhaftigkeit", "what": "Wie organisiert, zuverlässig und zielstrebig du an Aufgaben gehst.", "low": "Du bist spontan und flexibel und lässt dich ungern in starre Pläne pressen. Struktur hilft dir vor allem dann, wenn sie leicht ist und Spielraum lässt.", "mid": "Du kannst planvoll arbeiten, wenn es darauf ankommt, bleibst aber offen für Spontanes. Bei Dingen, die dir wichtig sind, bist du verlässlich.", "high": "Du bist organisiert, gründlich und zuverlässig. Pläne und Ordnung geben dir Halt. Erlaube dir ab und zu, Dinge auch einfach gut genug sein zu lassen."}, "S": {"name": "Emotionale Stabilität", "what": "Wie gelassen du mit Stress, Sorgen und Stimmungsschwankungen umgehst.", "low": "Du nimmst Gefühle intensiv wahr und reagierst feinfühlig auf Stress. Diese Sensibilität hat auch eine Kehrseite: Gezielte Erholung und Strategien gegen Grübeln können dir viel Last abnehmen.", "mid": "Meist bleibst du gelassen, aber in belastenden Phasen merkst du Stress deutlich. Du kennst beide Seiten, das macht dich verständnisvoll für andere.", "high": "Du bleibst auch unter Druck meist ruhig und findest schnell wieder ins Gleichgewicht. Das macht dich für andere zu einem stabilen Gegenüber."}, "O": {"name": "Offenheit & Intellekt", "what": "Wie neugierig du auf Ideen, Fantasie und gedankliche Herausforderungen bist.", "low": "Du bist bodenständig und praktisch. Du schätzt Bewährtes und konzentrierst dich lieber auf das Konkrete als auf abstrakte Gedankenspiele.", "mid": "Du bist offen für neue Ideen, ohne den Boden zu verlieren. Du interessierst dich für Neues, wenn du einen Sinn darin siehst.", "high": "Du bist neugierig, fantasievoll und denkst gern in Möglichkeiten. Neue Ideen und komplexe Fragen geben dir Energie."}};
-var ORDER = ["E", "A", "C", "S", "O"];
-var SCALE = ["trifft gar nicht zu", "trifft eher nicht zu", "teils, teils", "trifft eher zu", "trifft voll zu"];
-var KEY = 'ordinum-ipip50';
-var HIST = 'ordinum-ergebnisse', ABC = 'abcdefghijklmnopqrstuvwxy';
-var ans = new Array(ITEMS.length).fill(null), cur = 0, curLink = '';
+var HIST = 'ordinum-ergebnisse', KEY = 'ordinum-ipip50', ABC = 'abcdefghijklmnopqrstuvwxy';
+var TESTS = {big5: {name: 'Persönlichkeitstest · Big Five', page: 'persoenlichkeitstest.html', order: ['E','A','C','S','O'],
+  names: {E:'Extraversion', A:'Verträglichkeit', C:'Gewissenhaftigkeit', S:'Emotionale Stabilität', O:'Offenheit & Intellekt'}}};
 function $(id){ return document.getElementById(id); }
-function save(){ try{ localStorage.setItem(KEY, JSON.stringify(ans)); }catch(e){} }
-function load(){ try{ var a = JSON.parse(localStorage.getItem(KEY)); if (Array.isArray(a) && a.length === ITEMS.length) return a; }catch(e){} return null; }
-// Persönlicher Link: je zwei Antworten (1–5) werden zu einem Buchstaben a–y, plus Datum: #r=<25 Zeichen>-JJJJMMTT
-function encode(a){ var s = ''; for (var i = 0; i < a.length; i += 2) s += ABC[(a[i]-1)*5 + (a[i+1]-1)]; return s; }
-function decode(c){ var a = []; for (var i = 0; i < c.length; i++){ var n = ABC.indexOf(c[i]); a.push(Math.floor(n/5)+1, n%5+1); } return a; }
-function parseHash(){ var m = /^#r=([a-y]{25})(?:-(\d{8}))?$/.exec(location.hash); return m ? {code:m[1], date:m[2] || null} : null; }
-function today(){ var d = new Date(); return '' + d.getFullYear() + String(d.getMonth()+1).padStart(2,'0') + String(d.getDate()).padStart(2,'0'); }
-function fmtDate(s){ return new Date(+s.slice(0,4), +s.slice(4,6)-1, +s.slice(6,8)).toLocaleDateString('de-DE', {day:'numeric', month:'long', year:'numeric'}); }
 function loadHist(){ try{ var h = JSON.parse(localStorage.getItem(HIST)); if (Array.isArray(h)) return h; }catch(e){} return []; }
-function saveHist(h){ try{ localStorage.setItem(HIST, JSON.stringify(h.slice(0,50))); }catch(e){} }
-function findHist(code){ return loadHist().filter(function(r){ return r.code === code; })[0] || null; }
-function addHist(code, date){ var h = loadHist(); if (h.some(function(r){ return r.code === code; })) return; h.unshift({test:'big5', date:date, code:code, scores:scores(decode(code))}); saveHist(h); }
-function scores(a){
-  var sums = {}, n = {}, out = {};
-  ITEMS.forEach(function(it, i){
-    var v = a[i]; if (v == null) return;
-    var s = it.k === 1 ? v : 6 - v;
-    sums[it.f] = (sums[it.f]||0) + s; n[it.f] = (n[it.f]||0) + 1;
-  });
-  ORDER.forEach(function(f){ out[f] = Math.round((sums[f] / n[f] - 1) / 4 * 100); });
-  return out;
+function saveHist(h){ try{ localStorage.setItem(HIST, JSON.stringify(h)); }catch(e){} }
+function fmtDate(s){ return new Date(+s.slice(0,4), +s.slice(4,6)-1, +s.slice(6,8)).toLocaleDateString('de-DE', {day:'numeric', month:'long', year:'numeric'}); }
+function encode(a){ var s = ''; for (var i = 0; i < a.length; i += 2) s += ABC[(a[i]-1)*5 + (a[i+1]-1)]; return s; }
+// Gespeicherten Testfortschritt mitlöschen, sonst trägt die Testseite das Ergebnis wieder ein
+function dropProgress(code){
+  try{ var a = JSON.parse(localStorage.getItem(KEY)); if (Array.isArray(a) && a.indexOf(null) < 0 && (code == null || encode(a) === code)) localStorage.removeItem(KEY); }catch(e){}
 }
-function toast(t){ $('toast').textContent = t; }
-function show(id){ ['start','quiz','result'].forEach(function(s){ $(s).hidden = s !== id; }); window.scrollTo(0,0); }
 function render(){
-  var it = ITEMS[cur];
-  $('qtext').textContent = it.t;
-  $('count').textContent = 'Aussage ' + (cur+1) + ' von ' + ITEMS.length;
-  $('bar').style.width = (cur/ITEMS.length*100) + '%';
-  var o = $('opts'); o.innerHTML = '';
-  SCALE.forEach(function(lbl, i){
-    var b = document.createElement('button');
-    b.type = 'button'; b.className = 'opt'; b.id = 'opt-' + (i+1);
-    b.setAttribute('aria-pressed', ans[cur] === i+1 ? 'true' : 'false');
-    b.innerHTML = '<kbd>' + (i+1) + '</kbd><span></span>';
-    b.lastChild.textContent = lbl;
-    b.addEventListener('click', function(){ pick(i+1); });
-    o.appendChild(b);
+  var h = loadHist(), list = $('list'); list.innerHTML = '';
+  $('empty').hidden = h.length > 0; $('clearrow').hidden = h.length === 0;
+  h.forEach(function(r){
+    var T = TESTS[r.test]; if (!T) return;
+    var el = document.createElement('article'); el.className = 'rcard';
+    el.innerHTML = '<div class="rhead"><div><p class="eyebrow"></p><h2></h2></div><div class="ract"><a class="btn primary">Ansehen</a><button class="btn" type="button">Löschen</button></div></div><div class="mbars"></div>';
+    el.querySelector('.eyebrow').textContent = T.name;
+    el.querySelector('h2').textContent = 'Ergebnis vom ' + fmtDate(r.date);
+    el.querySelector('a').href = T.page + '#r=' + r.code + '-' + r.date;
+    el.querySelector('button').addEventListener('click', function(){
+      if (!confirm('Dieses Ergebnis von diesem Gerät löschen?')) return;
+      saveHist(loadHist().filter(function(x){ return x.code !== r.code; }));
+      dropProgress(r.code); render();
+    });
+    var bars = el.querySelector('.mbars');
+    T.order.forEach(function(f){
+      var row = document.createElement('div'); row.className = 'mbar';
+      row.innerHTML = '<span class="n"></span><span class="track"><span class="fill"></span></span><span class="v"></span>';
+      row.querySelector('.n').textContent = T.names[f];
+      row.querySelector('.fill').style.width = r.scores[f] + '%';
+      row.querySelector('.v').textContent = r.scores[f];
+      bars.appendChild(row);
+    });
+    list.appendChild(el);
   });
-  $('back').disabled = cur === 0;
 }
-function pick(v){
-  ans[cur] = v; save();
-  if (cur < ITEMS.length - 1) { cur++; render(); }
-  else results();
-}
-// linkDate gesetzt: Ergebnis kommt aus einem persönlichen Link und wird nicht automatisch gespeichert
-function results(linkDate){
-  var sc = scores(ans), code = encode(ans), known = findHist(code);
-  if (!known && linkDate === undefined) { addHist(code, today()); known = findHist(code); }
-  var date = linkDate || (known && known.date) || today();
-  history.replaceState(null, '', '#r=' + code + '-' + date);
-  curLink = location.href;
-  $('resdate').textContent = 'Ergebnis vom ' + fmtDate(date);
-  $('keep').hidden = !!known;
-  $('keep').onclick = function(){ addHist(code, date); $('keep').hidden = true; toast('Gespeichert. Du findest es jetzt unter „Meine Ergebnisse“.'); };
-  $('savetext').hidden = !known;
-  $('maillink').href = 'mailto:?subject=' + encodeURIComponent('Mein Ordinum-Persönlichkeitsprofil') + '&body=' + encodeURIComponent('Mein Ergebnis im Ordinum-Persönlichkeitstest vom ' + fmtDate(date) + ':\n' + curLink);
-  toast('');
-  var box = $('traits'); box.innerHTML = '';
-  ORDER.forEach(function(f){
-    var score = sc[f];
-    var lv = score < 40 ? 'low' : score > 60 ? 'high' : 'mid';
-    var lvName = {low:'eher niedrig', mid:'mittel', high:'eher hoch'}[lv];
-    var T = TEXTS[f], el = document.createElement('div');
-    el.className = 'trait';
-    el.innerHTML = '<div class="trait-top"><h2></h2><span class="lvl"></span></div>' +
-      '<div class="tbar"><span class="track"><span class="fill"></span></span><span class="v"></span></div>' +
-      '<p class="what"></p><p class="desc"></p>';
-    el.querySelector('h2').textContent = T.name;
-    el.querySelector('.lvl').textContent = lvName;
-    el.querySelector('.fill').style.width = score + '%';
-    el.querySelector('.v').textContent = score;
-    el.querySelector('.what').textContent = T.what;
-    el.querySelector('.desc').textContent = T[lv];
-    box.appendChild(el);
-  });
-  show('result');
-}
-function restart(){ ans = new Array(ITEMS.length).fill(null); cur = 0; save(); history.replaceState(null, '', location.pathname); show('quiz'); render(); }
-$('go').addEventListener('click', restart);
-$('resume').addEventListener('click', function(){ cur = ans.indexOf(null); if (cur < 0) { results(); return; } show('quiz'); render(); });
-$('back').addEventListener('click', function(){ if (cur > 0) { cur--; render(); } });
-$('again').addEventListener('click', restart);
-$('copylink').addEventListener('click', function(){
-  var done = function(){ toast('Link kopiert. Speicher ihn dir zum Beispiel als Lesezeichen oder in deinen Notizen.'); };
-  if (navigator.clipboard) navigator.clipboard.writeText(curLink).then(done, function(){ window.prompt('Dein persönlicher Link:', curLink); });
-  else window.prompt('Dein persönlicher Link:', curLink);
+$('clear').addEventListener('click', function(){
+  if (!confirm('Wirklich alle Ergebnisse von diesem Gerät löschen? Persönliche Links, die du gespeichert hast, funktionieren weiterhin.')) return;
+  try{ localStorage.removeItem(HIST); }catch(e){}
+  dropProgress(null); render();
 });
-$('pdf').addEventListener('click', function(){ window.print(); });
-document.addEventListener('keydown', function(e){
-  if ($('quiz').hidden) return;
-  var k = parseInt(e.key, 10);
-  if (k >= 1 && k <= 5) pick(k);
-  else if (e.key === 'Backspace' || e.key === 'ArrowLeft') { if (cur > 0) { cur--; render(); } }
-});
-function route(){
-  var r = parseHash();
-  if (r) { ans = decode(r.code); results(r.date); return true; }
-  return false;
-}
-window.addEventListener('hashchange', function(){ if (!location.hash.indexOf('#r=')) route(); });
-(function(){
-  var a = load();
-  // Ergebnisse von vor der Ergebnisliste nachtragen
-  if (a && a.indexOf(null) < 0) addHist(encode(a), today());
-  if (route()) return;
-  if (a && a.some(function(x){ return x != null; })) { ans = a; $('resume').hidden = false; $('resume').textContent = a.indexOf(null) < 0 ? 'Letztes Ergebnis ansehen' : 'Weitermachen'; }
-})();
+render();
 </script>
 </body>
 </html>

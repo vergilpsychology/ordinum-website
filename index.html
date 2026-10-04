@@ -179,9 +179,8 @@ section{padding-block:clamp(64px,9vw,112px);border-bottom:1px solid var(--line)}
 .articles{display:grid;gap:0;margin-top:6px}
 .articles a{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-top:1px solid var(--line);text-decoration:none;transition:color .2s}
 .articles a:hover{color:var(--violet)}
-.articles .soon{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-top:1px solid var(--line);color:var(--muted)}
-.articles .soon span:last-child{font-family:var(--mono);font-size:12px;white-space:nowrap}
-.articles span:last-child{font-family:var(--mono);font-size:12px;color:var(--muted);white-space:nowrap}
+.articles .later{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-top:1px solid var(--line);color:var(--muted)}
+.articles > * > span:last-child{font-family:var(--mono);font-size:12px;color:var(--muted);white-space:nowrap}
 
 /* trust */
 .trust{display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid var(--line)}
@@ -299,6 +298,7 @@ footer nav{display:flex;gap:20px}
       <li><a href="#bericht">Dein Bericht</a></li>
       <li><a href="#wissen">Wissen</a></li>
       <li><a href="#preise">Preise</a></li>
+      <li><a href="meine-ergebnisse.html">Meine Ergebnisse</a></li>
     </ul>
     <a class="btn primary" href="#warteliste">Warteliste</a>
   </div>
@@ -465,8 +465,8 @@ footer nav{display:flex;gap:20px}
         <div class="articles">
           <a href="wissen/big-five.html"><span>Die Big Five einfach erklärt</span><span>8 Min</span></a>
           <a href="wissen/introvertiert-extravertiert.html"><span>Introvertiert heißt nicht schüchtern</span><span>7 Min</span></a>
-          <span class="soon"><span>Warum Flow kein Zufall ist</span><span>bald</span></span>
-          <span class="soon"><span>Aufschieben ist ein Gefühlsproblem, kein Zeitproblem</span><span>bald</span></span>
+          <span class="later"><span>Warum Flow kein Zufall ist</span><span>bald</span></span>
+          <span class="later"><span>Aufschieben ist ein Gefühlsproblem, kein Zeitproblem</span><span>bald</span></span>
         </div>
       </div>
     </div>
@@ -540,7 +540,7 @@ footer nav{display:flex;gap:20px}
 <footer>
   <div class="wrap">
     <span>© 2026 Ordinum · Psychologie zum Selbstverstehen. Keine Diagnostik oder Therapie.</span>
-    <nav><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></nav>
+    <nav><a href="meine-ergebnisse.html">Meine Ergebnisse</a><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></nav>
   </div>
 </footer>
 
