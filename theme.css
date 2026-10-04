@@ -1,8 +1,8 @@
 /* Light Mode: wird aktiv, wenn <html data-theme="light"> gesetzt ist (Umschalter in theme.js). */
 :root[data-theme="light"]{
-  --bg:#f4f5f1;
+  --bg:#e6e9e3;
   --surface:#ffffff;
-  --line:#dde3de;
+  --line:#d3dad4;
   --fg:#151b18;
   --muted:#5a6762;
   --green:var(--green-l,#2b8257);
@@ -47,10 +47,17 @@
 :root[data-theme="light"] .lead{color:var(--fg)}
 
 /* Flächen */
-:root[data-theme="light"] .nav{background:rgba(244,245,241,.82)}
-:root[data-theme="light"] .hero::after{background:radial-gradient(ellipse at 25% 45%,rgba(244,245,241,.7) 0,rgba(244,245,241,.3) 45%,transparent 70%)}
-:root[data-theme="light"] #liquid{opacity:.55}
-:root[data-theme="light"] .tint{background:linear-gradient(180deg,rgba(43,130,87,.05),rgba(102,80,189,.06)),#eef1ec}
+:root[data-theme="light"] .nav{background:rgba(230,233,227,.8)}
+:root[data-theme="light"] .hero::after{background:radial-gradient(ellipse at 25% 45%,rgba(230,233,227,.5) 0,rgba(230,233,227,.15) 45%,transparent 70%)}
+/* Verlauf im Hero: auf hellem Grund kräftiger und satter, damit der Effekt sichtbar bleibt */
+:root[data-theme="light"] #liquid{opacity:1;filter:blur(46px) saturate(2.4) brightness(.78);mix-blend-mode:multiply}
+:root[data-theme="light"] #lines{filter:brightness(.55) saturate(1.6);opacity:1}
+:root[data-theme="light"] .pour path{fill-opacity:.3}
+:root[data-theme="light"] .pour circle{fill-opacity:.4}
+:root[data-theme="light"] .glow-v::before{background:radial-gradient(ellipse 60% 70% at 85% 30%,rgba(120,90,220,.14),transparent 70%)}
+:root[data-theme="light"] .glow-g::before{background:radial-gradient(ellipse 55% 60% at 50% 70%,rgba(43,150,95,.13),transparent 70%)}
+:root[data-theme="light"] .nb{opacity:.8}
+:root[data-theme="light"] .tint{background:linear-gradient(180deg,rgba(43,130,87,.05),rgba(102,80,189,.06)),#dde2db}
 :root[data-theme="light"] .news-card input{background:rgba(255,255,255,.8)}
 :root[data-theme="light"] .test,
 :root[data-theme="light"] .stepc,
