@@ -206,6 +206,66 @@ footer nav{display:flex;gap:20px}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
 .soon{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--violet);border:1px solid var(--violet-soft);border-radius:999px;padding:6px 14px;width:max-content;max-width:100%}
 .soon::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--violet);box-shadow:0 0 10px var(--violet)}
+
+/* Abwechslung: Sektionen mit eigener Fläche, Icons, Band, Einblenden */
+section{position:relative}
+.glow-v::before,.glow-g::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 70% at 85% 30%,rgba(185,163,242,.09),transparent 70%)}
+.glow-g::before{background:radial-gradient(ellipse 55% 60% at 50% 70%,rgba(143,209,169,.08),transparent 70%)}
+section > .wrap{position:relative}
+.head.center{margin-inline:auto;text-align:center;justify-items:center}
+.head.center .muted{max-width:60ch}
+
+.steps{border-top:0;gap:16px}
+.stepc,.stepc + .stepc{position:relative;padding:28px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(170deg,rgba(255,255,255,.025),transparent 60%),var(--surface);overflow:hidden}
+.stepc .big{font-family:var(--display);font-weight:200;font-size:64px;line-height:1;letter-spacing:-.04em;background:linear-gradient(120deg,var(--green),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent;opacity:.9}
+.stepc:nth-child(2) .big{background:linear-gradient(120deg,#a9c3d6,var(--violet));-webkit-background-clip:text;background-clip:text}
+.stepc:nth-child(3) .big{background:linear-gradient(120deg,var(--violet),var(--green));-webkit-background-clip:text;background-clip:text}
+.stepc::after{content:"";position:absolute;right:-50px;bottom:-60px;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,rgba(185,163,242,.16),transparent 70%)}
+.stepc:nth-child(odd)::after{background:radial-gradient(circle,rgba(143,209,169,.14),transparent 70%)}
+@media (max-width:820px){.stepc,.stepc + .stepc{padding:24px;border:1px solid var(--line)}}
+
+.ico{width:30px;height:30px;fill:none;stroke:var(--green);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.test:nth-child(even) .ico{stroke:var(--violet)}
+.test .ico{margin:4px 0 2px;filter:drop-shadow(0 0 6px rgba(143,209,169,.35))}
+.test:nth-child(even) .ico{filter:drop-shadow(0 0 6px rgba(185,163,242,.4))}
+.live-dot{display:inline-flex;align-items:center;gap:7px}
+.live-dot::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 rgba(143,209,169,.6);animation:pulse 2.4s ease-out infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(143,209,169,.55)}70%{box-shadow:0 0 0 7px rgba(143,209,169,0)}100%{box-shadow:0 0 0 0 rgba(143,209,169,0)}}
+
+.band{overflow:hidden;border-bottom:1px solid var(--line);padding-block:22px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.band-track{display:flex;width:max-content;animation:drift 70s linear infinite}
+.band-track > div{display:flex;gap:44px;padding-right:44px}
+.band span{font-family:var(--display);font-weight:200;font-size:clamp(26px,3.4vw,42px);letter-spacing:-.02em;white-space:nowrap;color:transparent;-webkit-text-stroke:1px rgba(185,163,242,.45)}
+.band span:nth-child(3n+1){-webkit-text-stroke:0;background:linear-gradient(100deg,var(--green),var(--violet));-webkit-background-clip:text;background-clip:text}
+.band span:nth-child(3n+2){-webkit-text-stroke:1px rgba(143,209,169,.45)}
+@keyframes drift{to{transform:translateX(-50%)}}
+
+.tint{background:linear-gradient(180deg,rgba(143,209,169,.035),rgba(185,163,242,.05)),#0d1110}
+.tint::before{content:"";position:absolute;width:520px;height:520px;left:-180px;top:-120px;border-radius:50%;background:radial-gradient(circle,rgba(143,209,169,.10),transparent 65%);pointer-events:none}
+.tint .result{box-shadow:0 30px 80px -30px rgba(185,163,242,.25)}
+
+.pack.feature{box-shadow:0 30px 90px -30px rgba(185,163,242,.35)}
+
+.trust{grid-template-columns:repeat(4,1fr);gap:16px;border-top:0}
+.trust > div,.trust > div:nth-child(even){padding:26px;border:1px solid var(--line);border-radius:20px;background:var(--surface);align-content:start;gap:12px}
+.trust .ico{width:28px;height:28px}
+.trust > div:nth-child(even) .ico{stroke:var(--violet)}
+@media (max-width:1000px){.trust{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.trust{grid-template-columns:1fr}.trust > div,.trust > div:nth-child(even){padding:22px;border:1px solid var(--line)}}
+
+#warteliste{border-bottom:0}
+.news-card{position:relative;overflow:hidden;border-radius:28px;border:1px solid rgba(185,163,242,.28);padding:clamp(28px,5vw,56px);background:linear-gradient(140deg,rgba(143,209,169,.08),rgba(185,163,242,.12)),var(--surface)}
+.news-card .news{position:relative;z-index:1}
+.nb{position:absolute;border-radius:50%;filter:blur(40px);opacity:.55;pointer-events:none;animation:float 18s ease-in-out infinite alternate}
+.nb1{width:280px;height:280px;right:-60px;top:-90px;background:rgba(185,163,242,.45)}
+.nb2{width:220px;height:220px;right:22%;bottom:-120px;background:rgba(143,209,169,.35);animation-duration:22s}
+.nb3{width:160px;height:160px;left:-50px;top:30%;background:rgba(120,220,200,.18);animation-duration:26s}
+@keyframes float{to{transform:translate(-40px,30px) scale(1.12)}}
+.news-card input{background:rgba(10,13,12,.7)}
+
+.js .rv{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+.js .rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.band-track,.nb,.live-dot::before{animation:none}.js .rv{opacity:1;transform:none}}
 </style>
 </head>
 <body>
@@ -331,16 +391,16 @@ footer nav{display:flex;gap:20px}
     <circle cx="536" cy="68" r="3" fill="url(#pourg)" fill-opacity=".18"/>
   </svg>
 
-  <section id="so-gehts" style="padding-top:clamp(40px,6vw,72px)">
+  <section id="so-gehts" class="glow-v" style="padding-top:clamp(40px,6vw,72px)">
     <div class="wrap">
       <div class="head">
         <p class="eyebrow v">So funktioniert Ordinum</p>
         <h2>Mehrere Tests, ein Gesamtbild.</h2>
       </div>
       <div class="steps">
-        <div class="stepc"><span class="n">1 · Testen</span><h3>Wähle, was dich interessiert</h3><p>Jeder Test dauert zwischen 3 und 12 Minuten. Du bekommst sofort ein kurzes Ergebnis.</p></div>
-        <div class="stepc"><span class="n">2 · Sammeln</span><h3>Dein Profil wächst mit</h3><p>Mit jedem Test wird dein Profil genauer. Du siehst, wie Persönlichkeit, Stärken und Werte zusammenhängen.</p></div>
-        <div class="stepc"><span class="n">3 · Verstehen</span><h3>Dein persönlicher Bericht</h3><p>Ordinum verknüpft alle Ergebnisse zu einem Bericht, der deine Muster erklärt und konkrete nächste Schritte vorschlägt.</p></div>
+        <div class="stepc"><span class="big" aria-hidden="true">01</span><span class="n">Testen</span><h3>Wähle, was dich interessiert</h3><p>Jeder Test dauert zwischen 3 und 12 Minuten. Du bekommst sofort ein kurzes Ergebnis.</p></div>
+        <div class="stepc"><span class="big" aria-hidden="true">02</span><span class="n">Sammeln</span><h3>Dein Profil wächst mit</h3><p>Mit jedem Test wird dein Profil genauer. Du siehst, wie Persönlichkeit, Stärken und Werte zusammenhängen.</p></div>
+        <div class="stepc"><span class="big" aria-hidden="true">03</span><span class="n">Verstehen</span><h3>Dein persönlicher Bericht</h3><p>Ordinum verknüpft alle Ergebnisse zu einem Bericht, der deine Muster erklärt und konkrete nächste Schritte vorschlägt.</p></div>
       </div>
     </div>
   </section>
@@ -359,19 +419,21 @@ footer nav{display:flex;gap:20px}
         <button class="chip" id="fl-new" data-f="new" aria-pressed="false">Neu</button>
       </div>
       <div class="tests" id="testgrid">
-        <a class="test live" data-tags="free" href="persoenlichkeitstest.html"><div class="meta"><span>8 Min · 50 Fragen</span><span class="badge free">Jetzt verfügbar</span></div><h3>Persönlichkeit</h3><p>Deine Ausprägung in den Big Five: Offenheit, Gewissenhaftigkeit, Extraversion, Verträglichkeit und emotionale Stabilität.</p><span class="basis">Basis: Big-Five-Marker nach Goldberg, IPIP</span><span class="go">Test starten →</span></a>
-        <a class="test live" data-tags="free new" href="staerkentest.html" style="--c:rgba(185,163,242,.24)"><div class="meta"><span>12 Min · 72 Fragen</span><span class="badge free">Jetzt verfügbar</span></div><h3>Charakterstärken</h3><p>Welche Stärken dich ausmachen und wo du Energie tankst, wenn du sie einsetzt.</p><span class="basis">Basis: Positive Psychologie, IPIP-VIA</span><span class="go">Test starten →</span></a>
-        <article class="test" data-tags="free"><div class="meta"><span>6 Min · 30 Fragen</span><span class="badge free">Gratis</span></div><h3>Werte</h3><p>Was dir im Leben wirklich wichtig ist, von Freiheit über Sicherheit bis Verbundenheit.</p><span class="basis">Basis: Wertetheorie nach Schwartz</span></article>
-        <article class="test" data-tags="short new" style="--c:rgba(185,163,242,.24)"><div class="meta"><span>5 Min · 20 Fragen</span><span class="badge new">Neu</span></div><h3>Flow-Profil</h3><p>Wann du in den Flow kommst und was dich zuverlässig rausholt.</p><span class="basis">Basis: Flow-Theorie nach Csikszentmihalyi</span></article>
-        <article class="test" data-tags="free short"><div class="meta"><span>5 Min · 18 Fragen</span><span class="badge free">Gratis</span></div><h3>Motivation</h3><p>Wie stark dich Autonomie, Kompetenz und Verbundenheit antreiben.</p><span class="basis">Basis: Selbstbestimmungstheorie</span></article>
-        <article class="test" data-tags="" style="--c:rgba(185,163,242,.24)"><div class="meta"><span>7 Min · 28 Fragen</span><span class="badge">Plus</span></div><h3>Stress &amp; Resilienz</h3><p>Deine typischen Stressmuster und die Ressourcen, die dich wieder stabil machen.</p><span class="basis">Basis: Transaktionales Stressmodell</span></article>
-        <article class="test" data-tags="free short"><div class="meta"><span>3 Min · 12 Fragen</span><span class="badge free">Gratis</span></div><h3>Chronotyp</h3><p>Morgenmensch, Abendmensch oder dazwischen, und wann dein Kopf am klarsten ist.</p><span class="basis">Basis: Chronobiologie</span></article>
-        <article class="test" data-tags="new" style="--c:rgba(185,163,242,.24)"><div class="meta"><span>6 Min · 24 Fragen</span><span class="badge new">Neu</span></div><h3>Emotionen</h3><p>Wie du mit Gefühlen umgehst und welche Strategien dir guttun.</p><span class="basis">Basis: Emotionsregulation nach Gross</span></article>
+        <a class="test live" data-tags="free" href="persoenlichkeitstest.html"><div class="meta"><span>8 Min · 50 Fragen</span><span class="badge free live-dot">Jetzt verfügbar</span></div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="4.5" r="1.6"/><circle cx="19.5" cy="10" r="1.6"/><circle cx="16.6" cy="18.8" r="1.6"/><circle cx="7.4" cy="18.8" r="1.6"/><circle cx="4.5" cy="10" r="1.6"/><path d="M12 12 12 6M12 12l6-1.6M12 12l3.6 5.4M12 12l-3.6 5.4M12 12 6 10.4"/></svg><h3>Persönlichkeit</h3><p>Deine Ausprägung in den Big Five: Offenheit, Gewissenhaftigkeit, Extraversion, Verträglichkeit und emotionale Stabilität.</p><span class="basis">Basis: Big-Five-Marker nach Goldberg, IPIP</span><span class="go">Test starten →</span></a>
+        <a class="test live" data-tags="free new" href="staerkentest.html" style="--c:rgba(185,163,242,.24)"><div class="meta"><span>12 Min · 72 Fragen</span><span class="badge free live-dot">Jetzt verfügbar</span></div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c.6 4.6 2.4 6.4 7 7-4.6.6-6.4 2.4-7 7-.6-4.6-2.4-6.4-7-7 4.6-.6 6.4-2.4 7-7Z"/><path d="M19 16.5c.3 1.6.9 2.2 2.5 2.5-1.6.3-2.2.9-2.5 2.5-.3-1.6-.9-2.2-2.5-2.5 1.6-.3 2.2-.9 2.5-2.5Z"/></svg><h3>Charakterstärken</h3><p>Welche Stärken dich ausmachen und wo du Energie tankst, wenn du sie einsetzt.</p><span class="basis">Basis: Positive Psychologie, IPIP-VIA</span><span class="go">Test starten →</span></a>
+        <article class="test" data-tags="free"><div class="meta"><span>6 Min · 30 Fragen</span><span class="badge free">Gratis</span></div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="m15.5 8.5-2.2 4.8-4.8 2.2 2.2-4.8 4.8-2.2Z"/></svg><h3>Werte</h3><p>Was dir im Leben wirklich wichtig ist, von Freiheit über Sicherheit bis Verbundenheit.</p><span class="basis">Basis: Wertetheorie nach Schwartz</span></article>
+        <article class="test" data-tags="short new" style="--c:rgba(185,163,242,.24)"><div class="meta"><span>5 Min · 20 Fragen</span><span class="badge new">Neu</span></div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9c3-3 6 3 9 0s6 3 9 0M3 15c3-3 6 3 9 0s6 3 9 0"/></svg><h3>Flow-Profil</h3><p>Wann du in den Flow kommst und was dich zuverlässig rausholt.</p><span class="basis">Basis: Flow-Theorie nach Csikszentmihalyi</span></article>
+        <article class="test" data-tags="free short"><div class="meta"><span>5 Min · 18 Fragen</span><span class="badge free">Gratis</span></div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20V5M6.5 10.5 12 5l5.5 5.5"/><path d="M5 20h14"/></svg><h3>Motivation</h3><p>Wie stark dich Autonomie, Kompetenz und Verbundenheit antreiben.</p><span class="basis">Basis: Selbstbestimmungstheorie</span></article>
+        <article class="test" data-tags="" style="--c:rgba(185,163,242,.24)"><div class="meta"><span>7 Min · 28 Fragen</span><span class="badge">Plus</span></div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 19 6v5.5c0 4.2-3 7.4-7 9-4-1.6-7-4.8-7-9V6l7-2.5Z"/><path d="M8 12.5h2l1.2-2.5 1.8 5 1.2-2.5H16"/></svg><h3>Stress &amp; Resilienz</h3><p>Deine typischen Stressmuster und die Ressourcen, die dich wieder stabil machen.</p><span class="basis">Basis: Transaktionales Stressmodell</span></article>
+        <article class="test" data-tags="free short"><div class="meta"><span>3 Min · 12 Fragen</span><span class="badge free">Gratis</span></div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 3.8A8.5 8.5 0 1 0 20.2 15 7 7 0 0 1 15.5 3.8Z"/></svg><h3>Chronotyp</h3><p>Morgenmensch, Abendmensch oder dazwischen, und wann dein Kopf am klarsten ist.</p><span class="basis">Basis: Chronobiologie</span></article>
+        <article class="test" data-tags="new" style="--c:rgba(185,163,242,.24)"><div class="meta"><span>6 Min · 24 Fragen</span><span class="badge new">Neu</span></div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5s6.5 7 6.5 11a6.5 6.5 0 0 1-13 0c0-4 6.5-11 6.5-11Z"/><path d="M9.2 15.2a3 3 0 0 0 2.8 2.3"/></svg><h3>Emotionen</h3><p>Wie du mit Gefühlen umgehst und welche Strategien dir guttun.</p><span class="basis">Basis: Emotionsregulation nach Gross</span></article>
       </div>
     </div>
   </section>
 
-  <section id="probieren">
+  <div class="band" aria-hidden="true"><div class="band-track"><div><span>Offenheit</span><span>Neugier</span><span>Mut</span><span>Dankbarkeit</span><span>Werte</span><span>Flow</span><span>Gewissenhaftigkeit</span><span>Humor</span><span>Motivation</span><span>Zuversicht</span><span>Chronotyp</span><span>Kreativität</span><span>Emotionen</span><span>Weitblick</span></div><div><span>Offenheit</span><span>Neugier</span><span>Mut</span><span>Dankbarkeit</span><span>Werte</span><span>Flow</span><span>Gewissenhaftigkeit</span><span>Humor</span><span>Motivation</span><span>Zuversicht</span><span>Chronotyp</span><span>Kreativität</span><span>Emotionen</span><span>Weitblick</span></div></div></div>
+
+  <section id="probieren" class="tint">
     <div class="wrap mini">
       <div>
         <div class="head" style="margin-bottom:24px">
@@ -399,7 +461,7 @@ footer nav{display:flex;gap:20px}
 
   <section id="bericht">
     <div class="wrap">
-      <div class="head">
+      <div class="head center">
         <p class="eyebrow">Dein persönlicher Bericht</p>
         <h2>Nicht fünf Einzelergebnisse, sondern ein Bild von dir.</h2>
         <p class="muted">Der Bericht verbindet alle Tests, die du gemacht hast. Er erklärt, wie deine Eigenschaften zusammenwirken, und wird mit jedem neuen Test vollständiger.</p>
@@ -473,9 +535,9 @@ footer nav{display:flex;gap:20px}
     </div>
   </section>
 
-  <section id="preise">
+  <section id="preise" class="glow-g">
     <div class="wrap">
-      <div class="head">
+      <div class="head center">
         <p class="eyebrow">Preise</p>
         <h2>Gratis starten. Tiefer gehen, wenn du willst.</h2>
       </div>
@@ -505,21 +567,21 @@ footer nav{display:flex;gap:20px}
 
   <section id="haltung">
     <div class="wrap">
-      <div class="head">
+      <div class="head center">
         <p class="eyebrow v">Haltung</p>
         <h2>Ganzheitlich verstehen, fundiert messen.</h2>
       </div>
       <div class="trust">
-        <div><h3>Fundiert</h3><p>Alle Tests beruhen auf anerkannten Modellen der Psychologie. Die Quellen stehen bei jedem Test.</p></div>
-        <div><h3>Keine Schubladen</h3><p>Du bekommst keinen Typ mit vier Buchstaben, sondern Werte auf einem Spektrum, so wie Menschen wirklich sind.</p></div>
-        <div><h3>Deine Daten</h3><p>Testen geht ohne Konto. Gespeichert wird nur, was du speichern willst, und du kannst alles jederzeit löschen.</p></div>
-        <div><h3>Keine Diagnose</h3><p>Ordinum hilft dir, dich zu verstehen. Es ersetzt keine Beratung oder Therapie, wenn es dir nicht gut geht.</p></div>
+        <div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5C6.5 4.5 9.5 4.5 12 6c2.5-1.5 5.5-1.5 8-.5v13c-2.5-1-5.5-1-8 .5-2.5-1.5-5.5-1.5-8-.5v-13Z"/><path d="M12 6v13"/></svg><h3>Fundiert</h3><p>Alle Tests beruhen auf anerkannten Modellen der Psychologie. Die Quellen stehen bei jedem Test.</p></div>
+        <div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17h16"/><path d="M6 17v-3M10 17V9M14 17v-6M18 17V6"/></svg><h3>Keine Schubladen</h3><p>Du bekommst keinen Typ mit vier Buchstaben, sondern Werte auf einem Spektrum, so wie Menschen wirklich sind.</p></div>
+        <div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="9.5" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></svg><h3>Deine Daten</h3><p>Testen geht ohne Konto. Gespeichert wird nur, was du speichern willst, und du kannst alles jederzeit löschen.</p></div>
+        <div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7.5-4.4-7.5-10A4.3 4.3 0 0 1 12 7.4 4.3 4.3 0 0 1 19.5 10c0 5.6-7.5 10-7.5 10Z"/></svg><h3>Keine Diagnose</h3><p>Ordinum hilft dir, dich zu verstehen. Es ersetzt keine Beratung oder Therapie, wenn es dir nicht gut geht.</p></div>
       </div>
     </div>
   </section>
 
   <section id="warteliste">
-    <div class="wrap news">
+    <div class="wrap"><div class="news-card"><span class="nb nb1"></span><span class="nb nb2"></span><span class="nb nb3"></span><div class="news">
       <div>
         <p class="eyebrow">Warteliste</p>
         <h2>Sei dabei, wenn Ordinum startet.</h2>
@@ -534,7 +596,7 @@ footer nav{display:flex;gap:20px}
         <span id="nl-err" class="done" style="color:var(--violet)" hidden></span>
         <span class="note" style="flex-basis:100%">Mit dem Eintragen stimmst du zu, dass wir dir zum Start von Ordinum E-Mails schicken. Abmelden geht jederzeit. Mehr in der <a href="datenschutz.html">Datenschutzerklärung</a>.</span>
       </form>
-    </div>
+    </div></div></div>
   </section>
 </main>
 
@@ -564,6 +626,25 @@ footer nav{display:flex;gap:20px}
       .then(function(){ ok.hidden = false; f.reset(); })
       .catch(function(){ err.textContent = 'Das hat nicht geklappt. Bitte versuch es gleich noch einmal.'; err.hidden = false; })
       .then(function(){ btn.disabled = false; btn.textContent = 'Eintragen'; });
+  });
+})();
+
+// Einblenden beim Scrollen
+(function(){
+  if (!('IntersectionObserver' in window) || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+  var els = document.querySelectorAll('section .head, .stepc, .test, .mini > *, .report, .flowcard, .prose, .pack, .trust > div, .news-card');
+  document.documentElement.classList.add('js');
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if (!e.isIntersecting) return;
+      var el = e.target; el.classList.add('in'); io.unobserve(el);
+      // danach wieder die normalen Übergänge (z. B. Hover) zulassen
+      setTimeout(function(){ el.classList.remove('rv', 'in'); el.style.transitionDelay = ''; }, 1300); });
+  }, {rootMargin:'0px 0px -8% 0px'});
+  els.forEach(function(el, i){
+    el.classList.add('rv');
+    var sib = el.parentNode ? Array.prototype.indexOf.call(el.parentNode.children, el) : 0;
+    el.style.transitionDelay = Math.min(sib, 5) * 70 + 'ms';
+    io.observe(el);
   });
 })();
 
