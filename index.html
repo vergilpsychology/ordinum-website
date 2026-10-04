@@ -102,6 +102,8 @@ section{padding-block:clamp(64px,9vw,112px);border-bottom:1px solid var(--line)}
 .test .meta{display:flex;justify-content:space-between;gap:8px;font-family:var(--mono);font-size:12px;color:var(--muted)}
 .test h3{font-family:var(--body);font-weight:600;font-size:19px;letter-spacing:0}
 .test p{color:var(--muted);font-size:15px;flex:1}
+.test.live{text-decoration:none;color:inherit;border-color:var(--green-soft)}
+.test .go{font-weight:600;font-size:15px;color:var(--green)}
 .test .basis{font-family:var(--mono);font-size:11px;color:var(--muted);border-top:1px solid var(--line);padding-top:10px}
 .badge{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid var(--line)}
 .badge.free{color:var(--green);border-color:var(--green-soft)}
@@ -310,8 +312,8 @@ footer nav{display:flex;gap:20px}
       <h1>Lerne dich <span class="grad">kennen</span>. Wirklich.</h1>
       <p class="lead">Persönlichkeit, Stärken, Werte, Motivation. Ordinum bündelt fundierte psychologische Tests und verbindet deine Ergebnisse zu einem Bericht, der nur über dich spricht.</p>
       <div class="cta-row">
-        <a class="btn primary" href="#warteliste">Auf die Warteliste</a>
-        <a class="btn" href="#probieren">Mini-Test ausprobieren</a>
+        <a class="btn primary" href="persoenlichkeitstest.html">Persönlichkeitstest machen</a>
+        <a class="btn" href="#warteliste">Auf die Warteliste</a>
       </div>
       <div class="facts">
         <span>8 Tests, die meisten gratis</span>
@@ -346,6 +348,7 @@ footer nav{display:flex;gap:20px}
       <div class="head">
         <p class="eyebrow">Testbibliothek</p>
         <h2>Acht Blickwinkel auf dich.</h2>
+        <p class="muted">Der Persönlichkeitstest ist schon da. Die anderen Tests folgen nach und nach, auf der Warteliste erfährst du als Erstes davon.</p>
       </div>
       <div class="filters" role="group" aria-label="Tests filtern">
         <button class="chip" id="fl-all" data-f="all" aria-pressed="true">Alle</button>
@@ -354,7 +357,7 @@ footer nav{display:flex;gap:20px}
         <button class="chip" id="fl-new" data-f="new" aria-pressed="false">Neu</button>
       </div>
       <div class="tests" id="testgrid">
-        <article class="test" data-tags="free"><div class="meta"><span>10 Min · 60 Fragen</span><span class="badge free">Gratis</span></div><h3>Persönlichkeit</h3><p>Deine Ausprägung in den Big Five: Offenheit, Gewissenhaftigkeit, Extraversion, Verträglichkeit und emotionale Stabilität.</p><span class="basis">Basis: Big-Five-Modell, IPIP</span></article>
+        <a class="test live" data-tags="free" href="persoenlichkeitstest.html"><div class="meta"><span>8 Min · 50 Fragen</span><span class="badge free">Jetzt verfügbar</span></div><h3>Persönlichkeit</h3><p>Deine Ausprägung in den Big Five: Offenheit, Gewissenhaftigkeit, Extraversion, Verträglichkeit und emotionale Stabilität.</p><span class="basis">Basis: Big-Five-Marker nach Goldberg, IPIP</span><span class="go">Test starten →</span></a>
         <article class="test" data-tags="free" style="--c:rgba(185,163,242,.24)"><div class="meta"><span>12 Min · 72 Fragen</span><span class="badge free">Gratis</span></div><h3>Charakterstärken</h3><p>Welche Stärken dich ausmachen und wo du Energie tankst, wenn du sie einsetzt.</p><span class="basis">Basis: Positive Psychologie, IPIP-VIA</span></article>
         <article class="test" data-tags="free"><div class="meta"><span>6 Min · 30 Fragen</span><span class="badge free">Gratis</span></div><h3>Werte</h3><p>Was dir im Leben wirklich wichtig ist, von Freiheit über Sicherheit bis Verbundenheit.</p><span class="basis">Basis: Wertetheorie nach Schwartz</span></article>
         <article class="test" data-tags="short new" style="--c:rgba(185,163,242,.24)"><div class="meta"><span>5 Min · 20 Fragen</span><span class="badge new">Neu</span></div><h3>Flow-Profil</h3><p>Wann du in den Flow kommst und was dich zuverlässig rausholt.</p><span class="basis">Basis: Flow-Theorie nach Csikszentmihalyi</span></article>
@@ -386,8 +389,8 @@ footer nav{display:flex;gap:20px}
         <div class="score" id="score">–<small> / 100</small></div>
         <div class="meter"><span id="meter"></span></div>
         <p id="rtext">Beantworte die drei Fragen, dann siehst du hier deinen ersten Wert.</p>
-        <p class="note">Mini-Vorschau mit 3 von 12 Fragen dieser Skala. Der vollständige Test ist genauer.</p>
-        <a class="btn" href="#warteliste">Benachrichtigen, wenn der ganze Test da ist</a>
+        <p class="note">Mini-Vorschau mit 3 Fragen. Der vollständige Test mit 50 Aussagen ist deutlich genauer.</p>
+        <a class="btn" href="persoenlichkeitstest.html">Ganzen Persönlichkeitstest machen</a>
       </div>
     </div>
   </section>
