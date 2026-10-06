@@ -346,6 +346,27 @@ section > .wrap{position:relative}
 :root[data-theme="light"] .rp-insight blockquote{background:rgba(102,80,189,.06);border-color:rgba(102,80,189,.2)}
 :root[data-theme="light"] .rp-cover,:root[data-theme="light"] .rp-page{box-shadow:0 1px 2px rgba(20,30,25,.04),0 18px 40px -18px rgba(20,30,25,.22)}
 :root[data-theme="light"] .rp-ring .fgc[stroke="#e8d27a"]{stroke:#c9a72a}
+
+/* Beispielbericht: Bühne mit Kipp-Effekt und Einblend-Animationen */
+.rp-sec{position:relative;overflow:hidden;padding-top:clamp(20px,3vw,40px)}
+.rp-stage{position:relative;perspective:1600px;margin-top:8px}
+.rp-stage::before{content:"";position:absolute;left:50%;top:50%;width:min(1100px,120%);height:80%;transform:translate(-50%,-50%);background:radial-gradient(ellipse at 30% 50%,rgba(143,209,169,.22),transparent 60%),radial-gradient(ellipse at 72% 50%,rgba(185,163,242,.24),transparent 60%);filter:blur(60px);animation:rpbreathe 9s ease-in-out infinite alternate;pointer-events:none;z-index:-1}
+@keyframes rpbreathe{0%{opacity:.55;transform:translate(-50%,-50%) scale(.92)}100%{opacity:1;transform:translate(-50%,-50%) scale(1.06)}}
+.js .rp{transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) scale(var(--sc,1));transform-origin:50% 0;transform-style:preserve-3d;will-change:transform;transition:transform .25s ease-out}
+.rp-page::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:conic-gradient(from var(--ang,0deg),transparent 0 70%,rgba(143,209,169,.7) 80%,rgba(185,163,242,.8) 88%,transparent 96%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:rpspin 7s linear infinite;pointer-events:none}
+@property --ang{syntax:"<angle>";inherits:false;initial-value:0deg}
+@keyframes rpspin{to{--ang:360deg}}
+.js .rp-shape,.js .rp-dots{transform-box:view-box;transform-origin:120px 120px;transform:scale(.15);opacity:0;transition:transform 1.3s cubic-bezier(.2,.8,.2,1) .2s,opacity .6s ease .2s}
+.js .rp-str .m i{transform:scaleX(0);transform-origin:left;transition:transform 1.2s cubic-bezier(.2,.8,.2,1)}
+.js .rp-str li:nth-child(2) .m i{transition-delay:.1s}.js .rp-str li:nth-child(3) .m i{transition-delay:.2s}.js .rp-str li:nth-child(4) .m i{transition-delay:.3s}.js .rp-str li:nth-child(5) .m i{transition-delay:.4s}
+.js .rp-ring .fgc{transition:stroke-dashoffset 1.6s cubic-bezier(.2,.8,.2,1) .5s}
+.js .rp-ring:nth-child(1) .fgc{stroke-dashoffset:128.2}.js .rp-ring:nth-child(2) .fgc{stroke-dashoffset:115}
+.js .rp-insight{opacity:0;transform:translateY(16px);transition:opacity .9s ease .6s,transform .9s ease .6s}
+.js .rp.rp-on .rp-shape,.js .rp.rp-on .rp-dots{transform:none;opacity:1}
+.js .rp.rp-on .rp-str .m i{transform:none}
+.js .rp.rp-on .rp-ring .fgc{stroke-dashoffset:0}
+.js .rp.rp-on .rp-insight{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rp-stage::before,.rp-page::after{animation:none}.js .rp{transform:none}.js .rp-shape,.js .rp-dots,.js .rp-str .m i,.js .rp-insight{transform:none;opacity:1}.js .rp-ring .fgc{stroke-dashoffset:0}}
 </style>
 <link rel="stylesheet" href="theme.css">
 <script>try{if(localStorage.getItem('ordinum-theme')==='light')document.documentElement.dataset.theme='light'}catch(e){}</script>
@@ -487,6 +508,62 @@ section > .wrap{position:relative}
     </div>
   </section>
 
+  <section id="bericht" class="rp-sec">
+    <div class="wrap">
+      <div class="head center">
+        <p class="eyebrow">Ein Blick in deinen Bericht</p>
+        <h2>Nicht fünf Einzelergebnisse, sondern ein Bild von dir.</h2>
+        <p class="muted">Der Bericht verbindet alle Tests, die du gemacht hast. Er erklärt, wie deine Eigenschaften zusammenwirken, und wird mit jedem neuen Test vollständiger.</p>
+      </div>
+      <div class="rp-stage">
+      <div class="rp">
+        <div class="rp-cover" aria-hidden="true">
+          <div class="rp-cover-glow"></div>
+          <div class="rp-cover-in">
+            <span class="rp-brand">ORDINUM</span>
+            <div>
+              <p class="rp-kick">Persönlicher Bericht</p>
+              <p class="rp-name">Mara, 27</p>
+              <p class="rp-meta">Oktober 2026 · 4 Tests · 28 Seiten</p>
+            </div>
+            <ol class="rp-toc"><li>Dein Profil auf einen Blick</li><li>Deine Muster</li><li>Energiequellen</li><li>Stressfallen</li><li>Beziehungen</li><li>Nächste Schritte</li></ol>
+          </div>
+        </div>
+        <div class="rp-page">
+          <div class="rp-head"><span>Kapitel 1 · Dein Profil auf einen Blick</span><span class="tag">Beispielbericht</span></div>
+          <div class="rp-grid2">
+            <div class="rp-card">
+              <p class="label">Persönlichkeit</p>
+              <svg class="rp-radar" viewBox="-40 0 320 236" role="img" aria-label="Persönlichkeitsprofil: Offenheit 86, Gewissenhaftigkeit 48, Extraversion 39, Verträglichkeit 72, Emotionale Stabilität 55">
+            <defs><linearGradient id="rpg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8fd1a9" stop-opacity=".55"/><stop offset="1" stop-color="#b9a3f2" stop-opacity=".55"/></linearGradient></defs>
+            <g class="rp-grid"><polygon points="120.0,40.0 196.1,95.3 167.0,184.7 73.0,184.7 43.9,95.3"/><polygon points="120.0,67.2 170.2,103.7 151.0,162.7 89.0,162.7 69.8,103.7"/><polygon points="120.0,93.6 145.1,111.8 135.5,141.4 104.5,141.4 94.9,111.8"/><line x1="120" y1="120" x2="120.0" y2="40.0"/><line x1="120" y1="120" x2="196.1" y2="95.3"/><line x1="120" y1="120" x2="167.0" y2="184.7"/><line x1="120" y1="120" x2="73.0" y2="184.7"/><line x1="120" y1="120" x2="43.9" y2="95.3"/></g>
+            <polygon class="rp-shape" points="120.0,51.2 156.5,108.1 138.3,145.2 86.1,166.6 78.2,106.4" fill="url(#rpg)"/>
+            <g class="rp-dots"><circle cx="120.0" cy="51.2" r="3.5"/><circle cx="156.5" cy="108.1" r="3.5"/><circle cx="138.3" cy="145.2" r="3.5"/><circle cx="86.1" cy="166.6" r="3.5"/><circle cx="78.2" cy="106.4" r="3.5"/></g>
+            <g class="rp-lab"><text x="120.0" y="22.0" text-anchor="middle">Offenheit <tspan>86</tspan></text><text x="217.0" y="92.5" text-anchor="start">Gewissenh. <tspan>48</tspan></text><text x="180.0" y="206.5" text-anchor="start">Extraversion <tspan>39</tspan></text><text x="60.0" y="206.5" text-anchor="end">Verträglichk. <tspan>72</tspan></text><text x="23.0" y="92.5" text-anchor="end">Stabilität <tspan>55</tspan></text></g>
+          </svg>
+            </div>
+            <div class="rp-card">
+              <p class="label">Deine Top-Stärken</p>
+              <ol class="rp-str"><li><span class="n">1</span><span class="s">Neugier</span><span class="m"><i style="width:96%"></i></span></li><li><span class="n">2</span><span class="s">Kreativität</span><span class="m"><i style="width:91%"></i></span></li><li><span class="n">3</span><span class="s">Freundlichkeit</span><span class="m"><i style="width:84%"></i></span></li><li><span class="n">4</span><span class="s">Sinn für Schönheit</span><span class="m"><i style="width:80%"></i></span></li><li><span class="n">5</span><span class="s">Lernfreude</span><span class="m"><i style="width:77%"></i></span></li></ol>
+              <div class="rp-rings"><div class="rp-ring"><svg viewBox="0 0 76 76" aria-hidden="true"><circle cx="38" cy="38" r="30" class="bgc"/><circle cx="38" cy="38" r="30" class="fgc" stroke="#e8d27a" stroke-dasharray="128.2 188.5"/></svg><b>68</b><span>Wohlbefinden</span></div><div class="rp-ring"><svg viewBox="0 0 76 76" aria-hidden="true"><circle cx="38" cy="38" r="30" class="bgc"/><circle cx="38" cy="38" r="30" class="fgc" stroke="#7ea8f8" stroke-dasharray="115.0 188.5"/></svg><b>61</b><span>Resilienz</span></div></div>
+            </div>
+          </div>
+          <div class="rp-insight">
+            <p class="rp-pat">Muster 1 von 4</p>
+            <h3>Du denkst in Möglichkeiten und brauchst Freiraum, um sie umzusetzen.</h3>
+            <p>Hohe Offenheit und Neugier als stärkste Stärke bedeuten: Neue Ideen geben dir Energie. Deine Gewissenhaftigkeit liegt im mittleren Bereich. Feste Pläne helfen dir, solange sie dir Spielraum lassen. Werden sie zu eng, bleiben Projekte eher liegen.</p>
+            <blockquote><b>Ausprobieren</b>Gib einem neuen Projekt einen festen, kurzen Block von 45 Minuten pro Tag und entscheide erst in diesem Moment, woran genau du arbeitest. So verbindest du Struktur mit der Freiheit, die du brauchst.</blockquote>
+          </div>
+          <div class="rp-more">
+            <span>+ 27 weitere Seiten mit deinen Mustern, Energiequellen und Übungen</span>
+            <a class="btn primary" href="#warteliste">Bericht vormerken</a>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </section>
+
   <section id="tests">
     <div class="wrap">
       <div class="head">
@@ -538,60 +615,6 @@ section > .wrap{position:relative}
         <p id="rtext">Beantworte die drei Fragen, dann siehst du hier deinen ersten Wert.</p>
         <p class="note">Mini-Vorschau mit 3 Fragen. Der vollständige Test mit 50 Aussagen ist deutlich genauer.</p>
         <a class="btn" href="persoenlichkeitstest.html">Ganzen Persönlichkeitstest machen</a>
-      </div>
-    </div>
-  </section>
-
-  <section id="bericht">
-    <div class="wrap">
-      <div class="head center">
-        <p class="eyebrow">Dein persönlicher Bericht</p>
-        <h2>Nicht fünf Einzelergebnisse, sondern ein Bild von dir.</h2>
-        <p class="muted">Der Bericht verbindet alle Tests, die du gemacht hast. Er erklärt, wie deine Eigenschaften zusammenwirken, und wird mit jedem neuen Test vollständiger.</p>
-      </div>
-      <div class="rp">
-        <div class="rp-cover" aria-hidden="true">
-          <div class="rp-cover-glow"></div>
-          <div class="rp-cover-in">
-            <span class="rp-brand">ORDINUM</span>
-            <div>
-              <p class="rp-kick">Persönlicher Bericht</p>
-              <p class="rp-name">Mara, 27</p>
-              <p class="rp-meta">Oktober 2026 · 4 Tests · 28 Seiten</p>
-            </div>
-            <ol class="rp-toc"><li>Dein Profil auf einen Blick</li><li>Deine Muster</li><li>Energiequellen</li><li>Stressfallen</li><li>Beziehungen</li><li>Nächste Schritte</li></ol>
-          </div>
-        </div>
-        <div class="rp-page">
-          <div class="rp-head"><span>Kapitel 1 · Dein Profil auf einen Blick</span><span class="tag">Beispielbericht</span></div>
-          <div class="rp-grid2">
-            <div class="rp-card">
-              <p class="label">Persönlichkeit</p>
-              <svg class="rp-radar" viewBox="-40 0 320 236" role="img" aria-label="Persönlichkeitsprofil: Offenheit 86, Gewissenhaftigkeit 48, Extraversion 39, Verträglichkeit 72, Emotionale Stabilität 55">
-            <defs><linearGradient id="rpg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8fd1a9" stop-opacity=".55"/><stop offset="1" stop-color="#b9a3f2" stop-opacity=".55"/></linearGradient></defs>
-            <g class="rp-grid"><polygon points="120.0,40.0 196.1,95.3 167.0,184.7 73.0,184.7 43.9,95.3"/><polygon points="120.0,67.2 170.2,103.7 151.0,162.7 89.0,162.7 69.8,103.7"/><polygon points="120.0,93.6 145.1,111.8 135.5,141.4 104.5,141.4 94.9,111.8"/><line x1="120" y1="120" x2="120.0" y2="40.0"/><line x1="120" y1="120" x2="196.1" y2="95.3"/><line x1="120" y1="120" x2="167.0" y2="184.7"/><line x1="120" y1="120" x2="73.0" y2="184.7"/><line x1="120" y1="120" x2="43.9" y2="95.3"/></g>
-            <polygon class="rp-shape" points="120.0,51.2 156.5,108.1 138.3,145.2 86.1,166.6 78.2,106.4" fill="url(#rpg)"/>
-            <g class="rp-dots"><circle cx="120.0" cy="51.2" r="3.5"/><circle cx="156.5" cy="108.1" r="3.5"/><circle cx="138.3" cy="145.2" r="3.5"/><circle cx="86.1" cy="166.6" r="3.5"/><circle cx="78.2" cy="106.4" r="3.5"/></g>
-            <g class="rp-lab"><text x="120.0" y="22.0" text-anchor="middle">Offenheit <tspan>86</tspan></text><text x="217.0" y="92.5" text-anchor="start">Gewissenh. <tspan>48</tspan></text><text x="180.0" y="206.5" text-anchor="start">Extraversion <tspan>39</tspan></text><text x="60.0" y="206.5" text-anchor="end">Verträglichk. <tspan>72</tspan></text><text x="23.0" y="92.5" text-anchor="end">Stabilität <tspan>55</tspan></text></g>
-          </svg>
-            </div>
-            <div class="rp-card">
-              <p class="label">Deine Top-Stärken</p>
-              <ol class="rp-str"><li><span class="n">1</span><span class="s">Neugier</span><span class="m"><i style="width:96%"></i></span></li><li><span class="n">2</span><span class="s">Kreativität</span><span class="m"><i style="width:91%"></i></span></li><li><span class="n">3</span><span class="s">Freundlichkeit</span><span class="m"><i style="width:84%"></i></span></li><li><span class="n">4</span><span class="s">Sinn für Schönheit</span><span class="m"><i style="width:80%"></i></span></li><li><span class="n">5</span><span class="s">Lernfreude</span><span class="m"><i style="width:77%"></i></span></li></ol>
-              <div class="rp-rings"><div class="rp-ring"><svg viewBox="0 0 76 76" aria-hidden="true"><circle cx="38" cy="38" r="30" class="bgc"/><circle cx="38" cy="38" r="30" class="fgc" stroke="#e8d27a" stroke-dasharray="128.2 188.5"/></svg><b>68</b><span>Wohlbefinden</span></div><div class="rp-ring"><svg viewBox="0 0 76 76" aria-hidden="true"><circle cx="38" cy="38" r="30" class="bgc"/><circle cx="38" cy="38" r="30" class="fgc" stroke="#7ea8f8" stroke-dasharray="115.0 188.5"/></svg><b>61</b><span>Resilienz</span></div></div>
-            </div>
-          </div>
-          <div class="rp-insight">
-            <p class="rp-pat">Muster 1 von 4</p>
-            <h3>Du denkst in Möglichkeiten und brauchst Freiraum, um sie umzusetzen.</h3>
-            <p>Hohe Offenheit und Neugier als stärkste Stärke bedeuten: Neue Ideen geben dir Energie. Deine Gewissenhaftigkeit liegt im mittleren Bereich. Feste Pläne helfen dir, solange sie dir Spielraum lassen. Werden sie zu eng, bleiben Projekte eher liegen.</p>
-            <blockquote><b>Ausprobieren</b>Gib einem neuen Projekt einen festen, kurzen Block von 45 Minuten pro Tag und entscheide erst in diesem Moment, woran genau du arbeitest. So verbindest du Struktur mit der Freiheit, die du brauchst.</blockquote>
-          </div>
-          <div class="rp-more">
-            <span>+ 27 weitere Seiten mit deinen Mustern, Energiequellen und Übungen</span>
-            <a class="btn primary" href="#warteliste">Bericht vormerken</a>
-          </div>
-        </div>
       </div>
     </div>
   </section>
@@ -731,10 +754,36 @@ section > .wrap{position:relative}
   });
 })();
 
+// Beispielbericht: kippt beim Scrollen in die Ebene, folgt leicht der Maus, Werte bauen sich auf
+(function(){
+  var rp = document.querySelector('.rp'); if (!rp) return;
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce || !('IntersectionObserver' in window)) { rp.classList.add('rp-on'); return; }
+  new IntersectionObserver(function(es, io){ es.forEach(function(e){ if (e.isIntersecting) { rp.classList.add('rp-on'); io.disconnect(); } }); }, {threshold:.25}).observe(rp);
+  var mx = 0, my = 0, ticking = false;
+  function upd(){
+    ticking = false;
+    var r = rp.getBoundingClientRect(), vh = window.innerHeight;
+    var p = Math.max(0, Math.min(1, (vh - r.top) / (vh * .75)));
+    var e = 1 - Math.pow(1 - p, 3);
+    rp.style.setProperty('--rx', ((1 - e) * 24 + my * -3).toFixed(2) + 'deg');
+    rp.style.setProperty('--ry', (mx * 4).toFixed(2) + 'deg');
+    rp.style.setProperty('--sc', (.9 + e * .1).toFixed(3));
+  }
+  function req(){ if (!ticking) { ticking = true; requestAnimationFrame(upd); } }
+  window.addEventListener('scroll', req, {passive:true});
+  window.addEventListener('resize', req);
+  if (window.matchMedia && matchMedia('(hover: hover)').matches) {
+    rp.addEventListener('mousemove', function(ev){ var r = rp.getBoundingClientRect(); mx = (ev.clientX - r.left) / r.width - .5; my = (ev.clientY - r.top) / r.height - .5; req(); });
+    rp.addEventListener('mouseleave', function(){ mx = my = 0; req(); });
+  }
+  upd();
+})();
+
 // Einblenden beim Scrollen
 (function(){
   if (!('IntersectionObserver' in window) || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
-  var els = document.querySelectorAll('section .head, .stepc, .test, .mini > *, .report, .rp-cover, .rp-page, .flowcard, .prose, .pack, .trust > div, .news-card');
+  var els = document.querySelectorAll('section .head, .stepc, .test, .mini > *, .report, .flowcard, .prose, .pack, .trust > div, .news-card');
   document.documentElement.classList.add('js');
   var io = new IntersectionObserver(function(es){
     es.forEach(function(e){ if (!e.isIntersecting) return;
