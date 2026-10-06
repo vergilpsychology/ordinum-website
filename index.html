@@ -10,6 +10,7 @@
 <meta property="og:image" content="og-image.png">
 <meta name="theme-color" content="#0a0d0c">
 <link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="stylesheet" href="fonts.css">
 
 
@@ -428,6 +429,30 @@ section > .wrap{position:relative}
 :root[data-theme="light"] .hp-str li{color:#36423d}
 :root[data-theme="light"] .hp-grid polygon,:root[data-theme="light"] .hp-grid line{stroke:rgba(20,30,25,.15)}
 @media (prefers-reduced-motion:reduce){.hp,.hp-shape,.hp-dots circle,.hp-str b{animation:none;opacity:1;transform:none}}
+.hp{width:340px}
+.hp-t small{display:block;font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:3px}
+.hp-row2{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:end;padding-top:12px;border-top:1px dashed rgba(233,239,236,.12)}
+.hp-rings{display:grid;gap:8px}
+.hp-ring{display:grid;grid-template-columns:30px auto;column-gap:8px;align-items:center}
+.hp-ring svg{grid-row:span 2;width:30px;height:30px;transform:rotate(-90deg)}
+.hp-ring .bg{fill:none;stroke:rgba(233,239,236,.12);stroke-width:4}
+.hp-ring .fg{fill:none;stroke-width:4;stroke-linecap:round;stroke-dashoffset:var(--o);animation:hpring 1.4s cubic-bezier(.2,.8,.2,1) 1.9s forwards}
+@keyframes hpring{to{stroke-dashoffset:0}}
+.hp-ring b{font-family:var(--display);font-weight:300;font-size:15px;line-height:1}
+.hp-ring span{font-family:var(--mono);font-size:9px;color:var(--muted)}
+.hp-energy{display:grid;gap:4px;min-width:0}
+.hp-l{font-family:var(--mono);font-size:9px;color:var(--muted)}
+.hp-energy svg{width:100%;height:auto;display:block;overflow:visible}
+.hp-line{fill:none;stroke-width:1.8;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;animation:hpdraw 1.6s ease 2s forwards}
+.hp-area{opacity:0;animation:hpfade .8s ease 3s forwards}
+.hp-pk{fill:var(--violet);opacity:0;animation:hpfade .4s ease 3.4s forwards}
+.hp-pkt{font-family:var(--mono);font-size:8px;fill:var(--violet);opacity:0;animation:hpfade .4s ease 3.5s forwards}
+.hp-ax{font-family:var(--mono);font-size:7px;fill:var(--muted)}
+@keyframes hpdraw{to{stroke-dashoffset:0}}
+:root[data-theme="light"] .hp-row2{border-top-color:rgba(20,30,25,.12)}
+:root[data-theme="light"] .hp-ring .bg{stroke:rgba(20,30,25,.12)}
+@media (prefers-reduced-motion:reduce){.hp-ring .fg{animation:none;stroke-dashoffset:0}.hp-line{animation:none;stroke-dashoffset:0}.hp-area,.hp-pk,.hp-pkt{animation:none;opacity:1}}
+@media (max-width:1179px){.hp{width:min(360px,100%)}}
 </style>
 <link rel="stylesheet" href="theme.css">
 <script>try{if(localStorage.getItem('ordinum-theme')==='light')document.documentElement.dataset.theme='light'}catch(e){}</script>
@@ -465,47 +490,7 @@ section > .wrap{position:relative}
   <clipPath id="capband"><rect x="-5" y="0" width="400" height="40"/></clipPath>
     <filter id="wglow" filterUnits="userSpaceOnUse" x="-20" y="-20" width="440" height="80">
       <feGaussianBlur stdDeviation="1.6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
-  <g transform="scale(0.6)">
-
-  
-  <ellipse cx="104" cy="112" rx="70" ry="58" fill="#2EE88E" opacity="0.06" filter="url(#soft)"/>
-
-  <g clip-path="url(#stone)">
-    <rect width="200" height="200" fill="#050606"/>
-    <path d="M48,52 L96,26 L124,32 L160,22 L130,74 L72,80 Z" fill="url(#ob-a)"/>
-    <path d="M160,22 L182,58 L176,96 L140,100 L130,74 Z" fill="url(#ob-b)"/>
-    <path d="M48,52 L72,80 L52,116 L30,96 L16,74 Z" fill="url(#ob-a)" opacity="0.75"/>
-    <path d="M72,80 L130,74 L140,100 L116,128 L70,124 L52,116 Z" fill="url(#ob-g)"/>
-    <path d="M176,96 L188,128 L150,166 L116,128 L140,100 Z" fill="#060808"/>
-    <path d="M52,116 L70,124 L116,128 L150,166 L104,176 L84,168 L42,170 L22,134 L30,96 Z" fill="url(#ob-c)" opacity="0.9"/>
-    <path d="M84,168 L116,128 L104,176 Z" fill="#0C1110"/>
-    <path d="M72,80 L96,26 L124,32 Z" fill="#FFFFFF" opacity="0.025"/>
-    <g fill="none" stroke="#FFFFFF" stroke-linecap="round">
-      <path d="M70,58 Q98,44 136,44" stroke-opacity="0.05" stroke-width="0.9"/>
-      <path d="M164,46 Q172,68 170,86" stroke-opacity="0.04" stroke-width="0.9"/>
-    </g>
-  </g>
-
-  
-  <g fill="none" stroke-linecap="round">
-    <path d="M48,52 L96,26 L124,32 L160,22" stroke="url(#shine)" stroke-width="1.4"/>
-    <path d="M72,80 L130,74" stroke="url(#shine)" stroke-width="1" opacity="0.7"/>
-    <path d="M130,74 L160,22" stroke="url(#shine)" stroke-width="0.9" opacity="0.6"/>
-    <path d="M96,26 L72,80" stroke="url(#shine)" stroke-width="0.7" opacity="0.35"/>
-    <path d="M16,74 L48,52" stroke="url(#shine)" stroke-width="0.9" opacity="0.5"/>
-    <path d="M160,22 L182,58" stroke="url(#shine)" stroke-width="0.8" opacity="0.4"/>
-  </g>
-  
-  <path d="M182,58 L176,96 L188,128 L150,166 L104,176 L84,168 L42,170 L22,134 L30,96 L16,74" fill="none" stroke="#18201D" stroke-width="0.8" stroke-opacity="0.8"/>
-
-  
-  <g clip-path="url(#stone)" fill="none" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)">
-    <path d="M22,100 L52,108 L80,102 L104,112 L128,110 L150,126 L186,130" stroke="url(#vein)" stroke-width="1.5"/>
-    <path d="M104,112 L110,130 L104,154" stroke="#3FE89A" stroke-opacity="0.45" stroke-width="0.8"/>
-    <path d="M80,102 L86,88" stroke="#3FE89A" stroke-opacity="0.35" stroke-width="0.7"/>
-  </g>
-  <circle cx="104" cy="112" r="1.6" fill="#D2FFE6" filter="url(#glow)"/>
-</g>
+  <image href="logo.png" x="2" y="2" width="116" height="116"/>
   <g transform="translate(148,40.0) scale(1.0)" fill="none" stroke="#E4ECE8" stroke-width="3.0" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" clip-path="url(#capband)">
     <ellipse cx="20" cy="20" rx="18.5" ry="18.5"/>
     <path d="M56.5,40 V1.5 H70 A10.5,10.5 0 0 1 70,22.0 H56.5 M68,22 L81.5,40"/>
@@ -548,10 +533,20 @@ section > .wrap{position:relative}
         <span>Deine Daten bleiben deine</span>
       </div>
       <a class="hp" href="#bericht" aria-label="Beispielbericht ansehen">
-        <div class="hp-top"><span class="hp-t">Bericht für Mara, 27</span><span class="hp-tag">Vorschau</span></div>
+        <div class="hp-top"><span class="hp-t">Bericht für Mara, 27<small>4 Tests · 28 Seiten</small></span><span class="hp-tag">Vorschau</span></div>
         <div class="hp-body">
           <svg class="hp-radar" viewBox="30 30 180 170" aria-hidden="true"><defs><linearGradient id="hpg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8fd1a9" stop-opacity=".6"/><stop offset="1" stop-color="#b9a3f2" stop-opacity=".6"/></linearGradient></defs><g class="hp-grid"><polygon points="120.0,40.0 196.1,95.3 167.0,184.7 73.0,184.7 43.9,95.3"/><polygon points="120.0,67.2 170.2,103.7 151.0,162.7 89.0,162.7 69.8,103.7"/><polygon points="120.0,93.6 145.1,111.8 135.5,141.4 104.5,141.4 94.9,111.8"/><line x1="120" y1="120" x2="120.0" y2="40.0"/><line x1="120" y1="120" x2="196.1" y2="95.3"/><line x1="120" y1="120" x2="167.0" y2="184.7"/><line x1="120" y1="120" x2="73.0" y2="184.7"/><line x1="120" y1="120" x2="43.9" y2="95.3"/></g><polygon class="hp-shape" points="120.0,51.2 156.5,108.1 138.3,145.2 86.1,166.6 78.2,106.4" fill="url(#hpg)"/><g class="hp-dots"><circle cx="120.0" cy="51.2" r="3.5"/><circle cx="156.5" cy="108.1" r="3.5"/><circle cx="138.3" cy="145.2" r="3.5"/><circle cx="86.1" cy="166.6" r="3.5"/><circle cx="78.2" cy="106.4" r="3.5"/></g></svg>
           <ol class="hp-str"><li><span>Neugier</span><i><b style="width:96%"></b></i></li><li><span>Kreativität</span><i><b style="width:91%"></b></i></li><li><span>Freundlichkeit</span><i><b style="width:84%"></b></i></li></ol>
+        </div>
+        <div class="hp-row2">
+          <div class="hp-rings"><div class="hp-ring"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="15" class="bg"/><circle cx="20" cy="20" r="15" class="fg" stroke="#e8d27a" stroke-dasharray="64.1 94.2" style="--o:64.1"/></svg><b>68</b><span>Wohlbefinden</span></div><div class="hp-ring"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="15" class="bg"/><circle cx="20" cy="20" r="15" class="fg" stroke="#7ea8f8" stroke-dasharray="57.5 94.2" style="--o:57.5"/></svg><b>61</b><span>Resilienz</span></div></div>
+          <div class="hp-energy"><span class="hp-l">Energie über den Tag</span>
+            <svg viewBox="0 0 168 58" aria-hidden="true"><defs><linearGradient id="hpe" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b9a3f2" stop-opacity=".45"/><stop offset="1" stop-color="#b9a3f2" stop-opacity="0"/></linearGradient><linearGradient id="hpel" x1="0" x2="1"><stop offset="0" stop-color="#8fd1a9"/><stop offset="1" stop-color="#b9a3f2"/></linearGradient></defs>
+              <path class="hp-area" d="M4.0,44.1 C5.5,43.6 9.9,42.5 12.9,41.4 C15.9,40.4 18.8,39.1 21.8,37.9 C24.7,36.7 27.7,35.4 30.7,34.4 C33.6,33.4 36.6,32.5 39.6,31.8 C42.5,31.0 45.5,30.1 48.4,30.0 C51.4,29.9 54.4,30.4 57.3,30.9 C60.3,31.3 63.3,32.6 66.2,32.6 C69.2,32.7 72.1,32.1 75.1,31.3 C78.1,30.5 81.0,29.0 84.0,27.8 C87.0,26.6 89.9,25.2 92.9,23.8 C95.9,22.4 98.8,20.8 101.8,19.4 C104.7,18.1 107.7,16.8 110.7,15.9 C113.6,15.0 116.6,14.0 119.6,14.2 C122.5,14.3 125.5,15.6 128.4,16.8 C131.4,18.0 134.4,19.6 137.3,21.2 C140.3,22.8 143.3,24.6 146.2,26.5 C149.2,28.4 152.1,30.7 155.1,32.6 C158.1,34.5 162.5,37.0 164.0,37.9 L164.0,52 L4.0,52 Z" fill="url(#hpe)"/><path class="hp-line" d="M4.0,44.1 C5.5,43.6 9.9,42.5 12.9,41.4 C15.9,40.4 18.8,39.1 21.8,37.9 C24.7,36.7 27.7,35.4 30.7,34.4 C33.6,33.4 36.6,32.5 39.6,31.8 C42.5,31.0 45.5,30.1 48.4,30.0 C51.4,29.9 54.4,30.4 57.3,30.9 C60.3,31.3 63.3,32.6 66.2,32.6 C69.2,32.7 72.1,32.1 75.1,31.3 C78.1,30.5 81.0,29.0 84.0,27.8 C87.0,26.6 89.9,25.2 92.9,23.8 C95.9,22.4 98.8,20.8 101.8,19.4 C104.7,18.1 107.7,16.8 110.7,15.9 C113.6,15.0 116.6,14.0 119.6,14.2 C122.5,14.3 125.5,15.6 128.4,16.8 C131.4,18.0 134.4,19.6 137.3,21.2 C140.3,22.8 143.3,24.6 146.2,26.5 C149.2,28.4 152.1,30.7 155.1,32.6 C158.1,34.5 162.5,37.0 164.0,37.9" stroke="url(#hpel)" pathLength="1"/>
+              <circle class="hp-pk" cx="119.6" cy="14.2" r="3"/><text class="hp-pkt" x="119.6" y="8.2" text-anchor="middle">17 Uhr</text>
+              <text class="hp-ax" x="4" y="58">6</text><text class="hp-ax" x="84" y="58" text-anchor="middle">15</text><text class="hp-ax" x="164" y="58" text-anchor="end">24</text>
+            </svg>
+          </div>
         </div>
         <p class="hp-q">„Du denkst in Möglichkeiten und brauchst Freiraum, um sie umzusetzen.“</p>
         <span class="hp-go">Beispielbericht ansehen →</span>
@@ -584,7 +579,7 @@ section > .wrap{position:relative}
       <div class="head">
         <p class="eyebrow">Testbibliothek</p>
         <h2>Neun Blickwinkel auf dich.</h2>
-        <p class="muted">Persönlichkeit, Charakterstärken, Wohlbefinden und Stress kannst du schon testen. Die anderen Tests folgen nach und nach, auf der Warteliste erfährst du als Erstes davon.</p>
+        <p class="muted">Persönlichkeit, Charakterstärken, Wohlbefinden, Stress und Emotionen kannst du schon testen. Die anderen Tests folgen nach und nach, auf der Warteliste erfährst du als Erstes davon.</p>
       </div>
       <div class="filters" role="group" aria-label="Tests filtern">
         <button class="chip" id="fl-all" data-f="all" aria-pressed="true">Alle</button>
@@ -597,11 +592,11 @@ section > .wrap{position:relative}
         <a class="test live" style="--a:185,163,242" data-tags="free new" href="staerkentest.html"><div class="meta"><span>12 Min · 72 Fragen</span><span class="badge free live-dot">Jetzt verfügbar</span></div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c.6 4.6 2.4 6.4 7 7-4.6.6-6.4 2.4-7 7-.6-4.6-2.4-6.4-7-7 4.6-.6 6.4-2.4 7-7Z"/><path d="M19 16.5c.3 1.6.9 2.2 2.5 2.5-1.6.3-2.2.9-2.5 2.5-.3-1.6-.9-2.2-2.5-2.5 1.6-.3 2.2-.9 2.5-2.5Z"/></svg><h3>Charakterstärken</h3><p>Welche Stärken dich ausmachen und wo du Energie tankst, wenn du sie einsetzt.</p><span class="basis">Basis: Positive Psychologie, IPIP-VIA</span><span class="go">Test starten →</span></a>
         <a class="test live" style="--a:240,207,110" data-tags="free short new" href="wohlbefinden.html"><div class="meta"><span>4 Min · 25 Fragen</span><span class="badge free live-dot">Jetzt verfügbar</span></div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg><h3>Wohlbefinden</h3><p>Wie es dir gerade geht: Lebensfreude, Stimmung, Zuversicht, Selbstwert und Lebendigkeit.</p><span class="basis">Basis: IPIP-Skalen, u. a. nach Rosenberg und Scheier</span><span class="go">Test starten →</span></a>
         <a class="test live" style="--a:126,168,248" data-tags="free short new" href="stresstest.html"><div class="meta"><span>4 Min · 24 Fragen</span><span class="badge free live-dot">Jetzt verfügbar</span></div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 19 6v5.5c0 4.2-3 7.4-7 9-4-1.6-7-4.8-7-9V6l7-2.5Z"/><path d="M8 12.5h2l1.2-2.5 1.8 5 1.2-2.5H16"/></svg><h3>Stress &amp; Resilienz</h3><p>Wie du auf Druck reagierst und was dich dabei stabil hält.</p><span class="basis">Basis: IPIP-NEO-Facetten</span><span class="go">Test starten →</span></a>
+        <a class="test live" style="--a:236,140,206" data-tags="free new" href="emotionen.html"><div class="meta"><span>5 Min · 30 Fragen</span><span class="badge free live-dot">Jetzt verfügbar</span></div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5s6.5 7 6.5 11a6.5 6.5 0 0 1-13 0c0-4 6.5-11 6.5-11Z"/><path d="M9.2 15.2a3 3 0 0 0 2.8 2.3"/></svg><h3>Emotionen</h3><p>Wie du Gefühle wahrnimmst, zeigst und in Entscheidungen nutzt.</p><span class="basis">Basis: IPIP-Skalen nach Barchard</span><span class="go">Test starten →</span></a>
         <article class="test" style="--a:242,128,128" data-tags="free"><div class="meta"><span>6 Min · 30 Fragen</span><span class="badge free">Gratis</span></div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="m15.5 8.5-2.2 4.8-4.8 2.2 2.2-4.8 4.8-2.2Z"/></svg><h3>Werte</h3><p>Was dir im Leben wirklich wichtig ist, von Freiheit über Sicherheit bis Verbundenheit.</p><span class="basis">Basis: Wertetheorie nach Schwartz</span></article>
         <article class="test" style="--a:104,214,226" data-tags="short new"><div class="meta"><span>5 Min · 20 Fragen</span><span class="badge new">Neu</span></div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9c3-3 6 3 9 0s6 3 9 0M3 15c3-3 6 3 9 0s6 3 9 0"/></svg><h3>Flow-Profil</h3><p>Wann du in den Flow kommst und was dich zuverlässig rausholt.</p><span class="basis">Basis: Flow-Theorie nach Csikszentmihalyi</span></article>
         <article class="test" style="--a:246,166,92" data-tags="free short"><div class="meta"><span>5 Min · 18 Fragen</span><span class="badge free">Gratis</span></div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20V5M6.5 10.5 12 5l5.5 5.5"/><path d="M5 20h14"/></svg><h3>Motivation</h3><p>Wie stark dich Autonomie, Kompetenz und Verbundenheit antreiben.</p><span class="basis">Basis: Selbstbestimmungstheorie</span></article>
         <article class="test" style="--a:196,222,118" data-tags="free short"><div class="meta"><span>3 Min · 12 Fragen</span><span class="badge free">Gratis</span></div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 3.8A8.5 8.5 0 1 0 20.2 15 7 7 0 0 1 15.5 3.8Z"/></svg><h3>Chronotyp</h3><p>Morgenmensch, Abendmensch oder dazwischen, und wann dein Kopf am klarsten ist.</p><span class="basis">Basis: Chronobiologie</span></article>
-        <article class="test" style="--a:236,140,206" data-tags="new"><div class="meta"><span>6 Min · 24 Fragen</span><span class="badge new">Neu</span></div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5s6.5 7 6.5 11a6.5 6.5 0 0 1-13 0c0-4 6.5-11 6.5-11Z"/><path d="M9.2 15.2a3 3 0 0 0 2.8 2.3"/></svg><h3>Emotionen</h3><p>Wie du mit Gefühlen umgehst und welche Strategien dir guttun.</p><span class="basis">Basis: Emotionsregulation nach Gross</span></article>
       </div>
     </div>
   </section>

@@ -3,12 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Meine Ergebnisse · Ordinum</title>
-<meta name="description" content="Deine bisherigen Testergebnisse bei Ordinum, gespeichert nur in deinem Browser.">
-<meta name="robots" content="noindex">
+<title>Emotionstest · Ordinum</title>
+<meta name="description" content="Kostenloser Test zum Umgang mit Gefühlen: 30 Aussagen, etwa 5 Minuten, sofort dein Profil aus Gefühle wahrnehmen, Freude zeigen, Schweres zeigen, Mitschwingen und Bauchgefühl.">
 <meta name="theme-color" content="#0a0d0c">
 <link rel="icon" type="image/png" href="favicon.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="stylesheet" href="fonts.css">
 <style>
 /* Layout: dark, quiet canvas; a slow liquid of green and violet pours behind the hero; content in a 1120px column with hairline structure. */
@@ -18,8 +16,10 @@
   --line:#1f2724;
   --fg:#e7ece9;
   --muted:#8e9a95;
-  --green:#8fd1a9;
-  --green-soft:#5f9e7b;
+  --green:#ec8cce;
+  --green-soft:#a5628f;
+  --green-l:#b0408c;
+  --green-soft-l:#e6a9d2;
   --violet:#b9a3f2;
   --violet-soft:#7c69b4;
   --glow:rgba(160,180,220,.10);
@@ -54,7 +54,7 @@ p{margin:0}
 .nav ul a:hover{color:var(--fg)}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:999px;font:500 15px var(--body);text-decoration:none;border:1px solid var(--line);background:transparent;color:var(--fg);cursor:pointer;transition:border-color .2s,background .2s,box-shadow .3s}
 .btn:hover{border-color:var(--violet-soft)}
-.btn.primary{background:linear-gradient(100deg,var(--green),#a9c3d6 55%,var(--violet));color:#0b0f14;border-color:transparent}
+.btn.primary{background:linear-gradient(100deg,var(--green),#d9a3e6 55%,var(--violet));color:#0b0f14;border-color:transparent}
 .btn.primary:hover{box-shadow:0 0 28px rgba(185,163,242,.35)}
 .nav .btn{padding:9px 16px;font-size:14px;white-space:nowrap}
 @media (max-width:820px){.nav ul{display:none}}
@@ -95,7 +95,7 @@ section{padding-block:clamp(64px,9vw,112px);border-bottom:1px solid var(--line)}
 .tests{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
 .test{position:relative;border:1px solid var(--line);border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:10px;background:var(--surface);min-width:0;overflow:hidden;transition:border-color .25s,transform .25s}
 .test:hover{border-color:var(--violet-soft);transform:translateY(-2px)}
-.test::before{content:"";position:absolute;width:160px;height:160px;right:-60px;top:-70px;border-radius:50%;background:radial-gradient(circle,var(--c,rgba(143,209,169,.22)),transparent 70%);pointer-events:none}
+.test::before{content:"";position:absolute;width:160px;height:160px;right:-60px;top:-70px;border-radius:50%;background:radial-gradient(circle,var(--c,rgba(236,140,206,.22)),transparent 70%);pointer-events:none}
 .test .meta{display:flex;justify-content:space-between;gap:8px;font-family:var(--mono);font-size:12px;color:var(--muted)}
 .test h3{font-family:var(--body);font-weight:600;font-size:19px;letter-spacing:0}
 .test p{color:var(--muted);font-size:15px;flex:1}
@@ -114,7 +114,7 @@ section{padding-block:clamp(64px,9vw,112px);border-bottom:1px solid var(--line)}
 .scale button{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--muted);font:500 15px var(--mono);cursor:pointer;transition:all .2s}
 .scale button[aria-pressed="true"]{background:var(--violet);color:#0b0f14;border-color:var(--violet)}
 .scale-l{display:flex;justify-content:space-between;max-width:260px;font-size:12px;color:var(--muted);font-family:var(--mono)}
-.result{border:1px solid var(--line);border-radius:20px;padding:28px;background:linear-gradient(160deg,rgba(143,209,169,.07),rgba(185,163,242,.09)),var(--surface);display:grid;gap:14px}
+.result{border:1px solid var(--line);border-radius:20px;padding:28px;background:linear-gradient(160deg,rgba(236,140,206,.07),rgba(185,163,242,.09)),var(--surface);display:grid;gap:14px}
 .result .score{font-family:var(--display);font-weight:300;font-size:52px;line-height:1;font-variant-numeric:tabular-nums}
 .result .score small{font-size:16px;color:var(--muted)}
 .meter{height:8px;border-radius:8px;background:var(--line);overflow:hidden}
@@ -124,7 +124,7 @@ section{padding-block:clamp(64px,9vw,112px);border-bottom:1px solid var(--line)}
 
 /* report preview */
 .report{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:22px;overflow:hidden}
-.report::before{content:"";position:absolute;inset:-40% -20% auto auto;width:520px;height:520px;background:radial-gradient(circle at 40% 40%,rgba(185,163,242,.18),transparent 60%),radial-gradient(circle at 70% 70%,rgba(143,209,169,.14),transparent 60%);filter:blur(10px);pointer-events:none}
+.report::before{content:"";position:absolute;inset:-40% -20% auto auto;width:520px;height:520px;background:radial-gradient(circle at 40% 40%,rgba(185,163,242,.18),transparent 60%),radial-gradient(circle at 70% 70%,rgba(236,140,206,.14),transparent 60%);filter:blur(10px);pointer-events:none}
 .report-top{position:relative;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:18px 26px;border-bottom:1px solid var(--line)}
 .report-top .t{font-family:var(--display);font-size:16px;font-weight:400}
 .tag{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
@@ -154,7 +154,7 @@ section{padding-block:clamp(64px,9vw,112px);border-bottom:1px solid var(--line)}
 .packs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 @media (max-width:900px){.packs{grid-template-columns:1fr}}
 .pack{border:1px solid var(--line);border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:16px;background:var(--bg);min-width:0}
-.pack.feature{background:linear-gradient(170deg,rgba(185,163,242,.12),rgba(143,209,169,.05) 55%,transparent),var(--surface);border-color:var(--violet-soft)}
+.pack.feature{background:linear-gradient(170deg,rgba(185,163,242,.12),rgba(236,140,206,.05) 55%,transparent),var(--surface);border-color:var(--violet-soft)}
 .pack h3{font-size:22px;font-weight:400}
 .pack .price{font-family:var(--display);font-weight:300;font-size:30px;font-variant-numeric:tabular-nums}
 .pack .price small{font-family:var(--body);font-size:14px;color:var(--muted);margin-left:4px}
@@ -209,7 +209,7 @@ footer nav{display:flex;gap:20px}
 .progress{height:4px;border-radius:4px;background:var(--line);overflow:hidden;margin-bottom:12px}
 .progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--violet));transition:width .3s ease}
 .pcount{font-family:var(--mono);font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:12px}
-.qcard{margin-top:28px;border:1px solid var(--line);border-radius:22px;padding:clamp(24px,5vw,40px);background:linear-gradient(160deg,rgba(143,209,169,.05),rgba(185,163,242,.07)),var(--surface);display:grid;gap:28px}
+.qcard{margin-top:28px;border:1px solid var(--line);border-radius:22px;padding:clamp(24px,5vw,40px);background:linear-gradient(160deg,rgba(236,140,206,.05),rgba(185,163,242,.07)),var(--surface);display:grid;gap:28px}
 .qtext{font-family:var(--display);font-weight:300;font-size:clamp(22px,3.4vw,30px);line-height:1.25;text-wrap:balance;min-height:2.5em}
 .opts{display:grid;gap:10px}
 .opt{display:flex;align-items:center;gap:14px;width:100%;text-align:left;padding:14px 18px;border-radius:14px;border:1px solid var(--line);background:var(--bg);color:var(--fg);font:500 16px var(--body);cursor:pointer;transition:border-color .2s,background .2s}
@@ -219,6 +219,14 @@ footer nav{display:flex;gap:20px}
 .nav-row{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .res-head{display:grid;gap:14px;margin-bottom:36px}
 .res-head h1{font-size:clamp(30px,4.6vw,48px);line-height:1.1}
+.overall{display:grid;gap:12px;padding:28px;margin-bottom:12px;border:1px solid var(--violet-soft);border-radius:22px;background:linear-gradient(160deg,rgba(236,140,206,.08),rgba(185,163,242,.12)),var(--surface)}
+.overall .big{font-family:var(--display);font-weight:300;font-size:64px;line-height:1;font-variant-numeric:tabular-nums}
+.overall .big small{font-size:18px;color:var(--muted)}
+.overall p{color:#c3ccc8}
+.care{margin-top:28px;border:1px solid rgba(185,163,242,.35);border-radius:18px;padding:22px;background:rgba(185,163,242,.06);display:grid;gap:8px}
+.care h3{font-family:var(--body);font-weight:600;font-size:17px;letter-spacing:0}
+.care p{color:#c3ccc8;font-size:15px}
+.care a{color:var(--fg)}
 .trait{padding:24px 0;border-top:1px solid var(--line);display:grid;gap:10px}
 .trait-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
 .trait h2{font-family:var(--body);font-weight:600;font-size:20px;letter-spacing:0}
@@ -235,7 +243,7 @@ footer nav{display:flex;gap:20px}
 @media (hover:none){.keyhint{display:none}}
 .fine{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:28px;line-height:1.7}
 .res-date{font-family:var(--mono);font-size:13px;color:var(--muted)}
-.save-box{margin-top:40px;border:1px solid var(--line);border-radius:20px;padding:28px;display:grid;gap:14px;background:linear-gradient(170deg,rgba(143,209,169,.07),transparent 60%),var(--surface)}
+.save-box{margin-top:40px;border:1px solid var(--line);border-radius:20px;padding:28px;display:grid;gap:14px;background:linear-gradient(170deg,rgba(236,140,206,.07),transparent 60%),var(--surface)}
 .save-box h3{font-size:22px;font-weight:400}
 .save-box p{color:var(--muted)}
 .save-box .fine{margin-top:0}
@@ -247,30 +255,14 @@ footer nav{display:flex;gap:20px}
 @media (max-width:440px){.nav-links{gap:12px}.nav-links .txt{font-size:14px}}
 @media (max-width:400px){.nav-links .btn{display:none}}
 @media print{
-  :root{--bg:#fff;--surface:#fff;--line:#d5dbd8;--fg:#111;--muted:#555;--violet:#5b4a99;--violet-soft:#5b4a99;color-scheme:light}
+  :root{--bg:#fff;--surface:#fff;--green:#2f7a52;--line:#d5dbd8;--fg:#111;--muted:#555;--violet:#5b4a99;--violet-soft:#5b4a99;color-scheme:light}
   .nav,footer,.save-box,.cta-box,#start,#quiz{display:none!important}
   .test-wrap{padding:0}
   .grad{color:#111;background:none}
-  .trait{break-inside:avoid}
+  .trait,.overall,.care{break-inside:avoid}
   .trait p.desc{color:#222}
   .tbar .fill,.tbar .track{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
-.rlist{display:grid;gap:18px;margin-top:36px}
-.rcard{border:1px solid var(--line);border-radius:20px;padding:clamp(20px,4vw,28px);background:linear-gradient(160deg,rgba(143,209,169,.05),rgba(185,163,242,.07)),var(--surface);display:grid;gap:18px}
-.rhead{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
-.rhead h2{font-family:var(--body);font-weight:600;font-size:20px;letter-spacing:0;margin-top:6px}
-.ract{display:flex;gap:10px;flex-wrap:wrap}
-.ract .btn{padding:9px 16px;font-size:14px}
-.mbars{display:grid;gap:8px}
-.mbar{display:grid;grid-template-columns:12em 1fr 2.4em;gap:12px;align-items:center;font-size:14px}
-.mbar .track{height:6px;border-radius:6px;background:var(--line);overflow:hidden}
-.mbar .fill{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--green),var(--violet))}
-.mbar .v{font-family:var(--mono);font-size:13px;text-align:right;font-variant-numeric:tabular-nums}
-@media (max-width:520px){.mbar{grid-template-columns:1fr 2.4em}.mbar .n{grid-column:1 / -1}}
-.empty{margin-top:36px;border:1px dashed var(--line);border-radius:20px;padding:28px;display:grid;gap:14px}
-.empty p{color:var(--muted)}
-.linkbtn{background:none;border:0;padding:0;font:inherit;color:var(--muted);text-decoration:underline;cursor:pointer}
-.linkbtn:hover{color:var(--fg)}
 </style>
 <link rel="stylesheet" href="theme.css">
 <script>try{if(localStorage.getItem('ordinum-theme')==='light')document.documentElement.dataset.theme='light'}catch(e){}</script>
@@ -307,7 +299,47 @@ footer nav{display:flex;gap:20px}
   <clipPath id="capband"><rect x="-5" y="0" width="400" height="40"/></clipPath>
     <filter id="wglow" filterUnits="userSpaceOnUse" x="-20" y="-20" width="440" height="80">
       <feGaussianBlur stdDeviation="1.6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
-  <image href="logo.png" x="2" y="2" width="116" height="116"/>
+  <g transform="scale(0.6)">
+
+  
+  <ellipse cx="104" cy="112" rx="70" ry="58" fill="#2EE88E" opacity="0.06" filter="url(#soft)"/>
+
+  <g clip-path="url(#stone)">
+    <rect width="200" height="200" fill="#050606"/>
+    <path d="M48,52 L96,26 L124,32 L160,22 L130,74 L72,80 Z" fill="url(#ob-a)"/>
+    <path d="M160,22 L182,58 L176,96 L140,100 L130,74 Z" fill="url(#ob-b)"/>
+    <path d="M48,52 L72,80 L52,116 L30,96 L16,74 Z" fill="url(#ob-a)" opacity="0.75"/>
+    <path d="M72,80 L130,74 L140,100 L116,128 L70,124 L52,116 Z" fill="url(#ob-g)"/>
+    <path d="M176,96 L188,128 L150,166 L116,128 L140,100 Z" fill="#060808"/>
+    <path d="M52,116 L70,124 L116,128 L150,166 L104,176 L84,168 L42,170 L22,134 L30,96 Z" fill="url(#ob-c)" opacity="0.9"/>
+    <path d="M84,168 L116,128 L104,176 Z" fill="#0C1110"/>
+    <path d="M72,80 L96,26 L124,32 Z" fill="#FFFFFF" opacity="0.025"/>
+    <g fill="none" stroke="#FFFFFF" stroke-linecap="round">
+      <path d="M70,58 Q98,44 136,44" stroke-opacity="0.05" stroke-width="0.9"/>
+      <path d="M164,46 Q172,68 170,86" stroke-opacity="0.04" stroke-width="0.9"/>
+    </g>
+  </g>
+
+  
+  <g fill="none" stroke-linecap="round">
+    <path d="M48,52 L96,26 L124,32 L160,22" stroke="url(#shine)" stroke-width="1.4"/>
+    <path d="M72,80 L130,74" stroke="url(#shine)" stroke-width="1" opacity="0.7"/>
+    <path d="M130,74 L160,22" stroke="url(#shine)" stroke-width="0.9" opacity="0.6"/>
+    <path d="M96,26 L72,80" stroke="url(#shine)" stroke-width="0.7" opacity="0.35"/>
+    <path d="M16,74 L48,52" stroke="url(#shine)" stroke-width="0.9" opacity="0.5"/>
+    <path d="M160,22 L182,58" stroke="url(#shine)" stroke-width="0.8" opacity="0.4"/>
+  </g>
+  
+  <path d="M182,58 L176,96 L188,128 L150,166 L104,176 L84,168 L42,170 L22,134 L30,96 L16,74" fill="none" stroke="#18201D" stroke-width="0.8" stroke-opacity="0.8"/>
+
+  
+  <g clip-path="url(#stone)" fill="none" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)">
+    <path d="M22,100 L52,108 L80,102 L104,112 L128,110 L150,126 L186,130" stroke="url(#vein)" stroke-width="1.5"/>
+    <path d="M104,112 L110,130 L104,154" stroke="#3FE89A" stroke-opacity="0.45" stroke-width="0.8"/>
+    <path d="M80,102 L86,88" stroke="#3FE89A" stroke-opacity="0.35" stroke-width="0.7"/>
+  </g>
+  <circle cx="104" cy="112" r="1.6" fill="#D2FFE6" filter="url(#glow)"/>
+</g>
   <g transform="translate(148,40.0) scale(1.0)" fill="none" stroke="#E4ECE8" stroke-width="3.0" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" clip-path="url(#capband)">
     <ellipse cx="20" cy="20" rx="18.5" ry="18.5"/>
     <path d="M56.5,40 V1.5 H70 A10.5,10.5 0 0 1 70,22.0 H56.5 M68,22 L81.5,40"/>
@@ -323,18 +355,51 @@ footer nav{display:flex;gap:20px}
   </div>
 </header>
 <main class="test-wrap">
-  <section class="intro" style="border:0;padding:0">
-    <p class="eyebrow">Meine Ergebnisse</p>
-    <h1>Deine <span class="grad">Ergebnisse</span></h1>
-    <p>Hier findest du alle Tests, die du in diesem Browser gemacht hast. Sie werden nur auf deinem Gerät gespeichert, nicht bei uns. Für andere Geräte nutzt du den persönlichen Link, den du bei jedem Ergebnis kopieren oder dir per E-Mail schicken kannst.</p>
+  <section id="start" class="intro" style="border:0;padding:0">
+    <p class="eyebrow">Emotionen</p>
+    <h1>Wie gehst du mit deinen <span class="grad">Gefühlen</span> um?</h1>
+    <p>30 kurze Aussagen darüber, wie du Gefühle wahrnimmst, zeigst und mit anderen teilst. Antworte so, wie du meistens bist, nicht wie du gern wärst.</p>
+    <div class="meta-row"><span>ca. 5 Minuten</span><span>30 Aussagen</span><span>Auswertung sofort</span><span>Antworten bleiben in deinem Browser</span></div>
+    <div class="cta-row"><button class="btn primary" id="go" type="button">Test starten</button><button class="btn" id="resume" type="button" hidden>Weitermachen</button></div>
   </section>
-  <div class="rlist" id="list"></div>
-  <div class="empty" id="empty" hidden>
-    <h3 style="font-size:22px">Noch keine Ergebnisse auf diesem Gerät</h3>
-    <p>Du hast einen persönlichen Link gespeichert? Öffne ihn einfach, dann siehst du dein Ergebnis wieder und kannst es hier ablegen.</p>
-    <div class="cta-row"><a class="btn primary" href="persoenlichkeitstest.html">Persönlichkeitstest machen</a><a class="btn" href="staerkentest.html">Charakterstärken-Test machen</a><a class="btn" href="wohlbefinden.html">Wohlbefinden-Test machen</a><a class="btn" href="stresstest.html">Stresstest machen</a><a class="btn" href="emotionen.html">Emotionstest machen</a></div>
-  </div>
-  <p class="fine" id="clearrow" hidden><button class="linkbtn" id="clear" type="button">Alle Ergebnisse von diesem Gerät löschen</button></p>
+
+  <section id="quiz" hidden style="border:0;padding:0">
+    <div class="progress"><span id="bar"></span></div>
+    <div class="pcount"><span id="count">Aussage 1 von 30</span><span class="keyhint">Tasten 1–5 gehen auch</span></div>
+    <div class="qcard">
+      <p class="qtext" id="qtext" aria-live="polite"></p>
+      <div class="opts" id="opts" role="group" aria-label="Antwort"></div>
+      <div class="nav-row"><button class="btn" id="back" type="button">Zurück</button></div>
+    </div>
+  </section>
+
+  <section id="result" hidden style="border:0;padding:0">
+    <div class="res-head">
+      <p class="eyebrow">Dein Ergebnis</p>
+      <h1>Dein Gefühlsprofil</h1>
+      <p class="muted">Fünf Bereiche zeigen, wie du Gefühle wahrnimmst, zeigst, mit anderen teilst und in Entscheidungen nutzt, jeweils auf einer Skala von 0 bis 100. Hier gibt es kein Besser oder Schlechter: Jede Ausprägung hat ihre eigenen Stärken.</p>
+      <p class="res-date" id="resdate"></p>
+    </div>
+    <div id="traits"></div>
+    <div class="save-box">
+      <h3>Dein Ergebnis wiederfinden</h3>
+      <p id="savetext">Dein Ergebnis ist in diesem Browser unter „Meine Ergebnisse“ gespeichert. Damit du es auch auf anderen Geräten wiederfindest, oder nachdem du deine Browserdaten gelöscht hast, speichere dir deinen persönlichen Link oder ein PDF.</p>
+      <div class="cta-row">
+        <button class="btn primary" id="copylink" type="button">Link kopieren</button>
+        <a class="btn" id="maillink" href="#">Per E-Mail an mich</a>
+        <button class="btn" id="pdf" type="button">Als PDF speichern</button>
+        <button class="btn" id="keep" type="button" hidden>Auf diesem Gerät speichern</button>
+      </div>
+      <p class="toast" id="toast" aria-live="polite"></p>
+      <p class="fine">Wer deinen persönlichen Link kennt, kann dein Ergebnis sehen. Gib ihn also nur weiter, wenn du das möchtest. <a href="meine-ergebnisse.html">Alle meine Ergebnisse</a></p>
+    </div>
+    <div class="cta-box">
+      <h3>Gefühle und Persönlichkeit zusammen</h3>
+      <p>Wie du mit Gefühlen umgehst, hängt auch davon ab, wer du bist und wie es dir gerade geht. Bald verbindet dein persönlicher Ordinum-Bericht alles zu einem ausführlichen Bild von dir.</p>
+      <div class="cta-row"><a class="btn primary" href="persoenlichkeitstest.html">Zum Persönlichkeitstest</a><a class="btn" href="stresstest.html">Zum Stresstest</a><a class="btn" href="index.html#warteliste">Auf die Warteliste</a><button class="btn" id="again" type="button">Test neu starten</button></div>
+    </div>
+    <p class="fine">Grundlage: gemeinfreie Skalen zur emotionalen Intelligenz von Kimberly Barchard aus dem International Personality Item Pool (IPIP): Attending to Emotions, Positive Expressivity, Negative Expressivity, Responsive Joy und Emotion-Based Decision-Making. Pro Bereich sechs Aussagen. Die Werte zeigen deine Antworten auf der Skala von 0 bis 100, noch keine Vergleichswerte mit einer Bevölkerungsstichprobe. Ordinum dient der Selbsterkenntnis und ersetzt keine psychologische Diagnostik oder Behandlung.</p>
+  </section>
 </main>
 <footer>
   <div class="wrap">
@@ -343,65 +408,123 @@ footer nav{display:flex;gap:20px}
   </div>
 </footer>
 <script>
+var ITEMS = [{"t": "Ich denke darüber nach, woher meine Gefühle kommen.", "f": "W", "k": 1}, {"t": "Wenn ich glücklich bin, sieht man es mir an.", "f": "P", "k": 1}, {"t": "Wenn ich traurig bin, zeige ich das.", "f": "N", "k": 1}, {"t": "Ich spüre die Freude anderer Menschen mit.", "f": "J", "k": 1}, {"t": "Bei wichtigen Entscheidungen höre ich auf meine Gefühle.", "f": "E", "k": 1}, {"t": "Ich denke selten darüber nach, wie ich mich fühle.", "f": "W", "k": -1}, {"t": "Meine Freude behalte ich für mich.", "f": "P", "k": -1}, {"t": "Egal wie unglücklich ich bin, ich behalte es für mich.", "f": "N", "k": -1}, {"t": "Das Glück anderer lässt mich ziemlich unberührt.", "f": "J", "k": -1}, {"t": "Ich entscheide nach Fakten, nicht nach Gefühlen.", "f": "E", "k": -1}, {"t": "Ich merke meistens, wie ich mich gerade fühle.", "f": "W", "k": 1}, {"t": "Wenn etwas lustig ist, lache ich laut.", "f": "P", "k": 1}, {"t": "Wenn ich Angst habe, merkt man es mir an.", "f": "N", "k": 1}, {"t": "Wenn die Menschen um mich herum lachen, lache ich meistens mit.", "f": "J", "k": 1}, {"t": "Ich glaube, dass Gefühle dem Leben eine Richtung geben.", "f": "E", "k": 1}, {"t": "Ich übergehe meine Gefühle oft.", "f": "W", "k": -1}, {"t": "Es fällt mir schwer, Zuneigung zu zeigen.", "f": "P", "k": -1}, {"t": "Meinen Ärger zeige ich selten.", "f": "N", "k": -1}, {"t": "Von der Begeisterung anderer lasse ich mich selten mitreißen.", "f": "J", "k": -1}, {"t": "Ich plane mein Leben nach logischen Gesichtspunkten.", "f": "E", "k": -1}, {"t": "Ich nehme meine Gefühle bewusst wahr.", "f": "W", "k": 1}, {"t": "Ich umarme Menschen, die mir nahestehen.", "f": "P", "k": 1}, {"t": "Wenn ich traurig bin, verrät mich vermutlich mein Gesicht.", "f": "N", "k": 1}, {"t": "Gute Laune anderer färbt stark auf mich ab.", "f": "J", "k": 1}, {"t": "Ich höre eher auf mein Herz als auf meinen Kopf.", "f": "E", "k": 1}, {"t": "Meine eigenen Gefühlsreaktionen bemerke ich selten.", "f": "W", "k": -1}, {"t": "Zuneigung zeige ich auch durch Berührung.", "f": "P", "k": 1}, {"t": "Egal wie viel Angst ich habe, ich behalte es für mich.", "f": "N", "k": -1}, {"t": "Wenn alle um mich herum fröhlich sind, fällt es mir schwer, schlecht gelaunt zu bleiben.", "f": "J", "k": 1}, {"t": "Wichtige Entscheidungen sollten auf logischem Abwägen beruhen.", "f": "E", "k": -1}];
+var TEXTS = {"W": {"name": "Gefühle wahrnehmen", "what": "Wie aufmerksam du deine eigenen Gefühle bemerkst und verstehst.", "low": "Deine Gefühle laufen oft eher im Hintergrund mit, und du schaust nicht so genau hin. Das kann entlastend sein, manchmal entgeht dir dadurch aber ein wichtiges Signal. Ein kurzer Blick am Abend darauf, wie sich der Tag angefühlt hat, kann helfen.", "mid": "Du bemerkst deine Gefühle meist, gehst ihnen aber nicht immer auf den Grund. Wenn dich etwas stark bewegt oder du zur Ruhe kommst, schaust du genauer hin.", "high": "Du bist gut mit deinem Innenleben in Kontakt und fragst dich oft, woher deine Gefühle kommen. Das hilft dir, dich selbst zu verstehen. Achte nur darauf, dich dabei nicht im Grübeln zu verlieren."}, "P": {"name": "Freude zeigen", "what": "Wie offen du Freude und Zuneigung nach außen zeigst.", "low": "Freude und Zuneigung zeigst du eher leise. Menschen, die dich gut kennen, wissen das einzuordnen. Andere unterschätzen vielleicht, wie viel dir etwas bedeutet. Ein ausgesprochenes Wort kann da viel bewirken.", "mid": "Du zeigst Freude und Zuneigung, je nachdem, wo und mit wem du bist. Im vertrauten Kreis bist du offener als unter Fremden.", "high": "Man sieht dir an, wenn du dich freust, und du zeigst Menschen gern, dass sie dir wichtig sind. Diese Wärme wirkt ansteckend und stärkt deine Beziehungen."}, "N": {"name": "Schweres zeigen", "what": "Wie offen du Traurigkeit, Angst oder Ärger nach außen zeigst.", "low": "Traurigkeit, Angst und Ärger machst du eher mit dir selbst aus. Das gibt dir Kontrolle. Auf Dauer lohnt es sich aber, ein paar Menschen zu haben, bei denen du auch Schweres zeigen kannst.", "mid": "Schwere Gefühle zeigst du manchmal, manchmal behältst du sie für dich. Oft hängt das davon ab, wie sicher du dich gerade fühlst.", "high": "Andere merken schnell, wenn es dir nicht gut geht. Diese Offenheit macht es leichter, Unterstützung zu bekommen. In aufgeladenen Situationen kann es helfen, einen Moment abzuwarten, bevor du reagierst."}, "J": {"name": "Mitschwingen", "what": "Wie stark dich die Freude und gute Stimmung anderer mitnimmt.", "low": "Die Stimmung anderer färbt wenig auf dich ab. Du bleibst eher bei dir, auch wenn um dich herum gefeiert wird. Das macht dich unabhängig von Gruppenstimmungen.", "mid": "Gute Stimmung steckt dich an, wenn du ohnehin offen dafür bist. An anderen Tagen bleibst du lieber bei deiner eigenen Stimmung.", "high": "Die Freude anderer steckt dich schnell an, und du freust dich ehrlich mit. Das macht dich zu einem warmen Gegenüber. Es lohnt sich, darauf zu achten, mit welchen Stimmungen du dich umgibst."}, "E": {"name": "Bauchgefühl", "what": "Wie stark du dich bei wichtigen Entscheidungen von deinen Gefühlen leiten lässt.", "low": "Bei wichtigen Entscheidungen verlässt du dich vor allem auf Fakten und logisches Abwägen. Das macht deine Entscheidungen gut begründbar. Dein Bauchgefühl kann dabei trotzdem eine nützliche zusätzliche Stimme sein.", "mid": "Du verbindest Kopf und Bauch: Du wägst ab, hörst aber auch darauf, wie sich eine Entscheidung anfühlt.", "high": "Du folgst bei wichtigen Entscheidungen gern deinem Gefühl und deiner Inspiration. Das hilft dir, Wege zu gehen, die zu dir passen. Bei folgenschweren Entscheidungen rundet ein nüchterner zweiter Blick das Bild ab."}};
+var ORDER = ["W", "P", "N", "J", "E"];
+var SCALE = ["trifft gar nicht zu", "trifft eher nicht zu", "teils, teils", "trifft eher zu", "trifft voll zu"];
+var KEY = 'ordinum-emotionen';
 var HIST = 'ordinum-ergebnisse', ABC = 'abcdefghijklmnopqrstuvwxy';
-// key: gespeicherter Testfortschritt; top: nur die stärksten n Werte zeigen, absteigend sortiert
-var TESTS = {big5: {name: 'Persönlichkeitstest · Big Five', page: 'persoenlichkeitstest.html', key: 'ordinum-ipip50', order: ['E','A','C','S','O'],
-  names: {E:'Extraversion', A:'Verträglichkeit', C:'Gewissenhaftigkeit', S:'Emotionale Stabilität', O:'Offenheit & Intellekt'}},
-  wohlbefinden: {name: 'Wohlbefinden', page: 'wohlbefinden.html', key: 'ordinum-wohlbefinden', order: ['F','M','O','S','V'],
-  names: {F:'Lebensfreude', M:'Ausgeglichene Stimmung', O:'Zuversicht', S:'Selbstwert', V:'Lebendigkeit'}},
-  stress: {name: 'Stress & Resilienz', page: 'stresstest.html', key: 'ordinum-stress', order: ['A','R','U','S'],
-  names: {A:'Anspannung', R:'Reizbarkeit', U:'Überforderung', S:'Selbstwirksamkeit'}},
-  emotionen: {name: 'Emotionen', page: 'emotionen.html', key: 'ordinum-emotionen', order: ['W','P','N','J','E'],
-  names: {W:'Gefühle wahrnehmen', P:'Freude zeigen', N:'Schweres zeigen', J:'Mitschwingen', E:'Bauchgefühl'}},
-  staerken: {name: 'Charakterstärken · deine Top 5', page: 'staerkentest.html', key: 'ordinum-staerken', top: 5, order: ["ori", "val", "cap", "equ", "for", "app", "cur", "ind", "kin", "lea", "mod", "gra", "jud", "int", "soc", "cit", "pru", "hop", "lov", "zes", "sel", "hum", "per", "spi"],
-  names: {"ori": "Kreativität", "val": "Mut", "cap": "Fähigkeit zu lieben", "equ": "Fairness", "for": "Vergebung", "app": "Sinn für Schönheit", "cur": "Neugier", "ind": "Ausdauer", "kin": "Freundlichkeit", "lea": "Führung", "mod": "Bescheidenheit", "gra": "Dankbarkeit", "jud": "Urteilsvermögen", "int": "Ehrlichkeit", "soc": "Soziale Intelligenz", "cit": "Teamgeist", "pru": "Umsicht", "hop": "Zuversicht", "lov": "Freude am Lernen", "zes": "Tatendrang", "sel": "Selbstregulation", "hum": "Humor", "per": "Weitblick", "spi": "Spiritualität"}}};
+var ans = new Array(ITEMS.length).fill(null), cur = 0, curLink = '';
 function $(id){ return document.getElementById(id); }
-function loadHist(){ try{ var h = JSON.parse(localStorage.getItem(HIST)); if (Array.isArray(h)) return h; }catch(e){} return []; }
-function saveHist(h){ try{ localStorage.setItem(HIST, JSON.stringify(h)); }catch(e){} }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(ans)); }catch(e){} }
+function load(){ try{ var a = JSON.parse(localStorage.getItem(KEY)); if (Array.isArray(a) && a.length === ITEMS.length) return a; }catch(e){} return null; }
+// Persönlicher Link: je zwei Antworten (1–5) werden zu einem Buchstaben a–y (bei ungerader Anzahl mit einer 1 aufgefüllt), plus Datum: #r=<15 Zeichen>-JJJJMMTT
+function encode(a){ a = a.length % 2 ? a.concat([1]) : a; var s = ''; for (var i = 0; i < a.length; i += 2) s += ABC[(a[i]-1)*5 + (a[i+1]-1)]; return s; }
+function decode(c){ var a = []; for (var i = 0; i < c.length; i++){ var n = ABC.indexOf(c[i]); a.push(Math.floor(n/5)+1, n%5+1); } return a.slice(0, ITEMS.length); }
+function parseHash(){ var m = /^#r=([a-y]{15})(?:-(\d{8}))?$/.exec(location.hash); return m ? {code:m[1], date:m[2] || null} : null; }
+function today(){ var d = new Date(); return '' + d.getFullYear() + String(d.getMonth()+1).padStart(2,'0') + String(d.getDate()).padStart(2,'0'); }
 function fmtDate(s){ return new Date(+s.slice(0,4), +s.slice(4,6)-1, +s.slice(6,8)).toLocaleDateString('de-DE', {day:'numeric', month:'long', year:'numeric'}); }
-function encode(a){ var s = ''; for (var i = 0; i < a.length; i += 2) s += ABC[(a[i]-1)*5 + (a[i+1]-1)]; return s; }
-// Gespeicherten Testfortschritt mitlöschen, sonst trägt die Testseite das Ergebnis wieder ein
-function dropProgress(code){
-  Object.keys(TESTS).forEach(function(t){
-    var key = TESTS[t].key;
-    try{ var a = JSON.parse(localStorage.getItem(key)); if (Array.isArray(a) && a.indexOf(null) < 0 && (code == null || encode(a) === code)) localStorage.removeItem(key); }catch(e){}
+function loadHist(){ try{ var h = JSON.parse(localStorage.getItem(HIST)); if (Array.isArray(h)) return h; }catch(e){} return []; }
+function saveHist(h){ try{ localStorage.setItem(HIST, JSON.stringify(h.slice(0,50))); }catch(e){} }
+function findHist(code){ return loadHist().filter(function(r){ return r.code === code; })[0] || null; }
+function addHist(code, date){ var h = loadHist(); if (h.some(function(r){ return r.code === code; })) return; h.unshift({test:'emotionen', date:date, code:code, scores:scores(decode(code))}); saveHist(h); }
+function scores(a){
+  var sums = {}, n = {}, out = {};
+  ITEMS.forEach(function(it, i){
+    var v = a[i]; if (v == null) return;
+    var s = it.k === 1 ? v : 6 - v;
+    sums[it.f] = (sums[it.f]||0) + s; n[it.f] = (n[it.f]||0) + 1;
   });
+  ORDER.forEach(function(f){ out[f] = Math.round((sums[f] / n[f] - 1) / 4 * 100); });
+  return out;
 }
+function toast(t){ $('toast').textContent = t; }
+function show(id){ ['start','quiz','result'].forEach(function(s){ $(s).hidden = s !== id; }); window.scrollTo(0,0); }
 function render(){
-  var h = loadHist(), list = $('list'); list.innerHTML = '';
-  $('empty').hidden = h.length > 0; $('clearrow').hidden = h.length === 0;
-  h.forEach(function(r){
-    var T = TESTS[r.test]; if (!T) return;
-    var el = document.createElement('article'); el.className = 'rcard';
-    el.innerHTML = '<div class="rhead"><div><p class="eyebrow"></p><h2></h2></div><div class="ract"><a class="btn primary">Ansehen</a><button class="btn" type="button">Löschen</button></div></div><div class="mbars"></div>';
-    el.querySelector('.eyebrow').textContent = T.name;
-    el.querySelector('h2').textContent = 'Ergebnis vom ' + fmtDate(r.date);
-    el.querySelector('a').href = T.page + '#r=' + r.code + '-' + r.date;
-    el.querySelector('button').addEventListener('click', function(){
-      if (!confirm('Dieses Ergebnis von diesem Gerät löschen?')) return;
-      saveHist(loadHist().filter(function(x){ return x.code !== r.code; }));
-      dropProgress(r.code); render();
-    });
-    var bars = el.querySelector('.mbars');
-    var keys = T.order;
-    if (T.top) keys = keys.slice().sort(function(a, b){ return r.scores[b] - r.scores[a] || T.order.indexOf(a) - T.order.indexOf(b); }).slice(0, T.top);
-    keys.forEach(function(f){
-      var row = document.createElement('div'); row.className = 'mbar';
-      row.innerHTML = '<span class="n"></span><span class="track"><span class="fill"></span></span><span class="v"></span>';
-      row.querySelector('.n').textContent = T.names[f];
-      row.querySelector('.fill').style.width = r.scores[f] + '%';
-      row.querySelector('.v').textContent = r.scores[f];
-      bars.appendChild(row);
-    });
-    list.appendChild(el);
+  var it = ITEMS[cur];
+  $('qtext').textContent = it.t;
+  $('count').textContent = 'Aussage ' + (cur+1) + ' von ' + ITEMS.length;
+  $('bar').style.width = (cur/ITEMS.length*100) + '%';
+  var o = $('opts'); o.innerHTML = '';
+  SCALE.forEach(function(lbl, i){
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'opt'; b.id = 'opt-' + (i+1);
+    b.setAttribute('aria-pressed', ans[cur] === i+1 ? 'true' : 'false');
+    b.innerHTML = '<kbd>' + (i+1) + '</kbd><span></span>';
+    b.lastChild.textContent = lbl;
+    b.addEventListener('click', function(){ pick(i+1); });
+    o.appendChild(b);
   });
+  $('back').disabled = cur === 0;
 }
-$('clear').addEventListener('click', function(){
-  if (!confirm('Wirklich alle Ergebnisse von diesem Gerät löschen? Persönliche Links, die du gespeichert hast, funktionieren weiterhin.')) return;
-  try{ localStorage.removeItem(HIST); }catch(e){}
-  dropProgress(null); render();
+function pick(v){
+  ans[cur] = v; save();
+  if (cur < ITEMS.length - 1) { cur++; render(); }
+  else results();
+}
+// linkDate gesetzt: Ergebnis kommt aus einem persönlichen Link und wird nicht automatisch gespeichert
+function results(linkDate){
+  var sc = scores(ans), code = encode(ans), known = findHist(code);
+  if (!known && linkDate === undefined) { addHist(code, today()); known = findHist(code); }
+  var date = linkDate || (known && known.date) || today();
+  history.replaceState(null, '', '#r=' + code + '-' + date);
+  curLink = location.href;
+  $('resdate').textContent = 'Ergebnis vom ' + fmtDate(date);
+  $('keep').hidden = !!known;
+  $('keep').onclick = function(){ addHist(code, date); $('keep').hidden = true; toast('Gespeichert. Du findest es jetzt unter „Meine Ergebnisse“.'); };
+  $('savetext').hidden = !known;
+  $('maillink').href = 'mailto:?subject=' + encodeURIComponent('Mein Ordinum-Gefühlsprofil') + '&body=' + encodeURIComponent('Mein Ergebnis im Ordinum-Emotionstest vom ' + fmtDate(date) + ':\n' + curLink);
+  toast('');
+  var box = $('traits'); box.innerHTML = '';
+  ORDER.forEach(function(f){
+    var score = sc[f];
+    var lv = score < 40 ? 'low' : score > 60 ? 'high' : 'mid';
+    var lvName = {low:'eher niedrig', mid:'mittel', high:'eher hoch'}[lv];
+    var T = TEXTS[f], el = document.createElement('div');
+    el.className = 'trait';
+    el.innerHTML = '<div class="trait-top"><h2></h2><span class="lvl"></span></div>' +
+      '<div class="tbar"><span class="track"><span class="fill"></span></span><span class="v"></span></div>' +
+      '<p class="what"></p><p class="desc"></p>';
+    el.querySelector('h2').textContent = T.name;
+    el.querySelector('.lvl').textContent = lvName;
+    el.querySelector('.fill').style.width = score + '%';
+    el.querySelector('.v').textContent = score;
+    el.querySelector('.what').textContent = T.what;
+    el.querySelector('.desc').textContent = T[lv];
+    box.appendChild(el);
+  });
+  show('result');
+}
+function restart(){ ans = new Array(ITEMS.length).fill(null); cur = 0; save(); history.replaceState(null, '', location.pathname); show('quiz'); render(); }
+$('go').addEventListener('click', restart);
+$('resume').addEventListener('click', function(){ cur = ans.indexOf(null); if (cur < 0) { results(); return; } show('quiz'); render(); });
+$('back').addEventListener('click', function(){ if (cur > 0) { cur--; render(); } });
+$('again').addEventListener('click', restart);
+$('copylink').addEventListener('click', function(){
+  var done = function(){ toast('Link kopiert. Speicher ihn dir zum Beispiel als Lesezeichen oder in deinen Notizen.'); };
+  if (navigator.clipboard) navigator.clipboard.writeText(curLink).then(done, function(){ window.prompt('Dein persönlicher Link:', curLink); });
+  else window.prompt('Dein persönlicher Link:', curLink);
 });
-render();
+$('pdf').addEventListener('click', function(){ window.print(); });
+document.addEventListener('keydown', function(e){
+  if ($('quiz').hidden) return;
+  var k = parseInt(e.key, 10);
+  if (k >= 1 && k <= 5) pick(k);
+  else if (e.key === 'Backspace' || e.key === 'ArrowLeft') { if (cur > 0) { cur--; render(); } }
+});
+function route(){
+  var r = parseHash();
+  if (r) { ans = decode(r.code); results(r.date); return true; }
+  return false;
+}
+window.addEventListener('hashchange', function(){ if (!location.hash.indexOf('#r=')) route(); });
+(function(){
+  var a = load();
+  // Ergebnisse von vor der Ergebnisliste nachtragen
+  if (a && a.indexOf(null) < 0) addHist(encode(a), today());
+  if (route()) return;
+  if (a && a.some(function(x){ return x != null; })) { ans = a; $('resume').hidden = false; $('resume').textContent = a.indexOf(null) < 0 ? 'Letztes Ergebnis ansehen' : 'Weitermachen'; }
+})();
 </script>
 <script src="theme.js"></script>
 </body>
