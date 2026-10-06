@@ -106,3 +106,9 @@
 :root[data-theme="light"] .res-date{color:var(--muted)}
 :root[data-theme="light"] .toast,
 :root[data-theme="light"] .done{color:var(--green)}
+
+/* Logo: Schaltkreis-Bögen um das Auge drehen sich langsam (gilt in beiden Modi) */
+.logo .logo-ring{transform-box:fill-box;transform-origin:50% 50%;animation:logo-spin 40s linear infinite}
+.logo:hover .logo-ring{animation-duration:12s}
+@keyframes logo-spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.logo .logo-ring{animation:none}}
