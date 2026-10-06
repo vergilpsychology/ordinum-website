@@ -82,7 +82,9 @@
 :root[data-theme="light"] .test{background:linear-gradient(165deg,rgba(var(--a),.14),transparent 55%),var(--surface)}
 
 /* SVG-Elemente mit fest eingebauten Farben */
-:root[data-theme="light"] .logo svg g[stroke="#E4ECE8"]{stroke:#1b231f}
+:root[data-theme="light"] .logo .wm1{stop-color:#2b8257}
+:root[data-theme="light"] .logo .wm2{stop-color:#4f63b8}
+:root[data-theme="light"] .logo .wm3{stop-color:#7a45c9}
 :root[data-theme="light"] .flowcard text[fill="#e7ece9"]{fill:var(--fg)}
 :root[data-theme="light"] .flowcard g[stroke="#1f2724"]{stroke:var(--line)}
 
