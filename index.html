@@ -367,6 +367,23 @@ section > .wrap{position:relative}
 .js .rp.rp-on .rp-ring .fgc{stroke-dashoffset:0}
 .js .rp.rp-on .rp-insight{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.rp-stage::before,.rp-page::after{animation:none}.js .rp{transform:none}.js .rp-shape,.js .rp-dots,.js .rp-str .m i,.js .rp-insight{transform:none;opacity:1}.js .rp-ring .fgc{stroke-dashoffset:0}}
+
+/* Testkarten: Hover mit Anheben, farbigem Licht und Spotlight unter dem Mauszeiger */
+:root .test{--mx:50%;--my:-300px;background:radial-gradient(260px circle at var(--mx) var(--my),rgba(var(--a),.18),transparent 65%),linear-gradient(165deg,rgba(var(--a),.07),transparent 50%),var(--surface);transition:border-color .35s ease,transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s ease}
+:root .test::before{transition:transform .5s ease,opacity .5s ease}
+:root .test::after{transition:left .4s ease,right .4s ease,opacity .4s ease}
+:root .test .ico{transition:transform .35s cubic-bezier(.2,.8,.2,1),filter .35s ease}
+:root .test .go{display:inline-block;transition:transform .3s ease}
+:root .test:hover{transform:translateY(-6px);border-color:rgba(var(--a),.75);box-shadow:0 0 0 1px rgba(var(--a),.25),0 0 40px -4px rgba(var(--a),.45),0 24px 48px -20px rgba(var(--a),.6)}
+:root .test:hover::before{transform:scale(1.6);opacity:1}
+:root .test:hover::after{left:0;right:0}
+:root .test:hover .ico{transform:scale(1.12);filter:drop-shadow(0 0 10px rgba(var(--a),.8))}
+:root .test:hover .go{transform:translateX(4px)}
+:root .test:focus-visible{outline:2px solid rgba(var(--a),.8);outline-offset:3px}
+:root[data-theme="light"] .test{background:radial-gradient(260px circle at var(--mx) var(--my),rgba(var(--a),.2),transparent 65%),linear-gradient(165deg,rgba(var(--a),.14),transparent 55%),var(--surface)}
+:root[data-theme="light"] .test:hover{box-shadow:0 0 0 1px rgba(var(--a),.3),0 0 26px -4px rgba(var(--a),.45),0 22px 40px -20px rgba(20,30,25,.3)}
+:root[data-theme="light"] .test:hover .ico{filter:none}
+@media (prefers-reduced-motion:reduce){:root .test:hover{transform:none}:root .test:hover .ico,:root .test:hover .go{transform:none}}
 </style>
 <link rel="stylesheet" href="theme.css">
 <script>try{if(localStorage.getItem('ordinum-theme')==='light')document.documentElement.dataset.theme='light'}catch(e){}</script>
@@ -778,6 +795,15 @@ section > .wrap{position:relative}
     rp.addEventListener('mouseleave', function(){ mx = my = 0; req(); });
   }
   upd();
+})();
+
+// Testkarten: Spotlight folgt dem Mauszeiger
+(function(){
+  if (!(window.matchMedia && matchMedia('(hover: hover)').matches)) return;
+  document.querySelectorAll('.test').forEach(function(t){
+    t.addEventListener('mousemove', function(e){ var r = t.getBoundingClientRect(); t.style.setProperty('--mx', (e.clientX - r.left) + 'px'); t.style.setProperty('--my', (e.clientY - r.top) + 'px'); });
+    t.addEventListener('mouseleave', function(){ t.style.removeProperty('--my'); });
+  });
 })();
 
 // Einblenden beim Scrollen
