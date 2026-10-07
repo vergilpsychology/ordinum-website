@@ -34,13 +34,15 @@
     lg.textContent = EN ? 'DE' : 'EN'; lg.title = EN ? 'Deutsche Version' : 'English version';
     lg.setAttribute('aria-label', lg.title);
     b.parentNode.insertBefore(lg, b);
-    var ul = document.querySelector('.nav ul');
+    var ul = document.querySelector('.nav ul'), la = null;
     if (ul) {
       var li = document.createElement('li'); li.className = 'lang-li';
-      var la = document.createElement('a'); la.href = href; la.hreflang = lg.hreflang;
+      la = document.createElement('a'); la.href = href; la.hreflang = lg.hreflang;
       la.textContent = EN ? 'Deutsch' : 'English';
       li.appendChild(la); ul.appendChild(li);
     }
+    // Ergebnis-Links (#r=…) beim Sprachwechsel mitnehmen, die Codierung ist in beiden Sprachen gleich
+    [lg, la].forEach(function(x){ if (x) x.addEventListener('click', function(){ if (/^#r=/.test(location.hash)) x.href = href + location.hash; }); });
   }
 
   // Menü-Button für kleine Bildschirme: blendet die Bereichs-Links als Klappmenü unter der Leiste ein
