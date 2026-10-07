@@ -82,10 +82,12 @@ p{margin:0}
 .facts{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:12px;font-family:var(--mono);font-size:13px;color:var(--muted)}
 .facts span::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--violet);margin-right:10px;vertical-align:middle;box-shadow:0 0 10px var(--violet)}
 .facts span:nth-child(odd)::before{background:var(--green);box-shadow:0 0 10px var(--green)}
-.quote{position:relative;margin:0;padding:clamp(56px,8vw,96px) 20px clamp(40px,6vw,64px);text-align:center;border-top:1px solid var(--line);overflow:hidden}
+.pour-band{position:relative;border-top:1px solid var(--line)}
+.pour{display:block;width:100%;height:auto}
+.quote{position:relative;margin:0;padding:clamp(44px,6vw,72px) 20px clamp(30px,4vw,44px);text-align:center;overflow:hidden;background:linear-gradient(90deg,rgba(143,209,169,.14),rgba(185,163,242,.14))}
 .quote::before{content:"";position:absolute;left:50%;top:50%;width:min(760px,90%);height:70%;transform:translate(-50%,-50%);background:radial-gradient(ellipse at 35% 50%,rgba(143,209,169,.12),transparent 65%),radial-gradient(ellipse at 65% 50%,rgba(185,163,242,.14),transparent 65%);filter:blur(30px);pointer-events:none}
 .quote blockquote{position:relative;margin:0 auto;max-width:860px}
-.quote p{margin:0;font-family:var(--display);font-weight:300;font-size:clamp(21px,3.2vw,38px);line-height:1.35;letter-spacing:-.01em;text-wrap:balance;background:linear-gradient(100deg,var(--fg) 20%,var(--green) 55%,var(--violet) 90%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.quote p{margin:0;font-family:var(--display);font-weight:300;font-size:clamp(28px,4.4vw,54px);line-height:1.2;letter-spacing:-.01em;text-wrap:balance;background:linear-gradient(100deg,var(--fg) 20%,var(--green) 55%,var(--violet) 90%);-webkit-background-clip:text;background-clip:text;color:transparent}
 .quote figcaption{position:relative;margin-top:20px;font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
 .quote figcaption::before{content:"";display:inline-block;width:28px;height:1px;background:var(--violet-soft);vertical-align:middle;margin-right:12px}
 
@@ -523,10 +525,18 @@ section > .wrap{position:relative}
       </a>
     </div>
   </div>
-  <figure class="quote">
-    <blockquote><p>„Wer nach außen schaut, träumt.<br> Wer nach innen schaut, erwacht.“</p></blockquote>
-    <figcaption>C. G. Jung</figcaption>
-  </figure>
+  <div class="pour-band">
+    <figure class="quote">
+      <blockquote><p>„Erkenne dich selbst.“</p></blockquote>
+      <figcaption>Apollontempel, Delphi</figcaption>
+    </figure>
+    <svg class="pour" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
+      <defs><linearGradient id="pourg" x1="0" x2="1"><stop offset="0" stop-color="#8fd1a9"/><stop offset="1" stop-color="#b9a3f2"/></linearGradient></defs>
+      <path d="M0 0 H1440 V14 C1320 22 1260 10 1180 18 C1150 21 1146 52 1138 60 C1130 68 1122 58 1120 40 C1117 22 1060 18 980 20 C860 23 760 12 640 18 C560 22 548 30 544 44 C540 58 532 62 528 50 C524 34 500 22 420 20 C300 17 200 26 120 20 C90 18 84 30 82 36 C80 44 74 46 72 38 C70 26 50 16 0 16 Z" fill="url(#pourg)" fill-opacity=".14"/>
+      <circle cx="1129" cy="78" r="4" fill="url(#pourg)" fill-opacity=".22"/>
+      <circle cx="536" cy="68" r="3" fill="url(#pourg)" fill-opacity=".18"/>
+    </svg>
+  </div>
 
   <section id="so-gehts" class="glow-v" style="padding-top:clamp(40px,6vw,72px)">
     <div class="wrap">
