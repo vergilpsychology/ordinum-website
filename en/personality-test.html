@@ -1,17 +1,17 @@
 <!doctype html>
-<html lang="de">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Persönlichkeitstest · Ordinum</title>
-<meta name="description" content="Kostenloser Persönlichkeitstest nach dem Big-Five-Modell: 50 Aussagen, etwa 8 Minuten, sofortige Auswertung.">
+<title>Personality test · Ordinum</title>
+<meta name="description" content="Free personality test based on the Big Five model: 50 statements, about 8 minutes, instant results.">
 <meta name="theme-color" content="#0a0d0c">
-<link rel="canonical" href="https://ordinum.de/persoenlichkeitstest.html">
+<link rel="canonical" href="https://ordinum.de/en/personality-test.html">
 <link rel="alternate" hreflang="de" href="https://ordinum.de/persoenlichkeitstest.html">
 <link rel="alternate" hreflang="en" href="https://ordinum.de/en/personality-test.html">
-<link rel="icon" type="image/png" href="favicon.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="stylesheet" href="fonts.css">
+<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="stylesheet" href="../fonts.css">
 <style>
 /* Layout: dark, quiet canvas; a slow liquid of green and violet pours behind the hero; content in a 1120px column with hairline structure. */
 :root{
@@ -258,13 +258,13 @@ footer nav{display:flex;flex-wrap:wrap;gap:10px 20px}
   .tbar .fill,.tbar .track{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
 </style>
-<link rel="stylesheet" href="theme.css">
+<link rel="stylesheet" href="../theme.css">
 <script>try{if(localStorage.getItem('ordinum-theme')==='light')document.documentElement.dataset.theme='light'}catch(e){}</script>
 </head>
 <body>
 <header class="nav">
   <div class="wrap">
-    <a class="logo" href="index.html" aria-label="Ordinum Startseite"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 465 120" height="40" aria-hidden="true">
+    <a class="logo" href="./" aria-label="Ordinum home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 465 120" height="40" aria-hidden="true">
   <defs>
     <linearGradient id="ob-a" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#2A302E"/><stop offset="0.45" stop-color="#0C0F0E"/><stop offset="1" stop-color="#030404"/>
@@ -293,7 +293,7 @@ footer nav{display:flex;flex-wrap:wrap;gap:10px 20px}
   <clipPath id="capband"><rect x="-5" y="0" width="400" height="40"/></clipPath>
     <filter id="wglow" filterUnits="userSpaceOnUse" x="-20" y="-20" width="440" height="80">
       <feGaussianBlur stdDeviation="1.6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><linearGradient id="wmg" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="306" y2="0"><stop class="wm1" offset="0" stop-color="#93dcaa"/><stop class="wm2" offset=".55" stop-color="#a3b3ea"/><stop class="wm3" offset="1" stop-color="#b98cf0"/></linearGradient></defs>
-  <image class="logo-ring" href="logo-ring.png" x="2" y="2" width="116" height="116"/><image href="logo-eye.png" x="2" y="2" width="116" height="116"/>
+  <image class="logo-ring" href="../logo-ring.png" x="2" y="2" width="116" height="116"/><image href="../logo-eye.png" x="2" y="2" width="116" height="116"/>
   <g class="wm" transform="translate(148,40.0) scale(1.0)" fill="none" stroke="url(#wmg)" stroke-width="3.0" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" clip-path="url(#capband)">
     <ellipse cx="20" cy="20" rx="18.5" ry="18.5"/>
     <path d="M56.5,40 V1.5 H70 A10.5,10.5 0 0 1 70,22.0 H56.5 M68,22 L81.5,40"/>
@@ -305,67 +305,67 @@ footer nav{display:flex;flex-wrap:wrap;gap:10px 20px}
   </g>
 </svg>
 </a>
-    <div class="nav-links"><a class="txt" href="meine-ergebnisse.html">Meine Ergebnisse</a><a class="btn" href="index.html#warteliste">Warteliste</a></div>
+    <div class="nav-links"><a class="txt" href="../meine-ergebnisse.html">My results</a><a class="btn" href="./#warteliste">Waitlist</a></div>
   </div>
 </header>
 <main class="test-wrap">
   <section id="start" class="intro" style="border:0;padding:0">
-    <p class="eyebrow">Persönlichkeitstest · Big Five</p>
-    <h1>Wie tickst du <span class="grad">wirklich</span>?</h1>
-    <p>50 kurze Aussagen über dich. Antworte spontan und so, wie du meistens bist, nicht wie du gern wärst. Es gibt keine richtigen oder falschen Antworten.</p>
-    <div class="meta-row"><span>ca. 8 Minuten</span><span>50 Aussagen</span><span>Auswertung sofort</span><span>Antworten bleiben in deinem Browser</span></div>
-    <div class="cta-row"><button class="btn primary" id="go" type="button">Test starten</button><button class="btn" id="resume" type="button" hidden>Weitermachen</button></div>
+    <p class="eyebrow">Personality test · Big Five</p>
+    <h1>What makes you <span class="grad">tick</span>?</h1>
+    <p>50 short statements about you. Answer spontaneously and as you usually are, not as you would like to be. There are no right or wrong answers.</p>
+    <div class="meta-row"><span>about 8 minutes</span><span>50 statements</span><span>Instant results</span><span>Answers stay in your browser</span></div>
+    <div class="cta-row"><button class="btn primary" id="go" type="button">Start test</button><button class="btn" id="resume" type="button" hidden>Continue</button></div>
   </section>
 
   <section id="quiz" hidden style="border:0;padding:0">
     <div class="progress"><span id="bar"></span></div>
-    <div class="pcount"><span id="count">Aussage 1 von 50</span><span class="keyhint">Tasten 1–5 gehen auch</span></div>
+    <div class="pcount"><span id="count">Statement 1 of 50</span><span class="keyhint">Keys 1–5 work too</span></div>
     <div class="qcard">
       <p class="qtext" id="qtext" aria-live="polite"></p>
-      <div class="opts" id="opts" role="group" aria-label="Antwort"></div>
-      <div class="nav-row"><button class="btn" id="back" type="button">Zurück</button></div>
+      <div class="opts" id="opts" role="group" aria-label="Answer"></div>
+      <div class="nav-row"><button class="btn" id="back" type="button">Back</button></div>
     </div>
   </section>
 
   <section id="result" hidden style="border:0;padding:0">
     <div class="res-head">
-      <p class="eyebrow">Dein Ergebnis</p>
-      <h1>Dein Persönlichkeitsprofil</h1>
-      <p class="muted">Die Werte zeigen, wie stark jede Eigenschaft bei dir ausgeprägt ist, auf einer Skala von 0 bis 100. Kein Wert ist besser oder schlechter: Jede Ausprägung hat ihre Stärken.</p>
+      <p class="eyebrow">Your result</p>
+      <h1>Your personality profile</h1>
+      <p class="muted">The scores show how strongly each trait is expressed in you, on a scale from 0 to 100. No score is better or worse: every expression has its strengths.</p>
       <p class="res-date" id="resdate"></p>
     </div>
     <div id="traits"></div>
     <div class="save-box">
-      <h3>Dein Ergebnis wiederfinden</h3>
-      <p id="savetext">Dein Ergebnis ist in diesem Browser unter „Meine Ergebnisse“ gespeichert. Damit du es auch auf anderen Geräten wiederfindest, oder nachdem du deine Browserdaten gelöscht hast, speichere dir deinen persönlichen Link oder ein PDF.</p>
+      <h3>Find your result again</h3>
+      <p id="savetext">Your result is saved in this browser under “My results”. To find it on other devices too, or after clearing your browser data, save your personal link or a PDF.</p>
       <div class="cta-row">
-        <button class="btn primary" id="copylink" type="button">Link kopieren</button>
-        <a class="btn" id="maillink" href="#">Per E-Mail an mich</a>
-        <button class="btn" id="pdf" type="button">Als PDF speichern</button>
-        <button class="btn" id="keep" type="button" hidden>Auf diesem Gerät speichern</button>
+        <button class="btn primary" id="copylink" type="button">Copy link</button>
+        <a class="btn" id="maillink" href="#">Email it to me</a>
+        <button class="btn" id="pdf" type="button">Save as PDF</button>
+        <button class="btn" id="keep" type="button" hidden>Save on this device</button>
       </div>
       <p class="toast" id="toast" aria-live="polite"></p>
-      <p class="fine">Wer deinen persönlichen Link kennt, kann dein Ergebnis sehen. Gib ihn also nur weiter, wenn du das möchtest. <a href="meine-ergebnisse.html">Alle meine Ergebnisse</a></p>
+      <p class="fine">Anyone with your personal link can see your result, so only share it if you want to. <a href="../meine-ergebnisse.html">All my results</a></p>
     </div>
     <div class="cta-box">
-      <h3>Das ist erst der Anfang.</h3>
-      <p>Bald verbindet dein persönlicher Ordinum-Bericht dieses Ergebnis mit deinen Stärken, Werten und deiner Motivation zu einem ausführlichen Bild von dir. Deine Charakterstärken kannst du schon jetzt testen.</p>
-      <div class="cta-row"><a class="btn primary" href="staerkentest.html">Zum Charakterstärken-Test</a><a class="btn" href="index.html#warteliste">Auf die Warteliste</a><button class="btn" id="again" type="button">Test neu starten</button></div>
+      <h3>This is just the beginning.</h3>
+      <p>Soon your personal Ordinum report will connect this result with your strengths, values and motivation into a detailed picture of you. More tests in English are on their way.</p>
+      <div class="cta-row"><a class="btn primary" href="./#warteliste">Join the waitlist</a><button class="btn" id="again" type="button">Restart test</button></div>
     </div>
-    <p class="fine">Grundlage: IPIP Big-Five Factor Markers (Goldberg, 1992), International Personality Item Pool. Die Werte sind Ausprägungen auf der Antwortskala, noch keine Vergleichswerte mit einer Bevölkerungsstichprobe. Ordinum dient der Selbsterkenntnis und ersetzt keine psychologische Diagnostik.</p>
+    <p class="fine">Based on: IPIP Big-Five Factor Markers (Goldberg, 1992), International Personality Item Pool. Scores reflect positions on the answer scale, not comparisons with a population sample. Ordinum is meant for self-understanding and does not replace psychological assessment.</p>
   </section>
 </main>
 <footer>
   <div class="wrap">
-    <span>© 2026 Ordinum · Psychologie zum Selbstverstehen. Keine Diagnostik oder Therapie.</span>
-    <nav><a href="meine-ergebnisse.html">Meine Ergebnisse</a><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></nav>
+    <span>© 2026 Ordinum · Psychology for self-understanding. No diagnosis or therapy.</span>
+    <nav><a href="../meine-ergebnisse.html">My results</a><a href="../impressum.html" hreflang="de">Legal notice</a><a href="../datenschutz.html" hreflang="de">Privacy</a></nav>
   </div>
 </footer>
 <script>
-var ITEMS = [{"t": "Ich bringe Stimmung in jede Party.", "f": "E", "k": 1}, {"t": "Ich mache mir wenig Gedanken um andere.", "f": "A", "k": -1}, {"t": "Ich bin immer gut vorbereitet.", "f": "C", "k": 1}, {"t": "Ich gerate leicht in Stress.", "f": "S", "k": -1}, {"t": "Ich habe einen großen Wortschatz.", "f": "O", "k": 1}, {"t": "Ich rede nicht viel.", "f": "E", "k": -1}, {"t": "Ich interessiere mich für Menschen.", "f": "A", "k": 1}, {"t": "Ich lasse meine Sachen herumliegen.", "f": "C", "k": -1}, {"t": "Ich bin meistens entspannt.", "f": "S", "k": 1}, {"t": "Es fällt mir schwer, abstrakte Ideen zu verstehen.", "f": "O", "k": -1}, {"t": "Ich fühle mich unter Menschen wohl.", "f": "E", "k": 1}, {"t": "Ich beleidige andere.", "f": "A", "k": -1}, {"t": "Ich achte auf Details.", "f": "C", "k": 1}, {"t": "Ich mache mir viele Sorgen.", "f": "S", "k": -1}, {"t": "Ich habe eine lebhafte Fantasie.", "f": "O", "k": 1}, {"t": "Ich halte mich im Hintergrund.", "f": "E", "k": -1}, {"t": "Ich habe Mitgefühl mit den Gefühlen anderer.", "f": "A", "k": 1}, {"t": "Ich vermassle Dinge.", "f": "C", "k": -1}, {"t": "Ich bin selten niedergeschlagen.", "f": "S", "k": 1}, {"t": "Abstrakte Ideen interessieren mich nicht.", "f": "O", "k": -1}, {"t": "Ich fange Gespräche an.", "f": "E", "k": 1}, {"t": "Die Probleme anderer interessieren mich nicht.", "f": "A", "k": -1}, {"t": "Ich erledige Aufgaben sofort.", "f": "C", "k": 1}, {"t": "Ich lasse mich leicht aus der Ruhe bringen.", "f": "S", "k": -1}, {"t": "Ich habe hervorragende Ideen.", "f": "O", "k": 1}, {"t": "Ich habe wenig zu sagen.", "f": "E", "k": -1}, {"t": "Ich habe ein weiches Herz.", "f": "A", "k": 1}, {"t": "Ich vergesse oft, Dinge an ihren Platz zurückzulegen.", "f": "C", "k": -1}, {"t": "Ich rege mich leicht auf.", "f": "S", "k": -1}, {"t": "Ich habe wenig Fantasie.", "f": "O", "k": -1}, {"t": "Auf Partys rede ich mit vielen verschiedenen Leuten.", "f": "E", "k": 1}, {"t": "Ich interessiere mich nicht wirklich für andere.", "f": "A", "k": -1}, {"t": "Ich mag Ordnung.", "f": "C", "k": 1}, {"t": "Meine Stimmung wechselt oft.", "f": "S", "k": -1}, {"t": "Ich verstehe Dinge schnell.", "f": "O", "k": 1}, {"t": "Ich ziehe ungern Aufmerksamkeit auf mich.", "f": "E", "k": -1}, {"t": "Ich nehme mir Zeit für andere.", "f": "A", "k": 1}, {"t": "Ich drücke mich vor meinen Pflichten.", "f": "C", "k": -1}, {"t": "Ich habe häufig Stimmungsschwankungen.", "f": "S", "k": -1}, {"t": "Ich benutze schwierige Wörter.", "f": "O", "k": 1}, {"t": "Es macht mir nichts aus, im Mittelpunkt zu stehen.", "f": "E", "k": 1}, {"t": "Ich spüre, was andere fühlen.", "f": "A", "k": 1}, {"t": "Ich halte mich an einen Zeitplan.", "f": "C", "k": 1}, {"t": "Ich bin schnell gereizt.", "f": "S", "k": -1}, {"t": "Ich nehme mir Zeit, über Dinge nachzudenken.", "f": "O", "k": 1}, {"t": "Unter Fremden bin ich still.", "f": "E", "k": -1}, {"t": "Bei mir fühlen sich andere wohl.", "f": "A", "k": 1}, {"t": "Ich arbeite sehr genau.", "f": "C", "k": 1}, {"t": "Ich bin oft niedergeschlagen.", "f": "S", "k": -1}, {"t": "Ich stecke voller Ideen.", "f": "O", "k": 1}];
-var TEXTS = {"E": {"name": "Extraversion", "what": "Wie sehr du Energie aus Kontakt, Austausch und Aktivität ziehst.", "low": "Du bist eher zurückhaltend und tankst in ruhigen Momenten oder kleinen Runden auf. Das heißt nicht schüchtern: Du wählst einfach bewusster, wann und mit wem du redest.", "mid": "Du bist gern unter Menschen, brauchst aber auch Zeit für dich. Je nach Situation kannst du gesellig oder ruhig sein, und genau diese Flexibilität ist eine Stärke.", "high": "Du blühst im Austausch auf. Neue Leute, Gespräche und gemeinsame Aktivitäten geben dir Energie, und andere erleben dich oft als offen und ansteckend."}, "A": {"name": "Verträglichkeit", "what": "Wie sehr du auf Harmonie, Mitgefühl und Kooperation ausgerichtet bist.", "low": "Du bist direkt und lässt dich nicht leicht vereinnahmen. Du vertrittst deinen Standpunkt, auch wenn es unbequem wird, und schaust kritisch auf das, was andere wollen.", "mid": "Du bist hilfsbereit und rücksichtsvoll, kannst aber auch klar Nein sagen. Du findest meist eine gute Balance zwischen deinen Bedürfnissen und denen anderer.", "high": "Du bist warmherzig, mitfühlend und kooperativ. Andere fühlen sich bei dir gut aufgehoben. Achte darauf, dass deine eigenen Bedürfnisse dabei nicht zu kurz kommen."}, "C": {"name": "Gewissenhaftigkeit", "what": "Wie organisiert, zuverlässig und zielstrebig du an Aufgaben gehst.", "low": "Du bist spontan und flexibel und lässt dich ungern in starre Pläne pressen. Struktur hilft dir vor allem dann, wenn sie leicht ist und Spielraum lässt.", "mid": "Du kannst planvoll arbeiten, wenn es darauf ankommt, bleibst aber offen für Spontanes. Bei Dingen, die dir wichtig sind, bist du verlässlich.", "high": "Du bist organisiert, gründlich und zuverlässig. Pläne und Ordnung geben dir Halt. Erlaube dir ab und zu, Dinge auch einfach gut genug sein zu lassen."}, "S": {"name": "Emotionale Stabilität", "what": "Wie gelassen du mit Stress, Sorgen und Stimmungsschwankungen umgehst.", "low": "Du nimmst Gefühle intensiv wahr und reagierst feinfühlig auf Stress. Diese Sensibilität hat auch eine Kehrseite: Gezielte Erholung und Strategien gegen Grübeln können dir viel Last abnehmen.", "mid": "Meist bleibst du gelassen, aber in belastenden Phasen merkst du Stress deutlich. Du kennst beide Seiten, das macht dich verständnisvoll für andere.", "high": "Du bleibst auch unter Druck meist ruhig und findest schnell wieder ins Gleichgewicht. Das macht dich für andere zu einem stabilen Gegenüber."}, "O": {"name": "Offenheit & Intellekt", "what": "Wie neugierig du auf Ideen, Fantasie und gedankliche Herausforderungen bist.", "low": "Du bist bodenständig und praktisch. Du schätzt Bewährtes und konzentrierst dich lieber auf das Konkrete als auf abstrakte Gedankenspiele.", "mid": "Du bist offen für neue Ideen, ohne den Boden zu verlieren. Du interessierst dich für Neues, wenn du einen Sinn darin siehst.", "high": "Du bist neugierig, fantasievoll und denkst gern in Möglichkeiten. Neue Ideen und komplexe Fragen geben dir Energie."}};
+var ITEMS = [{"t": "I am the life of the party.", "f": "E", "k": 1}, {"t": "I feel little concern for others.", "f": "A", "k": -1}, {"t": "I am always prepared.", "f": "C", "k": 1}, {"t": "I get stressed out easily.", "f": "S", "k": -1}, {"t": "I have a rich vocabulary.", "f": "O", "k": 1}, {"t": "I don't talk a lot.", "f": "E", "k": -1}, {"t": "I am interested in people.", "f": "A", "k": 1}, {"t": "I leave my belongings around.", "f": "C", "k": -1}, {"t": "I am relaxed most of the time.", "f": "S", "k": 1}, {"t": "I have difficulty understanding abstract ideas.", "f": "O", "k": -1}, {"t": "I feel comfortable around people.", "f": "E", "k": 1}, {"t": "I insult people.", "f": "A", "k": -1}, {"t": "I pay attention to details.", "f": "C", "k": 1}, {"t": "I worry about things.", "f": "S", "k": -1}, {"t": "I have a vivid imagination.", "f": "O", "k": 1}, {"t": "I keep in the background.", "f": "E", "k": -1}, {"t": "I sympathize with others' feelings.", "f": "A", "k": 1}, {"t": "I make a mess of things.", "f": "C", "k": -1}, {"t": "I seldom feel blue.", "f": "S", "k": 1}, {"t": "I am not interested in abstract ideas.", "f": "O", "k": -1}, {"t": "I start conversations.", "f": "E", "k": 1}, {"t": "I am not interested in other people's problems.", "f": "A", "k": -1}, {"t": "I get chores done right away.", "f": "C", "k": 1}, {"t": "I am easily disturbed.", "f": "S", "k": -1}, {"t": "I have excellent ideas.", "f": "O", "k": 1}, {"t": "I have little to say.", "f": "E", "k": -1}, {"t": "I have a soft heart.", "f": "A", "k": 1}, {"t": "I often forget to put things back in their proper place.", "f": "C", "k": -1}, {"t": "I get upset easily.", "f": "S", "k": -1}, {"t": "I do not have a good imagination.", "f": "O", "k": -1}, {"t": "I talk to a lot of different people at parties.", "f": "E", "k": 1}, {"t": "I am not really interested in others.", "f": "A", "k": -1}, {"t": "I like order.", "f": "C", "k": 1}, {"t": "I change my mood a lot.", "f": "S", "k": -1}, {"t": "I am quick to understand things.", "f": "O", "k": 1}, {"t": "I don't like to draw attention to myself.", "f": "E", "k": -1}, {"t": "I take time out for others.", "f": "A", "k": 1}, {"t": "I shirk my duties.", "f": "C", "k": -1}, {"t": "I have frequent mood swings.", "f": "S", "k": -1}, {"t": "I use difficult words.", "f": "O", "k": 1}, {"t": "I don't mind being the center of attention.", "f": "E", "k": 1}, {"t": "I feel others' emotions.", "f": "A", "k": 1}, {"t": "I follow a schedule.", "f": "C", "k": 1}, {"t": "I get irritated easily.", "f": "S", "k": -1}, {"t": "I spend time reflecting on things.", "f": "O", "k": 1}, {"t": "I am quiet around strangers.", "f": "E", "k": -1}, {"t": "I make people feel at ease.", "f": "A", "k": 1}, {"t": "I am exacting in my work.", "f": "C", "k": 1}, {"t": "I often feel blue.", "f": "S", "k": -1}, {"t": "I am full of ideas.", "f": "O", "k": 1}];
+var TEXTS = {"E": {"name": "Extraversion", "what": "How much energy you draw from contact, exchange and activity.", "low": "You tend to be reserved and recharge in quiet moments or small groups. That does not mean shy: you simply choose more deliberately when and with whom you talk.", "mid": "You enjoy being around people but also need time for yourself. Depending on the situation you can be sociable or quiet, and that very flexibility is a strength.", "high": "You come alive in exchange with others. New people, conversations and shared activities give you energy, and others often experience you as open and infectious."}, "A": {"name": "Agreeableness", "what": "How much you are oriented towards harmony, compassion and cooperation.", "low": "You are direct and not easily won over. You stand your ground even when it gets uncomfortable, and you take a critical look at what others want.", "mid": "You are helpful and considerate, but you can also say a clear no. You usually find a good balance between your own needs and those of others.", "high": "You are warm, compassionate and cooperative. Others feel well looked after with you. Make sure your own needs do not fall short along the way."}, "C": {"name": "Conscientiousness", "what": "How organized, reliable and goal-directed you approach tasks.", "low": "You are spontaneous and flexible and dislike being squeezed into rigid plans. Structure helps you most when it is light and leaves room to move.", "mid": "You can work methodically when it matters, yet stay open to the spontaneous. With things that are important to you, you are reliable.", "high": "You are organized, thorough and reliable. Plans and order give you a sense of footing. Allow yourself now and then to let things simply be good enough."}, "S": {"name": "Emotional stability", "what": "How calmly you deal with stress, worries and changes in mood.", "low": "You feel emotions intensely and respond sensitively to stress. This sensitivity has another side too: deliberate recovery and strategies against rumination can take a lot of weight off you.", "mid": "You mostly stay calm, but in demanding phases you clearly notice stress. You know both sides, which makes you understanding towards others.", "high": "You usually stay calm even under pressure and quickly regain your balance. That makes you a steady presence for others."}, "O": {"name": "Openness & intellect", "what": "How curious you are about ideas, imagination and intellectual challenges.", "low": "You are down to earth and practical. You value the tried and tested and prefer to focus on the concrete rather than abstract thought experiments.", "mid": "You are open to new ideas without losing your footing. You take an interest in new things when you see a point to them.", "high": "You are curious, imaginative and like to think in possibilities. New ideas and complex questions give you energy."}};
 var ORDER = ["E", "A", "C", "S", "O"];
-var SCALE = ["trifft gar nicht zu", "trifft eher nicht zu", "teils, teils", "trifft eher zu", "trifft voll zu"];
+var SCALE = ["very inaccurate", "moderately inaccurate", "neither accurate nor inaccurate", "moderately accurate", "very accurate"];
 var KEY = 'ordinum-ipip50';
 var HIST = 'ordinum-ergebnisse', ABC = 'abcdefghijklmnopqrstuvwxy';
 var ans = new Array(ITEMS.length).fill(null), cur = 0, curLink = '';
@@ -377,7 +377,7 @@ function encode(a){ var s = ''; for (var i = 0; i < a.length; i += 2) s += ABC[(
 function decode(c){ var a = []; for (var i = 0; i < c.length; i++){ var n = ABC.indexOf(c[i]); a.push(Math.floor(n/5)+1, n%5+1); } return a; }
 function parseHash(){ var m = /^#r=([a-y]{25})(?:-(\d{8}))?$/.exec(location.hash); return m ? {code:m[1], date:m[2] || null} : null; }
 function today(){ var d = new Date(); return '' + d.getFullYear() + String(d.getMonth()+1).padStart(2,'0') + String(d.getDate()).padStart(2,'0'); }
-function fmtDate(s){ return new Date(+s.slice(0,4), +s.slice(4,6)-1, +s.slice(6,8)).toLocaleDateString('de-DE', {day:'numeric', month:'long', year:'numeric'}); }
+function fmtDate(s){ return new Date(+s.slice(0,4), +s.slice(4,6)-1, +s.slice(6,8)).toLocaleDateString('en-GB', {day:'numeric', month:'long', year:'numeric'}); }
 function loadHist(){ try{ var h = JSON.parse(localStorage.getItem(HIST)); if (Array.isArray(h)) return h; }catch(e){} return []; }
 function saveHist(h){ try{ localStorage.setItem(HIST, JSON.stringify(h.slice(0,50))); }catch(e){} }
 function findHist(code){ return loadHist().filter(function(r){ return r.code === code; })[0] || null; }
@@ -397,7 +397,7 @@ function show(id){ ['start','quiz','result'].forEach(function(s){ $(s).hidden = 
 function render(){
   var it = ITEMS[cur];
   $('qtext').textContent = it.t;
-  $('count').textContent = 'Aussage ' + (cur+1) + ' von ' + ITEMS.length;
+  $('count').textContent = 'Statement ' + (cur+1) + ' of ' + ITEMS.length;
   $('bar').style.width = (cur/ITEMS.length*100) + '%';
   var o = $('opts'); o.innerHTML = '';
   SCALE.forEach(function(lbl, i){
@@ -423,17 +423,17 @@ function results(linkDate){
   var date = linkDate || (known && known.date) || today();
   history.replaceState(null, '', '#r=' + code + '-' + date);
   curLink = location.href;
-  $('resdate').textContent = 'Ergebnis vom ' + fmtDate(date);
+  $('resdate').textContent = 'Result from ' + fmtDate(date);
   $('keep').hidden = !!known;
-  $('keep').onclick = function(){ addHist(code, date); $('keep').hidden = true; toast('Gespeichert. Du findest es jetzt unter „Meine Ergebnisse“.'); };
+  $('keep').onclick = function(){ addHist(code, date); $('keep').hidden = true; toast('Saved. You can now find it under “My results”.'); };
   $('savetext').hidden = !known;
-  $('maillink').href = 'mailto:?subject=' + encodeURIComponent('Mein Ordinum-Persönlichkeitsprofil') + '&body=' + encodeURIComponent('Mein Ergebnis im Ordinum-Persönlichkeitstest vom ' + fmtDate(date) + ':\n' + curLink);
+  $('maillink').href = 'mailto:?subject=' + encodeURIComponent('My Ordinum personality profile') + '&body=' + encodeURIComponent('My result in the Ordinum personality test from ' + fmtDate(date) + ':\n' + curLink);
   toast('');
   var box = $('traits'); box.innerHTML = '';
   ORDER.forEach(function(f){
     var score = sc[f];
     var lv = score < 40 ? 'low' : score > 60 ? 'high' : 'mid';
-    var lvName = {low:'eher niedrig', mid:'mittel', high:'eher hoch'}[lv];
+    var lvName = {low:'rather low', mid:'medium', high:'rather high'}[lv];
     var T = TEXTS[f], el = document.createElement('div');
     el.className = 'trait';
     el.innerHTML = '<div class="trait-top"><h2></h2><span class="lvl"></span></div>' +
@@ -455,9 +455,9 @@ $('resume').addEventListener('click', function(){ cur = ans.indexOf(null); if (c
 $('back').addEventListener('click', function(){ if (cur > 0) { cur--; render(); } });
 $('again').addEventListener('click', restart);
 $('copylink').addEventListener('click', function(){
-  var done = function(){ toast('Link kopiert. Speicher ihn dir zum Beispiel als Lesezeichen oder in deinen Notizen.'); };
-  if (navigator.clipboard) navigator.clipboard.writeText(curLink).then(done, function(){ window.prompt('Dein persönlicher Link:', curLink); });
-  else window.prompt('Dein persönlicher Link:', curLink);
+  var done = function(){ toast('Link copied. Save it as a bookmark or in your notes, for example.'); };
+  if (navigator.clipboard) navigator.clipboard.writeText(curLink).then(done, function(){ window.prompt('Your personal link:', curLink); });
+  else window.prompt('Your personal link:', curLink);
 });
 $('pdf').addEventListener('click', function(){ window.print(); });
 document.addEventListener('keydown', function(e){
@@ -477,9 +477,9 @@ window.addEventListener('hashchange', function(){ if (!location.hash.indexOf('#r
   // Ergebnisse von vor der Ergebnisliste nachtragen
   if (a && a.indexOf(null) < 0) addHist(encode(a), today());
   if (route()) return;
-  if (a && a.some(function(x){ return x != null; })) { ans = a; $('resume').hidden = false; $('resume').textContent = a.indexOf(null) < 0 ? 'Letztes Ergebnis ansehen' : 'Weitermachen'; }
+  if (a && a.some(function(x){ return x != null; })) { ans = a; $('resume').hidden = false; $('resume').textContent = a.indexOf(null) < 0 ? 'View last result' : 'Continue'; }
 })();
 </script>
-<script src="theme.js"></script>
+<script src="../theme.js"></script>
 </body>
 </html>
