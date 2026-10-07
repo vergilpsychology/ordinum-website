@@ -112,3 +112,23 @@
 .logo:hover .logo-ring{animation-duration:12s}
 @keyframes logo-spin{to{transform:rotate(360deg)}}
 @media (prefers-reduced-motion:reduce){.logo .logo-ring{animation:none}}
+
+/* Menü-Button und Klappmenü auf kleinen Bildschirmen (Leiste bleibt oben fixiert) */
+.menu-btn{display:none;flex:none;flex-direction:column;align-items:center;justify-content:center;gap:4px;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--fg);cursor:pointer;padding:0;transition:border-color .2s}
+.menu-btn:hover,.nav.open .menu-btn{border-color:var(--violet-soft)}
+.menu-btn span{display:block;width:16px;height:1.6px;border-radius:2px;background:currentColor;transition:transform .25s,opacity .2s}
+.nav.open .menu-btn span:nth-child(1){transform:translateY(5.6px) rotate(45deg)}
+.nav.open .menu-btn span:nth-child(2){opacity:0}
+.nav.open .menu-btn span:nth-child(3){transform:translateY(-5.6px) rotate(-45deg)}
+@media (max-width:820px){
+  .nav .wrap{position:relative}
+  .menu-btn{display:inline-flex}
+  .nav.open ul{display:flex;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;padding:8px clamp(16px,4vw,40px) 18px;background:var(--bg);border-bottom:1px solid var(--line);box-shadow:0 24px 40px -20px rgba(0,0,0,.7);animation:menu-in .22s ease-out}
+  .nav.open ul li + li{border-top:1px solid var(--line)}
+  .nav.open ul a{display:block;padding:15px 2px;font-size:17px;color:var(--fg)}
+  .nav.open ul a:hover{color:var(--green)}
+}
+@media (max-width:440px){.menu-btn{width:34px;height:34px}.nav-end{gap:8px}}
+@keyframes menu-in{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+:root[data-theme="light"] .nav.open ul{box-shadow:0 24px 40px -24px rgba(0,0,0,.25)}
+@media print{.menu-btn{display:none!important}}
