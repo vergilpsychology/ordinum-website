@@ -82,9 +82,6 @@
 :root[data-theme="light"] .test{background:linear-gradient(165deg,rgba(var(--a),.14),transparent 55%),var(--surface)}
 
 /* SVG-Elemente mit fest eingebauten Farben */
-:root[data-theme="light"] .logo .wm1{stop-color:#2b8257}
-:root[data-theme="light"] .logo .wm2{stop-color:#4f63b8}
-:root[data-theme="light"] .logo .wm3{stop-color:#7a45c9}
 :root[data-theme="light"] .flowcard text[fill="#e7ece9"]{fill:var(--fg)}
 :root[data-theme="light"] .flowcard g[stroke="#1f2724"]{stroke:var(--line)}
 
@@ -107,11 +104,6 @@
 :root[data-theme="light"] .toast,
 :root[data-theme="light"] .done{color:var(--green)}
 
-/* Logo: Schaltkreis-Bögen um das Auge drehen sich langsam (gilt in beiden Modi) */
-.logo .logo-ring{transform-box:fill-box;transform-origin:50% 50%;animation:logo-spin 40s linear infinite}
-.logo:hover .logo-ring{animation-duration:12s}
-@keyframes logo-spin{to{transform:rotate(360deg)}}
-@media (prefers-reduced-motion:reduce){.logo .logo-ring{animation:none}}
 
 /* Menü-Button und Klappmenü auf kleinen Bildschirmen (Leiste bleibt oben fixiert) */
 .menu-btn{display:none;flex:none;flex-direction:column;align-items:center;justify-content:center;gap:4px;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--fg);cursor:pointer;padding:0;transition:border-color .2s}
@@ -140,3 +132,15 @@
 .nav ul .lang-li{display:none}
 @media (max-width:1080px){.nav ul ~ .nav-end .lang-btn{display:none}.nav.open ul .lang-li{display:block}}
 @media print{.lang-btn{display:none!important}}
+
+/* Logo: zwei verschlungene Ringe und der Schriftzug ORDINUM */
+.logo{gap:12px}
+.logo-mark{flex:none;display:block;height:40px;width:auto;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.logo:hover .logo-mark{transform:rotate(-8deg) scale(1.04)}
+.logo-word{font-family:"Hanken Grotesk",system-ui,sans-serif;font-weight:400;font-size:19px;line-height:1;letter-spacing:.34em;margin-right:-.34em;color:#8c78d9;white-space:nowrap}
+:root[data-theme="light"] .logo-word{color:#6c56c4}
+:root[data-theme="light"] .logo-mark{filter:saturate(1.25) brightness(.82)}
+@media (max-width:440px){.logo{gap:9px}.logo-mark{height:32px}.logo-word{font-size:15px;letter-spacing:.28em;margin-right:-.28em}}
+@media (prefers-reduced-motion:reduce){.logo-mark{transition:none}}
+.logo-word .logo-i{color:#7ff390}
+:root[data-theme="light"] .logo-word .logo-i{color:#2f9a4c}
