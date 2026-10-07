@@ -142,3 +142,5 @@
 :root[data-theme="light"] .logo-mark{filter:saturate(1.25) brightness(.82)}
 @media (max-width:440px){.logo{gap:9px}.logo-mark{height:32px}.logo-word{font-size:15px;letter-spacing:.28em;margin-right:-.28em}}
 @media (prefers-reduced-motion:reduce){.logo-mark{transition:none}}
+.logo-word .logo-i{color:#7ff390}
+:root[data-theme="light"] .logo-word .logo-i{color:#2f9a4c}
