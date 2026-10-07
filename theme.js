@@ -23,4 +23,25 @@
     cta.parentNode.insertBefore(end, cta); end.appendChild(b); end.appendChild(cta);
   }
   else { b.classList.add('floating'); document.body.appendChild(b); }
+
+  // Menü-Button für kleine Bildschirme: blendet die Bereichs-Links als Klappmenü unter der Leiste ein
+  var nav = document.querySelector('.nav'), list = nav && nav.querySelector('ul');
+  if (list) {
+    var m = document.createElement('button');
+    m.type = 'button'; m.className = 'menu-btn';
+    m.setAttribute('aria-label', 'Menü öffnen'); m.setAttribute('aria-expanded', 'false');
+    list.id = list.id || 'nav-menu'; m.setAttribute('aria-controls', list.id);
+    m.innerHTML = '<span></span><span></span><span></span>';
+    (nav.querySelector('.nav-end') || nav.querySelector('.wrap')).appendChild(m);
+    function setOpen(o){
+      nav.classList.toggle('open', o);
+      m.setAttribute('aria-expanded', o ? 'true' : 'false');
+      m.setAttribute('aria-label', o ? 'Menü schließen' : 'Menü öffnen');
+    }
+    m.addEventListener('click', function(e){ e.stopPropagation(); setOpen(!nav.classList.contains('open')); });
+    list.addEventListener('click', function(e){ if (e.target.closest('a')) setOpen(false); });
+    document.addEventListener('click', function(e){ if (!nav.contains(e.target)) setOpen(false); });
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape') setOpen(false); });
+    window.addEventListener('resize', function(){ if (window.innerWidth > 820) setOpen(false); });
+  }
 })();
