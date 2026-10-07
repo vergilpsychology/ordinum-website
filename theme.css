@@ -144,3 +144,4 @@
 @media (prefers-reduced-motion:reduce){.logo-mark{transition:none}}
 .logo-word .logo-i{color:#7ff390}
 :root[data-theme="light"] .logo-word .logo-i{color:#2f9a4c}
+:root[data-theme="light"] .quote p{color:transparent;-webkit-text-fill-color:transparent;background-image:linear-gradient(100deg,#2a332f 15%,#2b8257 55%,#6c56c4 90%)}
