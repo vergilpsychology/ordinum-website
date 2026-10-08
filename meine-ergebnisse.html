@@ -259,6 +259,8 @@ footer nav{display:flex;flex-wrap:wrap;gap:10px 20px}
 .rcard{border:1px solid var(--line);border-radius:20px;padding:clamp(20px,4vw,28px);background:linear-gradient(160deg,rgba(143,209,169,.05),rgba(185,163,242,.07)),var(--surface);display:grid;gap:18px}
 .rhead{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
 .rhead h2{font-family:var(--body);font-weight:600;font-size:20px;letter-spacing:0;margin-top:6px}
+.rnote{font-family:var(--mono);font-size:13px;color:var(--green);margin-top:6px}
+:root[data-theme="light"] .rnote{color:var(--green)}
 .ract{display:flex;gap:10px;flex-wrap:wrap}
 .ract .btn{padding:9px 16px;font-size:14px}
 .mbars{display:grid;gap:8px}
@@ -292,7 +294,7 @@ footer nav{display:flex;flex-wrap:wrap;gap:10px 20px}
   <div class="empty" id="empty" hidden>
     <h3 style="font-size:22px">Noch keine Ergebnisse auf diesem Gerät</h3>
     <p>Du hast einen persönlichen Link gespeichert? Öffne ihn einfach, dann siehst du dein Ergebnis wieder und kannst es hier ablegen.</p>
-    <div class="cta-row"><a class="btn primary" href="persoenlichkeitstest.html">Persönlichkeitstest machen</a><a class="btn" href="staerkentest.html">Charakterstärken-Test machen</a><a class="btn" href="wohlbefinden.html">Wohlbefinden-Test machen</a><a class="btn" href="stresstest.html">Stresstest machen</a><a class="btn" href="emotionen.html">Emotionstest machen</a></div>
+    <div class="cta-row"><a class="btn primary" href="persoenlichkeitstest.html">Persönlichkeitstest machen</a><a class="btn" href="staerkentest.html">Charakterstärken-Test machen</a><a class="btn" href="wohlbefinden.html">Wohlbefinden-Test machen</a><a class="btn" href="stresstest.html">Stresstest machen</a><a class="btn" href="emotionen.html">Emotionstest machen</a><a class="btn" href="beziehungsstil.html">Beziehungsstil-Test machen</a></div>
   </div>
   <p class="fine" id="clearrow" hidden><button class="linkbtn" id="clear" type="button">Alle Ergebnisse von diesem Gerät löschen</button></p>
 </main>
@@ -313,6 +315,17 @@ var TESTS = {big5: {name: 'Persönlichkeitstest · Big Five', page: 'persoenlich
   names: {A:'Anspannung', R:'Reizbarkeit', U:'Überforderung', S:'Selbstwirksamkeit'}},
   emotionen: {name: 'Emotionen', page: 'emotionen.html', key: 'ordinum-emotionen', order: ['W','P','N','J','E'],
   names: {W:'Gefühle wahrnehmen', P:'Freude zeigen', N:'Schweres zeigen', J:'Mitschwingen', E:'Bauchgefühl'}},
+  // note: Schwerpunkt aus den acht Stilwerten (gleiche Rechnung wie auf der Testseite), dazu die drei stärksten Stile
+  beziehung: {name: 'Beziehungsstil', page: 'beziehungsstil.html', key: 'ordinum-beziehungsstil', top: 3, order: ['PA','NO','LM','JK','HI','FG','DE','BC'],
+  names: {PA:'Bestimmend', NO:'Gesellig', LM:'Warmherzig', JK:'Nachsichtig', HI:'Leise', FG:'Reserviert', DE:'Nüchtern', BC:'Direkt'},
+  note: function(sc){
+    var ang = {LM:0, NO:45, PA:90, BC:135, DE:180, FG:225, HI:270, JK:315}, k = Object.keys(ang), m = 0, x = 0, y = 0;
+    k.forEach(function(f){ m += sc[f] / 8; });
+    k.forEach(function(f){ var t = ang[f] * Math.PI / 180; x += (sc[f] - m) * Math.cos(t); y += (sc[f] - m) * Math.sin(t); });
+    if (Math.sqrt(x*x + y*y) / 2 < 12) return 'Schwerpunkt: ausgewogen';
+    var a = (Math.round(Math.atan2(y, x) * 180 / Math.PI / 45) * 45 + 360) % 360;
+    return 'Schwerpunkt: ' + this.names[k.filter(function(f){ return ang[f] === a; })[0]];
+  }},
   staerken: {name: 'Charakterstärken · deine Top 5', page: 'staerkentest.html', key: 'ordinum-staerken', top: 5, order: ["ori", "val", "cap", "equ", "for", "app", "cur", "ind", "kin", "lea", "mod", "gra", "jud", "int", "soc", "cit", "pru", "hop", "lov", "zes", "sel", "hum", "per", "spi"],
   names: {"ori": "Kreativität", "val": "Mut", "cap": "Fähigkeit zu lieben", "equ": "Fairness", "for": "Vergebung", "app": "Sinn für Schönheit", "cur": "Neugier", "ind": "Ausdauer", "kin": "Freundlichkeit", "lea": "Führung", "mod": "Bescheidenheit", "gra": "Dankbarkeit", "jud": "Urteilsvermögen", "int": "Ehrlichkeit", "soc": "Soziale Intelligenz", "cit": "Teamgeist", "pru": "Umsicht", "hop": "Zuversicht", "lov": "Freude am Lernen", "zes": "Tatendrang", "sel": "Selbstregulation", "hum": "Humor", "per": "Weitblick", "spi": "Spiritualität"}}};
 function $(id){ return document.getElementById(id); }
@@ -337,6 +350,7 @@ function render(){
     el.querySelector('.eyebrow').textContent = T.name;
     el.querySelector('h2').textContent = 'Ergebnis vom ' + fmtDate(r.date);
     el.querySelector('a').href = T.page + '#r=' + r.code + '-' + r.date;
+    if (T.note) { var nt = document.createElement('p'); nt.className = 'rnote'; nt.textContent = T.note(r.scores); el.querySelector('h2').after(nt); }
     el.querySelector('button').addEventListener('click', function(){
       if (!confirm('Dieses Ergebnis von diesem Gerät löschen?')) return;
       saveHist(loadHist().filter(function(x){ return x.code !== r.code; }));
