@@ -1,0 +1,569 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Relationship style test · Ordinum</title>
+<meta name="description" content="Free relationship style test: 32 statements, about 4 minutes, your instant place in the relationship circle of eight styles between taking the lead and giving room, closeness and distance.">
+<meta name="theme-color" content="#0a0d0c">
+<link rel="canonical" href="https://ordinum.de/en/relationship-style-test.html">
+<link rel="alternate" hreflang="de" href="https://ordinum.de/beziehungsstil.html">
+<link rel="alternate" hreflang="en" href="https://ordinum.de/en/relationship-style-test.html">
+<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="stylesheet" href="../fonts.css">
+<style>
+/* Layout: dark, quiet canvas; a slow liquid of green and violet pours behind the hero; content in a 1120px column with hairline structure. */
+:root{
+  --bg:#0a0d0c;
+  --surface:#111513;
+  --line:#1f2724;
+  --fg:#e7ece9;
+  --muted:#8e9a95;
+  --green:#5fd0b8;
+  --green-soft:#3d8f80;
+  --green-l:#137a67;
+  --green-soft-l:#86d1c1;
+  --violet:#b9a3f2;
+  --violet-soft:#7c69b4;
+  --glow:rgba(160,180,220,.10);
+  --display:"Unbounded", "Segoe UI", system-ui, sans-serif;
+  --body:"Hanken Grotesk", "Segoe UI", system-ui, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:clamp(16px,4vw,40px)}
+h1,h2,h3{font-family:var(--display);font-weight:300;letter-spacing:-.02em;text-wrap:balance;margin:0}
+p{margin:0}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--green)}
+.eyebrow.v{color:var(--violet)}
+.muted{color:var(--muted)}
+.grad{background:linear-gradient(100deg,var(--green) 10%,var(--violet) 90%);-webkit-background-clip:text;background-clip:text;color:transparent}
+:focus-visible{outline:2px solid var(--violet);outline-offset:3px;border-radius:6px}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:rgba(10,13,12,.74);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-block:12px}
+.logo{display:flex;align-items:center;text-decoration:none}
+.logo svg{flex:none;width:auto;height:42px;display:block}
+.nav ul{display:flex;gap:28px;list-style:none;margin:0;padding:0;font-size:15px}
+.nav ul a{text-decoration:none;color:var(--muted);transition:color .2s}
+.nav ul a:hover{color:var(--fg)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:999px;font:500 15px var(--body);text-decoration:none;border:1px solid var(--line);background:transparent;color:var(--fg);cursor:pointer;transition:border-color .2s,background .2s,box-shadow .3s}
+.btn:hover{border-color:var(--violet-soft)}
+.btn.primary{background:linear-gradient(100deg,var(--green),#9fb2f6 55%,var(--violet));color:#0b0f14;border-color:transparent}
+.btn.primary:hover{box-shadow:0 0 28px rgba(185,163,242,.35)}
+.nav .btn{padding:9px 16px;font-size:14px;white-space:nowrap}
+@media (max-width:820px){.nav ul{display:none}}
+@media (max-width:440px){.logo svg{height:34px}.nav .btn{padding:8px 12px;font-size:13px}}
+
+/* hero */
+.hero{position:relative;overflow:hidden}
+#liquid{position:absolute;inset:-10%;width:120%;height:120%;filter:blur(46px) saturate(1.15);opacity:.85}
+#lines{position:absolute;inset:0;width:100%;height:100%}
+#liquid,#lines{-webkit-mask-image:linear-gradient(to bottom,#000 55%,rgba(0,0,0,.35) 88%,rgba(0,0,0,.25));mask-image:linear-gradient(to bottom,#000 55%,rgba(0,0,0,.35) 88%,rgba(0,0,0,.25))}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 25% 45%,rgba(10,13,12,.55) 0,rgba(10,13,12,.2) 45%,transparent 70%);pointer-events:none}
+.hero .wrap{position:relative;z-index:1;padding-block:clamp(80px,13vw,150px) clamp(64px,9vw,104px);display:grid;gap:28px}
+.hero h1{font-size:clamp(38px,6.6vw,80px);line-height:1.04;max-width:13ch}
+.hero .lead{font-size:clamp(17px,2vw,20px);color:#b7c2bd;max-width:54ch}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px}
+.facts{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:12px;font-family:var(--mono);font-size:13px;color:var(--muted)}
+.facts span::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--violet);margin-right:10px;vertical-align:middle;box-shadow:0 0 10px var(--violet)}
+.facts span:nth-child(odd)::before{background:var(--green);box-shadow:0 0 10px var(--green)}
+.pour{display:block;width:100%;height:auto;margin-top:-1px}
+
+section{padding-block:clamp(64px,9vw,112px);border-bottom:1px solid var(--line)}
+.head{display:grid;gap:16px;margin-bottom:48px;max-width:720px}
+.head h2{font-size:clamp(28px,3.8vw,44px);line-height:1.12}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line)}
+.stepc{padding:32px 28px 8px 0;display:grid;gap:12px;align-content:start;min-width:0}
+.stepc + .stepc{padding-left:28px;border-left:1px solid var(--line)}
+.stepc .n{font-family:var(--mono);font-size:12px;color:var(--violet)}
+.stepc h3{font-size:22px}
+.stepc p{color:var(--muted);font-size:16px}
+@media (max-width:820px){.steps{grid-template-columns:1fr}.stepc,.stepc + .stepc{padding:28px 0;border-left:0;border-bottom:1px solid var(--line)}}
+
+/* test library */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.chip{font:500 14px var(--body);padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer}
+.chip[aria-pressed="true"]{color:var(--fg);border-color:var(--violet-soft);background:rgba(185,163,242,.08)}
+.tests{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.test{position:relative;border:1px solid var(--line);border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:10px;background:var(--surface);min-width:0;overflow:hidden;transition:border-color .25s,transform .25s}
+.test:hover{border-color:var(--violet-soft);transform:translateY(-2px)}
+.test::before{content:"";position:absolute;width:160px;height:160px;right:-60px;top:-70px;border-radius:50%;background:radial-gradient(circle,var(--c,rgba(126,168,248,.22)),transparent 70%);pointer-events:none}
+.test .meta{display:flex;justify-content:space-between;gap:8px;font-family:var(--mono);font-size:12px;color:var(--muted)}
+.test h3{font-family:var(--body);font-weight:600;font-size:19px;letter-spacing:0}
+.test p{color:var(--muted);font-size:15px;flex:1}
+.test .basis{font-family:var(--mono);font-size:11px;color:var(--muted);border-top:1px solid var(--line);padding-top:10px}
+.badge{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid var(--line)}
+.badge.free{color:var(--green);border-color:var(--green-soft)}
+.badge.new{color:var(--violet);border-color:var(--violet-soft)}
+
+/* mini test */
+.mini{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,64px);align-items:start}
+.mini > *{min-width:0}
+@media (max-width:860px){.mini{grid-template-columns:1fr}}
+.q{display:grid;gap:10px;padding:18px 0;border-top:1px solid var(--line)}
+.q p{font-size:17px}
+.scale{display:flex;gap:8px;flex-wrap:wrap}
+.scale button{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--muted);font:500 15px var(--mono);cursor:pointer;transition:all .2s}
+.scale button[aria-pressed="true"]{background:var(--violet);color:#0b0f14;border-color:var(--violet)}
+.scale-l{display:flex;justify-content:space-between;max-width:260px;font-size:12px;color:var(--muted);font-family:var(--mono)}
+.result{border:1px solid var(--line);border-radius:20px;padding:28px;background:linear-gradient(160deg,rgba(126,168,248,.07),rgba(185,163,242,.09)),var(--surface);display:grid;gap:14px}
+.result .score{font-family:var(--display);font-weight:300;font-size:52px;line-height:1;font-variant-numeric:tabular-nums}
+.result .score small{font-size:16px;color:var(--muted)}
+.meter{height:8px;border-radius:8px;background:var(--line);overflow:hidden}
+.meter span{display:block;height:100%;width:0;border-radius:8px;background:linear-gradient(90deg,var(--green),var(--violet));transition:width .6s ease}
+.result p{color:var(--muted)}
+.note{font-family:var(--mono);font-size:12px;color:var(--muted)}
+
+/* report preview */
+.report{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:22px;overflow:hidden}
+.report::before{content:"";position:absolute;inset:-40% -20% auto auto;width:520px;height:520px;background:radial-gradient(circle at 40% 40%,rgba(185,163,242,.18),transparent 60%),radial-gradient(circle at 70% 70%,rgba(126,168,248,.14),transparent 60%);filter:blur(10px);pointer-events:none}
+.report-top{position:relative;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:18px 26px;border-bottom:1px solid var(--line)}
+.report-top .t{font-family:var(--display);font-size:16px;font-weight:400}
+.tag{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.report-body{position:relative;display:grid;grid-template-columns:1fr 1.15fr}
+.report-body > div{padding:26px;min-width:0}
+.report-body > div + div{border-left:1px solid var(--line)}
+@media (max-width:820px){.report-body{grid-template-columns:1fr}.report-body > div + div{border-left:0;border-top:1px solid var(--line)}}
+.label{font-family:var(--mono);font-size:12px;color:var(--muted);margin-bottom:16px}
+.bars{display:grid;gap:14px}
+.bar{display:grid;grid-template-columns:10em 1fr 2.4em;gap:12px;align-items:center;font-size:15px}
+.bar .track{height:6px;border-radius:6px;background:var(--line);overflow:hidden}
+.bar .fill{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--green),var(--violet))}
+.bar .v{font-family:var(--mono);font-size:13px;color:var(--muted);text-align:right;font-variant-numeric:tabular-nums}
+@media (max-width:420px){.bar{grid-template-columns:8em 1fr 2.2em;font-size:14px}}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.chips span{font-size:13px;padding:6px 12px;border-radius:999px;border:1px solid var(--line);color:var(--fg)}
+.chips span:nth-child(odd){border-color:var(--green-soft)}
+.chips span:nth-child(even){border-color:var(--violet-soft)}
+.excerpt{display:grid;gap:18px}
+.excerpt h3{font-size:22px;line-height:1.25}
+.excerpt p{color:#bcc6c1}
+.excerpt blockquote{margin:0;padding:16px 18px;border-radius:14px;background:rgba(185,163,242,.07);border:1px solid rgba(185,163,242,.2);font-size:15px;color:var(--fg)}
+.excerpt blockquote b{display:block;font-family:var(--mono);font-weight:400;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--violet);margin-bottom:6px}
+.toc{display:flex;flex-wrap:wrap;gap:6px 18px;font-family:var(--mono);font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:16px}
+
+/* pricing */
+.packs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media (max-width:900px){.packs{grid-template-columns:1fr}}
+.pack{border:1px solid var(--line);border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:16px;background:var(--bg);min-width:0}
+.pack.feature{background:linear-gradient(170deg,rgba(185,163,242,.12),rgba(126,168,248,.05) 55%,transparent),var(--surface);border-color:var(--violet-soft)}
+.pack h3{font-size:22px;font-weight:400}
+.pack .price{font-family:var(--display);font-weight:300;font-size:30px;font-variant-numeric:tabular-nums}
+.pack .price small{font-family:var(--body);font-size:14px;color:var(--muted);margin-left:4px}
+.pack ul{list-style:none;margin:0;padding:0;display:grid;gap:10px;font-size:15px;color:var(--muted);flex:1}
+.pack li{display:flex;gap:10px}
+.pack li::before{content:"";flex:none;width:14px;height:14px;margin-top:5px;border-radius:50%;border:1px solid var(--violet-soft);background:radial-gradient(circle,var(--green) 0 2.5px,transparent 3px)}
+
+/* flow / wissen */
+.split{display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(32px,6vw,80px);align-items:center}
+.split > *{min-width:0}
+@media (max-width:860px){.split{grid-template-columns:1fr}}
+.flowcard{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:24px;margin:0}
+.flowcard svg{width:100%;height:auto;display:block}
+.flowcard figcaption{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:12px}
+.prose{display:grid;gap:18px;max-width:56ch}
+.prose p{color:var(--muted)}
+.articles{display:grid;gap:0;margin-top:6px}
+.articles a{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-top:1px solid var(--line);text-decoration:none;transition:color .2s}
+.articles a:hover{color:var(--violet)}
+.articles span:last-child{font-family:var(--mono);font-size:12px;color:var(--muted);white-space:nowrap}
+
+/* trust */
+.trust{display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid var(--line)}
+.trust > div{padding:28px 28px 28px 0;border-bottom:1px solid var(--line);display:grid;gap:8px;min-width:0}
+.trust > div:nth-child(even){padding-left:28px;border-left:1px solid var(--line)}
+.trust h3{font-family:var(--body);font-weight:600;font-size:18px;letter-spacing:0}
+.trust p{color:var(--muted);font-size:15px}
+@media (max-width:760px){.trust{grid-template-columns:1fr}.trust > div,.trust > div:nth-child(even){padding:24px 0;border-left:0}}
+
+/* newsletter */
+.news{display:flex;justify-content:space-between;align-items:center;gap:28px;flex-wrap:wrap}
+.news h2{font-size:clamp(24px,3vw,34px);max-width:20ch}
+.news p{color:var(--muted);max-width:48ch;margin-top:12px}
+form{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+input{font:inherit;font-size:16px;color:var(--fg);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:12px 18px;min-width:0;width:min(320px,100%)}
+input:focus{outline:none;border-color:var(--violet-soft);box-shadow:0 0 0 3px rgba(185,163,242,.15)}
+.done{font-family:var(--mono);font-size:13px;color:var(--green);flex-basis:100%}
+
+footer{padding-block:40px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:14px;color:var(--muted)}
+footer nav{display:flex;flex-wrap:wrap;gap:10px 20px}
+
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+.soon{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--violet);border:1px solid var(--violet-soft);border-radius:999px;padding:6px 14px;width:max-content;max-width:100%}
+.soon::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--violet);box-shadow:0 0 10px var(--violet)}
+
+.test-wrap{max-width:760px;margin:0 auto;padding-inline:clamp(16px,4vw,40px);padding-block:clamp(48px,8vw,96px)}
+.intro{display:grid;gap:18px}
+.intro h1{font-size:clamp(32px,5vw,52px);line-height:1.08}
+.intro p{color:var(--muted)}
+.meta-row{display:flex;flex-wrap:wrap;gap:10px 24px;font-family:var(--mono);font-size:13px;color:var(--muted)}
+.progress{height:4px;border-radius:4px;background:var(--line);overflow:hidden;margin-bottom:12px}
+.progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--violet));transition:width .3s ease}
+.pcount{font-family:var(--mono);font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:12px}
+.qcard{margin-top:28px;border:1px solid var(--line);border-radius:22px;padding:clamp(24px,5vw,40px);background:linear-gradient(160deg,rgba(126,168,248,.05),rgba(185,163,242,.07)),var(--surface);display:grid;gap:28px}
+.qtext{font-family:var(--display);font-weight:300;font-size:clamp(22px,3.4vw,30px);line-height:1.25;text-wrap:balance;min-height:2.5em}
+.opts{display:grid;gap:10px}
+.opt{display:flex;align-items:center;gap:14px;width:100%;text-align:left;padding:14px 18px;border-radius:14px;border:1px solid var(--line);background:var(--bg);color:var(--fg);font:500 16px var(--body);cursor:pointer;transition:border-color .2s,background .2s}
+.opt:hover{border-color:var(--violet-soft)}
+.opt[aria-pressed="true"]{border-color:var(--violet);background:rgba(185,163,242,.1)}
+.opt kbd{font-family:var(--mono);font-size:12px;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:2px 7px}
+.nav-row{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.res-head{display:grid;gap:14px;margin-bottom:36px}
+.res-head h1{font-size:clamp(30px,4.6vw,48px);line-height:1.1}
+.overall{display:grid;gap:12px;padding:28px;margin-bottom:12px;border:1px solid var(--violet-soft);border-radius:22px;background:linear-gradient(160deg,rgba(126,168,248,.08),rgba(185,163,242,.12)),var(--surface)}
+.overall .big{font-family:var(--display);font-weight:300;font-size:64px;line-height:1;font-variant-numeric:tabular-nums}
+.overall .big small{font-size:18px;color:var(--muted)}
+.overall p{color:#c3ccc8}
+.care{margin-top:28px;border:1px solid rgba(185,163,242,.35);border-radius:18px;padding:22px;background:rgba(185,163,242,.06);display:grid;gap:8px}
+.care h3{font-family:var(--body);font-weight:600;font-size:17px;letter-spacing:0}
+.care p{color:#c3ccc8;font-size:15px}
+.care a{color:var(--fg)}
+.trait{padding:24px 0;border-top:1px solid var(--line);display:grid;gap:10px}
+.trait-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.trait h2{font-family:var(--body);font-weight:600;font-size:20px;letter-spacing:0}
+.lvl{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:999px;border:1px solid var(--violet-soft);color:var(--violet)}
+.tbar{display:grid;grid-template-columns:1fr 3em;gap:12px;align-items:center}
+.tbar .track{height:8px;border-radius:8px;background:var(--line);overflow:hidden}
+.tbar .fill{display:block;height:100%;border-radius:8px;background:linear-gradient(90deg,var(--green),var(--violet))}
+.tbar .v{font-family:var(--mono);font-size:14px;text-align:right;font-variant-numeric:tabular-nums}
+.trait .what{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.trait p.desc{color:#c3ccc8}
+.cta-box{margin-top:40px;border:1px solid var(--violet-soft);border-radius:20px;padding:28px;display:grid;gap:14px;background:linear-gradient(170deg,rgba(185,163,242,.10),transparent 60%),var(--surface)}
+.cta-box h3{font-size:22px;font-weight:400}
+.cta-box p{color:var(--muted)}
+@media (hover:none){.keyhint{display:none}}
+.fine{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:28px;line-height:1.7}
+.res-date{font-family:var(--mono);font-size:13px;color:var(--muted)}
+.save-box{margin-top:40px;border:1px solid var(--line);border-radius:20px;padding:28px;display:grid;gap:14px;background:linear-gradient(170deg,rgba(126,168,248,.07),transparent 60%),var(--surface)}
+.save-box h3{font-size:22px;font-weight:400}
+.save-box p{color:var(--muted)}
+.save-box .fine{margin-top:0}
+.save-box .fine a{color:var(--fg)}
+.toast{font-family:var(--mono);font-size:13px;color:var(--green);min-height:1.2em}
+.nav-links{display:flex;align-items:center;gap:20px}
+.nav-links .txt{font-size:15px;color:var(--muted);text-decoration:none;white-space:nowrap;transition:color .2s}
+.nav-links .txt:hover{color:var(--fg)}
+@media (max-width:440px){.nav-links{gap:12px}.nav-links .txt{font-size:14px}}
+@media (max-width:400px){.nav-links .btn{display:none}}
+
+/* Beziehungskreis */
+.circ{display:grid;gap:6px;margin-bottom:12px;padding:clamp(12px,3.5vw,28px) clamp(4px,2vw,28px) clamp(14px,3vw,24px);border:1px solid var(--line);border-radius:22px;background:radial-gradient(circle at 50% 46%,rgba(95,208,184,.09),transparent 62%),var(--surface)}
+.circ svg{display:block;width:100%;max-width:560px;height:auto;margin:0 auto;overflow:visible}
+.circ figcaption{font-family:var(--mono);font-size:12px;color:var(--muted);text-align:center;padding-inline:12px}
+.cz-ring{fill:none;stroke:var(--line);stroke-width:1}
+.cz-axis{stroke:var(--muted);stroke-opacity:.45;stroke-width:1;stroke-dasharray:2 5}
+.cz-track{fill:var(--green);fill-opacity:.06}
+.cz-seg{fill:url(#czfill);stroke:var(--green);stroke-opacity:.55;stroke-width:1}
+.cz-seg.on{fill:url(#czfillon);stroke-opacity:1}
+.cz-stop{stop-color:var(--green)}
+.cz-name{fill:var(--fg);font:500 14px var(--body)}
+.cz-name.on{fill:var(--green);font-weight:700}
+.cz-ax{fill:var(--muted);font:500 10.5px var(--mono);letter-spacing:.12em}
+.cz-ray{stroke:var(--green);stroke-width:1.5;stroke-opacity:.7;stroke-dasharray:3 3}
+.cz-dot{fill:#fff;stroke:var(--green);stroke-width:3}
+.cz-pulse{fill:none;stroke:var(--green);stroke-width:1.5;transform-box:fill-box;transform-origin:center;animation:czpulse 2.6s ease-out infinite}
+@keyframes czpulse{0%{opacity:.8;transform:scale(.6)}100%{opacity:0;transform:scale(2.2)}}
+:root[data-theme="light"] .cz-track{fill-opacity:.07}
+:root[data-theme="light"] .cz-axis{stroke-opacity:.5}
+:root[data-theme="light"] .circ{background:radial-gradient(circle at 50% 46%,rgba(19,122,103,.07),transparent 62%),var(--surface);box-shadow:0 1px 2px rgba(20,30,25,.04),0 8px 24px -12px rgba(20,30,25,.12)}
+.focus{display:grid;gap:12px;padding:28px;margin-bottom:12px;border:1px solid var(--violet-soft);border-radius:22px;background:linear-gradient(160deg,rgba(95,208,184,.08),rgba(185,163,242,.10)),var(--surface)}
+.focus h2{font-size:clamp(28px,4.4vw,40px);line-height:1.1}
+.focus .strength{font-family:var(--mono);font-size:13px;color:var(--muted)}
+.focus p.desc{color:#c3ccc8}
+:root[data-theme="light"] .focus p.desc{color:#36423d}
+:root[data-theme="light"] .focus .strength{color:var(--muted)}
+.styles-head{display:grid;gap:8px;margin:44px 0 8px}
+.styles-head h2{font-size:clamp(22px,3vw,28px);line-height:1.2}
+.styles-head p{color:var(--muted)}
+:root[data-theme="light"] .styles-head p{color:var(--muted)}
+@media print{
+  :root{--bg:#fff;--surface:#fff;--green:#2f7a52;--line:#d5dbd8;--fg:#111;--muted:#555;--violet:#5b4a99;--violet-soft:#5b4a99;color-scheme:light}
+  .nav,footer,.save-box,.cta-box,#start,#quiz{display:none!important}
+  .test-wrap{padding:0}
+  .grad{color:#111;background:none}
+  .trait,.overall,.care,.circ,.focus{break-inside:avoid}
+  .cz-pulse{display:none}
+  .circ svg *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .trait p.desc{color:#222}
+  .tbar .fill,.tbar .track{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+<link rel="stylesheet" href="../theme.css">
+<script>try{if(localStorage.getItem('ordinum-theme')==='light')document.documentElement.dataset.theme='light'}catch(e){}</script>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="./" aria-label="Ordinum home"><img class="logo-mark" src="../logo-ringe.svg" alt="" width="45" height="40"><span class="logo-word">ORD<span class="logo-i">I</span>NUM</span></a>
+    <div class="nav-links"><a class="txt" href="../meine-ergebnisse.html">My results</a><a class="btn" href="./#warteliste">Waitlist</a></div>
+  </div>
+</header>
+<main class="test-wrap">
+  <section id="start" class="intro" style="border:0;padding:0">
+    <p class="eyebrow">Relationship style</p>
+    <h1>How do you meet <span class="grad">others</span>?</h1>
+    <p>32 short statements about how you behave when you are with other people. At the end you see your place in the relationship circle: between taking the lead and giving room, between closeness and distance. Each of the eight styles has its own strengths. Answer as you usually are, not as you would like to be.</p>
+    <div class="meta-row"><span>about 4 minutes</span><span>32 statements</span><span>Instant results</span><span>Answers stay in your browser</span></div>
+    <div class="cta-row"><button class="btn primary" id="go" type="button">Start test</button><button class="btn" id="resume" type="button" hidden>Continue</button></div>
+  </section>
+
+  <section id="quiz" hidden style="border:0;padding:0">
+    <div class="progress"><span id="bar"></span></div>
+    <div class="pcount"><span id="count">Statement 1 of 32</span><span class="keyhint">Keys 1–5 work too</span></div>
+    <div class="qcard">
+      <p class="qtext" id="qtext" aria-live="polite"></p>
+      <div class="opts" id="opts" role="group" aria-label="Answer"></div>
+      <div class="nav-row"><button class="btn" id="back" type="button">Back</button></div>
+    </div>
+  </section>
+
+  <section id="result" hidden style="border:0;padding:0">
+    <div class="res-head">
+      <p class="eyebrow">Your result</p>
+      <h1>Your relationship style</h1>
+      <p class="muted">The circle shows eight ways of meeting other people. None is better than another; each has its strengths. The further a segment reaches outwards, the more that style applies to you. Your dot shows where your answers lean overall. It is a snapshot of your tendencies at this point in your life, not a complete picture of you.</p>
+      <p class="res-date" id="resdate"></p>
+    </div>
+    <figure class="circ" style="margin:0 0 12px"><div id="circle"></div></figure>
+    <div class="focus"><p class="eyebrow">Your focus</p><h2 id="fname"></h2><span class="strength" id="fstrength"></span><p class="desc" id="ftext"></p></div>
+    <div class="styles-head"><h2>All eight styles</h2><p>Most people carry several styles within them and switch depending on the situation and the person in front of them. The scores show how much the statements for each style apply to you.</p></div>
+    <div id="traits"></div>
+    <div class="save-box">
+      <h3>Find your result again</h3>
+      <p id="savetext">Your result is saved in this browser under “My results”. To find it on other devices too, or after clearing your browser data, save your personal link or a PDF.</p>
+      <div class="cta-row">
+        <button class="btn primary" id="copylink" type="button">Copy link</button>
+        <a class="btn" id="maillink" href="#">Email it to me</a>
+        <button class="btn" id="pdf" type="button">Save as PDF</button>
+        <button class="btn" id="keep" type="button" hidden>Save on this device</button>
+      </div>
+      <p class="toast" id="toast" aria-live="polite"></p>
+      <p class="fine">Anyone with your personal link can see your result, so only share it if you want to. <a href="../meine-ergebnisse.html">All my results</a></p>
+    </div>
+    <div class="cta-box">
+      <h3>Relationship style and personality together</h3>
+      <p>How you meet others is closely linked to who you are. The personality test adds the Big Five to your picture. Soon your personal Ordinum report will bring all tests together into a detailed picture of you.</p>
+      <div class="cta-row"><a class="btn primary" href="personality-test.html">Take the personality test</a><a class="btn" href="./#warteliste">Join the waitlist</a><button class="btn" id="again" type="button">Restart test</button></div>
+    </div>
+    <p class="fine">Based on: the public-domain IPIP Interpersonal Circumplex (IPIP-IPC) by Markey and Markey (2009) from the International Personality Item Pool. Eight styles with four statements each; the style names are deliberately chosen to be neutral. The two axes, taking the lead and closeness, are derived from all eight style scores after subtracting your personal average. Scores show your answers on a scale from 0 to 100, not comparisons with a population sample. Ordinum is meant for self-understanding and does not replace psychological assessment.</p>
+  </section>
+</main>
+<footer>
+  <div class="wrap">
+    <span>© 2026 Ordinum · Psychology for self-understanding. No diagnosis or therapy.</span>
+    <nav><a href="../meine-ergebnisse.html">My results</a><a href="../impressum.html" hreflang="de">Legal notice</a><a href="../datenschutz.html" hreflang="de">Privacy</a></nav>
+  </div>
+</footer>
+<script>
+var ITEMS = [{"t": "I am quiet around strangers.", "f": "FG", "k": 1}, {"t": "I speak softly.", "f": "HI", "k": 1}, {"t": "I tolerate a lot from others.", "f": "JK", "k": 1}, {"t": "I am interested in people.", "f": "LM", "k": 1}, {"t": "I feel comfortable around people.", "f": "NO", "k": 1}, {"t": "I demand to be the center of interest.", "f": "PA", "k": 1}, {"t": "I cut others to pieces.", "f": "BC", "k": 1}, {"t": "I believe people should fend for themselves.", "f": "DE", "k": 1}, {"t": "I am a very private person.", "f": "FG", "k": 1}, {"t": "I let others finish what they are saying.", "f": "HI", "k": 1}, {"t": "I take things as they come.", "f": "JK", "k": 1}, {"t": "I reassure others.", "f": "LM", "k": 1}, {"t": "I start conversations.", "f": "NO", "k": 1}, {"t": "I do most of the talking.", "f": "PA", "k": 1}, {"t": "I contradict others.", "f": "BC", "k": 1}, {"t": "I don't fall for sob-stories.", "f": "DE", "k": 1}, {"t": "I don't talk a lot.", "f": "FG", "k": 1}, {"t": "I seldom toot my own horn.", "f": "HI", "k": 1}, {"t": "I think of others first.", "f": "JK", "k": 1}, {"t": "I inquire about others' well-being.", "f": "LM", "k": 1}, {"t": "I talk to a lot of different people at parties.", "f": "NO", "k": 1}, {"t": "I speak loudly.", "f": "PA", "k": 1}, {"t": "I snap at people.", "f": "BC", "k": 1}, {"t": "I don't put a lot of thought into things.", "f": "DE", "k": 1}, {"t": "I have little to say.", "f": "FG", "k": 1}, {"t": "I dislike being the center of attention.", "f": "HI", "k": 1}, {"t": "I seldom stretch the truth.", "f": "JK", "k": 1}, {"t": "I get along well with others.", "f": "LM", "k": 1}, {"t": "I love large parties.", "f": "NO", "k": 1}, {"t": "I demand attention.", "f": "PA", "k": 1}, {"t": "I have a sharp tongue.", "f": "BC", "k": 1}, {"t": "I am not interested in other people's problems.", "f": "DE", "k": 1}];
+var TEXTS = {"PA": {"name": "Assertive", "what": "How much space you take up in conversations and groups, set the tone and want to be seen.", "low": "You don't need to be the centre of attention and are happy to leave the stage to others. That makes room for other voices. When something matters to you, feel free to take the space anyway.", "mid": "You can take the floor when it fits, and step back just as easily. How much space you take up probably depends a lot on the situation and the people around you.", "high": "You take up space, speak up clearly and like to set the tone. That gives groups direction and momentum. Make sure the quieter people get a word in too.", "focus": "You meet others with presence: you show where things could go and you don't shy away from being seen. Others often experience you as someone who gets things moving. This strength works best when you also leave room for others."}, "BC": {"name": "Direct", "what": "How openly you disagree and voice criticism, even when it gets uncomfortable.", "low": "You tend to avoid confrontation and phrase criticism gently. That keeps things relaxed between people. Sometimes it can feel freeing to state a different opinion more clearly.", "mid": "You speak up against something when it really matters to you, without fighting out every disagreement. You choose fairly deliberately when to be blunt.", "high": "You say clearly what you think and disagree even when it is uncomfortable. This honesty creates clarity where others beat about the bush. When things get heated, a brief moment of distance helps your criticism land without hurting.", "focus": "You meet others with clarity: you address things instead of steering around them, and you can handle disagreement. That makes you an honest counterpart; people know where they stand with you. Your directness works best when others can feel that it serves the matter at hand."}, "DE": {"name": "Matter-of-fact", "what": "How objectively and independently you approach other people's concerns, rather than getting pulled in emotionally.", "low": "Other people's concerns move you, and you let yourself be touched by them. That makes you compassionate. Take care to keep your own limits in view as well.", "mid": "You can feel with others and still keep a cool head. Depending on the situation, you listen more with your heart or more with your head.", "high": "You stay objective, don't let sentiment steer you easily and expect everyone to take responsibility for themselves too. That makes you a clear head in difficult situations. Some people appreciate it when you show that they still matter to you.", "focus": "You meet others with objectivity and a healthy dose of independence. You don't get drawn in easily and keep an overview even when things get emotional. This clarity can give others something to hold on to, especially when you pair it with a sign of warmth."}, "FG": {"name": "Reserved", "what": "How much you hold back in company and keep private things to yourself.", "low": "You open up easily and quickly get talking, even with strangers. That makes it easy for others to get to know you.", "mid": "You can be open, but with new people you need a little time to warm up. You choose deliberately what you show of yourself.", "high": "You tend to hold back, don't talk a lot and like to keep private things to yourself. In return, what you say and share often carries weight. People who get close to you value your trust.", "focus": "You meet others with reserve and protect your inner space. You don't need many words and let closeness grow at your own pace. People who win your trust often experience you as deep and dependable."}, "HI": {"name": "Quiet", "what": "How much you step back, listen to others and avoid the spotlight.", "low": "You don't mind being seen, and you speak up for yourself. That helps you make your needs visible.", "mid": "You can step back and listen, but you also stand up for yourself when it counts.", "high": "You tend to speak softly, let others finish and rarely put yourself forward. People feel heard around you. Don't forget that your voice deserves to be heard too.", "focus": "You meet others quietly and attentively: you listen, let people finish and don't need a stage. People often feel heard around you. Your voice carries weight precisely because you don't raise it all the time, and it is welcome to be heard more often."}, "JK": {"name": "Easygoing", "what": "How much patience and leniency you show others and how often you put their needs before your own.", "low": "You stand up for your needs and don't put up with everything. That protects your boundaries. Now and then it is fine to let something slide.", "mid": "You are patient and considerate, but you also draw lines when it gets to be too much.", "high": "You are patient, take things as they come and often think of others first. That makes being around you easy. Make sure your own wishes don't fall by the wayside.", "focus": "You meet others with patience, modesty and a lot of consideration. You take people as they are and don't make a fuss about yourself. That creates trust and calm. Your kindness goes even further when you take your own boundaries just as seriously."}, "LM": {"name": "Warm", "what": "How much you take an interest in others, encourage them and look out for their well-being.", "low": "You show concern sparingly and in your own way. People who know you understand that. Still, a small question about how someone is doing can go a long way.", "mid": "Other people matter to you, and you show it in your own way, sometimes clearly, sometimes more quietly.", "high": "You take a genuine interest in people, ask how they are and encourage others. Many feel well looked after with you. Make sure you also have people with whom you can recharge.", "focus": "You meet others with warmth and genuine interest. You ask how they are, encourage them and get along well with people. Many feel welcome around you. This care stays alive when you give it to yourself as well."}, "NO": {"name": "Sociable", "what": "How much you enjoy being among people, start conversations and make new contacts.", "low": "Big gatherings are not really your thing. You often feel more at ease in a small circle or on your own, and that is where you recharge.", "mid": "You enjoy being among people, but you also need time for yourself. In a familiar group you come out of your shell more easily.", "high": "You feel at ease among people, approach others and get conversations going. You bring life to a group. Treat yourself to moments in between when you are just with yourself.", "focus": "You approach people openly and gladly: you start conversations, make contacts and bring life to a group. Others often experience you as inviting and connecting. Amid all the exchange, quiet moments for yourself deserve their place too."}};
+// Clockwise from the top; circle angles: 0° = right (closeness), 90° = top (taking the lead)
+var ORDER = ["PA", "NO", "LM", "JK", "HI", "FG", "DE", "BC"];
+var ANG = {LM: 0, NO: 45, PA: 90, BC: 135, DE: 180, FG: 225, HI: 270, JK: 315};
+var L = {"count": "Statement {n} of {t}", "date": "Result from {d}", "lvl": {"low": "on the low side", "mid": "medium", "high": "on the high side"}, "str": ["balanced", "slightly pronounced", "clearly pronounced", "strongly pronounced"], "between": "between {a} and {b}", "balName": "Balanced", "balText": "No single style clearly stands out for you. You move between different ways of meeting others and probably adapt well to people and situations. Take a look at the eight styles below: your profile often shows itself in small differences.", "ax": ["TAKING THE LEAD", "GIVING ROOM", "CLOSENESS", "DISTANCE"], "svg": "Relationship circle with eight styles. Your focus: {f}.", "mailSub": "My Ordinum relationship style", "mailBody": "My result in the Ordinum relationship style test from {d}:\n{l}", "saved": "Saved. You can now find it under “My results”."};
+var SCALE = ["very inaccurate", "moderately inaccurate", "neither accurate nor inaccurate", "moderately accurate", "very accurate"];
+var KEY = 'ordinum-beziehungsstil';
+var HIST = 'ordinum-ergebnisse', ABC = 'abcdefghijklmnopqrstuvwxy';
+var ans = new Array(ITEMS.length).fill(null), cur = 0, curLink = '';
+function $(id){ return document.getElementById(id); }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(ans)); }catch(e){} }
+function load(){ try{ var a = JSON.parse(localStorage.getItem(KEY)); if (Array.isArray(a) && a.length === ITEMS.length) return a; }catch(e){} return null; }
+// Personal link: every two answers (1–5) become one letter a–y, plus date: #r=<16 chars>-YYYYMMDD
+function encode(a){ a = a.length % 2 ? a.concat([1]) : a; var s = ''; for (var i = 0; i < a.length; i += 2) s += ABC[(a[i]-1)*5 + (a[i+1]-1)]; return s; }
+function decode(c){ var a = []; for (var i = 0; i < c.length; i++){ var n = ABC.indexOf(c[i]); a.push(Math.floor(n/5)+1, n%5+1); } return a.slice(0, ITEMS.length); }
+function parseHash(){ var m = /^#r=([a-y]{16})(?:-(\d{8}))?$/.exec(location.hash); return m ? {code:m[1], date:m[2] || null} : null; }
+function today(){ var d = new Date(); return '' + d.getFullYear() + String(d.getMonth()+1).padStart(2,'0') + String(d.getDate()).padStart(2,'0'); }
+function fmtDate(s){ return new Date(+s.slice(0,4), +s.slice(4,6)-1, +s.slice(6,8)).toLocaleDateString('en-GB', {day:'numeric', month:'long', year:'numeric'}); }
+function loadHist(){ try{ var h = JSON.parse(localStorage.getItem(HIST)); if (Array.isArray(h)) return h; }catch(e){} return []; }
+function saveHist(h){ try{ localStorage.setItem(HIST, JSON.stringify(h.slice(0,50))); }catch(e){} }
+function findHist(code){ return loadHist().filter(function(r){ return r.code === code; })[0] || null; }
+function addHist(code, date){ var h = loadHist(); if (h.some(function(r){ return r.code === code; })) return; h.unshift({test:'beziehung', date:date, code:code, scores:scores(decode(code))}); saveHist(h); }
+function scores(a){
+  var sums = {}, n = {}, out = {};
+  ITEMS.forEach(function(it, i){
+    var v = a[i]; if (v == null) return;
+    var s = it.k === 1 ? v : 6 - v;
+    sums[it.f] = (sums[it.f]||0) + s; n[it.f] = (n[it.f]||0) + 1;
+  });
+  ORDER.forEach(function(f){ out[f] = Math.round((sums[f] / n[f] - 1) / 4 * 100); });
+  return out;
+}
+// Two axes from the ipsatized style scores (own average subtracted).
+// x = closeness, y = taking the lead; length p in percent of the circle radius (sum / 2, at most 100).
+function profile(sc){
+  var m = 0; ORDER.forEach(function(f){ m += sc[f] / 8; });
+  var x = 0, y = 0;
+  ORDER.forEach(function(f){ var d = sc[f] - m, t = ANG[f] * Math.PI / 180; x += d * Math.cos(t); y += d * Math.sin(t); });
+  x /= 2; y /= 2;
+  var p = Math.sqrt(x*x + y*y);
+  if (p > 100) { x *= 100 / p; y *= 100 / p; p = 100; }
+  var ang = (Math.atan2(y, x) * 180 / Math.PI + 360) % 360;
+  var near = ORDER.filter(function(f){ return ANG[f] === (Math.round(ang / 45) % 8) * 45; })[0];
+  var lvl = p < 12 ? 0 : p < 30 ? 1 : p < 55 ? 2 : 3;
+  return {x: x, y: y, p: p, ang: ang, near: near, lvl: lvl};
+}
+var NS = 'http://www.w3.org/2000/svg';
+function el(tag, attrs, parent){ var e = document.createElementNS(NS, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
+function pt(deg, r){ var t = deg * Math.PI / 180; return [r * Math.cos(t), -r * Math.sin(t)]; }
+function f1(v){ return Math.round(v * 10) / 10; }
+function sector(deg, r0, r1, gap){
+  var a = pt(deg - 22.5 + gap, r0), b = pt(deg - 22.5 + gap, r1), c = pt(deg + 22.5 - gap, r1), d = pt(deg + 22.5 - gap, r0);
+  return 'M' + f1(a[0]) + ' ' + f1(a[1]) + 'L' + f1(b[0]) + ' ' + f1(b[1]) + 'A' + r1 + ' ' + r1 + ' 0 0 0 ' + f1(c[0]) + ' ' + f1(c[1]) +
+    'L' + f1(d[0]) + ' ' + f1(d[1]) + 'A' + r0 + ' ' + r0 + ' 0 0 1 ' + f1(a[0]) + ' ' + f1(a[1]) + 'Z';
+}
+function drawCircle(sc, pr){
+  var R = 96, R0 = 12, LR = R + 14, box = $('circle'); box.innerHTML = '';
+  var svg = el('svg', {viewBox: '-200 -140 400 280', role: 'img', 'aria-label': L.svg.replace('{f}', pr.lvl ? TEXTS[pr.near].name : L.balName)}, box);
+  var defs = el('defs', {}, svg);
+  [['czfill', .16, .5], ['czfillon', .3, .85]].forEach(function(g){
+    var rg = el('radialGradient', {id: g[0], cx: 0, cy: 0, r: R, gradientUnits: 'userSpaceOnUse'}, defs);
+    el('stop', {offset: '0', 'class': 'cz-stop', 'stop-opacity': g[1]}, rg);
+    el('stop', {offset: '1', 'class': 'cz-stop', 'stop-opacity': g[2]}, rg);
+  });
+  var halo = el('radialGradient', {id: 'czhalo'}, defs);
+  el('stop', {offset: '0', 'class': 'cz-stop', 'stop-opacity': '.75'}, halo);
+  el('stop', {offset: '.45', 'class': 'cz-stop', 'stop-opacity': '.25'}, halo);
+  el('stop', {offset: '1', 'class': 'cz-stop', 'stop-opacity': '0'}, halo);
+  ORDER.forEach(function(f){ el('path', {d: sector(ANG[f], R0, R, 1.2), 'class': 'cz-track'}, svg); });
+  [.5, 1].forEach(function(k){ el('circle', {r: R0 + (R - R0) * k, 'class': 'cz-ring'}, svg); });
+  el('line', {x1: 0, y1: -R - 4, x2: 0, y2: R + 4, 'class': 'cz-axis'}, svg);
+  el('line', {x1: -R - 4, y1: 0, x2: R + 4, y2: 0, 'class': 'cz-axis'}, svg);
+  ORDER.forEach(function(f){
+    var r1 = R0 + (R - R0) * Math.max(sc[f], 2) / 100;
+    el('path', {d: sector(ANG[f], R0, f1(r1), 1.2), 'class': 'cz-seg' + (pr.lvl && f === pr.near ? ' on' : '')}, svg);
+  });
+  ORDER.forEach(function(f){
+    var a = ANG[f], p = pt(a, LR), c = Math.cos(a * Math.PI / 180), s = Math.sin(a * Math.PI / 180);
+    var anchor = Math.abs(c) < .2 ? 'middle' : c > 0 ? 'start' : 'end';
+    var dy = Math.abs(s) < .2 ? 5 : s > 0 ? 0 : 11;
+    if (Math.abs(c) < .2) dy = s > 0 ? -2 : 13;
+    var t = el('text', {x: f1(p[0] + (Math.abs(c) < .2 ? 0 : (c > 0 ? 2 : -2))), y: f1(p[1] + dy), 'text-anchor': anchor, 'class': 'cz-name' + (pr.lvl && f === pr.near ? ' on' : '')}, svg);
+    t.textContent = TEXTS[f].name;
+  });
+  // Axis labels: above/below the style name at top/bottom, underneath it left/right
+  [[0, -LR - 18, 'middle', 0], [0, LR + 28, 'middle', 1], [LR + 2, 20, 'start', 2], [-LR - 2, 20, 'end', 3]].forEach(function(q){
+    var t = el('text', {x: q[0], y: q[1], 'text-anchor': q[2], 'class': 'cz-ax'}, svg); t.textContent = L.ax[q[3]];
+  });
+  var x = f1(R * pr.x / 100), y = f1(-R * pr.y / 100);
+  if (pr.p > 4) el('line', {x1: 0, y1: 0, x2: x, y2: y, 'class': 'cz-ray'}, svg);
+  el('circle', {cx: x, cy: y, r: 22, fill: 'url(#czhalo)'}, svg);
+  el('circle', {cx: x, cy: y, r: 7, 'class': 'cz-pulse'}, svg);
+  el('circle', {cx: x, cy: y, r: 6, 'class': 'cz-dot'}, svg);
+}
+function toast(t){ $('toast').textContent = t; }
+function show(id){ ['start','quiz','result'].forEach(function(s){ $(s).hidden = s !== id; }); window.scrollTo(0,0); }
+function render(){
+  var it = ITEMS[cur];
+  $('qtext').textContent = it.t;
+  $('count').textContent = L.count.replace('{n}', cur+1).replace('{t}', ITEMS.length);
+  $('bar').style.width = (cur/ITEMS.length*100) + '%';
+  var o = $('opts'); o.innerHTML = '';
+  SCALE.forEach(function(lbl, i){
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'opt'; b.id = 'opt-' + (i+1);
+    b.setAttribute('aria-pressed', ans[cur] === i+1 ? 'true' : 'false');
+    b.innerHTML = '<kbd>' + (i+1) + '</kbd><span></span>';
+    b.lastChild.textContent = lbl;
+    b.addEventListener('click', function(){ pick(i+1); });
+    o.appendChild(b);
+  });
+  $('back').disabled = cur === 0;
+}
+function pick(v){
+  ans[cur] = v; save();
+  if (cur < ITEMS.length - 1) { cur++; render(); }
+  else results();
+}
+// linkDate set: result comes from a personal link and is not saved automatically
+function results(linkDate){
+  var sc = scores(ans), code = encode(ans), known = findHist(code);
+  if (!known && linkDate === undefined) { addHist(code, today()); known = findHist(code); }
+  var date = linkDate || (known && known.date) || today();
+  history.replaceState(null, '', '#r=' + code + '-' + date);
+  curLink = location.href;
+  $('resdate').textContent = L.date.replace('{d}', fmtDate(date));
+  $('keep').hidden = !!known;
+  $('keep').onclick = function(){ addHist(code, date); $('keep').hidden = true; toast(L.saved); };
+  $('savetext').hidden = !known;
+  $('maillink').href = 'mailto:?subject=' + encodeURIComponent(L.mailSub) + '&body=' + encodeURIComponent(L.mailBody.replace('{d}', fmtDate(date)).replace('{l}', curLink));
+  toast('');
+  var pr = profile(sc);
+  drawCircle(sc, pr);
+  if (pr.lvl) {
+    // Neighbouring style on the side the dot leans towards
+    var off = pr.ang - ANG[pr.near]; if (off > 180) off -= 360; if (off < -180) off += 360;
+    var nb = ORDER.filter(function(f){ return ANG[f] === ((ANG[pr.near] + (off >= 0 ? 45 : -45)) + 360) % 360; })[0];
+    $('fname').textContent = TEXTS[pr.near].name;
+    $('fstrength').textContent = L.str[pr.lvl] + (Math.abs(off) > 15 ? ' · ' + L.between.replace('{a}', TEXTS[pr.near].name).replace('{b}', TEXTS[nb].name) : '');
+    $('ftext').textContent = TEXTS[pr.near].focus;
+  } else {
+    $('fname').textContent = L.balName;
+    $('fstrength').textContent = L.str[0];
+    $('ftext').textContent = L.balText;
+  }
+  var box = $('traits'); box.innerHTML = '';
+  ORDER.forEach(function(f){
+    var score = sc[f];
+    var lv = score < 40 ? 'low' : score > 60 ? 'high' : 'mid';
+    var T = TEXTS[f], el = document.createElement('div');
+    el.className = 'trait';
+    el.innerHTML = '<div class="trait-top"><h2></h2><span class="lvl"></span></div>' +
+      '<div class="tbar"><span class="track"><span class="fill"></span></span><span class="v"></span></div>' +
+      '<p class="what"></p><p class="desc"></p>';
+    el.querySelector('h2').textContent = T.name;
+    el.querySelector('.lvl').textContent = L.lvl[lv];
+    el.querySelector('.fill').style.width = score + '%';
+    el.querySelector('.v').textContent = score;
+    el.querySelector('.what').textContent = T.what;
+    el.querySelector('.desc').textContent = T[lv];
+    box.appendChild(el);
+  });
+  show('result');
+}
+function restart(){ ans = new Array(ITEMS.length).fill(null); cur = 0; save(); history.replaceState(null, '', location.pathname); show('quiz'); render(); }
+$('go').addEventListener('click', restart);
+$('resume').addEventListener('click', function(){ cur = ans.indexOf(null); if (cur < 0) { results(); return; } show('quiz'); render(); });
+$('back').addEventListener('click', function(){ if (cur > 0) { cur--; render(); } });
+$('again').addEventListener('click', restart);
+$('copylink').addEventListener('click', function(){
+  var done = function(){ toast('Link copied. Save it as a bookmark or in your notes, for example.'); };
+  if (navigator.clipboard) navigator.clipboard.writeText(curLink).then(done, function(){ window.prompt('Your personal link:', curLink); });
+  else window.prompt('Your personal link:', curLink);
+});
+$('pdf').addEventListener('click', function(){ window.print(); });
+document.addEventListener('keydown', function(e){
+  if ($('quiz').hidden) return;
+  var k = parseInt(e.key, 10);
+  if (k >= 1 && k <= 5) pick(k);
+  else if (e.key === 'Backspace' || e.key === 'ArrowLeft') { if (cur > 0) { cur--; render(); } }
+});
+function route(){
+  var r = parseHash();
+  if (r) { ans = decode(r.code); results(r.date); return true; }
+  return false;
+}
+window.addEventListener('hashchange', function(){ if (!location.hash.indexOf('#r=')) route(); });
+(function(){
+  var a = load();
+  // Backfill finished tests that are not yet in the results list
+  if (a && a.indexOf(null) < 0) addHist(encode(a), today());
+  if (route()) return;
+  if (a && a.some(function(x){ return x != null; })) { ans = a; $('resume').hidden = false; $('resume').textContent = a.indexOf(null) < 0 ? 'View last result' : 'Continue'; }
+})();
+</script>
+<script src="../theme.js"></script>
+</body>
+</html>

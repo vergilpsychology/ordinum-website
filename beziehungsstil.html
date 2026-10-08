@@ -1,0 +1,569 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Beziehungsstil-Test · Ordinum</title>
+<meta name="description" content="Kostenloser Beziehungsstil-Test: 32 Aussagen, etwa 4 Minuten, sofort dein Platz im Beziehungskreis aus acht Stilen zwischen Einfluss und Zurückhaltung, Nähe und Abstand.">
+<meta name="theme-color" content="#0a0d0c">
+<link rel="canonical" href="https://ordinum.de/beziehungsstil.html">
+<link rel="alternate" hreflang="de" href="https://ordinum.de/beziehungsstil.html">
+<link rel="alternate" hreflang="en" href="https://ordinum.de/en/relationship-style-test.html">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="fonts.css">
+<style>
+/* Layout: dark, quiet canvas; a slow liquid of green and violet pours behind the hero; content in a 1120px column with hairline structure. */
+:root{
+  --bg:#0a0d0c;
+  --surface:#111513;
+  --line:#1f2724;
+  --fg:#e7ece9;
+  --muted:#8e9a95;
+  --green:#5fd0b8;
+  --green-soft:#3d8f80;
+  --green-l:#137a67;
+  --green-soft-l:#86d1c1;
+  --violet:#b9a3f2;
+  --violet-soft:#7c69b4;
+  --glow:rgba(160,180,220,.10);
+  --display:"Unbounded", "Segoe UI", system-ui, sans-serif;
+  --body:"Hanken Grotesk", "Segoe UI", system-ui, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:clamp(16px,4vw,40px)}
+h1,h2,h3{font-family:var(--display);font-weight:300;letter-spacing:-.02em;text-wrap:balance;margin:0}
+p{margin:0}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--green)}
+.eyebrow.v{color:var(--violet)}
+.muted{color:var(--muted)}
+.grad{background:linear-gradient(100deg,var(--green) 10%,var(--violet) 90%);-webkit-background-clip:text;background-clip:text;color:transparent}
+:focus-visible{outline:2px solid var(--violet);outline-offset:3px;border-radius:6px}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:rgba(10,13,12,.74);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-block:12px}
+.logo{display:flex;align-items:center;text-decoration:none}
+.logo svg{flex:none;width:auto;height:42px;display:block}
+.nav ul{display:flex;gap:28px;list-style:none;margin:0;padding:0;font-size:15px}
+.nav ul a{text-decoration:none;color:var(--muted);transition:color .2s}
+.nav ul a:hover{color:var(--fg)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:999px;font:500 15px var(--body);text-decoration:none;border:1px solid var(--line);background:transparent;color:var(--fg);cursor:pointer;transition:border-color .2s,background .2s,box-shadow .3s}
+.btn:hover{border-color:var(--violet-soft)}
+.btn.primary{background:linear-gradient(100deg,var(--green),#9fb2f6 55%,var(--violet));color:#0b0f14;border-color:transparent}
+.btn.primary:hover{box-shadow:0 0 28px rgba(185,163,242,.35)}
+.nav .btn{padding:9px 16px;font-size:14px;white-space:nowrap}
+@media (max-width:820px){.nav ul{display:none}}
+@media (max-width:440px){.logo svg{height:34px}.nav .btn{padding:8px 12px;font-size:13px}}
+
+/* hero */
+.hero{position:relative;overflow:hidden}
+#liquid{position:absolute;inset:-10%;width:120%;height:120%;filter:blur(46px) saturate(1.15);opacity:.85}
+#lines{position:absolute;inset:0;width:100%;height:100%}
+#liquid,#lines{-webkit-mask-image:linear-gradient(to bottom,#000 55%,rgba(0,0,0,.35) 88%,rgba(0,0,0,.25));mask-image:linear-gradient(to bottom,#000 55%,rgba(0,0,0,.35) 88%,rgba(0,0,0,.25))}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 25% 45%,rgba(10,13,12,.55) 0,rgba(10,13,12,.2) 45%,transparent 70%);pointer-events:none}
+.hero .wrap{position:relative;z-index:1;padding-block:clamp(80px,13vw,150px) clamp(64px,9vw,104px);display:grid;gap:28px}
+.hero h1{font-size:clamp(38px,6.6vw,80px);line-height:1.04;max-width:13ch}
+.hero .lead{font-size:clamp(17px,2vw,20px);color:#b7c2bd;max-width:54ch}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px}
+.facts{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:12px;font-family:var(--mono);font-size:13px;color:var(--muted)}
+.facts span::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--violet);margin-right:10px;vertical-align:middle;box-shadow:0 0 10px var(--violet)}
+.facts span:nth-child(odd)::before{background:var(--green);box-shadow:0 0 10px var(--green)}
+.pour{display:block;width:100%;height:auto;margin-top:-1px}
+
+section{padding-block:clamp(64px,9vw,112px);border-bottom:1px solid var(--line)}
+.head{display:grid;gap:16px;margin-bottom:48px;max-width:720px}
+.head h2{font-size:clamp(28px,3.8vw,44px);line-height:1.12}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line)}
+.stepc{padding:32px 28px 8px 0;display:grid;gap:12px;align-content:start;min-width:0}
+.stepc + .stepc{padding-left:28px;border-left:1px solid var(--line)}
+.stepc .n{font-family:var(--mono);font-size:12px;color:var(--violet)}
+.stepc h3{font-size:22px}
+.stepc p{color:var(--muted);font-size:16px}
+@media (max-width:820px){.steps{grid-template-columns:1fr}.stepc,.stepc + .stepc{padding:28px 0;border-left:0;border-bottom:1px solid var(--line)}}
+
+/* test library */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.chip{font:500 14px var(--body);padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer}
+.chip[aria-pressed="true"]{color:var(--fg);border-color:var(--violet-soft);background:rgba(185,163,242,.08)}
+.tests{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.test{position:relative;border:1px solid var(--line);border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:10px;background:var(--surface);min-width:0;overflow:hidden;transition:border-color .25s,transform .25s}
+.test:hover{border-color:var(--violet-soft);transform:translateY(-2px)}
+.test::before{content:"";position:absolute;width:160px;height:160px;right:-60px;top:-70px;border-radius:50%;background:radial-gradient(circle,var(--c,rgba(126,168,248,.22)),transparent 70%);pointer-events:none}
+.test .meta{display:flex;justify-content:space-between;gap:8px;font-family:var(--mono);font-size:12px;color:var(--muted)}
+.test h3{font-family:var(--body);font-weight:600;font-size:19px;letter-spacing:0}
+.test p{color:var(--muted);font-size:15px;flex:1}
+.test .basis{font-family:var(--mono);font-size:11px;color:var(--muted);border-top:1px solid var(--line);padding-top:10px}
+.badge{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid var(--line)}
+.badge.free{color:var(--green);border-color:var(--green-soft)}
+.badge.new{color:var(--violet);border-color:var(--violet-soft)}
+
+/* mini test */
+.mini{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,64px);align-items:start}
+.mini > *{min-width:0}
+@media (max-width:860px){.mini{grid-template-columns:1fr}}
+.q{display:grid;gap:10px;padding:18px 0;border-top:1px solid var(--line)}
+.q p{font-size:17px}
+.scale{display:flex;gap:8px;flex-wrap:wrap}
+.scale button{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--muted);font:500 15px var(--mono);cursor:pointer;transition:all .2s}
+.scale button[aria-pressed="true"]{background:var(--violet);color:#0b0f14;border-color:var(--violet)}
+.scale-l{display:flex;justify-content:space-between;max-width:260px;font-size:12px;color:var(--muted);font-family:var(--mono)}
+.result{border:1px solid var(--line);border-radius:20px;padding:28px;background:linear-gradient(160deg,rgba(126,168,248,.07),rgba(185,163,242,.09)),var(--surface);display:grid;gap:14px}
+.result .score{font-family:var(--display);font-weight:300;font-size:52px;line-height:1;font-variant-numeric:tabular-nums}
+.result .score small{font-size:16px;color:var(--muted)}
+.meter{height:8px;border-radius:8px;background:var(--line);overflow:hidden}
+.meter span{display:block;height:100%;width:0;border-radius:8px;background:linear-gradient(90deg,var(--green),var(--violet));transition:width .6s ease}
+.result p{color:var(--muted)}
+.note{font-family:var(--mono);font-size:12px;color:var(--muted)}
+
+/* report preview */
+.report{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:22px;overflow:hidden}
+.report::before{content:"";position:absolute;inset:-40% -20% auto auto;width:520px;height:520px;background:radial-gradient(circle at 40% 40%,rgba(185,163,242,.18),transparent 60%),radial-gradient(circle at 70% 70%,rgba(126,168,248,.14),transparent 60%);filter:blur(10px);pointer-events:none}
+.report-top{position:relative;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:18px 26px;border-bottom:1px solid var(--line)}
+.report-top .t{font-family:var(--display);font-size:16px;font-weight:400}
+.tag{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.report-body{position:relative;display:grid;grid-template-columns:1fr 1.15fr}
+.report-body > div{padding:26px;min-width:0}
+.report-body > div + div{border-left:1px solid var(--line)}
+@media (max-width:820px){.report-body{grid-template-columns:1fr}.report-body > div + div{border-left:0;border-top:1px solid var(--line)}}
+.label{font-family:var(--mono);font-size:12px;color:var(--muted);margin-bottom:16px}
+.bars{display:grid;gap:14px}
+.bar{display:grid;grid-template-columns:10em 1fr 2.4em;gap:12px;align-items:center;font-size:15px}
+.bar .track{height:6px;border-radius:6px;background:var(--line);overflow:hidden}
+.bar .fill{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--green),var(--violet))}
+.bar .v{font-family:var(--mono);font-size:13px;color:var(--muted);text-align:right;font-variant-numeric:tabular-nums}
+@media (max-width:420px){.bar{grid-template-columns:8em 1fr 2.2em;font-size:14px}}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.chips span{font-size:13px;padding:6px 12px;border-radius:999px;border:1px solid var(--line);color:var(--fg)}
+.chips span:nth-child(odd){border-color:var(--green-soft)}
+.chips span:nth-child(even){border-color:var(--violet-soft)}
+.excerpt{display:grid;gap:18px}
+.excerpt h3{font-size:22px;line-height:1.25}
+.excerpt p{color:#bcc6c1}
+.excerpt blockquote{margin:0;padding:16px 18px;border-radius:14px;background:rgba(185,163,242,.07);border:1px solid rgba(185,163,242,.2);font-size:15px;color:var(--fg)}
+.excerpt blockquote b{display:block;font-family:var(--mono);font-weight:400;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--violet);margin-bottom:6px}
+.toc{display:flex;flex-wrap:wrap;gap:6px 18px;font-family:var(--mono);font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:16px}
+
+/* pricing */
+.packs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media (max-width:900px){.packs{grid-template-columns:1fr}}
+.pack{border:1px solid var(--line);border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:16px;background:var(--bg);min-width:0}
+.pack.feature{background:linear-gradient(170deg,rgba(185,163,242,.12),rgba(126,168,248,.05) 55%,transparent),var(--surface);border-color:var(--violet-soft)}
+.pack h3{font-size:22px;font-weight:400}
+.pack .price{font-family:var(--display);font-weight:300;font-size:30px;font-variant-numeric:tabular-nums}
+.pack .price small{font-family:var(--body);font-size:14px;color:var(--muted);margin-left:4px}
+.pack ul{list-style:none;margin:0;padding:0;display:grid;gap:10px;font-size:15px;color:var(--muted);flex:1}
+.pack li{display:flex;gap:10px}
+.pack li::before{content:"";flex:none;width:14px;height:14px;margin-top:5px;border-radius:50%;border:1px solid var(--violet-soft);background:radial-gradient(circle,var(--green) 0 2.5px,transparent 3px)}
+
+/* flow / wissen */
+.split{display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(32px,6vw,80px);align-items:center}
+.split > *{min-width:0}
+@media (max-width:860px){.split{grid-template-columns:1fr}}
+.flowcard{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:24px;margin:0}
+.flowcard svg{width:100%;height:auto;display:block}
+.flowcard figcaption{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:12px}
+.prose{display:grid;gap:18px;max-width:56ch}
+.prose p{color:var(--muted)}
+.articles{display:grid;gap:0;margin-top:6px}
+.articles a{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-top:1px solid var(--line);text-decoration:none;transition:color .2s}
+.articles a:hover{color:var(--violet)}
+.articles span:last-child{font-family:var(--mono);font-size:12px;color:var(--muted);white-space:nowrap}
+
+/* trust */
+.trust{display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid var(--line)}
+.trust > div{padding:28px 28px 28px 0;border-bottom:1px solid var(--line);display:grid;gap:8px;min-width:0}
+.trust > div:nth-child(even){padding-left:28px;border-left:1px solid var(--line)}
+.trust h3{font-family:var(--body);font-weight:600;font-size:18px;letter-spacing:0}
+.trust p{color:var(--muted);font-size:15px}
+@media (max-width:760px){.trust{grid-template-columns:1fr}.trust > div,.trust > div:nth-child(even){padding:24px 0;border-left:0}}
+
+/* newsletter */
+.news{display:flex;justify-content:space-between;align-items:center;gap:28px;flex-wrap:wrap}
+.news h2{font-size:clamp(24px,3vw,34px);max-width:20ch}
+.news p{color:var(--muted);max-width:48ch;margin-top:12px}
+form{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+input{font:inherit;font-size:16px;color:var(--fg);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:12px 18px;min-width:0;width:min(320px,100%)}
+input:focus{outline:none;border-color:var(--violet-soft);box-shadow:0 0 0 3px rgba(185,163,242,.15)}
+.done{font-family:var(--mono);font-size:13px;color:var(--green);flex-basis:100%}
+
+footer{padding-block:40px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:14px;color:var(--muted)}
+footer nav{display:flex;flex-wrap:wrap;gap:10px 20px}
+
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+.soon{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--violet);border:1px solid var(--violet-soft);border-radius:999px;padding:6px 14px;width:max-content;max-width:100%}
+.soon::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--violet);box-shadow:0 0 10px var(--violet)}
+
+.test-wrap{max-width:760px;margin:0 auto;padding-inline:clamp(16px,4vw,40px);padding-block:clamp(48px,8vw,96px)}
+.intro{display:grid;gap:18px}
+.intro h1{font-size:clamp(32px,5vw,52px);line-height:1.08}
+.intro p{color:var(--muted)}
+.meta-row{display:flex;flex-wrap:wrap;gap:10px 24px;font-family:var(--mono);font-size:13px;color:var(--muted)}
+.progress{height:4px;border-radius:4px;background:var(--line);overflow:hidden;margin-bottom:12px}
+.progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--violet));transition:width .3s ease}
+.pcount{font-family:var(--mono);font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:12px}
+.qcard{margin-top:28px;border:1px solid var(--line);border-radius:22px;padding:clamp(24px,5vw,40px);background:linear-gradient(160deg,rgba(126,168,248,.05),rgba(185,163,242,.07)),var(--surface);display:grid;gap:28px}
+.qtext{font-family:var(--display);font-weight:300;font-size:clamp(22px,3.4vw,30px);line-height:1.25;text-wrap:balance;min-height:2.5em}
+.opts{display:grid;gap:10px}
+.opt{display:flex;align-items:center;gap:14px;width:100%;text-align:left;padding:14px 18px;border-radius:14px;border:1px solid var(--line);background:var(--bg);color:var(--fg);font:500 16px var(--body);cursor:pointer;transition:border-color .2s,background .2s}
+.opt:hover{border-color:var(--violet-soft)}
+.opt[aria-pressed="true"]{border-color:var(--violet);background:rgba(185,163,242,.1)}
+.opt kbd{font-family:var(--mono);font-size:12px;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:2px 7px}
+.nav-row{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.res-head{display:grid;gap:14px;margin-bottom:36px}
+.res-head h1{font-size:clamp(30px,4.6vw,48px);line-height:1.1}
+.overall{display:grid;gap:12px;padding:28px;margin-bottom:12px;border:1px solid var(--violet-soft);border-radius:22px;background:linear-gradient(160deg,rgba(126,168,248,.08),rgba(185,163,242,.12)),var(--surface)}
+.overall .big{font-family:var(--display);font-weight:300;font-size:64px;line-height:1;font-variant-numeric:tabular-nums}
+.overall .big small{font-size:18px;color:var(--muted)}
+.overall p{color:#c3ccc8}
+.care{margin-top:28px;border:1px solid rgba(185,163,242,.35);border-radius:18px;padding:22px;background:rgba(185,163,242,.06);display:grid;gap:8px}
+.care h3{font-family:var(--body);font-weight:600;font-size:17px;letter-spacing:0}
+.care p{color:#c3ccc8;font-size:15px}
+.care a{color:var(--fg)}
+.trait{padding:24px 0;border-top:1px solid var(--line);display:grid;gap:10px}
+.trait-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.trait h2{font-family:var(--body);font-weight:600;font-size:20px;letter-spacing:0}
+.lvl{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:999px;border:1px solid var(--violet-soft);color:var(--violet)}
+.tbar{display:grid;grid-template-columns:1fr 3em;gap:12px;align-items:center}
+.tbar .track{height:8px;border-radius:8px;background:var(--line);overflow:hidden}
+.tbar .fill{display:block;height:100%;border-radius:8px;background:linear-gradient(90deg,var(--green),var(--violet))}
+.tbar .v{font-family:var(--mono);font-size:14px;text-align:right;font-variant-numeric:tabular-nums}
+.trait .what{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.trait p.desc{color:#c3ccc8}
+.cta-box{margin-top:40px;border:1px solid var(--violet-soft);border-radius:20px;padding:28px;display:grid;gap:14px;background:linear-gradient(170deg,rgba(185,163,242,.10),transparent 60%),var(--surface)}
+.cta-box h3{font-size:22px;font-weight:400}
+.cta-box p{color:var(--muted)}
+@media (hover:none){.keyhint{display:none}}
+.fine{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:28px;line-height:1.7}
+.res-date{font-family:var(--mono);font-size:13px;color:var(--muted)}
+.save-box{margin-top:40px;border:1px solid var(--line);border-radius:20px;padding:28px;display:grid;gap:14px;background:linear-gradient(170deg,rgba(126,168,248,.07),transparent 60%),var(--surface)}
+.save-box h3{font-size:22px;font-weight:400}
+.save-box p{color:var(--muted)}
+.save-box .fine{margin-top:0}
+.save-box .fine a{color:var(--fg)}
+.toast{font-family:var(--mono);font-size:13px;color:var(--green);min-height:1.2em}
+.nav-links{display:flex;align-items:center;gap:20px}
+.nav-links .txt{font-size:15px;color:var(--muted);text-decoration:none;white-space:nowrap;transition:color .2s}
+.nav-links .txt:hover{color:var(--fg)}
+@media (max-width:440px){.nav-links{gap:12px}.nav-links .txt{font-size:14px}}
+@media (max-width:400px){.nav-links .btn{display:none}}
+
+/* Beziehungskreis */
+.circ{display:grid;gap:6px;margin-bottom:12px;padding:clamp(12px,3.5vw,28px) clamp(4px,2vw,28px) clamp(14px,3vw,24px);border:1px solid var(--line);border-radius:22px;background:radial-gradient(circle at 50% 46%,rgba(95,208,184,.09),transparent 62%),var(--surface)}
+.circ svg{display:block;width:100%;max-width:560px;height:auto;margin:0 auto;overflow:visible}
+.circ figcaption{font-family:var(--mono);font-size:12px;color:var(--muted);text-align:center;padding-inline:12px}
+.cz-ring{fill:none;stroke:var(--line);stroke-width:1}
+.cz-axis{stroke:var(--muted);stroke-opacity:.45;stroke-width:1;stroke-dasharray:2 5}
+.cz-track{fill:var(--green);fill-opacity:.06}
+.cz-seg{fill:url(#czfill);stroke:var(--green);stroke-opacity:.55;stroke-width:1}
+.cz-seg.on{fill:url(#czfillon);stroke-opacity:1}
+.cz-stop{stop-color:var(--green)}
+.cz-name{fill:var(--fg);font:500 14px var(--body)}
+.cz-name.on{fill:var(--green);font-weight:700}
+.cz-ax{fill:var(--muted);font:500 10.5px var(--mono);letter-spacing:.12em}
+.cz-ray{stroke:var(--green);stroke-width:1.5;stroke-opacity:.7;stroke-dasharray:3 3}
+.cz-dot{fill:#fff;stroke:var(--green);stroke-width:3}
+.cz-pulse{fill:none;stroke:var(--green);stroke-width:1.5;transform-box:fill-box;transform-origin:center;animation:czpulse 2.6s ease-out infinite}
+@keyframes czpulse{0%{opacity:.8;transform:scale(.6)}100%{opacity:0;transform:scale(2.2)}}
+:root[data-theme="light"] .cz-track{fill-opacity:.07}
+:root[data-theme="light"] .cz-axis{stroke-opacity:.5}
+:root[data-theme="light"] .circ{background:radial-gradient(circle at 50% 46%,rgba(19,122,103,.07),transparent 62%),var(--surface);box-shadow:0 1px 2px rgba(20,30,25,.04),0 8px 24px -12px rgba(20,30,25,.12)}
+.focus{display:grid;gap:12px;padding:28px;margin-bottom:12px;border:1px solid var(--violet-soft);border-radius:22px;background:linear-gradient(160deg,rgba(95,208,184,.08),rgba(185,163,242,.10)),var(--surface)}
+.focus h2{font-size:clamp(28px,4.4vw,40px);line-height:1.1}
+.focus .strength{font-family:var(--mono);font-size:13px;color:var(--muted)}
+.focus p.desc{color:#c3ccc8}
+:root[data-theme="light"] .focus p.desc{color:#36423d}
+:root[data-theme="light"] .focus .strength{color:var(--muted)}
+.styles-head{display:grid;gap:8px;margin:44px 0 8px}
+.styles-head h2{font-size:clamp(22px,3vw,28px);line-height:1.2}
+.styles-head p{color:var(--muted)}
+:root[data-theme="light"] .styles-head p{color:var(--muted)}
+@media print{
+  :root{--bg:#fff;--surface:#fff;--green:#2f7a52;--line:#d5dbd8;--fg:#111;--muted:#555;--violet:#5b4a99;--violet-soft:#5b4a99;color-scheme:light}
+  .nav,footer,.save-box,.cta-box,#start,#quiz{display:none!important}
+  .test-wrap{padding:0}
+  .grad{color:#111;background:none}
+  .trait,.overall,.care,.circ,.focus{break-inside:avoid}
+  .cz-pulse{display:none}
+  .circ svg *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .trait p.desc{color:#222}
+  .tbar .fill,.tbar .track{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+<link rel="stylesheet" href="theme.css">
+<script>try{if(localStorage.getItem('ordinum-theme')==='light')document.documentElement.dataset.theme='light'}catch(e){}</script>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="index.html" aria-label="Ordinum Startseite"><img class="logo-mark" src="logo-ringe.svg" alt="" width="45" height="40"><span class="logo-word">ORD<span class="logo-i">I</span>NUM</span></a>
+    <div class="nav-links"><a class="txt" href="meine-ergebnisse.html">Meine Ergebnisse</a><a class="btn" href="index.html#warteliste">Warteliste</a></div>
+  </div>
+</header>
+<main class="test-wrap">
+  <section id="start" class="intro" style="border:0;padding:0">
+    <p class="eyebrow">Beziehungsstil</p>
+    <h1>Wie begegnest du <span class="grad">anderen</span>?</h1>
+    <p>32 kurze Aussagen darüber, wie du dich im Kontakt mit anderen Menschen verhältst. Am Ende siehst du deinen Platz im Beziehungskreis: zwischen Einfluss nehmen und Raum lassen, zwischen Nähe und Abstand. Jeder der acht Stile hat seine eigenen Stärken. Antworte so, wie du meistens bist, nicht so, wie du gern wärst.</p>
+    <div class="meta-row"><span>ca. 4 Minuten</span><span>32 Aussagen</span><span>Auswertung sofort</span><span>Antworten bleiben in deinem Browser</span></div>
+    <div class="cta-row"><button class="btn primary" id="go" type="button">Test starten</button><button class="btn" id="resume" type="button" hidden>Weitermachen</button></div>
+  </section>
+
+  <section id="quiz" hidden style="border:0;padding:0">
+    <div class="progress"><span id="bar"></span></div>
+    <div class="pcount"><span id="count">Aussage 1 von 32</span><span class="keyhint">Tasten 1–5 gehen auch</span></div>
+    <div class="qcard">
+      <p class="qtext" id="qtext" aria-live="polite"></p>
+      <div class="opts" id="opts" role="group" aria-label="Antwort"></div>
+      <div class="nav-row"><button class="btn" id="back" type="button">Zurück</button></div>
+    </div>
+  </section>
+
+  <section id="result" hidden style="border:0;padding:0">
+    <div class="res-head">
+      <p class="eyebrow">Dein Ergebnis</p>
+      <h1>Dein Beziehungsstil</h1>
+      <p class="muted">Der Kreis zeigt acht Arten, anderen Menschen zu begegnen. Keine ist besser als eine andere, jede hat ihre Stärken. Je weiter ein Feld nach außen reicht, desto mehr trifft dieser Stil auf dich zu. Dein Punkt zeigt, wohin deine Antworten insgesamt tendieren. Das ist eine Momentaufnahme deiner Tendenzen in diesem Abschnitt deines Lebens, kein vollständiges Bild von dir.</p>
+      <p class="res-date" id="resdate"></p>
+    </div>
+    <figure class="circ" style="margin:0 0 12px"><div id="circle"></div></figure>
+    <div class="focus"><p class="eyebrow">Dein Schwerpunkt</p><h2 id="fname"></h2><span class="strength" id="fstrength"></span><p class="desc" id="ftext"></p></div>
+    <div class="styles-head"><h2>Alle acht Stile</h2><p>Die meisten Menschen tragen mehrere Stile in sich und wechseln je nach Situation und Gegenüber. Die Werte zeigen, wie sehr die Aussagen zu jedem Stil auf dich zutreffen.</p></div>
+    <div id="traits"></div>
+    <div class="save-box">
+      <h3>Dein Ergebnis wiederfinden</h3>
+      <p id="savetext">Dein Ergebnis ist in diesem Browser unter „Meine Ergebnisse“ gespeichert. Damit du es auch auf anderen Geräten wiederfindest, oder nachdem du deine Browserdaten gelöscht hast, speichere dir deinen persönlichen Link oder ein PDF.</p>
+      <div class="cta-row">
+        <button class="btn primary" id="copylink" type="button">Link kopieren</button>
+        <a class="btn" id="maillink" href="#">Per E-Mail an mich</a>
+        <button class="btn" id="pdf" type="button">Als PDF speichern</button>
+        <button class="btn" id="keep" type="button" hidden>Auf diesem Gerät speichern</button>
+      </div>
+      <p class="toast" id="toast" aria-live="polite"></p>
+      <p class="fine">Wer deinen persönlichen Link kennt, kann dein Ergebnis sehen. Gib ihn also nur weiter, wenn du das möchtest. <a href="meine-ergebnisse.html">Alle meine Ergebnisse</a></p>
+    </div>
+    <div class="cta-box">
+      <h3>Beziehungsstil und Persönlichkeit zusammen</h3>
+      <p>Wie du anderen begegnest, hängt eng damit zusammen, wer du bist. Der Persönlichkeitstest ergänzt dein Bild um die Big Five. Bald verbindet dein persönlicher Ordinum-Bericht alle Tests zu einem ausführlichen Bild von dir.</p>
+      <div class="cta-row"><a class="btn primary" href="persoenlichkeitstest.html">Zum Persönlichkeitstest</a><a class="btn" href="index.html#warteliste">Auf die Warteliste</a><button class="btn" id="again" type="button">Test neu starten</button></div>
+    </div>
+    <p class="fine">Grundlage: der gemeinfreie IPIP Interpersonal Circumplex (IPIP-IPC) nach Markey und Markey (2009) aus dem International Personality Item Pool. Acht Stile mit je vier Aussagen; die Stilnamen sind bewusst wertfrei gewählt. Die beiden Achsen Einfluss und Nähe ergeben sich aus allen acht Stilwerten, nachdem dein persönlicher Durchschnitt abgezogen wurde. Die Werte zeigen deine Antworten auf der Skala von 0 bis 100, noch keine Vergleichswerte mit einer Bevölkerungsstichprobe. Ordinum dient der Selbsterkenntnis und ersetzt keine psychologische Diagnostik.</p>
+  </section>
+</main>
+<footer>
+  <div class="wrap">
+    <span>© 2026 Ordinum · Psychologie zum Selbstverstehen. Keine Diagnostik oder Therapie.</span>
+    <nav><a href="meine-ergebnisse.html">Meine Ergebnisse</a><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></nav>
+  </div>
+</footer>
+<script>
+var ITEMS = [{"t": "Ich bin still, wenn Fremde dabei sind.", "f": "FG", "k": 1}, {"t": "Ich spreche leise.", "f": "HI", "k": 1}, {"t": "Ich lasse mir viel von anderen gefallen.", "f": "JK", "k": 1}, {"t": "Ich interessiere mich für Menschen.", "f": "LM", "k": 1}, {"t": "Ich fühle mich wohl unter Menschen.", "f": "NO", "k": 1}, {"t": "Ich will im Mittelpunkt stehen.", "f": "PA", "k": 1}, {"t": "Ich kann andere scharf auseinandernehmen.", "f": "BC", "k": 1}, {"t": "Ich finde, jeder sollte selbst für sich sorgen.", "f": "DE", "k": 1}, {"t": "Ich bin ein sehr privater Mensch.", "f": "FG", "k": 1}, {"t": "Ich lasse andere ausreden.", "f": "HI", "k": 1}, {"t": "Ich nehme die Dinge, wie sie kommen.", "f": "JK", "k": 1}, {"t": "Ich mache anderen Mut.", "f": "LM", "k": 1}, {"t": "Ich fange Gespräche an.", "f": "NO", "k": 1}, {"t": "Ich führe meistens das Wort.", "f": "PA", "k": 1}, {"t": "Ich widerspreche anderen.", "f": "BC", "k": 1}, {"t": "Auf rührselige Geschichten falle ich nicht herein.", "f": "DE", "k": 1}, {"t": "Ich rede nicht viel.", "f": "FG", "k": 1}, {"t": "Ich stelle mich selten selbst heraus.", "f": "HI", "k": 1}, {"t": "Ich denke zuerst an andere.", "f": "JK", "k": 1}, {"t": "Ich frage andere, wie es ihnen geht.", "f": "LM", "k": 1}, {"t": "Auf Partys rede ich mit vielen verschiedenen Leuten.", "f": "NO", "k": 1}, {"t": "Ich spreche laut.", "f": "PA", "k": 1}, {"t": "Ich fahre andere an.", "f": "BC", "k": 1}, {"t": "Ich denke über Dinge nicht lange nach.", "f": "DE", "k": 1}, {"t": "Ich habe wenig zu sagen.", "f": "FG", "k": 1}, {"t": "Ich mag es nicht, im Mittelpunkt zu stehen.", "f": "HI", "k": 1}, {"t": "Ich schmücke die Wahrheit selten aus.", "f": "JK", "k": 1}, {"t": "Ich komme gut mit anderen aus.", "f": "LM", "k": 1}, {"t": "Ich liebe große Partys.", "f": "NO", "k": 1}, {"t": "Ich fordere Aufmerksamkeit ein.", "f": "PA", "k": 1}, {"t": "Ich habe eine scharfe Zunge.", "f": "BC", "k": 1}, {"t": "Die Probleme anderer interessieren mich nicht.", "f": "DE", "k": 1}];
+var TEXTS = {"PA": {"name": "Bestimmend", "what": "Wie sehr du in Gesprächen und Gruppen Raum einnimmst, den Ton angibst und gesehen werden willst.", "low": "Du musst nicht im Mittelpunkt stehen und überlässt anderen gern die Bühne. Das schafft Raum für andere Stimmen. Wenn dir etwas wichtig ist, darfst du dir den Raum trotzdem ruhig nehmen.", "mid": "Du kannst das Wort ergreifen, wenn es passt, und dich genauso gut zurücknehmen. Wie viel Raum du einnimmst, hängt vermutlich stark von der Situation und den Menschen ab.", "high": "Du nimmst Raum ein, sprichst gut hörbar und gibst gern den Ton an. Das gibt Gruppen Richtung und Schwung. Achte darauf, dass auch die Leiseren zu Wort kommen.", "focus": "Du gehst mit Präsenz auf andere zu: Du zeigst, wo es langgehen könnte, und scheust dich nicht, gesehen zu werden. Andere erleben dich oft als jemanden, der Dinge in Bewegung bringt. Am stärksten wirkt diese Kraft, wenn du dabei auch anderen Raum lässt."}, "BC": {"name": "Direkt", "what": "Wie offen du widersprichst und Kritik aussprichst, auch wenn es unbequem wird.", "low": "Du gehst Konfrontationen eher aus dem Weg und formulierst Kritik behutsam. Das hält das Miteinander entspannt. Manchmal kann es befreiend sein, eine abweichende Meinung klarer auszusprechen.", "mid": "Du widersprichst, wenn dir etwas wirklich wichtig ist, ohne jede Meinungsverschiedenheit auszufechten. Du wählst ziemlich bewusst, wann du deutlich wirst.", "high": "Du sagst klar, was du denkst, und widersprichst auch, wenn es unbequem ist. Diese Ehrlichkeit schafft Klarheit, wo andere herumdrucksen. Wenn es hitzig wird, hilft ein kurzer Moment Abstand, damit deine Kritik ankommt, ohne zu verletzen.", "focus": "Du begegnest anderen mit Klarheit: Du sprichst Dinge an, statt sie zu umschiffen, und hältst Widerspruch aus. Das macht dich zu einem ehrlichen Gegenüber, bei dem man weiß, woran man ist. Am stärksten wirkt deine Direktheit, wenn andere spüren, dass sie der Sache dient."}, "DE": {"name": "Nüchtern", "what": "Wie sachlich und unabhängig du an die Anliegen anderer herangehst, statt dich emotional hineinziehen zu lassen.", "low": "Die Anliegen anderer gehen dir nahe, und du lässt dich gern berühren. Das macht dich mitfühlend. Achte darauf, dabei auch deine eigenen Grenzen im Blick zu behalten.", "mid": "Du kannst mitfühlen und trotzdem einen kühlen Kopf behalten. Je nach Lage hörst du eher mit dem Herzen oder eher mit dem Verstand zu.", "high": "Du bleibst sachlich, lässt dich von Rührung nicht so schnell lenken und erwartest, dass jeder auch selbst Verantwortung übernimmt. Das macht dich in schwierigen Lagen zu einem klaren Kopf. Manchen Menschen tut es gut, wenn du zeigst, dass sie dir trotzdem wichtig sind.", "focus": "Du begegnest anderen mit Sachlichkeit und einer gesunden Portion Unabhängigkeit. Du lässt dich nicht so leicht vereinnahmen und behältst auch dann den Überblick, wenn es emotional wird. Diese Klarheit kann anderen Halt geben, besonders wenn du sie mit einem Zeichen von Zugewandtheit verbindest."}, "FG": {"name": "Reserviert", "what": "Wie sehr du dich in Gesellschaft zurückhältst und Privates für dich behältst.", "low": "Du öffnest dich leicht und kommst auch mit Fremden schnell ins Gespräch. Das macht es anderen einfach, dich kennenzulernen.", "mid": "Du kannst offen sein, brauchst bei neuen Menschen aber etwas Zeit, bis du auftaust. Was du von dir zeigst, wählst du bewusst.", "high": "Du bist eher zurückhaltend, redest nicht viel und behältst Privates gern für dich. Dafür hat das, was du sagst und teilst, oft Gewicht. Menschen, die dir nahekommen, wissen dein Vertrauen zu schätzen.", "focus": "Du begegnest anderen mit Zurückhaltung und schützt deinen inneren Raum. Du brauchst nicht viele Worte und lässt Nähe in deinem eigenen Tempo wachsen. Wer dein Vertrauen gewinnt, erlebt dich oft als tiefgründig und verlässlich."}, "HI": {"name": "Leise", "what": "Wie sehr du dich zurücknimmst, anderen zuhörst und ungern im Rampenlicht stehst.", "low": "Es macht dir nichts aus, gesehen zu werden, und du sprichst gut hörbar für dich. Das hilft dir, deine Anliegen sichtbar zu machen.", "mid": "Du kannst dich zurücknehmen und zuhören, stehst aber auch zu dir, wenn es darauf ankommt.", "high": "Du sprichst eher leise, lässt andere ausreden und stellst dich ungern heraus. Bei dir fühlen sich andere gehört. Vergiss nicht, dass auch deine Stimme gehört werden darf.", "focus": "Du begegnest anderen leise und aufmerksam: Du hörst zu, lässt ausreden und brauchst keine Bühne. In deiner Nähe fühlen sich Menschen oft gehört. Deine Stimme hat Gewicht, gerade weil du sie nicht ständig erhebst, und sie darf ruhig öfter zu hören sein."}, "JK": {"name": "Nachsichtig", "what": "Wie viel Geduld und Nachsicht du anderen entgegenbringst und wie oft du ihre Bedürfnisse vor deine stellst.", "low": "Du stehst für deine Bedürfnisse ein und lässt dir nicht alles gefallen. Das schützt deine Grenzen. Ab und zu darf auch mal fünf gerade sein.", "mid": "Du bist geduldig und rücksichtsvoll, ziehst aber auch Grenzen, wenn es dir zu viel wird.", "high": "Du bist geduldig, nimmst die Dinge, wie sie kommen, und denkst oft zuerst an andere. Das macht das Miteinander mit dir leicht. Achte darauf, dass deine eigenen Wünsche dabei nicht zu kurz kommen.", "focus": "Du begegnest anderen mit Geduld, Bescheidenheit und viel Rücksicht. Du nimmst Menschen, wie sie sind, und machst kein großes Aufheben um dich. Das schafft Vertrauen und Ruhe. Deine Freundlichkeit trägt noch weiter, wenn du deine eigenen Grenzen genauso ernst nimmst."}, "LM": {"name": "Warmherzig", "what": "Wie sehr du dich für andere interessierst, sie ermutigst und auf ihr Wohl achtest.", "low": "Du zeigst Anteilnahme eher sparsam und auf deine eigene Art. Wer dich kennt, weiß das einzuordnen. Eine kleine Nachfrage, wie es jemandem geht, kann trotzdem viel bewirken.", "mid": "Andere sind dir wichtig, und du zeigst das auf deine Weise, manchmal deutlich, manchmal eher still.", "high": "Du interessierst dich ehrlich für Menschen, fragst nach und machst anderen Mut. Viele fühlen sich bei dir gut aufgehoben. Sorge dafür, dass auch du Menschen hast, bei denen du auftanken kannst.", "focus": "Du begegnest anderen mit Wärme und echtem Interesse. Du fragst nach, machst Mut und kommst gut mit Menschen aus. Viele fühlen sich in deiner Nähe willkommen. Diese Zuwendung bleibt lebendig, wenn du sie dir selbst genauso schenkst."}, "NO": {"name": "Gesellig", "what": "Wie gern du unter Menschen bist, Gespräche anstößt und neue Kontakte knüpfst.", "low": "Große Runden sind nicht so deins. Im kleinen Kreis oder allein fühlst du dich oft wohler und tankst dort auf.", "mid": "Du bist gern unter Menschen, brauchst aber auch Zeit für dich. In vertrauter Runde gehst du leichter aus dir heraus.", "high": "Du fühlst dich unter Menschen wohl, sprichst Leute an und bringst Gespräche ins Rollen. Mit dir kommt Leben in eine Runde. Gönn dir zwischendurch auch Momente, in denen du nur bei dir bist.", "focus": "Du gehst offen und gern auf Menschen zu: Du fängst Gespräche an, knüpfst Kontakte und bringst Leben in eine Runde. Andere erleben dich oft als einladend und verbindend. Zwischen allem Austausch dürfen auch ruhige Momente für dich ihren Platz haben."}};
+// Uhrzeigersinn ab oben; Winkel im Kreis: 0° = rechts (Nähe), 90° = oben (Einfluss)
+var ORDER = ["PA", "NO", "LM", "JK", "HI", "FG", "DE", "BC"];
+var ANG = {LM: 0, NO: 45, PA: 90, BC: 135, DE: 180, FG: 225, HI: 270, JK: 315};
+var L = {"count": "Aussage {n} von {t}", "date": "Ergebnis vom {d}", "lvl": {"low": "eher niedrig", "mid": "mittel", "high": "eher hoch"}, "str": ["ausgewogen", "leicht ausgeprägt", "deutlich ausgeprägt", "stark ausgeprägt"], "between": "zwischen {a} und {b}", "balName": "Ausgewogen", "balText": "Kein einzelner Stil sticht bei dir deutlich heraus. Du bewegst dich zwischen verschiedenen Arten, anderen zu begegnen, und passt dich vermutlich gut an Menschen und Situationen an. Schau dir die acht Stile unten an: Oft zeigt sich dein Profil eher in kleinen Unterschieden.", "ax": ["EINFLUSS NEHMEN", "RAUM LASSEN", "NÄHE", "ABSTAND"], "svg": "Beziehungskreis mit acht Stilen. Dein Schwerpunkt: {f}.", "mailSub": "Mein Ordinum-Beziehungsstil", "mailBody": "Mein Ergebnis im Ordinum-Beziehungsstil-Test vom {d}:\n{l}", "saved": "Gespeichert. Du findest es jetzt unter „Meine Ergebnisse“."};
+var SCALE = ["trifft gar nicht zu", "trifft eher nicht zu", "teils, teils", "trifft eher zu", "trifft voll zu"];
+var KEY = 'ordinum-beziehungsstil';
+var HIST = 'ordinum-ergebnisse', ABC = 'abcdefghijklmnopqrstuvwxy';
+var ans = new Array(ITEMS.length).fill(null), cur = 0, curLink = '';
+function $(id){ return document.getElementById(id); }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(ans)); }catch(e){} }
+function load(){ try{ var a = JSON.parse(localStorage.getItem(KEY)); if (Array.isArray(a) && a.length === ITEMS.length) return a; }catch(e){} return null; }
+// Persönlicher Link: je zwei Antworten (1–5) werden zu einem Buchstaben a–y, plus Datum: #r=<16 Zeichen>-JJJJMMTT
+function encode(a){ a = a.length % 2 ? a.concat([1]) : a; var s = ''; for (var i = 0; i < a.length; i += 2) s += ABC[(a[i]-1)*5 + (a[i+1]-1)]; return s; }
+function decode(c){ var a = []; for (var i = 0; i < c.length; i++){ var n = ABC.indexOf(c[i]); a.push(Math.floor(n/5)+1, n%5+1); } return a.slice(0, ITEMS.length); }
+function parseHash(){ var m = /^#r=([a-y]{16})(?:-(\d{8}))?$/.exec(location.hash); return m ? {code:m[1], date:m[2] || null} : null; }
+function today(){ var d = new Date(); return '' + d.getFullYear() + String(d.getMonth()+1).padStart(2,'0') + String(d.getDate()).padStart(2,'0'); }
+function fmtDate(s){ return new Date(+s.slice(0,4), +s.slice(4,6)-1, +s.slice(6,8)).toLocaleDateString('de-DE', {day:'numeric', month:'long', year:'numeric'}); }
+function loadHist(){ try{ var h = JSON.parse(localStorage.getItem(HIST)); if (Array.isArray(h)) return h; }catch(e){} return []; }
+function saveHist(h){ try{ localStorage.setItem(HIST, JSON.stringify(h.slice(0,50))); }catch(e){} }
+function findHist(code){ return loadHist().filter(function(r){ return r.code === code; })[0] || null; }
+function addHist(code, date){ var h = loadHist(); if (h.some(function(r){ return r.code === code; })) return; h.unshift({test:'beziehung', date:date, code:code, scores:scores(decode(code))}); saveHist(h); }
+function scores(a){
+  var sums = {}, n = {}, out = {};
+  ITEMS.forEach(function(it, i){
+    var v = a[i]; if (v == null) return;
+    var s = it.k === 1 ? v : 6 - v;
+    sums[it.f] = (sums[it.f]||0) + s; n[it.f] = (n[it.f]||0) + 1;
+  });
+  ORDER.forEach(function(f){ out[f] = Math.round((sums[f] / n[f] - 1) / 4 * 100); });
+  return out;
+}
+// Zwei Achsen aus den ipsatierten Stilwerten (eigener Durchschnitt abgezogen).
+// x = Nähe, y = Einfluss; Länge p in Prozent des Kreisradius (Summe / 2, höchstens 100).
+function profile(sc){
+  var m = 0; ORDER.forEach(function(f){ m += sc[f] / 8; });
+  var x = 0, y = 0;
+  ORDER.forEach(function(f){ var d = sc[f] - m, t = ANG[f] * Math.PI / 180; x += d * Math.cos(t); y += d * Math.sin(t); });
+  x /= 2; y /= 2;
+  var p = Math.sqrt(x*x + y*y);
+  if (p > 100) { x *= 100 / p; y *= 100 / p; p = 100; }
+  var ang = (Math.atan2(y, x) * 180 / Math.PI + 360) % 360;
+  var near = ORDER.filter(function(f){ return ANG[f] === (Math.round(ang / 45) % 8) * 45; })[0];
+  var lvl = p < 12 ? 0 : p < 30 ? 1 : p < 55 ? 2 : 3;
+  return {x: x, y: y, p: p, ang: ang, near: near, lvl: lvl};
+}
+var NS = 'http://www.w3.org/2000/svg';
+function el(tag, attrs, parent){ var e = document.createElementNS(NS, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
+function pt(deg, r){ var t = deg * Math.PI / 180; return [r * Math.cos(t), -r * Math.sin(t)]; }
+function f1(v){ return Math.round(v * 10) / 10; }
+function sector(deg, r0, r1, gap){
+  var a = pt(deg - 22.5 + gap, r0), b = pt(deg - 22.5 + gap, r1), c = pt(deg + 22.5 - gap, r1), d = pt(deg + 22.5 - gap, r0);
+  return 'M' + f1(a[0]) + ' ' + f1(a[1]) + 'L' + f1(b[0]) + ' ' + f1(b[1]) + 'A' + r1 + ' ' + r1 + ' 0 0 0 ' + f1(c[0]) + ' ' + f1(c[1]) +
+    'L' + f1(d[0]) + ' ' + f1(d[1]) + 'A' + r0 + ' ' + r0 + ' 0 0 1 ' + f1(a[0]) + ' ' + f1(a[1]) + 'Z';
+}
+function drawCircle(sc, pr){
+  var R = 96, R0 = 12, LR = R + 14, box = $('circle'); box.innerHTML = '';
+  var svg = el('svg', {viewBox: '-200 -140 400 280', role: 'img', 'aria-label': L.svg.replace('{f}', pr.lvl ? TEXTS[pr.near].name : L.balName)}, box);
+  var defs = el('defs', {}, svg);
+  [['czfill', .16, .5], ['czfillon', .3, .85]].forEach(function(g){
+    var rg = el('radialGradient', {id: g[0], cx: 0, cy: 0, r: R, gradientUnits: 'userSpaceOnUse'}, defs);
+    el('stop', {offset: '0', 'class': 'cz-stop', 'stop-opacity': g[1]}, rg);
+    el('stop', {offset: '1', 'class': 'cz-stop', 'stop-opacity': g[2]}, rg);
+  });
+  var halo = el('radialGradient', {id: 'czhalo'}, defs);
+  el('stop', {offset: '0', 'class': 'cz-stop', 'stop-opacity': '.75'}, halo);
+  el('stop', {offset: '.45', 'class': 'cz-stop', 'stop-opacity': '.25'}, halo);
+  el('stop', {offset: '1', 'class': 'cz-stop', 'stop-opacity': '0'}, halo);
+  ORDER.forEach(function(f){ el('path', {d: sector(ANG[f], R0, R, 1.2), 'class': 'cz-track'}, svg); });
+  [.5, 1].forEach(function(k){ el('circle', {r: R0 + (R - R0) * k, 'class': 'cz-ring'}, svg); });
+  el('line', {x1: 0, y1: -R - 4, x2: 0, y2: R + 4, 'class': 'cz-axis'}, svg);
+  el('line', {x1: -R - 4, y1: 0, x2: R + 4, y2: 0, 'class': 'cz-axis'}, svg);
+  ORDER.forEach(function(f){
+    var r1 = R0 + (R - R0) * Math.max(sc[f], 2) / 100;
+    el('path', {d: sector(ANG[f], R0, f1(r1), 1.2), 'class': 'cz-seg' + (pr.lvl && f === pr.near ? ' on' : '')}, svg);
+  });
+  ORDER.forEach(function(f){
+    var a = ANG[f], p = pt(a, LR), c = Math.cos(a * Math.PI / 180), s = Math.sin(a * Math.PI / 180);
+    var anchor = Math.abs(c) < .2 ? 'middle' : c > 0 ? 'start' : 'end';
+    var dy = Math.abs(s) < .2 ? 5 : s > 0 ? 0 : 11;
+    if (Math.abs(c) < .2) dy = s > 0 ? -2 : 13;
+    var t = el('text', {x: f1(p[0] + (Math.abs(c) < .2 ? 0 : (c > 0 ? 2 : -2))), y: f1(p[1] + dy), 'text-anchor': anchor, 'class': 'cz-name' + (pr.lvl && f === pr.near ? ' on' : '')}, svg);
+    t.textContent = TEXTS[f].name;
+  });
+  // Achsenbeschriftung: oben/unten über bzw. unter dem Stilnamen, links/rechts darunter
+  [[0, -LR - 18, 'middle', 0], [0, LR + 28, 'middle', 1], [LR + 2, 20, 'start', 2], [-LR - 2, 20, 'end', 3]].forEach(function(q){
+    var t = el('text', {x: q[0], y: q[1], 'text-anchor': q[2], 'class': 'cz-ax'}, svg); t.textContent = L.ax[q[3]];
+  });
+  var x = f1(R * pr.x / 100), y = f1(-R * pr.y / 100);
+  if (pr.p > 4) el('line', {x1: 0, y1: 0, x2: x, y2: y, 'class': 'cz-ray'}, svg);
+  el('circle', {cx: x, cy: y, r: 22, fill: 'url(#czhalo)'}, svg);
+  el('circle', {cx: x, cy: y, r: 7, 'class': 'cz-pulse'}, svg);
+  el('circle', {cx: x, cy: y, r: 6, 'class': 'cz-dot'}, svg);
+}
+function toast(t){ $('toast').textContent = t; }
+function show(id){ ['start','quiz','result'].forEach(function(s){ $(s).hidden = s !== id; }); window.scrollTo(0,0); }
+function render(){
+  var it = ITEMS[cur];
+  $('qtext').textContent = it.t;
+  $('count').textContent = L.count.replace('{n}', cur+1).replace('{t}', ITEMS.length);
+  $('bar').style.width = (cur/ITEMS.length*100) + '%';
+  var o = $('opts'); o.innerHTML = '';
+  SCALE.forEach(function(lbl, i){
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'opt'; b.id = 'opt-' + (i+1);
+    b.setAttribute('aria-pressed', ans[cur] === i+1 ? 'true' : 'false');
+    b.innerHTML = '<kbd>' + (i+1) + '</kbd><span></span>';
+    b.lastChild.textContent = lbl;
+    b.addEventListener('click', function(){ pick(i+1); });
+    o.appendChild(b);
+  });
+  $('back').disabled = cur === 0;
+}
+function pick(v){
+  ans[cur] = v; save();
+  if (cur < ITEMS.length - 1) { cur++; render(); }
+  else results();
+}
+// linkDate gesetzt: Ergebnis kommt aus einem persönlichen Link und wird nicht automatisch gespeichert
+function results(linkDate){
+  var sc = scores(ans), code = encode(ans), known = findHist(code);
+  if (!known && linkDate === undefined) { addHist(code, today()); known = findHist(code); }
+  var date = linkDate || (known && known.date) || today();
+  history.replaceState(null, '', '#r=' + code + '-' + date);
+  curLink = location.href;
+  $('resdate').textContent = L.date.replace('{d}', fmtDate(date));
+  $('keep').hidden = !!known;
+  $('keep').onclick = function(){ addHist(code, date); $('keep').hidden = true; toast(L.saved); };
+  $('savetext').hidden = !known;
+  $('maillink').href = 'mailto:?subject=' + encodeURIComponent(L.mailSub) + '&body=' + encodeURIComponent(L.mailBody.replace('{d}', fmtDate(date)).replace('{l}', curLink));
+  toast('');
+  var pr = profile(sc);
+  drawCircle(sc, pr);
+  if (pr.lvl) {
+    // Nachbarstil auf der Seite, zu der der Punkt hin liegt
+    var off = pr.ang - ANG[pr.near]; if (off > 180) off -= 360; if (off < -180) off += 360;
+    var nb = ORDER.filter(function(f){ return ANG[f] === ((ANG[pr.near] + (off >= 0 ? 45 : -45)) + 360) % 360; })[0];
+    $('fname').textContent = TEXTS[pr.near].name;
+    $('fstrength').textContent = L.str[pr.lvl] + (Math.abs(off) > 15 ? ' · ' + L.between.replace('{a}', TEXTS[pr.near].name).replace('{b}', TEXTS[nb].name) : '');
+    $('ftext').textContent = TEXTS[pr.near].focus;
+  } else {
+    $('fname').textContent = L.balName;
+    $('fstrength').textContent = L.str[0];
+    $('ftext').textContent = L.balText;
+  }
+  var box = $('traits'); box.innerHTML = '';
+  ORDER.forEach(function(f){
+    var score = sc[f];
+    var lv = score < 40 ? 'low' : score > 60 ? 'high' : 'mid';
+    var T = TEXTS[f], el = document.createElement('div');
+    el.className = 'trait';
+    el.innerHTML = '<div class="trait-top"><h2></h2><span class="lvl"></span></div>' +
+      '<div class="tbar"><span class="track"><span class="fill"></span></span><span class="v"></span></div>' +
+      '<p class="what"></p><p class="desc"></p>';
+    el.querySelector('h2').textContent = T.name;
+    el.querySelector('.lvl').textContent = L.lvl[lv];
+    el.querySelector('.fill').style.width = score + '%';
+    el.querySelector('.v').textContent = score;
+    el.querySelector('.what').textContent = T.what;
+    el.querySelector('.desc').textContent = T[lv];
+    box.appendChild(el);
+  });
+  show('result');
+}
+function restart(){ ans = new Array(ITEMS.length).fill(null); cur = 0; save(); history.replaceState(null, '', location.pathname); show('quiz'); render(); }
+$('go').addEventListener('click', restart);
+$('resume').addEventListener('click', function(){ cur = ans.indexOf(null); if (cur < 0) { results(); return; } show('quiz'); render(); });
+$('back').addEventListener('click', function(){ if (cur > 0) { cur--; render(); } });
+$('again').addEventListener('click', restart);
+$('copylink').addEventListener('click', function(){
+  var done = function(){ toast('Link kopiert. Speicher ihn dir zum Beispiel als Lesezeichen oder in deinen Notizen.'); };
+  if (navigator.clipboard) navigator.clipboard.writeText(curLink).then(done, function(){ window.prompt('Dein persönlicher Link:', curLink); });
+  else window.prompt('Dein persönlicher Link:', curLink);
+});
+$('pdf').addEventListener('click', function(){ window.print(); });
+document.addEventListener('keydown', function(e){
+  if ($('quiz').hidden) return;
+  var k = parseInt(e.key, 10);
+  if (k >= 1 && k <= 5) pick(k);
+  else if (e.key === 'Backspace' || e.key === 'ArrowLeft') { if (cur > 0) { cur--; render(); } }
+});
+function route(){
+  var r = parseHash();
+  if (r) { ans = decode(r.code); results(r.date); return true; }
+  return false;
+}
+window.addEventListener('hashchange', function(){ if (!location.hash.indexOf('#r=')) route(); });
+(function(){
+  var a = load();
+  // Abgeschlossene Tests, die noch nicht in der Ergebnisliste stehen, nachtragen
+  if (a && a.indexOf(null) < 0) addHist(encode(a), today());
+  if (route()) return;
+  if (a && a.some(function(x){ return x != null; })) { ans = a; $('resume').hidden = false; $('resume').textContent = a.indexOf(null) < 0 ? 'Letztes Ergebnis ansehen' : 'Weitermachen'; }
+})();
+</script>
+<script src="theme.js"></script>
+</body>
+</html>
