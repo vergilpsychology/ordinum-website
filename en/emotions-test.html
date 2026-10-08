@@ -1,17 +1,16 @@
 <!doctype html>
-<html lang="de">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Wohlbefinden-Test · Ordinum</title>
-<meta name="description" content="Kostenloser Test zu deinem Wohlbefinden: 25 Aussagen, etwa 4 Minuten, sofort dein Profil aus Lebensfreude, Stimmung, Zuversicht, Selbstwert und Lebendigkeit.">
+<title>Emotions test · Ordinum</title>
+<meta name="description" content="Free test on how you handle your feelings: 30 statements, about 5 minutes, your instant profile across noticing feelings, showing joy, showing hard feelings, sharing in joy and gut feeling.">
 <meta name="theme-color" content="#0a0d0c">
-<link rel="canonical" href="https://ordinum.de/wohlbefinden.html">
-<link rel="alternate" hreflang="de" href="https://ordinum.de/wohlbefinden.html">
-<link rel="alternate" hreflang="en" href="https://ordinum.de/en/well-being-test.html">
-<link rel="icon" type="image/png" href="favicon.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="stylesheet" href="fonts.css">
+<link rel="canonical" href="https://ordinum.de/en/emotions-test.html">
+<link rel="alternate" hreflang="de" href="https://ordinum.de/emotionen.html">
+<link rel="alternate" hreflang="en" href="https://ordinum.de/en/emotions-test.html">
+<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="stylesheet" href="../fonts.css">
 <style>
 /* Layout: dark, quiet canvas; a slow liquid of green and violet pours behind the hero; content in a 1120px column with hairline structure. */
 :root{
@@ -20,10 +19,10 @@
   --line:#1f2724;
   --fg:#e7ece9;
   --muted:#8e9a95;
-  --green:#f0cf6e;
-  --green-soft:#a8904a;
-  --green-l:#9a7413;
-  --green-soft-l:#d9bf73;
+  --green:#ec8cce;
+  --green-soft:#a5628f;
+  --green-l:#b0408c;
+  --green-soft-l:#e6a9d2;
   --violet:#b9a3f2;
   --violet-soft:#7c69b4;
   --glow:rgba(160,180,220,.10);
@@ -58,7 +57,7 @@ p{margin:0}
 .nav ul a:hover{color:var(--fg)}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:999px;font:500 15px var(--body);text-decoration:none;border:1px solid var(--line);background:transparent;color:var(--fg);cursor:pointer;transition:border-color .2s,background .2s,box-shadow .3s}
 .btn:hover{border-color:var(--violet-soft)}
-.btn.primary{background:linear-gradient(100deg,var(--green),#e8b8a8 55%,var(--violet));color:#0b0f14;border-color:transparent}
+.btn.primary{background:linear-gradient(100deg,var(--green),#d9a3e6 55%,var(--violet));color:#0b0f14;border-color:transparent}
 .btn.primary:hover{box-shadow:0 0 28px rgba(185,163,242,.35)}
 .nav .btn{padding:9px 16px;font-size:14px;white-space:nowrap}
 @media (max-width:820px){.nav ul{display:none}}
@@ -99,7 +98,7 @@ section{padding-block:clamp(64px,9vw,112px);border-bottom:1px solid var(--line)}
 .tests{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
 .test{position:relative;border:1px solid var(--line);border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:10px;background:var(--surface);min-width:0;overflow:hidden;transition:border-color .25s,transform .25s}
 .test:hover{border-color:var(--violet-soft);transform:translateY(-2px)}
-.test::before{content:"";position:absolute;width:160px;height:160px;right:-60px;top:-70px;border-radius:50%;background:radial-gradient(circle,var(--c,rgba(240,207,110,.22)),transparent 70%);pointer-events:none}
+.test::before{content:"";position:absolute;width:160px;height:160px;right:-60px;top:-70px;border-radius:50%;background:radial-gradient(circle,var(--c,rgba(236,140,206,.22)),transparent 70%);pointer-events:none}
 .test .meta{display:flex;justify-content:space-between;gap:8px;font-family:var(--mono);font-size:12px;color:var(--muted)}
 .test h3{font-family:var(--body);font-weight:600;font-size:19px;letter-spacing:0}
 .test p{color:var(--muted);font-size:15px;flex:1}
@@ -118,7 +117,7 @@ section{padding-block:clamp(64px,9vw,112px);border-bottom:1px solid var(--line)}
 .scale button{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--muted);font:500 15px var(--mono);cursor:pointer;transition:all .2s}
 .scale button[aria-pressed="true"]{background:var(--violet);color:#0b0f14;border-color:var(--violet)}
 .scale-l{display:flex;justify-content:space-between;max-width:260px;font-size:12px;color:var(--muted);font-family:var(--mono)}
-.result{border:1px solid var(--line);border-radius:20px;padding:28px;background:linear-gradient(160deg,rgba(240,207,110,.07),rgba(185,163,242,.09)),var(--surface);display:grid;gap:14px}
+.result{border:1px solid var(--line);border-radius:20px;padding:28px;background:linear-gradient(160deg,rgba(236,140,206,.07),rgba(185,163,242,.09)),var(--surface);display:grid;gap:14px}
 .result .score{font-family:var(--display);font-weight:300;font-size:52px;line-height:1;font-variant-numeric:tabular-nums}
 .result .score small{font-size:16px;color:var(--muted)}
 .meter{height:8px;border-radius:8px;background:var(--line);overflow:hidden}
@@ -128,7 +127,7 @@ section{padding-block:clamp(64px,9vw,112px);border-bottom:1px solid var(--line)}
 
 /* report preview */
 .report{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:22px;overflow:hidden}
-.report::before{content:"";position:absolute;inset:-40% -20% auto auto;width:520px;height:520px;background:radial-gradient(circle at 40% 40%,rgba(185,163,242,.18),transparent 60%),radial-gradient(circle at 70% 70%,rgba(240,207,110,.14),transparent 60%);filter:blur(10px);pointer-events:none}
+.report::before{content:"";position:absolute;inset:-40% -20% auto auto;width:520px;height:520px;background:radial-gradient(circle at 40% 40%,rgba(185,163,242,.18),transparent 60%),radial-gradient(circle at 70% 70%,rgba(236,140,206,.14),transparent 60%);filter:blur(10px);pointer-events:none}
 .report-top{position:relative;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:18px 26px;border-bottom:1px solid var(--line)}
 .report-top .t{font-family:var(--display);font-size:16px;font-weight:400}
 .tag{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
@@ -158,7 +157,7 @@ section{padding-block:clamp(64px,9vw,112px);border-bottom:1px solid var(--line)}
 .packs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 @media (max-width:900px){.packs{grid-template-columns:1fr}}
 .pack{border:1px solid var(--line);border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:16px;background:var(--bg);min-width:0}
-.pack.feature{background:linear-gradient(170deg,rgba(185,163,242,.12),rgba(240,207,110,.05) 55%,transparent),var(--surface);border-color:var(--violet-soft)}
+.pack.feature{background:linear-gradient(170deg,rgba(185,163,242,.12),rgba(236,140,206,.05) 55%,transparent),var(--surface);border-color:var(--violet-soft)}
 .pack h3{font-size:22px;font-weight:400}
 .pack .price{font-family:var(--display);font-weight:300;font-size:30px;font-variant-numeric:tabular-nums}
 .pack .price small{font-family:var(--body);font-size:14px;color:var(--muted);margin-left:4px}
@@ -213,7 +212,7 @@ footer nav{display:flex;flex-wrap:wrap;gap:10px 20px}
 .progress{height:4px;border-radius:4px;background:var(--line);overflow:hidden;margin-bottom:12px}
 .progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--violet));transition:width .3s ease}
 .pcount{font-family:var(--mono);font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:12px}
-.qcard{margin-top:28px;border:1px solid var(--line);border-radius:22px;padding:clamp(24px,5vw,40px);background:linear-gradient(160deg,rgba(240,207,110,.05),rgba(185,163,242,.07)),var(--surface);display:grid;gap:28px}
+.qcard{margin-top:28px;border:1px solid var(--line);border-radius:22px;padding:clamp(24px,5vw,40px);background:linear-gradient(160deg,rgba(236,140,206,.05),rgba(185,163,242,.07)),var(--surface);display:grid;gap:28px}
 .qtext{font-family:var(--display);font-weight:300;font-size:clamp(22px,3.4vw,30px);line-height:1.25;text-wrap:balance;min-height:2.5em}
 .opts{display:grid;gap:10px}
 .opt{display:flex;align-items:center;gap:14px;width:100%;text-align:left;padding:14px 18px;border-radius:14px;border:1px solid var(--line);background:var(--bg);color:var(--fg);font:500 16px var(--body);cursor:pointer;transition:border-color .2s,background .2s}
@@ -223,7 +222,7 @@ footer nav{display:flex;flex-wrap:wrap;gap:10px 20px}
 .nav-row{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .res-head{display:grid;gap:14px;margin-bottom:36px}
 .res-head h1{font-size:clamp(30px,4.6vw,48px);line-height:1.1}
-.overall{display:grid;gap:12px;padding:28px;margin-bottom:12px;border:1px solid var(--violet-soft);border-radius:22px;background:linear-gradient(160deg,rgba(240,207,110,.08),rgba(185,163,242,.12)),var(--surface)}
+.overall{display:grid;gap:12px;padding:28px;margin-bottom:12px;border:1px solid var(--violet-soft);border-radius:22px;background:linear-gradient(160deg,rgba(236,140,206,.08),rgba(185,163,242,.12)),var(--surface)}
 .overall .big{font-family:var(--display);font-weight:300;font-size:64px;line-height:1;font-variant-numeric:tabular-nums}
 .overall .big small{font-size:18px;color:var(--muted)}
 .overall p{color:#c3ccc8}
@@ -247,7 +246,7 @@ footer nav{display:flex;flex-wrap:wrap;gap:10px 20px}
 @media (hover:none){.keyhint{display:none}}
 .fine{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:28px;line-height:1.7}
 .res-date{font-family:var(--mono);font-size:13px;color:var(--muted)}
-.save-box{margin-top:40px;border:1px solid var(--line);border-radius:20px;padding:28px;display:grid;gap:14px;background:linear-gradient(170deg,rgba(240,207,110,.07),transparent 60%),var(--surface)}
+.save-box{margin-top:40px;border:1px solid var(--line);border-radius:20px;padding:28px;display:grid;gap:14px;background:linear-gradient(170deg,rgba(236,140,206,.07),transparent 60%),var(--surface)}
 .save-box h3{font-size:22px;font-weight:400}
 .save-box p{color:var(--muted)}
 .save-box .fine{margin-top:0}
@@ -268,95 +267,90 @@ footer nav{display:flex;flex-wrap:wrap;gap:10px 20px}
   .tbar .fill,.tbar .track{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
 </style>
-<link rel="stylesheet" href="theme.css">
+<link rel="stylesheet" href="../theme.css">
 <script>try{if(localStorage.getItem('ordinum-theme')==='light')document.documentElement.dataset.theme='light'}catch(e){}</script>
 </head>
 <body>
 <header class="nav">
   <div class="wrap">
-    <a class="logo" href="index.html" aria-label="Ordinum Startseite"><img class="logo-mark" src="logo-ringe.svg" alt="" width="45" height="40"><span class="logo-word">ORD<span class="logo-i">I</span>NUM</span></a>
-    <div class="nav-links"><a class="txt" href="meine-ergebnisse.html">Meine Ergebnisse</a><a class="btn" href="index.html#warteliste">Warteliste</a></div>
+    <a class="logo" href="./" aria-label="Ordinum home"><img class="logo-mark" src="../logo-ringe.svg" alt="" width="45" height="40"><span class="logo-word">ORD<span class="logo-i">I</span>NUM</span></a>
+    <div class="nav-links"><a class="txt" href="../meine-ergebnisse.html">My results</a><a class="btn" href="./#warteliste">Waitlist</a></div>
   </div>
 </header>
 <main class="test-wrap">
   <section id="start" class="intro" style="border:0;padding:0">
-    <p class="eyebrow">Wohlbefinden</p>
-    <h1>Wie geht es dir <span class="grad">gerade</span>?</h1>
-    <p>25 kurze Aussagen darüber, wie du dich in letzter Zeit fühlst. Anders als bei einem Persönlichkeitstest geht es hier um eine Momentaufnahme: Antworte so, wie es in den letzten Wochen für dich war.</p>
-    <div class="meta-row"><span>ca. 4 Minuten</span><span>25 Aussagen</span><span>Auswertung sofort</span><span>Antworten bleiben in deinem Browser</span></div>
-    <div class="cta-row"><button class="btn primary" id="go" type="button">Test starten</button><button class="btn" id="resume" type="button" hidden>Weitermachen</button></div>
+    <p class="eyebrow">Emotions</p>
+    <h1>How do you handle your <span class="grad">feelings</span>?</h1>
+    <p>30 short statements about how you notice your feelings, show them and share them with others. Answer as you usually are, not as you would like to be.</p>
+    <div class="meta-row"><span>about 5 minutes</span><span>30 statements</span><span>Instant results</span><span>Answers stay in your browser</span></div>
+    <div class="cta-row"><button class="btn primary" id="go" type="button">Start test</button><button class="btn" id="resume" type="button" hidden>Continue</button></div>
   </section>
 
   <section id="quiz" hidden style="border:0;padding:0">
     <div class="progress"><span id="bar"></span></div>
-    <div class="pcount"><span id="count">Aussage 1 von 25</span><span class="keyhint">Tasten 1–5 gehen auch</span></div>
+    <div class="pcount"><span id="count">Statement 1 of 30</span><span class="keyhint">Keys 1–5 work too</span></div>
     <div class="qcard">
       <p class="qtext" id="qtext" aria-live="polite"></p>
-      <div class="opts" id="opts" role="group" aria-label="Antwort"></div>
-      <div class="nav-row"><button class="btn" id="back" type="button">Zurück</button></div>
+      <div class="opts" id="opts" role="group" aria-label="Answer"></div>
+      <div class="nav-row"><button class="btn" id="back" type="button">Back</button></div>
     </div>
   </section>
 
   <section id="result" hidden style="border:0;padding:0">
     <div class="res-head">
-      <p class="eyebrow">Dein Ergebnis</p>
-      <h1>Dein Wohlbefinden</h1>
-      <p class="muted">Eine Momentaufnahme aus fünf Bereichen, jeweils auf einer Skala von 0 bis 100. Wohlbefinden verändert sich: Wenn du den Test in ein paar Wochen wiederholst, siehst du, was sich bewegt hat.</p>
+      <p class="eyebrow">Your result</p>
+      <h1>Your emotions profile</h1>
+      <p class="muted">Five areas show how you notice your feelings, show them, share them with others and use them in decisions, each on a scale from 0 to 100. There is no better or worse here: every level has its own strengths.</p>
       <p class="res-date" id="resdate"></p>
     </div>
-    <div class="overall"><p class="eyebrow">Gesamtwert</p><div class="big"><span id="ov"></span><small> / 100</small></div><div class="tbar"><span class="track"><span class="fill" id="ovbar"></span></span><span></span></div><p id="ovtext"></p></div>
     <div id="traits"></div>
-    <div class="care" id="care" hidden>
-      <h3>Wenn es dir gerade nicht gut geht</h3>
-      <p>Deine Antworten deuten darauf hin, dass es dir im Moment eher schwer fällt. Das ist kein Befund, aber ein Grund, gut auf dich zu achten. Sprich mit Menschen, denen du vertraust, oder mit deiner Hausärztin oder deinem Hausarzt. Rund um die Uhr, anonym und kostenlos erreichst du die TelefonSeelsorge unter <a href="tel:08001110111">0800 111 0 111</a> oder <a href="tel:08001110222">0800 111 0 222</a>.</p>
-    </div>
     <div class="save-box">
-      <h3>Dein Ergebnis wiederfinden</h3>
-      <p id="savetext">Dein Ergebnis ist in diesem Browser unter „Meine Ergebnisse“ gespeichert. Damit du es auch auf anderen Geräten wiederfindest, oder nachdem du deine Browserdaten gelöscht hast, speichere dir deinen persönlichen Link oder ein PDF.</p>
+      <h3>Find your result again</h3>
+      <p id="savetext">Your result is saved in this browser under “My results”. To find it on other devices too, or after clearing your browser data, save your personal link or a PDF.</p>
       <div class="cta-row">
-        <button class="btn primary" id="copylink" type="button">Link kopieren</button>
-        <a class="btn" id="maillink" href="#">Per E-Mail an mich</a>
-        <button class="btn" id="pdf" type="button">Als PDF speichern</button>
-        <button class="btn" id="keep" type="button" hidden>Auf diesem Gerät speichern</button>
+        <button class="btn primary" id="copylink" type="button">Copy link</button>
+        <a class="btn" id="maillink" href="#">Email it to me</a>
+        <button class="btn" id="pdf" type="button">Save as PDF</button>
+        <button class="btn" id="keep" type="button" hidden>Save on this device</button>
       </div>
       <p class="toast" id="toast" aria-live="polite"></p>
-      <p class="fine">Wer deinen persönlichen Link kennt, kann dein Ergebnis sehen. Gib ihn also nur weiter, wenn du das möchtest. <a href="meine-ergebnisse.html">Alle meine Ergebnisse</a></p>
+      <p class="fine">Anyone with your personal link can see your result, so only share it if you want to. <a href="../meine-ergebnisse.html">All my results</a></p>
     </div>
     <div class="cta-box">
-      <h3>Wohlbefinden und Persönlichkeit zusammen</h3>
-      <p>Wie es dir geht, hängt auch davon ab, wer du bist und welche Stärken du einsetzt. Bald verbindet dein persönlicher Ordinum-Bericht beides zu einem ausführlichen Bild von dir.</p>
-      <div class="cta-row"><a class="btn primary" href="staerkentest.html">Zum Charakterstärken-Test</a><a class="btn" href="persoenlichkeitstest.html">Zum Persönlichkeitstest</a><a class="btn" href="index.html#warteliste">Auf die Warteliste</a><button class="btn" id="again" type="button">Test neu starten</button></div>
+      <h3>Feelings and personality together</h3>
+      <p>How you handle your feelings also depends on who you are and how you are doing right now. Soon your personal Ordinum report will bring it all together into a detailed picture of you.</p>
+      <div class="cta-row"><a class="btn primary" href="personality-test.html">Take the personality test</a><a class="btn" href="stress-test.html">Take the stress test</a><a class="btn" href="./#warteliste">Join the waitlist</a><button class="btn" id="again" type="button">Restart test</button></div>
     </div>
-    <p class="fine">Grundlage: gemeinfreie Skalen des International Personality Item Pool (IPIP): Cheerfulness und Depression aus dem IPIP-NEO, IPIP-Skalen zu Optimismus (nach Scheier, Carver und Bridges) und Selbstwert (nach Rosenberg) sowie Zest aus den IPIP-VIA-Skalen. Pro Bereich fünf Aussagen. Die Werte zeigen deine Antworten auf der Skala von 0 bis 100, noch keine Vergleichswerte mit einer Bevölkerungsstichprobe. Ordinum dient der Selbsterkenntnis und ersetzt keine psychologische Diagnostik oder Behandlung.</p>
+    <p class="fine">Based on: public-domain emotional intelligence scales by Kimberly Barchard from the International Personality Item Pool (IPIP): Attending to Emotions, Positive Expressivity, Negative Expressivity, Responsive Joy and Emotion-Based Decision-Making. Six statements per area. Scores show your answers on a scale from 0 to 100, not comparisons with a population sample. Ordinum is meant for self-understanding and does not replace psychological assessment or treatment.</p>
   </section>
 </main>
 <footer>
   <div class="wrap">
-    <span>© 2026 Ordinum · Psychologie zum Selbstverstehen. Keine Diagnostik oder Therapie.</span>
-    <nav><a href="meine-ergebnisse.html">Meine Ergebnisse</a><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></nav>
+    <span>© 2026 Ordinum · Psychology for self-understanding. No diagnosis or therapy.</span>
+    <nav><a href="../meine-ergebnisse.html">My results</a><a href="../impressum.html" hreflang="de">Legal notice</a><a href="../datenschutz.html" hreflang="de">Privacy</a></nav>
   </div>
 </footer>
 <script>
-var ITEMS = [{"t": "Ich liebe das Leben.", "f": "F", "k": 1}, {"t": "Ich bin selten niedergeschlagen.", "f": "M", "k": 1}, {"t": "Ich weiß einfach, dass ich es schaffen werde.", "f": "O", "k": 1}, {"t": "Ich fühle mich wohl mit mir.", "f": "S", "k": 1}, {"t": "Ich freue mich auf jeden neuen Tag.", "f": "V", "k": 1}, {"t": "Ich strahle Freude aus.", "f": "F", "k": 1}, {"t": "Ich fühle mich oft bedrückt.", "f": "M", "k": -1}, {"t": "Ich sehe die Sonnenseite des Lebens.", "f": "O", "k": 1}, {"t": "Ich kenne meine Stärken.", "f": "S", "k": 1}, {"t": "Ich wache mit Vorfreude auf das auf, was der Tag bringt.", "f": "V", "k": 1}, {"t": "Ich habe viel Spaß.", "f": "F", "k": 1}, {"t": "Ich bin oft am Boden.", "f": "M", "k": -1}, {"t": "Ich sehe schwarz für die Zukunft.", "f": "O", "k": -1}, {"t": "Ich mag mich nicht.", "f": "S", "k": -1}, {"t": "Ich liebe, was ich tue.", "f": "V", "k": 1}, {"t": "Ich gehe mit einem Lachen durchs Leben.", "f": "F", "k": 1}, {"t": "Ich fühle mich verzweifelt.", "f": "M", "k": -1}, {"t": "Ich sehe überall Schwierigkeiten.", "f": "O", "k": -1}, {"t": "Ich kann weniger als die meisten anderen.", "f": "S", "k": -1}, {"t": "Ich habe nicht viel Energie.", "f": "V", "k": -1}, {"t": "Ich kann mich freuen wie ein Kind.", "f": "F", "k": 1}, {"t": "Ich bin oft schlecht gelaunt.", "f": "M", "k": -1}, {"t": "Ich befürchte das Schlimmste.", "f": "O", "k": -1}, {"t": "Ich habe das Gefühl, mit den Dingen nicht fertig zu werden.", "f": "S", "k": -1}, {"t": "Mir graut davor, morgens aufzustehen.", "f": "V", "k": -1}];
-var TEXTS = {"F": {"name": "Lebensfreude", "what": "Wie viel Freude, Spaß und Leichtigkeit du gerade erlebst.", "low": "Freude und Leichtigkeit kommen bei dir im Moment eher kurz. Das kann an einer anstrengenden Phase liegen. Kleine, bewusst eingeplante Dinge, die dir früher Spaß gemacht haben, sind oft ein guter Anfang.", "mid": "Du erlebst Freude, aber nicht immer und nicht überall. Es lohnt sich, darauf zu achten, wann sie auftaucht, und davon mehr in deinen Alltag zu holen.", "high": "Du erlebst viel Freude und kannst das Leben genießen. Diese Leichtigkeit ist eine Ressource, die dich auch durch schwierigere Zeiten trägt."}, "M": {"name": "Ausgeglichene Stimmung", "what": "Wie selten dich Niedergeschlagenheit und schlechte Laune begleiten.", "low": "Du fühlst dich im Moment oft niedergeschlagen oder schlecht gelaunt. Das ist ernst zu nehmen. Sprich mit Menschen, denen du vertraust, und hol dir Unterstützung, wenn es länger so bleibt.", "mid": "Deine Stimmung ist meistens stabil, aber gedrückte Phasen kennst du. Achte darauf, was dich in solchen Zeiten stärkt, und was dich eher runterzieht.", "high": "Niedergeschlagenheit spielt bei dir gerade kaum eine Rolle. Deine Grundstimmung ist stabil und hell."}, "O": {"name": "Zuversicht", "what": "Wie hoffnungsvoll du auf die Zukunft und deine Möglichkeiten blickst.", "low": "Der Blick nach vorn fühlt sich für dich gerade eher schwer an, und du rechnest oft mit Schwierigkeiten. Es kann helfen, bewusst auf kleine Schritte zu schauen, die gelungen sind.", "mid": "Du blickst meist realistisch nach vorn: Du hoffst auf das Gute, rechnest aber auch mit Hindernissen. Diese Mischung schützt dich vor bösen Überraschungen.", "high": "Du blickst zuversichtlich nach vorn und traust dir zu, deine Ziele zu erreichen. Diese Haltung gibt dir Kraft, dranzubleiben."}, "S": {"name": "Selbstwert", "what": "Wie wohl du dich mit dir selbst fühlst und wie sehr du dir vertraust.", "low": "Du gehst im Moment eher hart mit dir ins Gericht und traust dir wenig zu. Versuch, mit dir so zu sprechen, wie du mit einer guten Freundin oder einem guten Freund sprechen würdest.", "mid": "Meistens fühlst du dich mit dir wohl, aber Selbstzweifel kennst du auch. Es hilft, deine Stärken bewusst im Blick zu behalten.", "high": "Du fühlst dich wohl mit dir, kennst deine Stärken und traust dir etwas zu. Das ist eine stabile Grundlage für fast alles andere."}, "V": {"name": "Lebendigkeit", "what": "Wie viel Energie und Vorfreude du in deinen Alltag mitbringst.", "low": "Dir fehlt im Moment Energie, und der Tag fühlt sich oft eher schwer an. Schlaf, Bewegung und Pausen sind unspektakulär, machen hier aber oft den größten Unterschied.", "mid": "Du hast Tage voller Energie und Tage, an denen es zäh läuft. Achte darauf, was dir Kraft gibt und was sie dir nimmt.", "high": "Du gehst mit Energie und Vorfreude durch den Tag. Diese Lebendigkeit steckt oft auch die Menschen um dich herum an."}};
-var ORDER = ["F", "M", "O", "S", "V"];
-var SCALE = ["trifft gar nicht zu", "trifft eher nicht zu", "teils, teils", "trifft eher zu", "trifft voll zu"];
-var KEY = 'ordinum-wohlbefinden';
+var ITEMS = [{"t": "I think about the causes of my emotions.", "f": "W", "k": 1}, {"t": "I show my feelings when I'm happy.", "f": "P", "k": 1}, {"t": "I show my sadness.", "f": "N", "k": 1}, {"t": "I feel other people's joy.", "f": "J", "k": 1}, {"t": "I listen to my feelings when making important decisions.", "f": "E", "k": 1}, {"t": "I rarely think about how I feel.", "f": "W", "k": -1}, {"t": "I keep my happy feelings to myself.", "f": "P", "k": -1}, {"t": "I keep my feelings to myself, regardless of how unhappy I am.", "f": "N", "k": -1}, {"t": "I am unaffected by other people's happiness.", "f": "J", "k": -1}, {"t": "I make decisions based on facts, not feelings.", "f": "E", "k": -1}, {"t": "I am usually aware of the way that I'm feeling.", "f": "W", "k": 1}, {"t": "I laugh out loud if something is funny.", "f": "P", "k": 1}, {"t": "I show my fear.", "f": "N", "k": 1}, {"t": "I usually end up laughing if the people around me are laughing.", "f": "J", "k": 1}, {"t": "I believe emotions give direction to life.", "f": "E", "k": 1}, {"t": "I often ignore my feelings.", "f": "W", "k": -1}, {"t": "I have difficulty showing affection.", "f": "P", "k": -1}, {"t": "I rarely show my anger.", "f": "N", "k": -1}, {"t": "I rarely get caught up in the excitement.", "f": "J", "k": -1}, {"t": "I plan my life logically.", "f": "E", "k": -1}, {"t": "I notice my emotions.", "f": "W", "k": 1}, {"t": "I hug my close friends.", "f": "P", "k": 1}, {"t": "I suspect that my facial expressions give me away when I feel sad.", "f": "N", "k": 1}, {"t": "I am strongly influenced by the good moods of others.", "f": "J", "k": 1}, {"t": "I listen to my heart rather than my brain.", "f": "E", "k": 1}, {"t": "I rarely notice my emotional reactions.", "f": "W", "k": -1}, {"t": "I express my affection physically.", "f": "P", "k": 1}, {"t": "I keep my feelings to myself, regardless of how scared I am.", "f": "N", "k": -1}, {"t": "I find it hard to stay in a bad mood if the people around me are happy.", "f": "J", "k": 1}, {"t": "I believe important decisions should be based on logical reasoning.", "f": "E", "k": -1}];
+var TEXTS = {"W": {"name": "Noticing feelings", "what": "How closely you notice and understand your own feelings.", "low": "Your feelings often run quietly in the background, and you don't look at them too closely. That can be a relief, but now and then it means you miss an important signal. A short look back in the evening at how the day felt can help.", "mid": "You usually notice your feelings, but you don't always get to the bottom of them. When something moves you strongly or you have a quiet moment, you look more closely.", "high": "You are well in touch with your inner life and often ask yourself where your feelings come from. That helps you understand yourself. Just take care not to get lost in brooding."}, "P": {"name": "Showing joy", "what": "How openly you show joy and affection.", "low": "You tend to show joy and affection quietly. People who know you well know how to read that. Others may underestimate how much something means to you. A word said out loud can go a long way.", "mid": "You show joy and affection depending on where you are and who you are with. Among people you trust you are more open than among strangers.", "high": "People can tell when you are happy, and you like showing others that they matter to you. This warmth is contagious and strengthens your relationships."}, "N": {"name": "Showing hard feelings", "what": "How openly you show sadness, fear or anger.", "low": "You tend to deal with sadness, fear and anger on your own. That gives you a sense of control. In the long run, though, it is worth having a few people you can show the hard things to as well.", "mid": "Sometimes you show hard feelings, sometimes you keep them to yourself. Often that depends on how safe you feel at the moment.", "high": "Others quickly notice when you are not doing well. This openness makes it easier to get support. In heated situations it can help to wait a moment before you react."}, "J": {"name": "Sharing in joy", "what": "How much other people's joy and good mood carry you along.", "low": "Other people's moods rub off on you only a little. You tend to stay with yourself, even when everyone around you is celebrating. That makes you independent of the mood in a group.", "mid": "A good mood is catching when you are open to it anyway. On other days you prefer to stay with your own mood.", "high": "Other people's joy quickly catches on with you, and you are genuinely happy for them. That makes you a warm presence. It is worth paying attention to which moods you surround yourself with."}, "E": {"name": "Gut feeling", "what": "How much you let your feelings guide you in important decisions.", "low": "In important decisions you rely mainly on facts and logical reasoning. That makes your decisions easy to explain. Your gut feeling can still be a useful extra voice.", "mid": "You combine head and heart: you weigh things up, but you also listen to how a decision feels.", "high": "In important decisions you like to follow your feelings and your inspiration. That helps you take paths that suit you. For decisions with big consequences, a sober second look rounds out the picture."}};
+var ORDER = ["W", "P", "N", "J", "E"];
+var SCALE = ["very inaccurate", "moderately inaccurate", "neither accurate nor inaccurate", "moderately accurate", "very accurate"];
+var KEY = 'ordinum-emotionen';
 var HIST = 'ordinum-ergebnisse', ABC = 'abcdefghijklmnopqrstuvwxy';
 var ans = new Array(ITEMS.length).fill(null), cur = 0, curLink = '';
 function $(id){ return document.getElementById(id); }
 function save(){ try{ localStorage.setItem(KEY, JSON.stringify(ans)); }catch(e){} }
 function load(){ try{ var a = JSON.parse(localStorage.getItem(KEY)); if (Array.isArray(a) && a.length === ITEMS.length) return a; }catch(e){} return null; }
-// Persönlicher Link: je zwei Antworten (1–5) werden zu einem Buchstaben a–y (bei ungerader Anzahl mit einer 1 aufgefüllt), plus Datum: #r=<13 Zeichen>-JJJJMMTT
+// Personal link: every two answers (1–5) become one letter a–y (padded with a 1 if the count is odd), plus date: #r=<15 chars>-YYYYMMDD
 function encode(a){ a = a.length % 2 ? a.concat([1]) : a; var s = ''; for (var i = 0; i < a.length; i += 2) s += ABC[(a[i]-1)*5 + (a[i+1]-1)]; return s; }
 function decode(c){ var a = []; for (var i = 0; i < c.length; i++){ var n = ABC.indexOf(c[i]); a.push(Math.floor(n/5)+1, n%5+1); } return a.slice(0, ITEMS.length); }
-function parseHash(){ var m = /^#r=([a-y]{13})(?:-(\d{8}))?$/.exec(location.hash); return m ? {code:m[1], date:m[2] || null} : null; }
+function parseHash(){ var m = /^#r=([a-y]{15})(?:-(\d{8}))?$/.exec(location.hash); return m ? {code:m[1], date:m[2] || null} : null; }
 function today(){ var d = new Date(); return '' + d.getFullYear() + String(d.getMonth()+1).padStart(2,'0') + String(d.getDate()).padStart(2,'0'); }
-function fmtDate(s){ return new Date(+s.slice(0,4), +s.slice(4,6)-1, +s.slice(6,8)).toLocaleDateString('de-DE', {day:'numeric', month:'long', year:'numeric'}); }
+function fmtDate(s){ return new Date(+s.slice(0,4), +s.slice(4,6)-1, +s.slice(6,8)).toLocaleDateString('en-GB', {day:'numeric', month:'long', year:'numeric'}); }
 function loadHist(){ try{ var h = JSON.parse(localStorage.getItem(HIST)); if (Array.isArray(h)) return h; }catch(e){} return []; }
 function saveHist(h){ try{ localStorage.setItem(HIST, JSON.stringify(h.slice(0,50))); }catch(e){} }
 function findHist(code){ return loadHist().filter(function(r){ return r.code === code; })[0] || null; }
-function addHist(code, date){ var h = loadHist(); if (h.some(function(r){ return r.code === code; })) return; h.unshift({test:'wohlbefinden', date:date, code:code, scores:scores(decode(code))}); saveHist(h); }
+function addHist(code, date){ var h = loadHist(); if (h.some(function(r){ return r.code === code; })) return; h.unshift({test:'emotionen', date:date, code:code, scores:scores(decode(code))}); saveHist(h); }
 function scores(a){
   var sums = {}, n = {}, out = {};
   ITEMS.forEach(function(it, i){
@@ -372,7 +366,7 @@ function show(id){ ['start','quiz','result'].forEach(function(s){ $(s).hidden = 
 function render(){
   var it = ITEMS[cur];
   $('qtext').textContent = it.t;
-  $('count').textContent = 'Aussage ' + (cur+1) + ' von ' + ITEMS.length;
+  $('count').textContent = 'Statement ' + (cur+1) + ' of ' + ITEMS.length;
   $('bar').style.width = (cur/ITEMS.length*100) + '%';
   var o = $('opts'); o.innerHTML = '';
   SCALE.forEach(function(lbl, i){
@@ -391,29 +385,24 @@ function pick(v){
   if (cur < ITEMS.length - 1) { cur++; render(); }
   else results();
 }
-// linkDate gesetzt: Ergebnis kommt aus einem persönlichen Link und wird nicht automatisch gespeichert
+// linkDate set: result comes from a personal link and is not saved automatically
 function results(linkDate){
   var sc = scores(ans), code = encode(ans), known = findHist(code);
   if (!known && linkDate === undefined) { addHist(code, today()); known = findHist(code); }
   var date = linkDate || (known && known.date) || today();
   history.replaceState(null, '', '#r=' + code + '-' + date);
   curLink = location.href;
-  $('resdate').textContent = 'Ergebnis vom ' + fmtDate(date);
+  $('resdate').textContent = 'Result from ' + fmtDate(date);
   $('keep').hidden = !!known;
-  $('keep').onclick = function(){ addHist(code, date); $('keep').hidden = true; toast('Gespeichert. Du findest es jetzt unter „Meine Ergebnisse“.'); };
+  $('keep').onclick = function(){ addHist(code, date); $('keep').hidden = true; toast('Saved. You can now find it under “My results”.'); };
   $('savetext').hidden = !known;
-  $('maillink').href = 'mailto:?subject=' + encodeURIComponent('Mein Ordinum-Wohlbefinden') + '&body=' + encodeURIComponent('Mein Ergebnis im Ordinum-Wohlbefinden-Test vom ' + fmtDate(date) + ':\n' + curLink);
+  $('maillink').href = 'mailto:?subject=' + encodeURIComponent('My Ordinum emotions profile') + '&body=' + encodeURIComponent('My result in the Ordinum emotions test from ' + fmtDate(date) + ':\n' + curLink);
   toast('');
-  var ov = Math.round(ORDER.reduce(function(a, f){ return a + sc[f]; }, 0) / ORDER.length);
-  $('ov').textContent = ov; $('ovbar').style.width = ov + '%';
-  $('ovtext').textContent = ov < 40 ? 'Im Moment geht es dir insgesamt eher nicht so gut. Schau dir an, welche Bereiche besonders niedrig sind, dort liegt oft der beste Ansatzpunkt.' : ov > 60 ? 'Insgesamt geht es dir gerade gut. Schau trotzdem auf die einzelnen Bereiche: Oft gibt es einen, der noch Luft nach oben hat.' : 'Insgesamt geht es dir gerade mittelmäßig, mit Licht und Schatten. Die einzelnen Bereiche zeigen, wo es gut läuft und wo du ansetzen kannst.';
-  // Hinweis auf Hilfe bei deutlich gedrückter Stimmung
-  $('care').hidden = !(sc.M < 40 || ov < 35);
   var box = $('traits'); box.innerHTML = '';
   ORDER.forEach(function(f){
     var score = sc[f];
     var lv = score < 40 ? 'low' : score > 60 ? 'high' : 'mid';
-    var lvName = {low:'eher niedrig', mid:'mittel', high:'eher hoch'}[lv];
+    var lvName = {low:'rather low', mid:'medium', high:'rather high'}[lv];
     var T = TEXTS[f], el = document.createElement('div');
     el.className = 'trait';
     el.innerHTML = '<div class="trait-top"><h2></h2><span class="lvl"></span></div>' +
@@ -435,9 +424,9 @@ $('resume').addEventListener('click', function(){ cur = ans.indexOf(null); if (c
 $('back').addEventListener('click', function(){ if (cur > 0) { cur--; render(); } });
 $('again').addEventListener('click', restart);
 $('copylink').addEventListener('click', function(){
-  var done = function(){ toast('Link kopiert. Speicher ihn dir zum Beispiel als Lesezeichen oder in deinen Notizen.'); };
-  if (navigator.clipboard) navigator.clipboard.writeText(curLink).then(done, function(){ window.prompt('Dein persönlicher Link:', curLink); });
-  else window.prompt('Dein persönlicher Link:', curLink);
+  var done = function(){ toast('Link copied. Save it as a bookmark or in your notes, for example.'); };
+  if (navigator.clipboard) navigator.clipboard.writeText(curLink).then(done, function(){ window.prompt('Your personal link:', curLink); });
+  else window.prompt('Your personal link:', curLink);
 });
 $('pdf').addEventListener('click', function(){ window.print(); });
 document.addEventListener('keydown', function(e){
@@ -454,12 +443,12 @@ function route(){
 window.addEventListener('hashchange', function(){ if (!location.hash.indexOf('#r=')) route(); });
 (function(){
   var a = load();
-  // Ergebnisse von vor der Ergebnisliste nachtragen
+  // Backfill results from before the results list existed
   if (a && a.indexOf(null) < 0) addHist(encode(a), today());
   if (route()) return;
-  if (a && a.some(function(x){ return x != null; })) { ans = a; $('resume').hidden = false; $('resume').textContent = a.indexOf(null) < 0 ? 'Letztes Ergebnis ansehen' : 'Weitermachen'; }
+  if (a && a.some(function(x){ return x != null; })) { ans = a; $('resume').hidden = false; $('resume').textContent = a.indexOf(null) < 0 ? 'View last result' : 'Continue'; }
 })();
 </script>
-<script src="theme.js"></script>
+<script src="../theme.js"></script>
 </body>
 </html>
