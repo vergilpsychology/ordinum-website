@@ -1,17 +1,17 @@
 <!doctype html>
-<html lang="de">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Wohlbefinden-Test · Ordinum</title>
-<meta name="description" content="Kostenloser Test zu deinem Wohlbefinden: 25 Aussagen, etwa 4 Minuten, sofort dein Profil aus Lebensfreude, Stimmung, Zuversicht, Selbstwert und Lebendigkeit.">
+<title>Well-being test · Ordinum</title>
+<meta name="description" content="Free well-being test: 25 statements, about 4 minutes, and right away your profile of joy of life, mood, optimism, self-esteem and vitality.">
 <meta name="theme-color" content="#0a0d0c">
-<link rel="canonical" href="https://ordinum.de/wohlbefinden.html">
+<link rel="canonical" href="https://ordinum.de/en/well-being-test.html">
 <link rel="alternate" hreflang="de" href="https://ordinum.de/wohlbefinden.html">
 <link rel="alternate" hreflang="en" href="https://ordinum.de/en/well-being-test.html">
-<link rel="icon" type="image/png" href="favicon.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="stylesheet" href="fonts.css">
+<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="stylesheet" href="../fonts.css">
 <style>
 /* Layout: dark, quiet canvas; a slow liquid of green and violet pours behind the hero; content in a 1120px column with hairline structure. */
 :root{
@@ -268,91 +268,91 @@ footer nav{display:flex;flex-wrap:wrap;gap:10px 20px}
   .tbar .fill,.tbar .track{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
 </style>
-<link rel="stylesheet" href="theme.css">
+<link rel="stylesheet" href="../theme.css">
 <script>try{if(localStorage.getItem('ordinum-theme')==='light')document.documentElement.dataset.theme='light'}catch(e){}</script>
 </head>
 <body>
 <header class="nav">
   <div class="wrap">
-    <a class="logo" href="index.html" aria-label="Ordinum Startseite"><img class="logo-mark" src="logo-ringe.svg" alt="" width="45" height="40"><span class="logo-word">ORD<span class="logo-i">I</span>NUM</span></a>
-    <div class="nav-links"><a class="txt" href="meine-ergebnisse.html">Meine Ergebnisse</a><a class="btn" href="index.html#warteliste">Warteliste</a></div>
+    <a class="logo" href="./" aria-label="Ordinum home"><img class="logo-mark" src="../logo-ringe.svg" alt="" width="45" height="40"><span class="logo-word">ORD<span class="logo-i">I</span>NUM</span></a>
+    <div class="nav-links"><a class="txt" href="../meine-ergebnisse.html">My results</a><a class="btn" href="./#warteliste">Waitlist</a></div>
   </div>
 </header>
 <main class="test-wrap">
   <section id="start" class="intro" style="border:0;padding:0">
-    <p class="eyebrow">Wohlbefinden</p>
-    <h1>Wie geht es dir <span class="grad">gerade</span>?</h1>
-    <p>25 kurze Aussagen darüber, wie du dich in letzter Zeit fühlst. Anders als bei einem Persönlichkeitstest geht es hier um eine Momentaufnahme: Antworte so, wie es in den letzten Wochen für dich war.</p>
-    <div class="meta-row"><span>ca. 4 Minuten</span><span>25 Aussagen</span><span>Auswertung sofort</span><span>Antworten bleiben in deinem Browser</span></div>
-    <div class="cta-row"><button class="btn primary" id="go" type="button">Test starten</button><button class="btn" id="resume" type="button" hidden>Weitermachen</button></div>
+    <p class="eyebrow">Well-being</p>
+    <h1>How are you <span class="grad">right now</span>?</h1>
+    <p>25 short statements about how you have been feeling lately. Unlike a personality test, this is a snapshot: answer the way things have been for you over the last few weeks.</p>
+    <div class="meta-row"><span>about 4 minutes</span><span>25 statements</span><span>Instant results</span><span>Answers stay in your browser</span></div>
+    <div class="cta-row"><button class="btn primary" id="go" type="button">Start test</button><button class="btn" id="resume" type="button" hidden>Continue</button></div>
   </section>
 
   <section id="quiz" hidden style="border:0;padding:0">
     <div class="progress"><span id="bar"></span></div>
-    <div class="pcount"><span id="count">Aussage 1 von 25</span><span class="keyhint">Tasten 1–5 gehen auch</span></div>
+    <div class="pcount"><span id="count">Statement 1 of 25</span><span class="keyhint">Keys 1–5 work too</span></div>
     <div class="qcard">
       <p class="qtext" id="qtext" aria-live="polite"></p>
-      <div class="opts" id="opts" role="group" aria-label="Antwort"></div>
-      <div class="nav-row"><button class="btn" id="back" type="button">Zurück</button></div>
+      <div class="opts" id="opts" role="group" aria-label="Answer"></div>
+      <div class="nav-row"><button class="btn" id="back" type="button">Back</button></div>
     </div>
   </section>
 
   <section id="result" hidden style="border:0;padding:0">
     <div class="res-head">
-      <p class="eyebrow">Dein Ergebnis</p>
-      <h1>Dein Wohlbefinden</h1>
-      <p class="muted">Eine Momentaufnahme aus fünf Bereichen, jeweils auf einer Skala von 0 bis 100. Wohlbefinden verändert sich: Wenn du den Test in ein paar Wochen wiederholst, siehst du, was sich bewegt hat.</p>
+      <p class="eyebrow">Your result</p>
+      <h1>Your well-being</h1>
+      <p class="muted">A snapshot of five areas, each on a scale from 0 to 100. Well-being changes: if you take the test again in a few weeks, you can see what has shifted.</p>
       <p class="res-date" id="resdate"></p>
     </div>
-    <div class="overall"><p class="eyebrow">Gesamtwert</p><div class="big"><span id="ov"></span><small> / 100</small></div><div class="tbar"><span class="track"><span class="fill" id="ovbar"></span></span><span></span></div><p id="ovtext"></p></div>
+    <div class="overall"><p class="eyebrow">Overall score</p><div class="big"><span id="ov"></span><small> / 100</small></div><div class="tbar"><span class="track"><span class="fill" id="ovbar"></span></span><span></span></div><p id="ovtext"></p></div>
     <div id="traits"></div>
     <div class="care" id="care" hidden>
-      <h3>Wenn es dir gerade nicht gut geht</h3>
-      <p>Deine Antworten deuten darauf hin, dass es dir im Moment eher schwer fällt. Das ist kein Befund, aber ein Grund, gut auf dich zu achten. Sprich mit Menschen, denen du vertraust, oder mit deiner Hausärztin oder deinem Hausarzt. Rund um die Uhr, anonym und kostenlos erreichst du die TelefonSeelsorge unter <a href="tel:08001110111">0800 111 0 111</a> oder <a href="tel:08001110222">0800 111 0 222</a>.</p>
+      <h3>If you are not doing well right now</h3>
+      <p>Your answers suggest that things are rather hard for you at the moment. That is not a diagnosis, but it is a reason to take good care of yourself. Talk to people you trust, or to your doctor. In Germany, the TelefonSeelsorge crisis line is available around the clock, anonymously and free of charge, at <a href="tel:08001110111">0800 111 0 111</a> or <a href="tel:08001110222">0800 111 0 222</a>. Elsewhere, a local crisis line or your doctor can help.</p>
     </div>
     <div class="save-box">
-      <h3>Dein Ergebnis wiederfinden</h3>
-      <p id="savetext">Dein Ergebnis ist in diesem Browser unter „Meine Ergebnisse“ gespeichert. Damit du es auch auf anderen Geräten wiederfindest, oder nachdem du deine Browserdaten gelöscht hast, speichere dir deinen persönlichen Link oder ein PDF.</p>
+      <h3>Find your result again</h3>
+      <p id="savetext">Your result is saved in this browser under “My results”. To find it on other devices too, or after clearing your browser data, save your personal link or a PDF.</p>
       <div class="cta-row">
-        <button class="btn primary" id="copylink" type="button">Link kopieren</button>
-        <a class="btn" id="maillink" href="#">Per E-Mail an mich</a>
-        <button class="btn" id="pdf" type="button">Als PDF speichern</button>
-        <button class="btn" id="keep" type="button" hidden>Auf diesem Gerät speichern</button>
+        <button class="btn primary" id="copylink" type="button">Copy link</button>
+        <a class="btn" id="maillink" href="#">Email it to me</a>
+        <button class="btn" id="pdf" type="button">Save as PDF</button>
+        <button class="btn" id="keep" type="button" hidden>Save on this device</button>
       </div>
       <p class="toast" id="toast" aria-live="polite"></p>
-      <p class="fine">Wer deinen persönlichen Link kennt, kann dein Ergebnis sehen. Gib ihn also nur weiter, wenn du das möchtest. <a href="meine-ergebnisse.html">Alle meine Ergebnisse</a></p>
+      <p class="fine">Anyone with your personal link can see your result, so only share it if you want to. <a href="../meine-ergebnisse.html">All my results</a></p>
     </div>
     <div class="cta-box">
-      <h3>Wohlbefinden und Persönlichkeit zusammen</h3>
-      <p>Wie es dir geht, hängt auch davon ab, wer du bist und welche Stärken du einsetzt. Bald verbindet dein persönlicher Ordinum-Bericht beides zu einem ausführlichen Bild von dir.</p>
-      <div class="cta-row"><a class="btn primary" href="staerkentest.html">Zum Charakterstärken-Test</a><a class="btn" href="persoenlichkeitstest.html">Zum Persönlichkeitstest</a><a class="btn" href="index.html#warteliste">Auf die Warteliste</a><button class="btn" id="again" type="button">Test neu starten</button></div>
+      <h3>Well-being and personality together</h3>
+      <p>How you are doing also depends on who you are and which strengths you use. Soon your personal Ordinum report will bring both together into a detailed picture of you.</p>
+      <div class="cta-row"><a class="btn primary" href="strengths-test.html">Take the strengths test</a><a class="btn" href="personality-test.html">Take the personality test</a><a class="btn" href="./#warteliste">Join the waitlist</a><button class="btn" id="again" type="button">Restart test</button></div>
     </div>
-    <p class="fine">Grundlage: gemeinfreie Skalen des International Personality Item Pool (IPIP): Cheerfulness und Depression aus dem IPIP-NEO, IPIP-Skalen zu Optimismus (nach Scheier, Carver und Bridges) und Selbstwert (nach Rosenberg) sowie Zest aus den IPIP-VIA-Skalen. Pro Bereich fünf Aussagen. Die Werte zeigen deine Antworten auf der Skala von 0 bis 100, noch keine Vergleichswerte mit einer Bevölkerungsstichprobe. Ordinum dient der Selbsterkenntnis und ersetzt keine psychologische Diagnostik oder Behandlung.</p>
+    <p class="fine">Based on: public-domain scales from the International Personality Item Pool (IPIP): Cheerfulness and Depression from the IPIP-NEO, IPIP scales for optimism (after Scheier, Carver and Bridges) and self-esteem (after Rosenberg), and Zest from the IPIP-VIA scales. Five statements per area. Scores show your answers on a scale from 0 to 100, not comparisons with a population sample. Ordinum is meant for self-understanding and does not replace psychological assessment or treatment.</p>
   </section>
 </main>
 <footer>
   <div class="wrap">
-    <span>© 2026 Ordinum · Psychologie zum Selbstverstehen. Keine Diagnostik oder Therapie.</span>
-    <nav><a href="meine-ergebnisse.html">Meine Ergebnisse</a><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></nav>
+    <span>© 2026 Ordinum · Psychology for self-understanding. No diagnosis or therapy.</span>
+    <nav><a href="../meine-ergebnisse.html">My results</a><a href="../impressum.html" hreflang="de">Legal notice</a><a href="../datenschutz.html" hreflang="de">Privacy</a></nav>
   </div>
 </footer>
 <script>
-var ITEMS = [{"t": "Ich liebe das Leben.", "f": "F", "k": 1}, {"t": "Ich bin selten niedergeschlagen.", "f": "M", "k": 1}, {"t": "Ich weiß einfach, dass ich es schaffen werde.", "f": "O", "k": 1}, {"t": "Ich fühle mich wohl mit mir.", "f": "S", "k": 1}, {"t": "Ich freue mich auf jeden neuen Tag.", "f": "V", "k": 1}, {"t": "Ich strahle Freude aus.", "f": "F", "k": 1}, {"t": "Ich fühle mich oft bedrückt.", "f": "M", "k": -1}, {"t": "Ich sehe die Sonnenseite des Lebens.", "f": "O", "k": 1}, {"t": "Ich kenne meine Stärken.", "f": "S", "k": 1}, {"t": "Ich wache mit Vorfreude auf das auf, was der Tag bringt.", "f": "V", "k": 1}, {"t": "Ich habe viel Spaß.", "f": "F", "k": 1}, {"t": "Ich bin oft am Boden.", "f": "M", "k": -1}, {"t": "Ich sehe schwarz für die Zukunft.", "f": "O", "k": -1}, {"t": "Ich mag mich nicht.", "f": "S", "k": -1}, {"t": "Ich liebe, was ich tue.", "f": "V", "k": 1}, {"t": "Ich gehe mit einem Lachen durchs Leben.", "f": "F", "k": 1}, {"t": "Ich fühle mich verzweifelt.", "f": "M", "k": -1}, {"t": "Ich sehe überall Schwierigkeiten.", "f": "O", "k": -1}, {"t": "Ich kann weniger als die meisten anderen.", "f": "S", "k": -1}, {"t": "Ich habe nicht viel Energie.", "f": "V", "k": -1}, {"t": "Ich kann mich freuen wie ein Kind.", "f": "F", "k": 1}, {"t": "Ich bin oft schlecht gelaunt.", "f": "M", "k": -1}, {"t": "Ich befürchte das Schlimmste.", "f": "O", "k": -1}, {"t": "Ich habe das Gefühl, mit den Dingen nicht fertig zu werden.", "f": "S", "k": -1}, {"t": "Mir graut davor, morgens aufzustehen.", "f": "V", "k": -1}];
-var TEXTS = {"F": {"name": "Lebensfreude", "what": "Wie viel Freude, Spaß und Leichtigkeit du gerade erlebst.", "low": "Freude und Leichtigkeit kommen bei dir im Moment eher kurz. Das kann an einer anstrengenden Phase liegen. Kleine, bewusst eingeplante Dinge, die dir früher Spaß gemacht haben, sind oft ein guter Anfang.", "mid": "Du erlebst Freude, aber nicht immer und nicht überall. Es lohnt sich, darauf zu achten, wann sie auftaucht, und davon mehr in deinen Alltag zu holen.", "high": "Du erlebst viel Freude und kannst das Leben genießen. Diese Leichtigkeit ist eine Ressource, die dich auch durch schwierigere Zeiten trägt."}, "M": {"name": "Ausgeglichene Stimmung", "what": "Wie selten dich Niedergeschlagenheit und schlechte Laune begleiten.", "low": "Du fühlst dich im Moment oft niedergeschlagen oder schlecht gelaunt. Das ist ernst zu nehmen. Sprich mit Menschen, denen du vertraust, und hol dir Unterstützung, wenn es länger so bleibt.", "mid": "Deine Stimmung ist meistens stabil, aber gedrückte Phasen kennst du. Achte darauf, was dich in solchen Zeiten stärkt, und was dich eher runterzieht.", "high": "Niedergeschlagenheit spielt bei dir gerade kaum eine Rolle. Deine Grundstimmung ist stabil und hell."}, "O": {"name": "Zuversicht", "what": "Wie hoffnungsvoll du auf die Zukunft und deine Möglichkeiten blickst.", "low": "Der Blick nach vorn fühlt sich für dich gerade eher schwer an, und du rechnest oft mit Schwierigkeiten. Es kann helfen, bewusst auf kleine Schritte zu schauen, die gelungen sind.", "mid": "Du blickst meist realistisch nach vorn: Du hoffst auf das Gute, rechnest aber auch mit Hindernissen. Diese Mischung schützt dich vor bösen Überraschungen.", "high": "Du blickst zuversichtlich nach vorn und traust dir zu, deine Ziele zu erreichen. Diese Haltung gibt dir Kraft, dranzubleiben."}, "S": {"name": "Selbstwert", "what": "Wie wohl du dich mit dir selbst fühlst und wie sehr du dir vertraust.", "low": "Du gehst im Moment eher hart mit dir ins Gericht und traust dir wenig zu. Versuch, mit dir so zu sprechen, wie du mit einer guten Freundin oder einem guten Freund sprechen würdest.", "mid": "Meistens fühlst du dich mit dir wohl, aber Selbstzweifel kennst du auch. Es hilft, deine Stärken bewusst im Blick zu behalten.", "high": "Du fühlst dich wohl mit dir, kennst deine Stärken und traust dir etwas zu. Das ist eine stabile Grundlage für fast alles andere."}, "V": {"name": "Lebendigkeit", "what": "Wie viel Energie und Vorfreude du in deinen Alltag mitbringst.", "low": "Dir fehlt im Moment Energie, und der Tag fühlt sich oft eher schwer an. Schlaf, Bewegung und Pausen sind unspektakulär, machen hier aber oft den größten Unterschied.", "mid": "Du hast Tage voller Energie und Tage, an denen es zäh läuft. Achte darauf, was dir Kraft gibt und was sie dir nimmt.", "high": "Du gehst mit Energie und Vorfreude durch den Tag. Diese Lebendigkeit steckt oft auch die Menschen um dich herum an."}};
+var ITEMS = [{"t": "I love life.", "f": "F", "k": 1}, {"t": "I seldom feel blue.", "f": "M", "k": 1}, {"t": "I just know that I will be a success.", "f": "O", "k": 1}, {"t": "I feel comfortable with myself.", "f": "S", "k": 1}, {"t": "I look forward to each new day.", "f": "V", "k": 1}, {"t": "I radiate joy.", "f": "F", "k": 1}, {"t": "I often feel blue.", "f": "M", "k": -1}, {"t": "I look at the bright side of life.", "f": "O", "k": 1}, {"t": "I know my strengths.", "f": "S", "k": 1}, {"t": "I awaken with a sense of excitement about the day's possibilities.", "f": "V", "k": 1}, {"t": "I have a lot of fun.", "f": "F", "k": 1}, {"t": "I am often down in the dumps.", "f": "M", "k": -1}, {"t": "I have a dark outlook on the future.", "f": "O", "k": -1}, {"t": "I dislike myself.", "f": "S", "k": -1}, {"t": "I love what I do.", "f": "V", "k": 1}, {"t": "I laugh my way through life.", "f": "F", "k": 1}, {"t": "I feel desperate.", "f": "M", "k": -1}, {"t": "I see difficulties everywhere.", "f": "O", "k": -1}, {"t": "I am less capable than most people.", "f": "S", "k": -1}, {"t": "I don't have much energy.", "f": "V", "k": -1}, {"t": "I express childlike joy.", "f": "F", "k": 1}, {"t": "I am often in a bad mood.", "f": "M", "k": -1}, {"t": "I fear for the worst.", "f": "O", "k": -1}, {"t": "I feel that I'm unable to deal with things.", "f": "S", "k": -1}, {"t": "I dread getting up in the morning.", "f": "V", "k": -1}];
+var TEXTS = {"F": {"name": "Joy of life", "what": "How much joy, fun and lightness you are experiencing right now.", "low": "Joy and lightness are in rather short supply for you at the moment. That may be down to a demanding phase. Small things you used to enjoy, deliberately planned in, are often a good place to start.", "mid": "You experience joy, but not always and not everywhere. It is worth noticing when it shows up and bringing more of that into your everyday life.", "high": "You experience a lot of joy and are able to enjoy life. This lightness is a resource that carries you through harder times too."}, "M": {"name": "Balanced mood", "what": "How rarely low spirits and bad moods keep you company.", "low": "At the moment you often feel down or in a bad mood. That deserves to be taken seriously. Talk to people you trust, and get support if it stays this way for a while.", "mid": "Your mood is mostly stable, but you know low phases too. Pay attention to what strengthens you at such times, and what tends to pull you down.", "high": "Low spirits hardly play a role for you right now. Your basic mood is stable and bright."}, "O": {"name": "Optimism", "what": "How hopefully you look at the future and your possibilities.", "low": "Looking ahead feels rather heavy for you right now, and you often expect difficulties. It can help to deliberately look at small steps that have gone well.", "mid": "You usually look ahead realistically: you hope for the best but also expect obstacles. This mix protects you from nasty surprises.", "high": "You look ahead with confidence and trust yourself to reach your goals. This attitude gives you the strength to keep going."}, "S": {"name": "Self-esteem", "what": "How comfortable you feel with yourself and how much you trust yourself.", "low": "At the moment you tend to be hard on yourself and have little confidence in what you can do. Try talking to yourself the way you would talk to a good friend.", "mid": "Most of the time you feel comfortable with yourself, but you know self-doubt too. It helps to keep your strengths consciously in view.", "high": "You feel comfortable with yourself, know your strengths and trust yourself to take things on. That is a stable foundation for almost everything else."}, "V": {"name": "Vitality", "what": "How much energy and anticipation you bring to your everyday life.", "low": "You are short on energy at the moment, and the day often feels rather heavy. Sleep, exercise and breaks are unspectacular, but they often make the biggest difference here.", "mid": "You have days full of energy and days when things drag. Pay attention to what gives you strength and what drains it.", "high": "You go through the day with energy and anticipation. This vitality often rubs off on the people around you too."}};
 var ORDER = ["F", "M", "O", "S", "V"];
-var SCALE = ["trifft gar nicht zu", "trifft eher nicht zu", "teils, teils", "trifft eher zu", "trifft voll zu"];
+var SCALE = ["very inaccurate", "moderately inaccurate", "neither accurate nor inaccurate", "moderately accurate", "very accurate"];
 var KEY = 'ordinum-wohlbefinden';
 var HIST = 'ordinum-ergebnisse', ABC = 'abcdefghijklmnopqrstuvwxy';
 var ans = new Array(ITEMS.length).fill(null), cur = 0, curLink = '';
 function $(id){ return document.getElementById(id); }
 function save(){ try{ localStorage.setItem(KEY, JSON.stringify(ans)); }catch(e){} }
 function load(){ try{ var a = JSON.parse(localStorage.getItem(KEY)); if (Array.isArray(a) && a.length === ITEMS.length) return a; }catch(e){} return null; }
-// Persönlicher Link: je zwei Antworten (1–5) werden zu einem Buchstaben a–y (bei ungerader Anzahl mit einer 1 aufgefüllt), plus Datum: #r=<13 Zeichen>-JJJJMMTT
+// Personal link: each pair of answers (1–5) becomes one letter a–y (padded with a 1 if the count is odd), plus date: #r=<13 chars>-YYYYMMDD
 function encode(a){ a = a.length % 2 ? a.concat([1]) : a; var s = ''; for (var i = 0; i < a.length; i += 2) s += ABC[(a[i]-1)*5 + (a[i+1]-1)]; return s; }
 function decode(c){ var a = []; for (var i = 0; i < c.length; i++){ var n = ABC.indexOf(c[i]); a.push(Math.floor(n/5)+1, n%5+1); } return a.slice(0, ITEMS.length); }
 function parseHash(){ var m = /^#r=([a-y]{13})(?:-(\d{8}))?$/.exec(location.hash); return m ? {code:m[1], date:m[2] || null} : null; }
 function today(){ var d = new Date(); return '' + d.getFullYear() + String(d.getMonth()+1).padStart(2,'0') + String(d.getDate()).padStart(2,'0'); }
-function fmtDate(s){ return new Date(+s.slice(0,4), +s.slice(4,6)-1, +s.slice(6,8)).toLocaleDateString('de-DE', {day:'numeric', month:'long', year:'numeric'}); }
+function fmtDate(s){ return new Date(+s.slice(0,4), +s.slice(4,6)-1, +s.slice(6,8)).toLocaleDateString('en-GB', {day:'numeric', month:'long', year:'numeric'}); }
 function loadHist(){ try{ var h = JSON.parse(localStorage.getItem(HIST)); if (Array.isArray(h)) return h; }catch(e){} return []; }
 function saveHist(h){ try{ localStorage.setItem(HIST, JSON.stringify(h.slice(0,50))); }catch(e){} }
 function findHist(code){ return loadHist().filter(function(r){ return r.code === code; })[0] || null; }
@@ -372,7 +372,7 @@ function show(id){ ['start','quiz','result'].forEach(function(s){ $(s).hidden = 
 function render(){
   var it = ITEMS[cur];
   $('qtext').textContent = it.t;
-  $('count').textContent = 'Aussage ' + (cur+1) + ' von ' + ITEMS.length;
+  $('count').textContent = 'Statement ' + (cur+1) + ' of ' + ITEMS.length;
   $('bar').style.width = (cur/ITEMS.length*100) + '%';
   var o = $('opts'); o.innerHTML = '';
   SCALE.forEach(function(lbl, i){
@@ -391,29 +391,29 @@ function pick(v){
   if (cur < ITEMS.length - 1) { cur++; render(); }
   else results();
 }
-// linkDate gesetzt: Ergebnis kommt aus einem persönlichen Link und wird nicht automatisch gespeichert
+// linkDate set: result comes from a personal link and is not saved automatically
 function results(linkDate){
   var sc = scores(ans), code = encode(ans), known = findHist(code);
   if (!known && linkDate === undefined) { addHist(code, today()); known = findHist(code); }
   var date = linkDate || (known && known.date) || today();
   history.replaceState(null, '', '#r=' + code + '-' + date);
   curLink = location.href;
-  $('resdate').textContent = 'Ergebnis vom ' + fmtDate(date);
+  $('resdate').textContent = 'Result from ' + fmtDate(date);
   $('keep').hidden = !!known;
-  $('keep').onclick = function(){ addHist(code, date); $('keep').hidden = true; toast('Gespeichert. Du findest es jetzt unter „Meine Ergebnisse“.'); };
+  $('keep').onclick = function(){ addHist(code, date); $('keep').hidden = true; toast('Saved. You can now find it under “My results”.'); };
   $('savetext').hidden = !known;
-  $('maillink').href = 'mailto:?subject=' + encodeURIComponent('Mein Ordinum-Wohlbefinden') + '&body=' + encodeURIComponent('Mein Ergebnis im Ordinum-Wohlbefinden-Test vom ' + fmtDate(date) + ':\n' + curLink);
+  $('maillink').href = 'mailto:?subject=' + encodeURIComponent('My Ordinum well-being') + '&body=' + encodeURIComponent('My result in the Ordinum well-being test from ' + fmtDate(date) + ':\n' + curLink);
   toast('');
   var ov = Math.round(ORDER.reduce(function(a, f){ return a + sc[f]; }, 0) / ORDER.length);
   $('ov').textContent = ov; $('ovbar').style.width = ov + '%';
-  $('ovtext').textContent = ov < 40 ? 'Im Moment geht es dir insgesamt eher nicht so gut. Schau dir an, welche Bereiche besonders niedrig sind, dort liegt oft der beste Ansatzpunkt.' : ov > 60 ? 'Insgesamt geht es dir gerade gut. Schau trotzdem auf die einzelnen Bereiche: Oft gibt es einen, der noch Luft nach oben hat.' : 'Insgesamt geht es dir gerade mittelmäßig, mit Licht und Schatten. Die einzelnen Bereiche zeigen, wo es gut läuft und wo du ansetzen kannst.';
-  // Hinweis auf Hilfe bei deutlich gedrückter Stimmung
+  $('ovtext').textContent = ov < 40 ? 'Overall, you are not doing so well at the moment. Look at which areas are especially low: that is often the best place to start.' : ov > 60 ? 'Overall, you are doing well right now. Still, take a look at the individual areas: there is often one with room to grow.' : 'Overall, you are doing so-so right now, with light and shade. The individual areas show what is going well and where you can make a start.';
+  // Point to help when mood is clearly low
   $('care').hidden = !(sc.M < 40 || ov < 35);
   var box = $('traits'); box.innerHTML = '';
   ORDER.forEach(function(f){
     var score = sc[f];
     var lv = score < 40 ? 'low' : score > 60 ? 'high' : 'mid';
-    var lvName = {low:'eher niedrig', mid:'mittel', high:'eher hoch'}[lv];
+    var lvName = {low:'rather low', mid:'medium', high:'rather high'}[lv];
     var T = TEXTS[f], el = document.createElement('div');
     el.className = 'trait';
     el.innerHTML = '<div class="trait-top"><h2></h2><span class="lvl"></span></div>' +
@@ -435,9 +435,9 @@ $('resume').addEventListener('click', function(){ cur = ans.indexOf(null); if (c
 $('back').addEventListener('click', function(){ if (cur > 0) { cur--; render(); } });
 $('again').addEventListener('click', restart);
 $('copylink').addEventListener('click', function(){
-  var done = function(){ toast('Link kopiert. Speicher ihn dir zum Beispiel als Lesezeichen oder in deinen Notizen.'); };
-  if (navigator.clipboard) navigator.clipboard.writeText(curLink).then(done, function(){ window.prompt('Dein persönlicher Link:', curLink); });
-  else window.prompt('Dein persönlicher Link:', curLink);
+  var done = function(){ toast('Link copied. Save it as a bookmark or in your notes, for example.'); };
+  if (navigator.clipboard) navigator.clipboard.writeText(curLink).then(done, function(){ window.prompt('Your personal link:', curLink); });
+  else window.prompt('Your personal link:', curLink);
 });
 $('pdf').addEventListener('click', function(){ window.print(); });
 document.addEventListener('keydown', function(e){
@@ -454,12 +454,12 @@ function route(){
 window.addEventListener('hashchange', function(){ if (!location.hash.indexOf('#r=')) route(); });
 (function(){
   var a = load();
-  // Ergebnisse von vor der Ergebnisliste nachtragen
+  // Backfill results from before the results list existed
   if (a && a.indexOf(null) < 0) addHist(encode(a), today());
   if (route()) return;
-  if (a && a.some(function(x){ return x != null; })) { ans = a; $('resume').hidden = false; $('resume').textContent = a.indexOf(null) < 0 ? 'Letztes Ergebnis ansehen' : 'Weitermachen'; }
+  if (a && a.some(function(x){ return x != null; })) { ans = a; $('resume').hidden = false; $('resume').textContent = a.indexOf(null) < 0 ? 'View last result' : 'Continue'; }
 })();
 </script>
-<script src="theme.js"></script>
+<script src="../theme.js"></script>
 </body>
 </html>
