@@ -295,7 +295,7 @@ footer nav{display:flex;flex-wrap:wrap;gap:10px 20px}
   <div class="empty" id="empty" hidden>
     <h3 style="font-size:22px">Noch keine Ergebnisse auf diesem Gerät</h3>
     <p>Du hast einen persönlichen Link gespeichert? Öffne ihn einfach, dann siehst du dein Ergebnis wieder und kannst es hier ablegen.</p>
-    <div class="cta-row"><a class="btn primary" href="persoenlichkeitstest.html">Persönlichkeitstest machen</a><a class="btn" href="staerkentest.html">Charakterstärken-Test machen</a><a class="btn" href="wohlbefinden.html">Wohlbefinden-Test machen</a><a class="btn" href="stresstest.html">Stresstest machen</a><a class="btn" href="emotionen.html">Emotionstest machen</a><a class="btn" href="beziehungsstil.html">Beziehungsstil-Test machen</a></div>
+    <div class="cta-row"><a class="btn primary" href="persoenlichkeitstest.html">Persönlichkeitstest machen</a><a class="btn" href="persoenlichkeit-facetten.html">Persönlichkeit ausführlich</a><a class="btn" href="staerkentest.html">Charakterstärken-Test machen</a><a class="btn" href="wohlbefinden.html">Wohlbefinden-Test machen</a><a class="btn" href="stresstest.html">Stresstest machen</a><a class="btn" href="emotionen.html">Emotionstest machen</a><a class="btn" href="beziehungsstil.html">Beziehungsstil-Test machen</a></div>
   </div>
   <p class="fine" id="clearrow" hidden><button class="linkbtn" id="clear" type="button">Alle Ergebnisse von diesem Gerät löschen</button></p>
 </main>
@@ -327,6 +327,8 @@ var TESTS = {big5: {name: 'Persönlichkeitstest · Big Five', page: 'persoenlich
     var a = (Math.round(Math.atan2(y, x) * 180 / Math.PI / 45) * 45 + 360) % 360;
     return 'Schwerpunkt: ' + this.names[k.filter(function(f){ return ang[f] === a; })[0]];
   }},
+  neo120: {name: 'Persönlichkeit ausführlich · 30 Facetten', page: 'persoenlichkeit-facetten.html', key: 'ordinum-neo120', order: ['O','C','E','A','N'],
+  names: {O:'Offenheit', C:'Gewissenhaftigkeit', E:'Extraversion', A:'Verträglichkeit', N:'Neurotizismus'}},
   staerken: {name: 'Charakterstärken · deine Top 5', page: 'staerkentest.html', key: 'ordinum-staerken', top: 5, order: ["ori", "val", "cap", "equ", "for", "app", "cur", "ind", "kin", "lea", "mod", "gra", "jud", "int", "soc", "cit", "pru", "hop", "lov", "zes", "sel", "hum", "per", "spi"],
   names: {"ori": "Kreativität", "val": "Mut", "cap": "Fähigkeit zu lieben", "equ": "Fairness", "for": "Vergebung", "app": "Sinn für Schönheit", "cur": "Neugier", "ind": "Ausdauer", "kin": "Freundlichkeit", "lea": "Führung", "mod": "Bescheidenheit", "gra": "Dankbarkeit", "jud": "Urteilsvermögen", "int": "Ehrlichkeit", "soc": "Soziale Intelligenz", "cit": "Teamgeist", "pru": "Umsicht", "hop": "Zuversicht", "lov": "Freude am Lernen", "zes": "Tatendrang", "sel": "Selbstregulation", "hum": "Humor", "per": "Weitblick", "spi": "Spiritualität"}}};
 function $(id){ return document.getElementById(id); }
