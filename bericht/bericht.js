@@ -56,8 +56,11 @@ function bezModel(sc){
   k.forEach(function(f){ mean += sc[f] / 8; });
   k.forEach(function(f){ var a = ang[f] * Math.PI / 180; x += (sc[f] - mean) * Math.cos(a); y += (sc[f] - mean) * Math.sin(a); });
   var len = Math.sqrt(x*x + y*y) / 2, focus = 'AUS';
-  if (len >= 12) { var a = (Math.round(Math.atan2(y, x) * 180 / Math.PI / 45) * 45 + 360) % 360; focus = k.filter(function(f){ return ang[f] === a; })[0]; }
-  return { sc:sc, ang:ang, x:x, y:y, len:len, focus:focus, top3: k.slice().sort(function(a, b){ return sc[b] - sc[a]; }).slice(0, 3) };
+  var top3 = k.slice().sort(function(a, b){ return sc[b] - sc[a]; }).slice(0, 3);
+  if (len >= 12) { var a = (Math.round(Math.atan2(y, x) * 180 / Math.PI / 45) * 45 + 360) % 360; focus = k.filter(function(f){ return ang[f] === a; })[0];
+    // Liegt der höchste Einzelstil direkt neben der Richtung, heißt er Schwerpunkt: so passt der Schwerpunkt zur Liste der stärksten Stile
+    var d = Math.abs(ang[top3[0]] - a) % 360; if (d === 45 || d === 315) focus = top3[0]; }
+  return { sc:sc, ang:ang, x:x, y:y, len:len, focus:focus, top3:top3 };
 }
 function model(D){
   var t = D.tests, m = { name:D.name, date:D.date, t:t };
@@ -71,7 +74,8 @@ function model(D){
   if (t.stress) { var s = t.stress; m.stress = { A:s.A, R:s.R, U:s.U, S:s.S, ov: Math.round(((100 - s.A) + (100 - s.R) + (100 - s.U) + s.S) / 4) }; }
   if (t.emotionen) m.emo = t.emotionen;
   if (t.beziehung) m.bez = bezModel(t.beziehung);
-  m.tests = Object.keys(TESTS).filter(function(k){ return t[k]; });
+  // Liegen beide Persönlichkeitstests vor, fließt nur der ausführliche ein und wird gezählt
+  m.tests = Object.keys(TESTS).filter(function(k){ return t[k] && !(k === 'big5' && t.neo120); });
   m.muster = window.waehleMuster(m);
   return m;
 }
@@ -336,9 +340,11 @@ function gruppen(m){
   var liste = function(a){ return a.length > 1 ? a.slice(0, -1).join(', ') + ' und ' + a[a.length - 1] : a[0]; };
   if (max === 1) return V.breit;
   var two = vs.filter(function(v){ return cnt[v] === 2; });
-  if (max === 2 && two.length === 2) return V.zwei.replace('{g1}', G[two[0]].name).replace('{l1}', liste(by[two[0]])).replace('{g2}', G[two[1]].name).replace('{l2}', liste(by[two[1]])) + ' ' + G[two[0]].text + ' ' + G[two[1]].text;
+  // Zwei Paare: die Stärken selbst nennen, je Gruppe ein kurzer Halbsatz statt zweier Gruppentexte
+  if (max === 2 && two.length === 2) return V.zwei.replace('{l1}', liste(by[two[0]])).replace('{k1}', G[two[0]].kurz).replace('{l2}', liste(by[two[1]])).replace('{k2}', G[two[1]].kurz);
   var v = vs[0], satz = max === 5 ? V.alle : V.eine.replace('{N}', zahl(max).replace(/^./, function(c){ return c.toUpperCase(); }));
-  return satz.replace('{g}', G[v].name).replace('{l}', liste(by[v])) + ' ' + G[v].text;
+  var dazu = max === 3 && two.length === 1 ? ' ' + V.dazu.replace('{l}', liste(by[two[0]])).replace('{k}', G[two[0]].kurz) : '';
+  return satz.replace('{g}', G[v].name).replace('{l}', liste(by[v])) + ' ' + G[v].text + dazu;
 }
 
 /* ---------- Kapitel ---------- */
@@ -359,7 +365,7 @@ function chapters(m){
       var v = m.P[k], bd = band(v), B = T.bereiche[k], what = k === 'S' ? B.what : (m.P.src === 'neo120' ? Q.doms[k].what : Q.big5[k].what);
       b1.push((i === 0 ? '<p class="lbl" style="margin:3mm 0 2mm">Die fünf Bereiche im Einzelnen</p>' : '') +
         '<div class="card"><div class="card-top"><h2>' + B.name + '</h2><div class="val"><span class="n">' + v + '</span><span class="pill">' + BAND[bd] + '</span></div></div>' + zoneBar(v, TESTS.big5, { labels:false }) + '<p class="what">' + esc(what) + '</p>' +
-        '<div class="cbody"><div><p><span class="rl">Im Alltag</span>' + esc(B.alltag[bd]) + '</p>' + q(B.frage[bd]) + '</div><div class="ks"><p class="kq"><span class="rl">Kraftquelle</span>' + esc(B.kraft[bd]) + '</p><p class="st"><span class="rl">Stolperstein</span>' + esc(B.stolper[bd]) + '</p></div></div></div>');
+        '<div class="cbody"><div><p><span class="rl">Im Alltag</span>' + esc(B.alltag[bd === 'high' && v <= 75 ? 'highm' : bd === 'low' && v >= 25 ? 'lowm' : bd]) + '</p>' + q(B.frage[bd]) + '</div><div class="ks"><p class="kq"><span class="rl">Kraftquelle</span>' + esc(B.kraft[bd]) + '</p><p class="st"><span class="rl">Stolperstein</span>' + esc(B.stolper[bd]) + '</p></div></div></div>');
     });
     if (m.P.facets) {
       var F = m.P.facets;
@@ -370,8 +376,9 @@ function chapters(m){
       ['O','C','E','A','N'].forEach(function(d){
         var fs = [1,2,3,4,5,6].map(function(j){ return { f:d + j, v:F[d + j] }; }), hi = fs.slice().sort(function(a, b){ return b.v - a.v; })[0], lo = fs.slice().sort(function(a, b){ return a.v - b.v; })[0];
         var name = d === 'N' ? 'Emotionale Stabilität' : T.bereiche[d].name, deutlich = hi.v - lo.v >= 20, txtp;
-        var satz = function(x){ var b = band(x.v); return b === 'mid' ? T.facetten.mitte : Q.facetten[x.f][b]; };
-        if (deutlich) txtp = esc(T.facetten.deutlich.replace('{bereich}', name)) + ' ' + T.facetten.staerkste + ' <b>' + esc(Q.facetten[hi.f].name) + '</b> (' + hi.v + '). ' + esc(satz(hi)) + ' ' + T.facetten.schwaechste + ' <b>' + esc(Q.facetten[lo.f].name) + '</b> (' + lo.v + '). ' + esc(satz(lo));
+        var satz = function(x){ var b = band(x.v); return b === 'mid' ? null : Q.facetten[x.f][b]; };
+        var teil = function(lbl, x){ var t = satz(x); return lbl + ' <b>' + esc(Q.facetten[x.f].name) + '</b> (' + x.v + ')' + (t ? '. ' + esc(t) : ', ' + esc(T.facetten.mitte)); };
+        if (deutlich) txtp = esc(T.facetten.deutlich.replace('{bereich}', name)) + ' ' + teil(T.facetten.staerkste, hi) + ' ' + teil(T.facetten.schwaechste, lo);
         else txtp = esc(T.facetten.nah);
         if (d === 'N') txtp += ' <span class="muted">' + esc(T.facetten.stabilitaet) + '</span>';
         var bars = fs.map(function(x){ var em = deutlich && (x === hi || x === lo); return '<div style="display:grid;grid-template-columns:30mm 1fr 6mm;gap:2mm;align-items:center;font-size:8pt;margin-bottom:.9mm"><span style="' + (em ? 'font-weight:700' : 'color:' + K.fname) + '">' + esc(Q.facetten[x.f].name) + '</span><div class="bar" style="background:' + K.fbar + '"><span style="width:' + x.v + '%;background:' + FCOL[d] + ';opacity:' + (em || !deutlich ? 1 : .55) + '"></span></div><span style="font-family:var(--mono);font-size:7pt;text-align:right">' + x.v + '</span></div>'; }).join('');
@@ -389,7 +396,8 @@ function chapters(m){
   mu.gezeigt.forEach(function(r, i){
     b2.push('<div class="pattern"><p class="pnr">Muster ' + (i + 1) + ' von ' + mu.gezeigt.length + '</p>' + conn(r.pills(m)) + '<h2>' + esc(val(r.titel, m)) + '</h2><p>' + esc(r.text(m)) + '</p><div class="try"><p class="lbl">Ausprobieren</p><p>' + esc(val(r.uebung, m)) + '</p></div></div>');
   });
-  if (mu.weitere.length) b2.push('<p class="lbl" style="margin-top:2mm">' + T.muster.weitere + '</p><div class="more">' + mu.weitere.map(function(r){ var p = r.pills(m); return '<div>' + esc(val(r.titel, m)) + ' <span>' + esc(p[0].label) + ' · ' + esc(p[1].label) + '</span></div>'; }).join('') + '</div>');
+  // Höchstens vier weitere Verbindungen, damit das Kapitel kompakt bleibt
+  if (mu.weitere.length) b2.push('<p class="lbl" style="margin-top:2mm">' + T.muster.weitere + '</p><div class="more">' + mu.weitere.slice(0, 4).map(function(r){ var p = r.pills(m); return '<div>' + esc(val(r.titel, m)) + ' <span>' + esc(p[0].label) + ' · ' + esc(p[1].label) + '</span></div>'; }).join('') + '</div>');
   b2.push({ keep:1, html:ask(T.muster.frage) });
   C.push(k2);
 
@@ -459,7 +467,7 @@ function chapters(m){
   var B = T.schritte.blaetter[bl];
   steps.push({ k:'Arbeitsblatt · ordinum.de/arbeitsmaterial', h:B.name, p:B.text + ' Kostenlos zum Ausdrucken.', kurz:B.name });
   var k6 = kap(5), b6 = k6.blocks;
-  b6.push(opener(k6.nr, k6.titel, esc(T.schritte.intro.replace('Drei Vorschläge', zahl(steps.length).replace(/^./, function(c){ return c.toUpperCase(); }) + ' Vorschläge'))));
+  b6.push(opener(k6.nr, k6.titel, esc(T.schritte.intro.replace('{n}', zahl(steps.length)))));
   steps.forEach(function(s, i){ b6.push('<div class="step" style="margin-bottom:3.4mm"><div class="num">' + (i + 1) + '</div><div><p class="k">' + esc(s.k) + '</p><h3>' + esc(s.h) + '</h3><p>' + esc(s.p) + '</p></div></div>'); });
   b6.push('<div class="sep" style="margin:5mm 0 3mm"></div><p class="lbl">' + esc(T.schritte.begleiter) + '</p><table class="track"><tr><th style="text-align:left">Vorhaben</th>' + ['Mo','Di','Mi','Do','Fr','Sa','So'].map(function(d){ return '<th>' + d + '</th>'; }).join('') + '</tr>' +
     steps.map(function(s){ return '<tr><td>' + esc(s.kurz) + '</td>' + [1,2,3,4,5,6,7].map(function(){ return '<td class="d"><span></span></td>'; }).join('') + '</tr>'; }).join('') + '</table>');
