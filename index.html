@@ -168,14 +168,14 @@ section{padding-block:clamp(64px,9vw,112px);border-bottom:1px solid var(--line)}
 .toc{display:flex;flex-wrap:wrap;gap:6px 18px;font-family:var(--mono);font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:16px}
 
 /* pricing */
-.packs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.packs{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;max-width:820px;margin-inline:auto}
 @media (max-width:900px){.packs{grid-template-columns:1fr}}
 .pack{border:1px solid var(--line);border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:16px;background:var(--bg);min-width:0}
 .pack.feature{background:linear-gradient(170deg,rgba(185,163,242,.12),rgba(143,209,169,.05) 55%,transparent),var(--surface);border-color:var(--violet-soft)}
 .pack h3{font-size:22px;font-weight:400}
 .pack .price{font-family:var(--display);font-weight:300;font-size:30px;font-variant-numeric:tabular-nums}
 .pack .price small{font-family:var(--body);font-size:14px;color:var(--muted);margin-left:4px}
-.pack ul{list-style:none;margin:0;padding:0;display:grid;gap:10px;font-size:15px;color:var(--muted);flex:1}
+.pack ul{list-style:none;margin:0;padding:0;display:grid;align-content:start;gap:10px;font-size:15px;color:var(--muted);flex:1}
 .pack li{display:flex;gap:10px}
 .pack li::before{content:"";flex:none;width:14px;height:14px;margin-top:5px;border-radius:50%;border:1px solid var(--violet-soft);background:radial-gradient(circle,var(--green) 0 2.5px,transparent 3px)}
 
@@ -647,7 +647,7 @@ section > .wrap{position:relative}
             <blockquote><b>Ausprobieren</b>Gib einem neuen Projekt einen festen, kurzen Block von 45 Minuten pro Tag und entscheide erst in diesem Moment, woran genau du arbeitest. So verbindest du Struktur mit der Freiheit, die du brauchst.</blockquote>
           </div>
           <div class="rp-more">
-            <span>+ 27 weitere Seiten mit deinen Mustern, Energiequellen und Übungen</span>
+            <span>+ 13 weitere Seiten mit deinen Mustern, Energiequellen und Übungen</span>
             <a class="btn primary" href="#warteliste">Bericht vormerken</a>
           </div>
         </div>
@@ -733,21 +733,16 @@ section > .wrap{position:relative}
         <article class="pack">
           <h3>Gratis</h3>
           <div class="price">0 €</div>
-          <ul><li>Sechs Tests ohne Anmeldung</li><li>Kurzergebnis zu jedem Test</li><li>Alle Wissensartikel</li></ul>
+          <ul><li>Sieben Tests ohne Anmeldung</li><li>Kurzergebnis zu jedem Test</li><li>Alle Wissensartikel</li></ul>
           <a class="btn" href="#warteliste">Vormerken</a>
         </article>
         <article class="pack feature">
-          <span class="tag" style="align-self:flex-start;color:var(--violet);border-color:var(--violet-soft)">Beliebt</span>
+          <span class="tag" style="align-self:flex-start;color:var(--violet);border-color:var(--violet-soft)">Startpreis</span>
           <h3>Persönlicher Bericht</h3>
-          <div class="price">29 €<small>einmalig</small></div>
-          <ul><li>Alle zehn Tests</li><li>Ausführlicher Bericht, der alle Ergebnisse verbindet</li><li>Konkrete Übungen für deinen Alltag</li><li>Als PDF zum Behalten</li></ul>
+          <div class="price">19 €<small>zum Start, danach 29 €</small></div>
+          <ul><li>Verbindet deine Ergebnisse aus bis zu sieben Tests</li><li>Deine Muster, Energiequellen und Impulse für den Alltag</li><li>Als PDF zum Behalten, hell oder dunkel</li></ul>
           <a class="btn primary" href="#warteliste">Vormerken</a>
-        </article>
-        <article class="pack">
-          <h3>Ordinum Plus</h3>
-          <div class="price">6 €<small>pro Monat</small></div>
-          <ul><li>Alles aus dem Bericht</li><li>Neue Tests jeden Monat</li><li>Verlauf: wie du dich über die Zeit veränderst</li></ul>
-          <a class="btn" href="#warteliste">Vormerken</a>
+          <a class="btn" href="bericht.html?beispiel">Beispielbericht ansehen</a>
         </article>
       </div>
     </div>

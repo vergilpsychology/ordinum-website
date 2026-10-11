@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dein individualisierter Bericht · Ordinum</title>
+<meta name="description" content="Dein individualisierter Bericht aus deinen Ordinum-Testergebnissen, erzeugt in deinem Browser.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0a0d0c">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="bericht/bericht.css">
+<style>
+/* Seite rund um den Bericht: Einstellungen oben, darunter die A4-Seiten, verkleinert auf die Bildschirmbreite */
+:root{
+  --bg:#0a0d0c;
+  --surface:#111513;
+  --line:#1f2724;
+  --fg:#e7ece9;
+  --muted:#8e9a95;
+  --green:#8fd1a9;
+  --green-soft:#5f9e7b;
+  --violet:#b9a3f2;
+  --violet-soft:#7c69b4;
+  --display:"Unbounded", "Segoe UI", system-ui, sans-serif;
+  --body:"Hanken Grotesk", "Segoe UI", system-ui, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:clamp(16px,4vw,40px)}
+.gen h1,.gen h2,.gen h3{font-family:var(--display);font-weight:300;letter-spacing:-.02em;text-wrap:balance;margin:0}
+.gen p{margin:0}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--green)}
+.grad{background:linear-gradient(100deg,var(--green) 10%,var(--violet) 90%);-webkit-background-clip:text;background-clip:text;color:transparent}
+:focus-visible{outline:2px solid var(--violet);outline-offset:3px;border-radius:6px}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:rgba(10,13,12,.74);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-block:12px}
+.logo{display:flex;align-items:center;text-decoration:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:999px;font:500 15px var(--body);text-decoration:none;border:1px solid var(--line);background:transparent;color:var(--fg);cursor:pointer;transition:all .2s}
+.btn:hover{border-color:var(--violet-soft)}
+.btn.primary{background:linear-gradient(100deg,var(--green),#a9c3d6 55%,var(--violet));color:#0b0f14;border-color:transparent}
+.btn.primary:hover{box-shadow:0 0 28px rgba(185,163,242,.35)}
+.btn[disabled]{opacity:.45;cursor:default;box-shadow:none}
+.nav .btn{padding:9px 16px;font-size:14px;white-space:nowrap}
+.nav-links{display:flex;align-items:center;gap:20px}
+.nav-links .txt{font-size:15px;color:var(--muted);text-decoration:none;white-space:nowrap;transition:color .2s}
+.nav-links .txt:hover{color:var(--fg)}
+@media (max-width:440px){.nav .btn{padding:8px 12px;font-size:13px}.nav-links{gap:12px}.nav-links .txt{font-size:14px}}
+@media (max-width:400px){.nav-links .btn{display:none}}
+footer{padding-block:40px;border-top:1px solid var(--line);margin-top:48px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:14px;color:var(--muted)}
+footer nav{display:flex;flex-wrap:wrap;gap:10px 20px}
+
+/* Einstellungen */
+.gen{max-width:900px;margin:0 auto;padding-inline:16px;padding-block:clamp(40px,7vw,80px) 28px;display:grid;gap:24px}
+.gen .intro{display:grid;gap:16px}
+.gen .intro h1{font-size:clamp(30px,5vw,48px);line-height:1.08}
+.gen .intro p{color:var(--muted);max-width:62ch}
+.panel{border:1px solid var(--line);border-radius:20px;background:var(--surface);padding:clamp(18px,3vw,26px);display:grid;gap:16px}
+.panel h2{font-family:var(--body)!important;font-weight:600!important;font-size:17px;letter-spacing:0!important}
+.tlist{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px 18px;margin:0;padding:0;list-style:none}
+.tlist li{display:flex;align-items:baseline;gap:10px;font-size:15px;min-width:0}
+.tlist li::before{content:"";flex:none;width:8px;height:8px;border-radius:50%;border:1px solid var(--muted);transform:translateY(-1px)}
+.tlist li.ok::before{background:var(--green);border-color:var(--green);box-shadow:0 0 8px var(--green)}
+.tlist li span{font-family:var(--mono);font-size:12px;color:var(--muted);white-space:nowrap}
+.tlist li a{color:var(--muted)}
+.tlist li a:hover{color:var(--fg)}
+.need{font-size:15px;color:#e8c07a}
+.row{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:end}
+.field{display:grid;gap:6px;flex:1 1 220px;min-width:0}
+.field label,.lbl2{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.field input{width:100%;font:400 16px var(--body);color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:11px 14px}
+.field input:focus{outline:none;border-color:var(--violet-soft)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:var(--bg)}
+.seg button{font:500 14px var(--body);color:var(--muted);background:transparent;border:0;border-radius:999px;padding:8px 16px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--fg);box-shadow:inset 0 0 0 1px var(--violet-soft)}
+.msg{font-family:var(--mono);font-size:13px;min-height:1.2em;color:var(--muted)}
+.msg.err{color:#f08a7e}
+.msg.ok{color:var(--green)}
+.hint{font-size:14px;color:var(--muted)}
+.banner{border:1px dashed var(--violet-soft);border-radius:16px;padding:14px 18px;font-size:15px;color:var(--muted)}
+.banner b{color:var(--fg);font-weight:600}
+
+/* A4-Seiten auf dem Bildschirm */
+.rwrap{max-width:900px;margin:0 auto;padding-inline:16px}
+.rbox{position:relative;overflow:hidden}
+#report{width:210mm;transform-origin:0 0}
+@media screen{#report .page{margin:0 0 24px;box-shadow:0 10px 34px rgba(0,0,0,.4);border-radius:2px}}
+.lockbox{max-width:900px;margin:0 auto;padding-inline:16px}
+.lockbox .panel{background:linear-gradient(160deg,rgba(143,209,169,.07),rgba(185,163,242,.09)),var(--surface)}
+.lockbox h2{font-family:var(--display)!important;font-weight:300!important;font-size:clamp(22px,3vw,28px);letter-spacing:-.02em!important}
+.lockbox h2,.lockbox p{margin:0}
+.lockbox p{color:var(--muted)}
+.lockbox a:not(.btn){color:var(--fg)}
+:root[data-theme="light"] .need{color:#9b6b2f}
+:root[data-theme="light"] .msg.err{color:#b4543f}
+:root[data-theme="light"] .field input{background:#fff}
+:root[data-theme="light"] .seg{background:#fff}
+:root[data-theme="light"] .seg button[aria-pressed="true"]{background:#e6e9e3}
+:root[data-theme="light"] #report .page{box-shadow:0 8px 28px rgba(20,30,25,.16)}
+
+/* Drucken = PDF speichern: nur die Berichtsseiten, in voller Größe */
+@media print{
+  html,body{background:none!important;margin:0!important;padding:0!important}
+  body>*:not(.rwrap){display:none!important}
+  .rwrap{max-width:none;padding:0;margin:0}
+  .rbox{height:auto!important;overflow:visible}
+  #report{transform:none!important;margin:0!important}
+  #report .page{margin:0;box-shadow:none;border-radius:0}
+}
+</style>
+<link rel="stylesheet" href="theme.css">
+<script>try{if(localStorage.getItem('ordinum-theme')==='light')document.documentElement.dataset.theme='light'}catch(e){}</script>
+<script data-goatcounter="https://ordinum.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="index.html" aria-label="Ordinum Startseite"><img class="logo-mark" src="logo-ringe.svg" alt="" width="45" height="40"><span class="logo-word">ORD<span class="logo-i">I</span>NUM</span></a>
+    <div class="nav-links"><a class="txt" href="meine-ergebnisse.html">Meine Ergebnisse</a><a class="btn" href="index.html#warteliste">Warteliste</a></div>
+  </div>
+</header>
+<main class="gen">
+  <section class="intro">
+    <p class="eyebrow">Individualisierter Bericht</p>
+    <h1>Dein <span class="grad">Bericht</span></h1>
+    <p id="introtext">Der Bericht verbindet deine Testergebnisse zu einem Bild mit Mustern, Energiequellen und Impulsen für deinen Alltag. Er entsteht hier in deinem Browser aus den Ergebnissen, die auf diesem Gerät gespeichert sind. Deine Antworten verlassen dein Gerät nicht.</p>
+  </section>
+  <div class="banner" id="beispiel" hidden><b>Beispielbericht für Mara.</b> So sieht ein vollständiger Bericht aus sechs Tests aus. <a href="bericht.html">Zu deinem eigenen Bericht</a></div>
+  <section class="panel" id="status">
+    <h2>Deine Tests auf diesem Gerät</h2>
+    <ul class="tlist" id="tlist"></ul>
+    <p class="need" id="need" hidden>Für deinen Bericht brauchst du mindestens drei Tests, darunter einen der beiden Persönlichkeitstests und den Charakterstärken-Test.</p>
+    <p class="hint" id="more" hidden>Jeder weitere Test ergänzt deinen Bericht um eigene Seiten und neue Verbindungen.</p>
+  </section>
+  <section class="panel" id="opts" hidden>
+    <div class="row">
+      <div class="field" id="namefield"><label for="name">Dein Vorname für das Deckblatt</label><input id="name" type="text" maxlength="28" autocomplete="given-name" placeholder="zum Beispiel Mara"></div>
+      <div class="field" style="flex:0 0 auto"><span class="lbl2" id="varlbl">Variante</span><div class="seg" role="group" aria-labelledby="varlbl"><button type="button" id="v-hell" aria-pressed="false">Hell</button><button type="button" id="v-dunkel" aria-pressed="false">Dunkel</button></div></div>
+    </div>
+    <div class="row" id="pdfrow" hidden>
+      <button class="btn primary" type="button" id="pdf">Als PDF speichern</button>
+      <p class="hint" style="flex:1 1 260px">Im Druckfenster als Ziel „Als PDF speichern“ wählen. Falls Farben fehlen, „Hintergrundgrafiken“ einschalten.</p>
+    </div>
+  </section>
+</main>
+<div class="rwrap" id="rwrap" hidden><div class="rbox" id="rbox"><div id="report"></div></div></div>
+<div class="lockbox" id="lock" hidden>
+  <section class="panel">
+    <h2 id="locktitle">Dein vollständiger Bericht</h2>
+    <p id="locktext"></p>
+    <form class="row" id="codeform" autocomplete="off">
+      <div class="field"><label for="code">Freischaltcode</label><input id="code" type="text" maxlength="20" placeholder="XXXX-XXXX-XXXX" spellcheck="false" autocapitalize="characters"></div>
+      <button class="btn primary" type="submit">Freischalten</button>
+    </form>
+    <p class="msg" id="codemsg" aria-live="polite"></p>
+    <p>Noch keinen Code? Der Bericht ist bald erhältlich. Trag dich in die <a href="index.html#warteliste">Warteliste</a> ein, dann bekommst du ihn als Erstes zum Startpreis von 19 €. <a href="bericht.html?beispiel">Beispielbericht ansehen</a></p>
+  </section>
+</div>
+<footer>
+  <div class="wrap">
+    <span>© 2026 Ordinum · Psychologie zum Selbstverstehen. Keine Diagnostik oder Therapie.</span>
+    <nav><a href="meine-ergebnisse.html">Meine Ergebnisse</a><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></nav>
+  </div>
+</footer>
+<script src="bericht/quelle.js"></script>
+<script src="bericht/texte.js"></script>
+<script src="bericht/muster.js"></script>
+<script src="bericht/bericht.js"></script>
+<script src="bericht/codes.js"></script>
+<script src="bericht/beispiel.js"></script>
+<script>
+(function(){
+var HIST = 'ordinum-ergebnisse', KNAME = 'ordinum-bericht-name', KVAR = 'ordinum-bericht-variante', KCODE = 'ordinum-bericht-code';
+var VORSCHAU = 2; // so viele Seiten sind ohne Code sichtbar
+// Reihenfolge und Testseiten wie auf „Meine Ergebnisse“
+var LISTE = [
+  { k:'big5', name:'Persönlichkeitstest · Big Five', page:'persoenlichkeitstest.html' },
+  { k:'neo120', name:'Persönlichkeit ausführlich', page:'persoenlichkeit-facetten.html' },
+  { k:'staerken', name:'Charakterstärken', page:'staerkentest.html' },
+  { k:'wohlbefinden', name:'Wohlbefinden', page:'wohlbefinden.html' },
+  { k:'stress', name:'Stress & Resilienz', page:'stresstest.html' },
+  { k:'emotionen', name:'Emotionen', page:'emotionen.html' },
+  { k:'beziehung', name:'Beziehungsstil', page:'beziehungsstil.html' }
+];
+var params = new URLSearchParams(location.search), BEISPIEL = params.has('beispiel');
+function $(id){ return document.getElementById(id); }
+function get(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+function set(k, v){ try{ localStorage.setItem(k, v); }catch(e){} }
+function heute(){ var d = new Date(); return d.getFullYear() + String(d.getMonth() + 1).padStart(2, '0') + String(d.getDate()).padStart(2, '0'); }
+function fmtDate(s){ return new Date(+s.slice(0,4), +s.slice(4,6)-1, +s.slice(6,8)).toLocaleDateString('de-DE', {day:'numeric', month:'short', year:'numeric'}); }
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+// Neuestes gespeichertes Ergebnis je Test
+function sammeln(){
+  var h = []; try{ h = JSON.parse(get(HIST)) || []; }catch(e){}
+  var t = {};
+  (Array.isArray(h) ? h : []).forEach(function(r){
+    if (!r || !r.scores || !r.date || !LISTE.some(function(x){ return x.k === r.test; })) return;
+    if (!t[r.test] || r.date > t[r.test].date) { var o = { date:String(r.date) }; for (var k in r.scores) o[k] = r.scores[k]; t[r.test] = o; }
+  });
+  return t;
+}
+function reicht(t){ return (t.big5 || t.neo120) && t.staerken && Object.keys(t).length >= 3; }
+
+// SHA-256 für ASCII-Text (Prüfung der Freischaltcodes, funktioniert auch ohne HTTPS)
+function sha256(s){
+  function rr(v, a){ return (v >>> a) | (v << (32 - a)); }
+  var mp = Math.pow, max = mp(2, 32), out = '', w = [], bl = s.length * 8, h = [], k = [], pc = 0, isC = {}, i, j;
+  for (var c = 2; pc < 64; c++) { if (!isC[c]) { for (i = 0; i < 313; i += c) isC[i] = c; h[pc] = (mp(c, .5) * max) | 0; k[pc++] = (mp(c, 1 / 3) * max) | 0; } }
+  s += '\x80'; while (s.length % 64 - 56) s += '\x00';
+  for (i = 0; i < s.length; i++) { j = s.charCodeAt(i); if (j >> 8) return ''; w[i >> 2] |= j << ((3 - i) % 4) * 8; }
+  w[w.length] = (bl / max) | 0; w[w.length] = bl;
+  for (j = 0; j < w.length;) {
+    var x = w.slice(j, j += 16), old = h; h = h.slice(0, 8);
+    for (i = 0; i < 64; i++) {
+      var x15 = x[i - 15], x2 = x[i - 2], a = h[0], e = h[4];
+      var t1 = h[7] + (rr(e, 6) ^ rr(e, 11) ^ rr(e, 25)) + ((e & h[5]) ^ (~e & h[6])) + k[i] + (x[i] = i < 16 ? x[i] : (x[i - 16] + (rr(x15, 7) ^ rr(x15, 18) ^ (x15 >>> 3)) + x[i - 7] + (rr(x2, 17) ^ rr(x2, 19) ^ (x2 >>> 10))) | 0);
+      var t2 = (rr(a, 2) ^ rr(a, 13) ^ rr(a, 22)) + ((a & h[1]) ^ (a & h[2]) ^ (h[1] & h[2]));
+      h = [(t1 + t2) | 0].concat(h); h[4] = (h[4] + t1) | 0;
+    }
+    for (i = 0; i < 8; i++) h[i] = (h[i] + old[i]) | 0;
+  }
+  for (i = 0; i < 8; i++) for (j = 3; j + 1; j--) { var b = (h[i] >> (j * 8)) & 255; out += (b < 16 ? '0' : '') + b.toString(16); }
+  return out;
+}
+function norm(c){ return String(c || '').toUpperCase().replace(/[^A-Z0-9]/g, ''); }
+function gueltig(c){ c = norm(c); return c.length === 12 && (window.BERICHT_CODES || []).indexOf(sha256('ordinum-bericht:' + c)) >= 0; }
+
+var tests = BEISPIEL ? window.BERICHT_BEISPIEL.tests : sammeln();
+var frei = BEISPIEL || gueltig(get(KCODE));
+var dunkel = get(KVAR) ? get(KVAR) === 'dunkel' : document.documentElement.dataset.theme !== 'light';
+var seiten = 0, laeuft = null;
+
+// Testliste
+$('tlist').innerHTML = LISTE.map(function(x){
+  var r = tests[x.k];
+  return r ? '<li class="ok">' + esc(x.name) + ' <span>' + fmtDate(r.date) + '</span></li>'
+           : '<li>' + (BEISPIEL ? esc(x.name) + ' <span>nicht dabei</span>' : '<a href="' + x.page + '">' + esc(x.name) + '</a> <span>noch offen</span>') + '</li>';
+}).join('');
+if (BEISPIEL) { $('beispiel').hidden = false; $('status').hidden = true; $('namefield').hidden = true; $('introtext').hidden = true; }
+if (!reicht(tests)) { $('need').hidden = false; return; }
+if (Object.keys(tests).length < LISTE.length - 1) $('more').hidden = false;
+$('opts').hidden = false; $('rwrap').hidden = false;
+$('name').value = get(KNAME) || '';
+
+function anpassen(){
+  var box = $('rbox'), rep = $('report'), W = box.clientWidth, s = Math.min(1, W / rep.offsetWidth);
+  rep.style.transform = 'scale(' + s + ')';
+  rep.style.marginLeft = Math.max(0, (W - rep.offsetWidth * s) / 2) + 'px';
+  box.style.height = Math.ceil(rep.offsetHeight * s) + 'px';
+}
+function zeichnen(){
+  var name = BEISPIEL ? window.BERICHT_BEISPIEL.name : ($('name').value.trim() || 'Dein Bericht');
+  var daten = { name:name, date:BEISPIEL ? window.BERICHT_BEISPIEL.date : heute(), tests:tests };
+  $('v-hell').setAttribute('aria-pressed', !dunkel); $('v-dunkel').setAttribute('aria-pressed', dunkel);
+  var mein = laeuft = window.OrdinumBericht.render(daten, { root:$('report'), dunkel:dunkel, seiten:frei ? 0 : VORSCHAU }).then(function(info){
+    if (mein !== laeuft) return;
+    seiten = info.seiten;
+    $('pdfrow').hidden = !frei; $('lock').hidden = frei;
+    if (!frei) $('locktext').textContent = 'Das waren die ersten ' + VORSCHAU + ' von ' + seiten + ' Seiten. Mit deinem Freischaltcode siehst du den ganzen Bericht und kannst ihn als PDF speichern, hell oder dunkel.';
+    anpassen();
+  });
+}
+var warte;
+$('name').addEventListener('input', function(){ set(KNAME, $('name').value.trim()); clearTimeout(warte); warte = setTimeout(zeichnen, 450); });
+$('v-hell').onclick = function(){ dunkel = false; set(KVAR, 'hell'); zeichnen(); };
+$('v-dunkel').onclick = function(){ dunkel = true; set(KVAR, 'dunkel'); zeichnen(); };
+$('codeform').addEventListener('submit', function(ev){
+  ev.preventDefault();
+  var c = $('code').value;
+  if (gueltig(c)) { set(KCODE, norm(c)); frei = true; $('codemsg').textContent = ''; zeichnen(); }
+  else { $('codemsg').className = 'msg err'; $('codemsg').textContent = norm(c) ? 'Dieser Code passt nicht. Prüf ihn bitte noch einmal.' : 'Bitte gib deinen Freischaltcode ein.'; }
+});
+$('pdf').onclick = function(){
+  var t = document.title;
+  document.title = 'Ordinum-Bericht ' + (BEISPIEL ? 'Beispiel' : ($('name').value.trim() || '')) + (dunkel ? ' dunkel' : ' hell');
+  window.print();
+  setTimeout(function(){ document.title = t; }, 1000);
+};
+window.addEventListener('resize', anpassen);
+zeichnen();
+})();
+</script>
+<script src="theme.js"></script>
+</body>
+</html>
