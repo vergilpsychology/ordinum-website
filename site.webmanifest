@@ -1,12 +1,22 @@
 {
-  "name": "Ordinum",
+  "id": "/",
+  "name": "Ordinum · Raum für Selbsterkundung",
   "short_name": "Ordinum",
+  "description": "Fundierte psychologische Tests und ein individualisierter Bericht.",
+  "lang": "de",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#080e0c",
   "theme_color": "#080e0c",
   "icons": [
     {"src": "/icon-192.png", "sizes": "192x192", "type": "image/png"},
-    {"src": "/icon-512.png", "sizes": "512x512", "type": "image/png"}
+    {"src": "/icon-512.png", "sizes": "512x512", "type": "image/png"},
+    {"src": "/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ],
+  "shortcuts": [
+    {"name": "Meine Ergebnisse", "url": "/meine-ergebnisse.html", "icons": [{"src": "/icon-192.png", "sizes": "192x192"}]},
+    {"name": "Persönlichkeitstest", "url": "/persoenlichkeitstest.html", "icons": [{"src": "/icon-192.png", "sizes": "192x192"}]}
   ]
 }

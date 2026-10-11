@@ -66,3 +66,8 @@
     window.addEventListener('resize', function(){ if (window.innerWidth > 1080) setOpen(false); });
   }
 })();
+
+// Installierbare App: Service Worker für Offline-Nutzung (nur auf ordinum.de bzw. localhost)
+if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
+  window.addEventListener('load', function(){ navigator.serviceWorker.register('/sw.js').catch(function(){}); });
+}
