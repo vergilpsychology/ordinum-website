@@ -164,7 +164,7 @@
     var R = story ? 250 : 200, R0 = 26, below = story ? 250 : 210;
     var cx = W / 2, cy = y0 + (avail - below) / 2 + 10;
     function sector(a, r0, r1){
-      var s = (a - 22.5 + 1.2) * Math.PI / 180, e = (a + 22.5 - 1.2) * Math.PI / 180;
+      var hw = 180 / C.rows.length, s = (a - hw + 1.2) * Math.PI / 180, e = (a + hw - 1.2) * Math.PI / 180;
       ctx.beginPath(); ctx.arc(cx, cy, r1, -s, -e, true); ctx.arc(cx, cy, r0, -e, -s, false); ctx.closePath();
     }
     C.rows.forEach(function(r){ ctx.fillStyle = P.faint; sector(r.ang, R0, R); ctx.fill(); });
