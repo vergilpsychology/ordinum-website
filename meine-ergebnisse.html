@@ -295,7 +295,7 @@ footer nav{display:flex;flex-wrap:wrap;gap:10px 20px}
   <div class="empty" id="empty" hidden>
     <h3 style="font-size:22px">Noch keine Ergebnisse auf diesem Gerät</h3>
     <p>Du hast einen persönlichen Link gespeichert? Öffne ihn einfach, dann siehst du dein Ergebnis wieder und kannst es hier ablegen.</p>
-    <div class="cta-row"><a class="btn primary" href="persoenlichkeitstest.html">Persönlichkeitstest machen</a><a class="btn" href="persoenlichkeit-facetten.html">Persönlichkeit ausführlich</a><a class="btn" href="staerkentest.html">Charakterstärken-Test machen</a><a class="btn" href="wohlbefinden.html">Wohlbefinden-Test machen</a><a class="btn" href="stresstest.html">Stresstest machen</a><a class="btn" href="emotionen.html">Emotionstest machen</a><a class="btn" href="beziehungsstil.html">Beziehungsstil-Test machen</a><a class="btn" href="werte.html">Werte-Test machen</a></div>
+    <div class="cta-row"><a class="btn primary" href="persoenlichkeitstest.html">Persönlichkeitstest machen</a><a class="btn" href="persoenlichkeit-facetten.html">Persönlichkeit ausführlich</a><a class="btn" href="staerkentest.html">Charakterstärken-Test machen</a><a class="btn" href="wohlbefinden.html">Wohlbefinden-Test machen</a><a class="btn" href="stresstest.html">Stresstest machen</a><a class="btn" href="emotionen.html">Emotionstest machen</a><a class="btn" href="beziehungsstil.html">Beziehungsstil-Test machen</a><a class="btn" href="werte.html">Werte-Test machen</a><a class="btn" href="chronotyp.html">Chronotyp-Test machen</a></div>
   </div>
   <p class="fine" id="clearrow" hidden><button class="linkbtn" id="clear" type="button">Alle Ergebnisse von diesem Gerät löschen</button></p>
 </main>
@@ -338,6 +338,10 @@ var TESTS = {big5: {name: 'Persönlichkeitstest · Big Five', page: 'persoenlich
     var a = (Math.atan2(y, x) * 180 / Math.PI + 360) % 360;
     return 'Schwerpunkt: ' + (a >= 315 || a < 45 ? 'Über dich hinaus' : a < 135 ? 'Offen für Neues' : a < 225 ? 'Eigene Ziele' : 'Beständigkeit');
   }},
+  // note: Typ aus der Abendtendenz (gleiche Grenzen wie auf der Testseite)
+  chronotyp: {name: 'Chronotyp', page: 'chronotyp.html', key: 'ordinum-chronotyp', order: ['E','J'],
+  names: {E:'Abendtendenz', J:'Sozialer Jetlag'},
+  note: function(sc){ var e = sc.E; return 'Typ: ' + (e < 20 ? 'ausgeprägter Morgentyp' : e < 40 ? 'eher Morgentyp' : e <= 60 ? 'Mischtyp' : e <= 80 ? 'eher Abendtyp' : 'ausgeprägter Abendtyp'); }},
   neo120: {name: 'Persönlichkeit ausführlich · 30 Facetten', page: 'persoenlichkeit-facetten.html', key: 'ordinum-neo120', order: ['O','C','E','A','N'],
   names: {O:'Offenheit', C:'Gewissenhaftigkeit', E:'Extraversion', A:'Verträglichkeit', N:'Neurotizismus'}},
   staerken: {name: 'Charakterstärken · deine Top 5', page: 'staerkentest.html', key: 'ordinum-staerken', top: 5, order: ["ori", "val", "cap", "equ", "for", "app", "cur", "ind", "kin", "lea", "mod", "gra", "jud", "int", "soc", "cit", "pru", "hop", "lov", "zes", "sel", "hum", "per", "spi"],
