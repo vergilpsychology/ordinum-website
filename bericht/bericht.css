@@ -155,6 +155,11 @@
 #report .dbez{display:flex;gap:4mm;align-items:center;margin:auto 0}
 #report .dbez .k{display:block;font-family:var(--mono);font-size:5.8pt;letter-spacing:.14em;text-transform:uppercase;color:var(--o-faint)}
 #report .dbez b{display:block;font-family:var(--display);font-weight:300;font-size:12pt;line-height:1.25;color:var(--o-teal);margin:.6mm 0 0}
+#report .dkv{display:grid;grid-template-columns:1fr 1fr;gap:4mm;align-items:center;margin:auto 0}
+#report .dkv .k{display:block;font-family:var(--mono);font-size:5.8pt;letter-spacing:.14em;text-transform:uppercase;color:var(--o-faint)}
+#report .dkv b{display:block;font-family:var(--display);font-weight:300;font-size:11pt;line-height:1.25;margin:.6mm 0 0}
+#report .cspec{position:relative;height:1.2mm;border-radius:1mm;margin:3.4mm 1.6mm .8mm;background:linear-gradient(90deg,#c4de76,#8fd1a9,#b9a3f2);opacity:.85}
+#report .cspec i{position:absolute;top:50%;width:2.4mm;height:2.4mm;margin:-1.2mm 0 0 -1.2mm;border-radius:50%;background:var(--o-bg);border:.5mm solid}
 #report .top3 span{display:flex;justify-content:space-between;gap:2mm;font-size:8pt;line-height:1.35;color:var(--o-text);margin-top:.6mm}
 #report .top3 em{font-style:normal;font-family:var(--mono);font-size:7pt;color:var(--o-muted)}
 #report .eq{display:grid;grid-template-columns:repeat(5,1fr);gap:3mm;margin:auto 0}
@@ -167,6 +172,11 @@
 #report .dmu.solo{grid-template-columns:1fr}
 #report .pk{display:flex;align-items:center;gap:2mm;font-family:var(--mono);font-size:6.4pt;letter-spacing:.14em;text-transform:uppercase;color:var(--o-muted);margin:0 0 1.6mm}
 #report .fq{font-family:var(--display);font-weight:300;font-size:11pt;line-height:1.35;color:var(--o-strong);margin:0}
+/* Viele Kacheln: etwas enger, damit die Übersicht auf eine Seite passt */
+#report .bento.eng{gap:2.6mm}
+#report .bento.eng .tile{padding:2.8mm 4.4mm 2.6mm}
+#report .bento.eng .drad{margin:0 6% 1.4mm}
+#report .bento.eng .fq{font-size:9.8pt}
 #report .dlist div{display:flex;align-items:center;gap:2.4mm;border-top:.25mm solid var(--o-sep);padding:1.1mm 0;font-size:8.4pt;line-height:1.35;color:var(--o-text)}
 #report .dlist div:first-child{border-top:0}
 #report .dlist .n{font-family:var(--mono);font-size:6.6pt;color:var(--o-dim);width:2.6mm;flex:none}

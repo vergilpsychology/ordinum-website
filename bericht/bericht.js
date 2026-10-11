@@ -18,7 +18,9 @@ var PAL = {
   g1:['#2b8257','#8fd1a9'], g2:['#6650bd','#b9a3f2'], otr:['#e1e6e2','#1f2724'], owb:['#c9a72a','#e8d27a'], ost:['#5b86e0','#7ea8f8'],
   obg:['rgba(31,138,115,.06)','rgba(95,208,184,.05)'], ocs:['#d3e0db','#26302c'], ocf:['#1f8a73','#5fd0b8'], oco:['#5fd0b8','#3a9e89'], ocap:['#8b958f','#66726d'],
   ozt:['rgba(24,32,28,.08)','rgba(231,236,233,.09)'], ozl:['#7a8680','#7d8a84'],
-  rz:['#eaf0ec','rgba(143,209,169,.08)']
+  rz:['#eaf0ec','rgba(143,209,169,.08)'],
+  // Werte (Koralle) und Chronotyp (Limette)
+  wseg:['#e46f6f','#f28080'], wtr:['#f3eeee','#1d2321'], wtx:['#b84a4a','#f5a3a3'], lim:['#7f9c2c','#c4de76'], limw:['rgba(127,156,44,.10)','rgba(196,222,118,.08)']
 };
 function thema(dunkel){
   DK = !!dunkel; K = kk(PAL);
@@ -37,7 +39,9 @@ var TESTS = {
   wohlbefinden: { name:'Wohlbefinden',               f:'#f0cf6e', d:'#9a7300' },
   stress:       { name:'Stress & Resilienz',         f:'#7ea8f8', d:'#2f5fc4' },
   emotionen:    { name:'Emotionen',                  f:'#ec8cce', d:'#b03c8c' },
-  beziehung:    { name:'Beziehungsstil',             f:'#5fd0b8', d:'#1f8a73' }
+  beziehung:    { name:'Beziehungsstil',             f:'#5fd0b8', d:'#1f8a73' },
+  werte:        { name:'Werte',                      f:'#f28080', d:'#c24f4f' },
+  chronotyp:    { name:'Chronotyp',                  f:'#c4de76', d:'#6f8a1f' }
 };
 var BEZ = { PA:'Bestimmend', BC:'Direkt', DE:'Nüchtern', FG:'Reserviert', HI:'Leise', JK:'Nachsichtig', LM:'Warmherzig', NO:'Gesellig', AUS:'Ausgewogen' };
 var WBN = { F:'Lebensfreude', M:'Ausgeglichene Stimmung', O:'Zuversicht', S:'Selbstwert', V:'Lebendigkeit' };
@@ -62,6 +66,25 @@ function bezModel(sc){
     var d = Math.abs(ang[top3[0]] - a) % 360; if (d === 45 || d === 315) focus = top3[0]; }
   return { sc:sc, ang:ang, x:x, y:y, len:len, focus:focus, top3:top3 };
 }
+// Werte wie auf der Testseite: Schwerpunkt aus den Werten nach Abzug des eigenen Durchschnitts, Stufe je Wert ab 7 Punkten Abstand
+var WORD = ['ST','SD','UN','BE','TR','CO','SE','PO','AC','HE'], WANG = { UN:18, SD:54, ST:90, HE:126, AC:162, PO:198, SE:234, CO:270, TR:306, BE:342 };
+var WLVL = { low:'weniger wichtig', mid:'im Mittelfeld', high:'besonders wichtig' };
+function werteModel(sc){
+  var mean = 0, x = 0, y = 0; WORD.forEach(function(f){ mean += sc[f] / 10; });
+  WORD.forEach(function(f){ var d = sc[f] - mean, t = WANG[f] * Math.PI / 180; x += d * Math.cos(t); y += d * Math.sin(t); });
+  x /= 2.5; y /= 2.5; var p = Math.sqrt(x*x + y*y); if (p > 100) { x *= 100 / p; y *= 100 / p; p = 100; }
+  var ang = (Math.atan2(y, x) * 180 / Math.PI + 360) % 360, reg = ang >= 315 || ang < 45 ? 'T' : ang < 135 ? 'O' : ang < 225 ? 'E' : 'C';
+  var rk = WORD.map(function(f, i){ return [f, i]; }).sort(function(a, b){ return sc[b[0]] - sc[a[0]] || a[1] - b[1]; }).map(function(z){ return z[0]; });
+  var lv = function(f){ var d = sc[f] - mean; return d > 7 ? 'high' : d < -7 ? 'low' : 'mid'; };
+  var lvl = p < 12 ? 0 : p < 30 ? 1 : p < 55 ? 2 : 3;
+  return { sc:sc, mean:mean, x:x, y:y, p:p, reg: lvl ? reg : 'bal', lvl:lvl, rk:rk, top:rk.slice(0, 3).filter(function(f){ return sc[f] > mean; }), lv:lv };
+}
+// Chronotyp wie auf der Testseite: Typ aus der Abendtendenz, Leistungshoch zwischen 8:30 und 16:30 Uhr, Jetlag 25 Punkte pro Stunde
+function chronoModel(sc){
+  var E = sc.E, ti = E < 20 ? 0 : E < 40 ? 1 : E <= 60 ? 2 : E <= 80 ? 3 : 4, jh = Math.round(sc.J / 25);
+  return { E:E, J:sc.J, ti:ti, peak: Math.round((8.5 + E / 100 * 8) * 2) / 2, jh:jh, ji: Math.min(3, jh) };
+}
+function uhr(h){ h = (h + 24) % 24; return Math.floor(h) + (h % 1 ? ':30' : ''); }
 function model(D){
   var t = D.tests, m = { name:D.name, date:D.date, t:t };
   if (t.neo120) m.P = { src:'neo120', date:t.neo120.date, O:t.neo120.O, C:t.neo120.C, E:t.neo120.E, A:t.neo120.A, S:100 - t.neo120.N, facets:t.neo120 };
@@ -74,6 +97,8 @@ function model(D){
   if (t.stress) { var s = t.stress; m.stress = { A:s.A, R:s.R, U:s.U, S:s.S, ov: Math.round(((100 - s.A) + (100 - s.R) + (100 - s.U) + s.S) / 4) }; }
   if (t.emotionen) m.emo = t.emotionen;
   if (t.beziehung) m.bez = bezModel(t.beziehung);
+  if (t.werte) m.werte = werteModel(t.werte);
+  if (t.chronotyp) m.chrono = chronoModel(t.chronotyp);
   // Liegen beide Persönlichkeitstests vor, fließt nur der ausführliche ein und wird gezählt
   m.tests = Object.keys(TESTS).filter(function(k){ return t[k] && !(k === 'big5' && t.neo120); });
   m.muster = window.waehleMuster(m);
@@ -210,6 +235,52 @@ function circumplex(b){
   return svg(W, H, s, '', 'width:96mm;display:block');
 }
 
+// Wertekreis: zehn Werte im Kreis wie auf der Testseite (0° rechts = über dich hinaus, 90° oben = offen für Neues)
+function werteKreis(w){
+  var W = 640, H = 436, cx = 320, cy = 218, R0 = 18, R = 146, rr = function(v){ return R0 + (R - R0) * Math.max(v, 2) / 100; }, s = '';
+  WORD.forEach(function(f){ s += sector(cx, cy, R0, R, -WANG[f] - 16.5, -WANG[f] + 16.5, K.wtr); });
+  s += '<circle cx="' + cx + '" cy="' + cy + '" r="' + rr(50) + '" fill="none" stroke="' + K.cs + '" stroke-dasharray="3 4"/>';
+  WORD.forEach(function(f){ var on = w.top.indexOf(f) >= 0; s += sector(cx, cy, R0, rr(w.sc[f]), -WANG[f] - 16.5, -WANG[f] + 16.5, K.wseg, ' fill-opacity="' + (on ? .95 : r1(.3 + .35 * w.sc[f] / 100)) + '"'); });
+  s += '<line x1="' + (cx - R - 6) + '" y1="' + cy + '" x2="' + (cx + R + 6) + '" y2="' + cy + '" stroke="' + K.ca + '" stroke-dasharray="3 5"/><line x1="' + cx + '" y1="' + (cy - R - 6) + '" x2="' + cx + '" y2="' + (cy + R + 6) + '" stroke="' + K.ca + '" stroke-dasharray="3 5"/>';
+  s += '<circle cx="' + cx + '" cy="' + cy + '" r="' + (R0 - 4) + '" fill="' + K.knob + '" stroke="' + K.cc + '"/>';
+  var W8 = Q.werte.texte;
+  WORD.forEach(function(f){
+    var a = WANG[f] * Math.PI / 180, c = Math.cos(a), sn = Math.sin(a), lx = cx + c * (R + 16), ly = cy - sn * (R + 16) + (Math.abs(c) < .2 ? (sn > 0 ? -4 : 14) : 6);
+    var anchor = Math.abs(c) < .2 ? 'middle' : c > 0 ? 'start' : 'end', on = w.top.indexOf(f) >= 0;
+    s += txt(lx, ly, esc(W8[f].name) + ' <tspan font-family="JetBrains Mono" font-size="14" font-weight="700" fill="' + K.cv + '">' + w.sc[f] + '</tspan>', { size:16.5, weight: on ? 700 : 500, fill: on ? K.wtx : K.cl, anchor:anchor });
+  });
+  var cap = function(x, y, t, anchor){ return txt(x, y, t, { mono:1, size:11, fill:K.ccap, anchor:anchor || 'middle', ls:2 }); };
+  s += cap(cx, cy - R - 40, 'OFFEN FÜR NEUES') + cap(cx, cy + R + 52, 'BESTÄNDIGKEIT') + cap(cx + R + 12, cy + 4, 'ÜBER DICH HINAUS', 'start') + cap(cx - R - 12, cy + 4, 'EIGENE ZIELE', 'end');
+  if (w.lvl) {
+    var px = cx + R * w.x / 100, py = cy - R * w.y / 100;
+    s += '<line x1="' + cx + '" y1="' + cy + '" x2="' + r1(px) + '" y2="' + r1(py) + '" stroke="' + K.wtx + '" stroke-width="2" stroke-dasharray="3 3"/>';
+    s += '<circle cx="' + r1(px) + '" cy="' + r1(py) + '" r="13" fill="' + K.wseg + '" opacity=".22"/><circle cx="' + r1(px) + '" cy="' + r1(py) + '" r="7" fill="' + K.knob + '" stroke="' + K.wtx + '" stroke-width="3.4"/>';
+  }
+  return svg(W, H, s, '', 'width:100%;display:block');
+}
+// Tageskurve wie auf der Testseite: Spektrum vom Morgen- zum Abendtyp und Wachheit über den Tag (Veranschaulichung, keine Messung)
+function tagKurve(c){
+  var p = c.peak, X = function(h){ return 40 + (h - 6) / 18 * 540; }, Y0 = 250, H = 150, id = uid();
+  var g = function(h, m, sd){ return Math.exp(-Math.pow((h - m) / sd, 2)); }, sig = function(x){ return 1 / (1 + Math.exp(-x)); };
+  var wach = function(h){ var wake = p - 3.5, bed = p + 12.5; return (0.15 + g(h, p, 3.2) + 0.7 * g(h, p + 7, 2.6) - 0.35 * g(h, p + 3.8, 1.3)) * sig((h - wake) / 0.7) * sig((bed - h) / 0.9); };
+  var s = '<defs><linearGradient id="' + id + '" x1="0" x2="1"><stop offset="0" stop-color="' + K.lim + '"/><stop offset=".5" stop-color="' + K.g1 + '"/><stop offset="1" stop-color="' + K.g2 + '"/></linearGradient>' +
+    '<linearGradient id="' + id + 'a" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="' + K.lim + '" stop-opacity=".35"/><stop offset="1" stop-color="' + K.lim + '" stop-opacity="0"/></linearGradient></defs>';
+  var sx = function(e){ return 90 + e / 100 * 420; };
+  s += '<rect x="90" y="24" width="420" height="5" rx="2.5" fill="url(#' + id + ')" opacity=".75"/>';
+  s += '<circle cx="64" cy="26.5" r="7" fill="none" stroke="' + K.lim + '" stroke-width="2"/>' + [0, 45, 90, 135, 180, 225, 270, 315].map(function(a){ var t = a * Math.PI / 180; return '<line x1="' + r1(64 + 10 * Math.cos(t)) + '" y1="' + r1(26.5 + 10 * Math.sin(t)) + '" x2="' + r1(64 + 13 * Math.cos(t)) + '" y2="' + r1(26.5 + 13 * Math.sin(t)) + '" stroke="' + K.lim + '" stroke-width="1.6" stroke-linecap="round"/>'; }).join('');
+  s += '<path d="M541 18.5a8 8 0 1 0 0 16 6.6 6.6 0 0 1 0-16Z" fill="' + K.g2 + '"/>';
+  s += txt(90, 50, 'MORGENTYP', { mono:1, size:10.5, fill:K.ccap, ls:1.5 }) + txt(510, 50, 'ABENDTYP', { mono:1, size:10.5, fill:K.ccap, anchor:'end', ls:1.5 });
+  s += '<circle cx="' + r1(sx(c.E)) + '" cy="26.5" r="13" fill="' + K.lim + '" opacity=".22"/><circle cx="' + r1(sx(c.E)) + '" cy="26.5" r="6.5" fill="' + K.knob + '" stroke="' + K.lim + '" stroke-width="3"/>';
+  var pts = [], mx = 0, h; for (h = 6; h <= 24.001; h += 0.25) { var v = wach(h); pts.push([h, v]); if (v > mx) mx = v; }
+  var line = pts.map(function(q, i){ return (i ? 'L' : 'M') + r1(X(q[0])) + ' ' + r1(Y0 - q[1] / mx * H); }).join('');
+  s += '<rect x="' + r1(X(p - 1.5)) + '" y="' + (Y0 - H - 12) + '" width="' + r1(X(p + 1.5) - X(p - 1.5)) + '" height="' + (H + 12) + '" rx="8" fill="' + K.limw + '"/>';
+  s += '<path d="' + line + 'L' + X(24) + ' ' + Y0 + 'L' + X(6) + ' ' + Y0 + 'Z" fill="url(#' + id + 'a)"/><path d="' + line + '" fill="none" stroke="url(#' + id + ')" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>';
+  s += '<line x1="' + X(6) + '" y1="' + Y0 + '" x2="' + X(24) + '" y2="' + Y0 + '" stroke="' + K.cs + '"/>';
+  [6, 9, 12, 15, 18, 21, 24].forEach(function(hh){ s += '<line x1="' + X(hh) + '" y1="' + Y0 + '" x2="' + X(hh) + '" y2="' + (Y0 + 5) + '" stroke="' + K.tick + '"/>' + txt(X(hh), Y0 + 21, hh === 24 ? '24 Uhr' : String(hh), { mono:1, size:10.5, fill:K.tick, anchor:'middle' }); });
+  s += txt(Math.min(Math.max(X(p), 90), 530), Y0 - H - 20, 'LEISTUNGSHOCH', { mono:1, size:10.5, fill:K.lim, anchor:'middle', ls:1.5 });
+  return svg(620, 280, s, '', 'width:126mm;display:block;margin:0 auto');
+}
+
 /* ---------- HTML-Bausteine ---------- */
 function q(text){ return '<div class="q"><p><span class="rl">Frage an dich</span>' + esc(text) + '</p></div>'; }
 function ask(text){ return '<div class="ask"><p class="lbl">Frage an dich</p><p>' + esc(text) + '</p><div class="ln"></div><div class="ln"></div></div>'; }
@@ -273,7 +344,7 @@ function overviewDark(m){
     if (m.P.facets) { // Die Facetten der emotionalen Stabilität beschreiben Herausforderungen, deshalb nur die vier anderen Bereiche
       var tf = []; ['O','C','E','A'].forEach(function(d){ for (var j = 1; j <= 6; j++) tf.push({ f:d + j, v:m.P.facets[d + j] }); });
       tf.sort(function(a, b){ return b.v - a.v; });
-      foot = '<p class="dfoot">' + U.facetten + ': ' + tf.slice(0, 3).map(function(x){ return esc(Q.facetten[x.f].name) + ' ' + x.v; }).join(', ') + '</p>';
+      foot = '<p class="dfoot" data-opt="3">' + U.facetten + ': ' + tf.slice(0, 3).map(function(x){ return esc(Q.facetten[x.f].name) + ' ' + x.v; }).join(', ') + '</p>';
     }
     var stat = '<div class="dstat"><div><span>' + U.deutlichst + '</span><b>' + esc(T.bereiche[hi].name) + '<em>' + m.P[hi] + '</em></b></div><div><span>' + U.wenigsten + '</span><b>' + esc(T.bereiche[lo].name) + '<em>' + m.P[lo] + '</em></b></div></div>';
     tiles.push(dtile(right === 2 ? 'c7 r2' : right === 1 ? 'c7' : 'c12', 'rgba(143,209,169,.20)', 'Persönlichkeit', 0, '<div class="drad">' + radar2(m.P, DK) + '</div>' + stat + foot));
@@ -281,7 +352,7 @@ function overviewDark(m){
   var cr = m.P ? 'c5' : right === 2 ? 'c6' : 'c12';
   if (m.st) tiles.push(dtile(cr, 'rgba(185,163,242,.24)', U.topStaerken, 2, '<div class="dstr">' + m.top.map(function(x, i){
       return '<div><span class="r">' + (i + 1) + '</span><span>' + esc(Q.staerken[x.k].name) + '</span><i><b style="width:' + x.v + '%"></b></i><span class="v">' + x.v + '</span></div>'; }).join('') + '</div>' +
-    '<p class="dfoot">' + U.seltener + ': ' + m.low3.map(function(x){ return esc(Q.staerken[x.k].name); }).join(', ') + '</p>'));
+    '<p class="dfoot" data-opt="2">' + U.seltener + ': ' + m.low3.map(function(x){ return esc(Q.staerken[x.k].name); }).join(', ') + '</p>'));
   if (m.wb || m.stress) {
     var rf = '';
     if (m.wb && m.stress) rf = esc(waageCap(waageListen(m)));
@@ -293,13 +364,26 @@ function overviewDark(m){
     var b = m.bez;
     tiles.push(dtile(m.emo ? 'c6' : 'c12', 'rgba(95,208,184,.20)', TESTS.beziehung.name, 4, '<div class="dbez">' + circDark(b) + '<div><span class="k">' + (b.focus === 'AUS' ? U.ausgewogen : U.schwerpunkt) + '</span><b>' + BEZ[b.focus] + '</b>' +
       '<span class="k" style="margin-top:2.4mm">' + U.stileTop + '</span><div class="top3">' + b.top3.map(function(k){ return '<span>' + BEZ[k] + ' <em>' + b.sc[k] + '</em></span>'; }).join('') + '</div></div></div>' +
-      '<p class="dfoot">' + esc(satz1(T.fuehlen.stile[b.focus].text)) + '</p>'));
+      '<p class="dfoot" data-opt="1">' + esc(satz1(T.fuehlen.stile[b.focus].text)) + '</p>'));
   }
   if (m.emo) {
     var lab = { W:'Gefühle<br>wahrnehmen', P:'Freude<br>zeigen', N:'Schweres<br>zeigen', J:'Mit-<br>schwingen', E:'Bauch-<br>gefühl' }, z = T.fuehlen.zeigen[emoKey(m.emo)];
     tiles.push(dtile(m.bez ? 'c6' : 'c12', 'rgba(236,140,206,.20)', TESTS.emotionen.name, 4, '<div class="eq">' + Object.keys(EMN).map(function(k){ var v = m.emo[k];
       return '<div class="eqc"><b>' + v + '</b><div class="eqt"><i style="height:' + v + '%"></i></div><span>' + lab[k] + '</span></div>'; }).join('') + '</div>' +
-      '<p class="dfoot">' + esc(satz1(z)) + '</p>'));
+      '<p class="dfoot" data-opt="1">' + esc(satz1(z)) + '</p>'));
+  }
+  // Werte und Chronotyp als schmale Kacheln: Schwerpunkt bzw. Typ und das Wichtigste daneben
+  var klein = (m.werte ? 1 : 0) + (m.chrono ? 1 : 0);
+  if (m.werte) {
+    var w = m.werte, wn = Q.werte.texte, wl = (w.top.length ? w.top : w.rk.slice(0, 3));
+    tiles.push(dtile(klein === 2 ? 'c6' : 'c12', 'rgba(242,128,128,.18)', TESTS.werte.name, 6, '<div class="dkv"><div><span class="k">' + U.schwerpunkt + '</span><b style="color:' + K.wtx + '">' + esc(Q.werte.regionen[w.reg].name) + '</b></div>' +
+      '<div><span class="k">' + U.wichtig + '</span><div class="top3">' + wl.map(function(f){ return '<span>' + esc(wn[f].name) + ' <em>' + w.sc[f] + '</em></span>'; }).join('') + '</div></div></div>'));
+  }
+  if (m.chrono) {
+    var c = m.chrono, ct = Q.chrono.typen[c.ti];
+    tiles.push(dtile(klein === 2 ? 'c6' : 'c12', 'rgba(196,222,118,.16)', U.rhythmus, 7, '<div class="dkv"><div><span class="k">' + U.chronotyp + '</span><b style="color:' + K.lim + '">' + esc(ct.name) + '</b></div>' +
+      '<div><span class="k">' + U.hoch + '</span><div class="top3"><span>etwa ' + uhr(c.peak - 1.5) + ' bis ' + uhr(c.peak + 1.5) + ' Uhr</span><span>' + U.jetlag + ' <em>' + esc(Q.chrono.jetlag[c.ji].lvl) + '</em></span></div></div></div>' +
+      '<div class="cspec"><i style="left:' + c.E + '%;border-color:' + K.lim + '"></i></div>'));
   }
   var mu = m.muster.gezeigt;
   if (mu.length) {
@@ -347,12 +431,15 @@ function gruppen(m){
   return satz.replace('{g}', G[v].name).replace('{l}', liste(by[v])) + ' ' + G[v].text + dazu;
 }
 
+// Eigene Fragebögen (Werte, Chronotyp) werden im Hinweis eigens genannt
+function hinweise(m){ var e = m.werte && m.chrono ? 'beide' : m.werte ? 'werte' : m.chrono ? 'chrono' : null; return e ? [T.hinweis[0], T.hinweisEigen[e]].concat(T.hinweis.slice(1)) : T.hinweis; }
+
 /* ---------- Kapitel ---------- */
 // Jedes Kapitel ist eine Liste von Blöcken. Ein Block ist HTML oder ein Objekt mit
 // brk (neue Seite), keep (mit dem vorigen Block zusammenhalten), fill (Notizlinien bis Seitenende), pin (an den Seitenfuß).
 function chapters(m){
-  var C = [], K = 0;
-  function kap(i){ K++; return { nr:K, idx:i, titel:T.kapitel[i].titel, head:'Kapitel ' + K + ' · ' + T.kapitel[i].titel, blocks:[] }; }
+  var C = [], KN = 0; // Kapitelzähler (K sind die Farben)
+  function kap(i){ KN++; return { nr:KN, idx:i, titel:T.kapitel[i].titel, head:'Kapitel ' + KN + ' · ' + T.kapitel[i].titel, blocks:[] }; }
 
   // Zu Beginn: Einleitung und alle Ergebnisse in Kürze auf einer Seite
   C.push({ head:'Zu Beginn', ov:1, blocks:[ introDark(m) + overviewDark(m) ] });
@@ -413,6 +500,35 @@ function chapters(m){
     C.push(k3);
   }
 
+  // Werte
+  if (m.werte) {
+    var kw = kap(6), bw = kw.blocks, w = m.werte, WT = T.werte, wn = Q.werte.texte, reg = Q.werte.regionen[w.reg];
+    bw.push(opener(kw.nr, kw.titel, esc(WT.intro)));
+    bw.push('<div class="two" style="grid-template-columns:92mm 1fr;gap:6mm;align-items:center"><div>' + werteKreis(w) + '</div><div><p class="lbl">' + WT.schwerpunkt + '</p><h2 style="margin:0 0 1mm;color:' + K.wtx + '">' + esc(reg.name) + '</h2>' +
+      (w.lvl ? '<p class="muted small" style="margin:0 0 2.4mm">' + WT.staerke[w.lvl] + '</p>' : '') + '<p style="font-size:10.4pt">' + esc(reg.text) + '</p><p class="muted small" style="margin:0">' + esc(WT.kreis) + '</p></div></div>');
+    bw.push('<p class="lbl" style="margin:4mm 0 2mm">' + WT.wichtigste + '</p>');
+    w.rk.slice(0, 3).forEach(function(f){ var lv = w.lv(f);
+      bw.push('<div class="card"><div class="card-top"><h2>' + esc(wn[f].name) + '</h2><div class="val"><span class="n">' + w.sc[f] + '</span><span class="pill">' + WLVL[lv] + '</span></div></div><p class="what">' + esc(wn[f].what) + '</p><p style="margin:0">' + esc(wn[f][lv]) + '</p></div>'); });
+    var lo = w.rk[w.rk.length - 1];
+    if (w.lv(lo) === 'low') bw.push('<div style="margin-top:1mm"><p class="lbl">' + WT.hinten + ' · ' + esc(wn[lo].name) + ' ' + w.sc[lo] + '</p><p style="margin:0">' + esc(wn[lo].low) + '</p></div>');
+    if (m.st) {
+      var topK = m.top.map(function(x){ return x.k; }), saetze = [];
+      w.rk.slice(0, 3).forEach(function(f){
+        if (saetze.length >= 2) return;
+        var hit = WT.passt[f].filter(function(k){ return topK.indexOf(k) >= 0; }).map(function(k){ return Q.staerken[k].name; });
+        if (!hit.length) return;
+        var liste = hit.length > 1 ? hit.slice(0, -1).join(', ') + ' und ' + hit[hit.length - 1] : hit[0];
+        saetze.push((saetze.length ? (hit.length > 1 ? WT.nochMehr : WT.nochEins) : (hit.length > 1 ? WT.passtMehr : WT.passtEins)).replace('{w}', wn[f].name).replace('{s}', liste).replace('{f}', WT.wofuer[f]));
+      });
+      if (!saetze.length) saetze.push(WT.passtKeins.replace(/\{w\}/g, wn[w.rk[0]].name).replace('{s}', Q.staerken[m.top[0].k].name));
+      bw.push('<p class="lbl" style="margin-top:5mm">' + WT.mitStaerken + '</p><p style="margin:0">' + esc(saetze.join(' ')) + '</p>');
+    }
+    bw.push({ keep:1, html:'<p class="muted small" style="margin:3mm 0 0">' + esc(WT.quelle) + '</p>' });
+    bw.push({ keep:1, html:ask(WT.frage) });
+    bw.push({ fill:'notes' }); // Das Kapitel reicht meist knapp auf eine zweite Seite: dort Platz zum Schreiben
+    C.push(kw);
+  }
+
   // Wohlbefinden und Stress
   if (m.wb || m.stress) {
     var k4 = kap(3), b4 = k4.blocks;
@@ -434,6 +550,18 @@ function chapters(m){
     b4.push({ keep:1, html:ask(T.jetzt.frage) });
     if (care) b4.push({ fill:'notes' }); // Mit Hinweis wird das Kapitel länger: Platz zum Schreiben statt einer halbleeren Seite
     C.push(k4);
+  }
+
+  // Chronotyp
+  if (m.chrono) {
+    var kc = kap(7), bc = kc.blocks, c = m.chrono, RT = T.rhythmus, ty = Q.chrono.typen[c.ti], jl = Q.chrono.jetlag[c.ji];
+    bc.push(opener(kc.nr, kc.titel, esc(RT.intro)));
+    bc.push('<div class="card-top" style="margin:1mm 0 2mm"><h2 style="color:' + K.lim + '">' + esc(ty.name) + '</h2><div class="val"><span class="n">' + c.E + '</span><span class="pill">Abendtendenz</span></div></div>' + tagKurve(c) +
+      '<p class="muted small center" style="margin:1mm 0 3mm">' + esc(RT.kurve) + '</p><p style="font-size:10.4pt">' + esc(ty.text) + '</p><p><b>' + esc(RT.hoch.replace('{a}', uhr(c.peak - 1.5)).replace('{b}', uhr(c.peak + 1.5))) + '.</b></p>');
+    bc.push('<div class="two" style="align-items:start;margin-top:3mm"><div><p class="lbl">' + RT.tag + '</p><p>' + esc(ty.day) + '</p></div><div><p class="lbl">' + RT.abend + '</p><p>' + esc(ty.eve) + '</p></div></div>');
+    bc.push('<div class="sep" style="margin:3mm 0 3mm"></div><p class="lbl">' + RT.jetlag + ' · ' + esc(jl.lvl) + (c.jh ? ' · etwa ' + c.jh + ' Std.' : '') + '</p><p style="margin:0">' + esc(jl.text) + '</p><p class="muted small" style="margin:2.4mm 0 0">' + esc(RT.quelle) + '</p>');
+    bc.push({ keep:1, html:ask(RT.frage) });
+    C.push(kc);
   }
 
   // Emotionen und Beziehungsstil
@@ -459,11 +587,11 @@ function chapters(m){
   var steps = [];
   if (m.top) steps.push({ k:'Deine stärkste Charakterstärke · ' + Q.staerken[m.top[0].k].name, h:'Etwas aus deiner Stärke machen', p:T.staerken.ideen[m.top[0].k], kurz: Q.staerken[m.top[0].k].name + ' leben' });
   if (m.schritt) steps.push({ k:'Wie es dir gerade geht', h:'Ein kleiner Schritt', p:m.schritt, kurz:'Kleiner Schritt' });
-  else { var fm = mu.gezeigt.filter(function(r){ return r.id.charAt(0) === 'M'; })[0]; // Grundmuster nicht, sie greifen die stärkste Stärke schon auf
+  else { var fm = mu.gezeigt.filter(function(r){ return r.id.charAt(0) !== 'G'; })[0]; // Grundmuster nicht, sie greifen die stärkste Stärke schon auf
     if (fm) steps.push({ k: fm === mu.gezeigt[0] ? 'Aus deinem ersten Muster' : 'Aus deinen Mustern', h:val(fm.titel, m), p:val(fm.uebung, m), kurz:val(fm.kurz, m) }); }
   var bl = 'gute';
   if ((m.emo && m.emo.W < 40) || mu.gezeigt.some(function(r){ return r.id === 'M4'; })) bl = 'emotion';
-  else if (m.wb && m.wb.V < 40) bl = 'schlaf';
+  else if ((m.wb && m.wb.V < 40) || (m.chrono && m.chrono.J >= 50)) bl = 'schlaf';
   else if (m.wb && (m.wb.F < 40 || m.wb.O < 40)) bl = 'gute';
   else if (m.P && (m.P.O > 60 || (m.P.facets && m.P.facets.O1 > 60))) bl = 'traum';
   var B = T.schritte.blaetter[bl];
@@ -480,7 +608,7 @@ function chapters(m){
   C.push({ head:'Zum Schluss', blocks:[
     '<p class="ey">Zum Schluss</p><h1>Eine Momentaufnahme</h1><p class="end">' + esc(T.schluss) + '</p>',
     '<div class="sep" style="margin:8mm 0 5mm"></div><p class="lbl">Eingeflossene Tests</p><div class="src">' + m.tests.map(function(k){ return '<span>' + esc(TESTS[k].name) + '</span><span>' + fmt(m.t[k].date) + '</span>'; }).join('') + '</div>',
-    '<div class="sep" style="margin:6mm 0 5mm"></div><p class="lbl">Hinweis</p>' + T.hinweis.map(function(p){ return '<p class="fine">' + esc(p) + '</p>'; }).join(''),
+    '<div class="sep" style="margin:6mm 0 5mm"></div><p class="lbl">Hinweis</p>' + hinweise(m).map(function(p){ return '<p class="fine">' + esc(p) + '</p>'; }).join(''),
     { pin:1, html:'<div style="margin-top:10mm;display:flex;align-items:center;gap:3mm;border-top:.25mm solid var(--line);padding-top:5mm"><img src="' + LOGO + '" style="height:9mm;filter:' + K.logo + '"><span class="wm" style="color:' + K.wm + ';font-size:11pt">ORD<i>I</i>NUM</span><span class="muted small" style="margin-left:auto">ordinum.de</span></div>' }
   ]});
   return C;
@@ -516,6 +644,12 @@ function notes(inner){
   inner.appendChild(wrap);
   if (over(inner)) inner.removeChild(wrap);
 }
+// Übersicht: Reicht der Platz nicht, entfallen zuerst die Fußzeilen der kleinen Kacheln, dann die der großen,
+// und zuletzt rücken die Kacheln enger zusammen (kleinere Netzgrafik und Musterzitat)
+function fit(inner){
+  for (var o = 1; o <= 3 && over(inner); o++) Array.prototype.forEach.call(inner.querySelectorAll('[data-opt="' + o + '"]'), function(e){ e.parentNode.removeChild(e); });
+  var b = inner.querySelector('.bento'); if (b && over(inner)) b.classList.add('eng');
+}
 function render(root){
   var m = model(D), foot = 'Individualisierter Bericht · ' + m.name + ' · ' + monat(m.date), warn = [], C = chapters(m);
   root.innerHTML = cover(m, C);
@@ -528,6 +662,7 @@ function render(root){
       if (b.brk && inner.children.length) inner = newPage(root, ch.head, foot, ch.ov);
       var wrap = document.createElement('div');
       wrap.innerHTML = b.html; inner.appendChild(wrap);
+      if (ch.ov) fit(inner);
       if (over(inner)) {
         var prev = wrap.previousElementSibling;
         // Eine Frage soll nicht allein auf einer Seite stehen: dann wandert der Block davor mit
