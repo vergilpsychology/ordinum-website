@@ -273,6 +273,14 @@ footer nav{display:flex;flex-wrap:wrap;gap:10px 20px}
 .empty p{color:var(--muted)}
 .linkbtn{background:none;border:0;padding:0;font:inherit;color:var(--muted);text-decoration:underline;cursor:pointer}
 .linkbtn:hover{color:var(--fg)}
+.older{border-top:1px solid var(--line);padding-top:12px;font-size:14px}
+.older summary{cursor:pointer;color:var(--muted)}
+.older summary:hover{color:var(--fg)}
+.orow{display:flex;gap:16px;align-items:center;margin-top:10px;flex-wrap:wrap}
+.orow span{min-width:11em}
+.offen{margin-top:28px;border:1px dashed var(--line);border-radius:20px;padding:clamp(18px,3.5vw,24px)}
+.offen .cta-row{margin-top:12px}
+.offen .btn{padding:8px 14px;font-size:14px}
 </style>
 <link rel="stylesheet" href="theme.css">
 <script>try{if(localStorage.getItem('ordinum-theme')==='light')document.documentElement.dataset.theme='light'}catch(e){}</script>
@@ -296,6 +304,11 @@ footer nav{display:flex;flex-wrap:wrap;gap:10px 20px}
     <h3 style="font-size:22px">Noch keine Ergebnisse auf diesem Gerät</h3>
     <p>Du hast einen persönlichen Link gespeichert? Öffne ihn einfach, dann siehst du dein Ergebnis wieder und kannst es hier ablegen.</p>
     <div class="cta-row"><a class="btn primary" href="persoenlichkeitstest.html">Persönlichkeitstest machen</a><a class="btn" href="persoenlichkeit-facetten.html">Persönlichkeit ausführlich</a><a class="btn" href="staerkentest.html">Charakterstärken-Test machen</a><a class="btn" href="wohlbefinden.html">Wohlbefinden-Test machen</a><a class="btn" href="stresstest.html">Stresstest machen</a><a class="btn" href="emotionen.html">Emotionstest machen</a><a class="btn" href="beziehungsstil.html">Beziehungsstil-Test machen</a><a class="btn" href="werte.html">Werte-Test machen</a><a class="btn" href="chronotyp.html">Chronotyp-Test machen</a></div>
+  </div>
+  <div class="offen" id="offen" hidden>
+    <p class="eyebrow">Noch offen</p>
+    <p>Du hast <span id="zahl"></span> gemacht. Diese fehlen noch:</p>
+    <div class="cta-row" id="offenlist"></div>
   </div>
   <p class="fine" id="clearrow" hidden><button class="linkbtn" id="clear" type="button">Alle Ergebnisse von diesem Gerät löschen</button></p>
 </main>
@@ -351,42 +364,70 @@ function loadHist(){ try{ var h = JSON.parse(localStorage.getItem(HIST)); if (Ar
 function saveHist(h){ try{ localStorage.setItem(HIST, JSON.stringify(h)); }catch(e){} }
 function fmtDate(s){ return new Date(+s.slice(0,4), +s.slice(4,6)-1, +s.slice(6,8)).toLocaleDateString('de-DE', {day:'numeric', month:'long', year:'numeric'}); }
 function encode(a){ var s = ''; for (var i = 0; i < a.length; i += 2) s += ABC[(a[i]-1)*5 + (a[i+1]-1)]; return s; }
-// Gespeicherten Testfortschritt mitlöschen, sonst trägt die Testseite das Ergebnis wieder ein
-function dropProgress(code){
+// Gespeicherten Testfortschritt mitlöschen, sonst trägt die Testseite das Ergebnis wieder ein (nur beim passenden Test)
+function dropProgress(code, test){
   Object.keys(TESTS).forEach(function(t){
+    if (test && t !== test) return;
     var key = TESTS[t].key;
     try{ var a = JSON.parse(localStorage.getItem(key)); if (Array.isArray(a) && a.indexOf(null) < 0 && (code == null || encode(a) === code)) localStorage.removeItem(key); }catch(e){}
   });
 }
+function remove(r){
+  if (!confirm('Dieses Ergebnis von diesem Gerät löschen?')) return;
+  saveHist(loadHist().filter(function(x){ return !(x.test === r.test && x.code === r.code); }));
+  dropProgress(r.code, r.test); render();
+}
+function card(r, T){
+  var el = document.createElement('article'); el.className = 'rcard';
+  el.innerHTML = '<div class="rhead"><div><p class="eyebrow"></p><h2></h2></div><div class="ract"><a class="btn primary">Ansehen</a><button class="btn" type="button">Löschen</button></div></div><div class="mbars"></div>';
+  el.querySelector('.eyebrow').textContent = T.name;
+  el.querySelector('h2').textContent = 'Ergebnis vom ' + fmtDate(r.date);
+  el.querySelector('a').href = T.page + '#r=' + r.code + '-' + r.date;
+  if (T.note) { var nt = document.createElement('p'); nt.className = 'rnote'; nt.textContent = T.note(r.scores); el.querySelector('h2').after(nt); }
+  el.querySelector('button').addEventListener('click', function(){ remove(r); });
+  var bars = el.querySelector('.mbars');
+  var keys = T.order;
+  if (T.top) keys = keys.slice().sort(function(a, b){ return r.scores[b] - r.scores[a] || T.order.indexOf(a) - T.order.indexOf(b); }).slice(0, T.top);
+  keys.forEach(function(f){
+    var row = document.createElement('div'); row.className = 'mbar';
+    row.innerHTML = '<span class="n"></span><span class="track"><span class="fill"></span></span><span class="v"></span>';
+    row.querySelector('.n').textContent = T.names[f];
+    row.querySelector('.fill').style.width = r.scores[f] + '%';
+    row.querySelector('.v').textContent = r.scores[f];
+    bars.appendChild(row);
+  });
+  return el;
+}
+// Je Test eine Karte mit dem neuesten Ergebnis, frühere Ergebnisse aufklappbar darunter; zuletzt bearbeitete Tests zuerst
 function render(){
   var h = loadHist(), list = $('list'); list.innerHTML = '';
-  $('empty').hidden = h.length > 0; $('clearrow').hidden = h.length === 0;
-  h.forEach(function(r){
-    var T = TESTS[r.test]; if (!T) return;
-    var el = document.createElement('article'); el.className = 'rcard';
-    el.innerHTML = '<div class="rhead"><div><p class="eyebrow"></p><h2></h2></div><div class="ract"><a class="btn primary">Ansehen</a><button class="btn" type="button">Löschen</button></div></div><div class="mbars"></div>';
-    el.querySelector('.eyebrow').textContent = T.name;
-    el.querySelector('h2').textContent = 'Ergebnis vom ' + fmtDate(r.date);
-    el.querySelector('a').href = T.page + '#r=' + r.code + '-' + r.date;
-    if (T.note) { var nt = document.createElement('p'); nt.className = 'rnote'; nt.textContent = T.note(r.scores); el.querySelector('h2').after(nt); }
-    el.querySelector('button').addEventListener('click', function(){
-      if (!confirm('Dieses Ergebnis von diesem Gerät löschen?')) return;
-      saveHist(loadHist().filter(function(x){ return x.code !== r.code; }));
-      dropProgress(r.code); render();
-    });
-    var bars = el.querySelector('.mbars');
-    var keys = T.order;
-    if (T.top) keys = keys.slice().sort(function(a, b){ return r.scores[b] - r.scores[a] || T.order.indexOf(a) - T.order.indexOf(b); }).slice(0, T.top);
-    keys.forEach(function(f){
-      var row = document.createElement('div'); row.className = 'mbar';
-      row.innerHTML = '<span class="n"></span><span class="track"><span class="fill"></span></span><span class="v"></span>';
-      row.querySelector('.n').textContent = T.names[f];
-      row.querySelector('.fill').style.width = r.scores[f] + '%';
-      row.querySelector('.v').textContent = r.scores[f];
-      bars.appendChild(row);
-    });
+  var groups = {}, order = [];
+  h.forEach(function(r){ if (!TESTS[r.test]) return; if (!groups[r.test]) { groups[r.test] = []; order.push(r.test); } groups[r.test].push(r); });
+  $('empty').hidden = order.length > 0; $('clearrow').hidden = order.length === 0;
+  order.forEach(function(t){
+    var T = TESTS[t], rs = groups[t].slice().sort(function(a, b){ return a.date < b.date ? 1 : a.date > b.date ? -1 : 0; });
+    var el = card(rs[0], T);
+    if (rs.length > 1) {
+      var d = document.createElement('details'); d.className = 'older';
+      d.innerHTML = '<summary></summary>';
+      d.querySelector('summary').textContent = rs.length === 2 ? 'Ein früheres Ergebnis' : (rs.length - 1) + ' frühere Ergebnisse';
+      rs.slice(1).forEach(function(r){
+        var row = document.createElement('div'); row.className = 'orow';
+        row.innerHTML = '<span></span><a class="linkbtn">Ansehen</a><button class="linkbtn" type="button">Löschen</button>';
+        row.querySelector('span').textContent = fmtDate(r.date);
+        row.querySelector('a').href = T.page + '#r=' + r.code + '-' + r.date;
+        row.querySelector('button').addEventListener('click', function(){ remove(r); });
+        d.appendChild(row);
+      });
+      el.appendChild(d);
+    }
     list.appendChild(el);
   });
+  var offen = Object.keys(TESTS).filter(function(t){ return !groups[t]; }), o = $('offen');
+  o.hidden = !order.length || !offen.length;
+  $('offenlist').innerHTML = '';
+  offen.forEach(function(t){ var a = document.createElement('a'); a.className = 'btn'; a.href = TESTS[t].page; a.textContent = TESTS[t].name.split(' · ')[0]; $('offenlist').appendChild(a); });
+  $('zahl').textContent = order.length + ' von ' + Object.keys(TESTS).length + ' Tests';
 }
 $('clear').addEventListener('click', function(){
   if (!confirm('Wirklich alle Ergebnisse von diesem Gerät löschen? Persönliche Links, die du gespeichert hast, funktionieren weiterhin.')) return;

@@ -419,6 +419,9 @@ function chapters(m){
     b4.push(opener(k4.nr, k4.titel, esc(T.jetzt.intro)));
     var rings = '<div class="rings">' + (m.wb ? ring(m.wb.ov, TESTS.wohlbefinden.f, 'Wohlbefinden') : '') + (m.stress ? ring(m.stress.ov, TESTS.stress.f, 'Belastbarkeit') : '') + '</div>';
     b4.push(rings + (m.wb && m.stress ? '<p class="center" style="max-width:140mm;margin:0 auto 2mm;font-size:10.4pt">' + esc(T.jetzt.gesamt[band(m.wb.ov)][band(m.stress.ov)]) + '</p>' : ''));
+    // Der Hinweis steht direkt unter der Gesamteinschätzung, damit er nicht allein auf einer Folgeseite landet
+    var care = (m.wb && (m.wb.M < 40 || m.wb.ov < 35)) || (m.stress && (m.stress.U > 70 || m.stress.ov < 30));
+    if (care) b4.push('<div class="care" style="margin-top:3mm"><p class="lbl" style="color:' + K.care + '">Gut auf dich achten</p><p style="margin:0">' + esc(T.jetzt.hilfe) + '</p></div>');
     if (m.wb && m.stress) b4.push('<div class="sep" style="margin:4mm 0 3mm"></div><p class="lbl center">Belastung und Kraftquellen</p>' + balance(waageListen(m)));
     var cand = []; if (m.wb) ['F','M','O','S','V'].forEach(function(k){ cand.push({ k:k, n:WBN[k], v:m.wb[k] }); }); if (m.stress) cand.push({ k:'SW', n:'Selbstwirksamkeit', v:m.stress.S });
     var best = cand.filter(function(x){ return x.v >= 40; }).sort(function(a, b){ return b.v - a.v; });
@@ -428,9 +431,8 @@ function chapters(m){
     flags.sort(function(a, b){ return b.d - a.d; });
     m.schritt = flags.length ? T.jetzt.schritte[flags[0].k] : null;
     b4.push('<div class="two" style="align-items:start;margin-top:4mm"><div><p class="lbl">Was dich gerade stärkt</p><p>' + esc(staerkt) + '</p></div><div><p class="lbl">Ein kleiner Schritt</p><p>' + esc(m.schritt || T.jetzt.keinSchritt) + '</p></div></div>');
-    var care = (m.wb && (m.wb.M < 40 || m.wb.ov < 35)) || (m.stress && (m.stress.U > 70 || m.stress.ov < 30));
-    if (care) b4.push('<div class="care"><p class="lbl" style="color:' + K.care + '">Gut auf dich achten</p><p style="margin:0">' + esc(T.jetzt.hilfe) + '</p></div>');
     b4.push({ keep:1, html:ask(T.jetzt.frage) });
+    if (care) b4.push({ fill:'notes' }); // Mit Hinweis wird das Kapitel länger: Platz zum Schreiben statt einer halbleeren Seite
     C.push(k4);
   }
 

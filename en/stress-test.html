@@ -356,9 +356,11 @@ function parseHash(){ var m = /^#r=([a-y]{12})(?:-(\d{8}))?$/.exec(location.hash
 function today(){ var d = new Date(); return '' + d.getFullYear() + String(d.getMonth()+1).padStart(2,'0') + String(d.getDate()).padStart(2,'0'); }
 function fmtDate(s){ return new Date(+s.slice(0,4), +s.slice(4,6)-1, +s.slice(6,8)).toLocaleDateString('en-GB', {day:'numeric', month:'long', year:'numeric'}); }
 function loadHist(){ try{ var h = JSON.parse(localStorage.getItem(HIST)); if (Array.isArray(h)) return h; }catch(e){} return []; }
-function saveHist(h){ try{ localStorage.setItem(HIST, JSON.stringify(h.slice(0,50))); }catch(e){} }
-function findHist(code){ return loadHist().filter(function(r){ return r.code === code; })[0] || null; }
-function addHist(code, date){ var h = loadHist(); if (h.some(function(r){ return r.code === code; })) return; h.unshift({test:'stress', date:date, code:code, scores:scores(decode(code))}); saveHist(h); }
+// Höchstens zehn Ergebnisse je Test behalten, damit ältere Tests nicht aus dem Verlauf fallen
+function saveHist(h){ var n = {}; h = h.filter(function(r){ n[r.test] = (n[r.test] || 0) + 1; return n[r.test] <= 10; }); try{ localStorage.setItem(HIST, JSON.stringify(h)); }catch(e){} }
+// Ein Ergebnis gehört zu diesem Test, wenn Test und Code passen: Codes anderer Tests können gleich aussehen
+function findHist(code){ return loadHist().filter(function(r){ return r.test === 'stress' && r.code === code; })[0] || null; }
+function addHist(code, date){ var h = loadHist(); if (h.some(function(r){ return r.test === 'stress' && r.code === code; })) return; h.unshift({test:'stress', date:date, code:code, scores:scores(decode(code))}); saveHist(h); }
 function scores(a){
   var sums = {}, n = {}, out = {};
   ITEMS.forEach(function(it, i){
