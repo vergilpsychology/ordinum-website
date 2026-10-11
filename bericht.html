@@ -88,6 +88,10 @@ footer nav{display:flex;flex-wrap:wrap;gap:10px 20px}
 .hint{font-size:14px;color:var(--muted)}
 .banner{border:1px dashed var(--violet-soft);border-radius:16px;padding:14px 18px;font-size:15px;color:var(--muted)}
 .banner b{color:var(--fg);font-weight:600}
+.banner{display:grid;gap:8px}
+.bwahl{display:flex;flex-wrap:wrap;gap:6px 14px;font-family:var(--mono);font-size:13px}
+.bwahl a{color:var(--muted)}
+.bwahl a[aria-current]{color:var(--fg);text-decoration:none;font-weight:500}
 
 /* A4-Seiten auf dem Bildschirm */
 .rwrap{max-width:900px;margin:0 auto;padding-inline:16px}
@@ -134,7 +138,7 @@ footer nav{display:flex;flex-wrap:wrap;gap:10px 20px}
     <h1>Dein <span class="grad">Bericht</span></h1>
     <p id="introtext">Der Bericht verbindet deine Testergebnisse zu einem Bild mit Mustern, Energiequellen und Impulsen für deinen Alltag. Er entsteht hier in deinem Browser aus den Ergebnissen, die auf diesem Gerät gespeichert sind. Deine Antworten verlassen dein Gerät nicht.</p>
   </section>
-  <div class="banner" id="beispiel" hidden><b>Beispielbericht für Mara.</b> So sieht ein vollständiger Bericht aus sechs Tests aus. <a href="bericht.html">Zu deinem eigenen Bericht</a></div>
+  <div class="banner" id="beispiel" hidden><p><b id="bname"></b> <span id="binfo"></span> <a href="bericht.html">Zu deinem eigenen Bericht</a></p><p class="bwahl" id="bwahl"></p></div>
   <section class="panel" id="status">
     <h2>Deine Tests auf diesem Gerät</h2>
     <ul class="tlist" id="tlist"></ul>
@@ -192,6 +196,10 @@ var LISTE = [
   { k:'beziehung', name:'Beziehungsstil', page:'beziehungsstil.html' }
 ];
 var params = new URLSearchParams(location.search), BEISPIEL = params.has('beispiel');
+// Beispielprofile: bericht.html?beispiel (Mara) oder bericht.html?beispiel=jonas usw.
+var ALLE = window.BERICHT_BEISPIELE || { mara:window.BERICHT_BEISPIEL }, BKEY = (params.get('beispiel') || 'mara').toLowerCase();
+if (!ALLE[BKEY]) BKEY = 'mara';
+var BSP = ALLE[BKEY];
 function $(id){ return document.getElementById(id); }
 function get(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
 function set(k, v){ try{ localStorage.setItem(k, v); }catch(e){} }
@@ -235,7 +243,7 @@ function sha256(s){
 function norm(c){ return String(c || '').toUpperCase().replace(/[^A-Z0-9]/g, ''); }
 function gueltig(c){ c = norm(c); return c.length === 12 && (window.BERICHT_CODES || []).indexOf(sha256('ordinum-bericht:' + c)) >= 0; }
 
-var tests = BEISPIEL ? window.BERICHT_BEISPIEL.tests : sammeln();
+var tests = BEISPIEL ? BSP.tests : sammeln();
 var frei = BEISPIEL || gueltig(get(KCODE));
 var dunkel = get(KVAR) ? get(KVAR) === 'dunkel' : document.documentElement.dataset.theme !== 'light';
 var seiten = 0, laeuft = null;
@@ -246,7 +254,13 @@ $('tlist').innerHTML = LISTE.map(function(x){
   return r ? '<li class="ok">' + esc(x.name) + ' <span>' + fmtDate(r.date) + '</span></li>'
            : '<li>' + (BEISPIEL ? esc(x.name) + ' <span>nicht dabei</span>' : '<a href="' + x.page + '">' + esc(x.name) + '</a> <span>noch offen</span>') + '</li>';
 }).join('');
-if (BEISPIEL) { $('beispiel').hidden = false; $('status').hidden = true; $('namefield').hidden = true; $('introtext').hidden = true; }
+if (BEISPIEL) {
+  $('beispiel').hidden = false; $('namefield').hidden = true; $('introtext').hidden = true;
+  $('status').querySelector('h2').textContent = 'Tests in diesem Beispiel';
+  $('bname').textContent = 'Beispielbericht für ' + BSP.name + '.';
+  $('binfo').textContent = BSP.info || '';
+  $('bwahl').innerHTML = 'Weitere Beispiele: ' + Object.keys(ALLE).map(function(k){ return '<a href="bericht.html?beispiel=' + k + '"' + (k === BKEY ? ' aria-current="page"' : '') + '>' + esc(ALLE[k].name) + '</a>'; }).join('');
+}
 if (!reicht(tests)) { $('need').hidden = false; return; }
 if (Object.keys(tests).length < LISTE.length - 1) $('more').hidden = false;
 $('opts').hidden = false; $('rwrap').hidden = false;
@@ -259,8 +273,8 @@ function anpassen(){
   box.style.height = Math.ceil(rep.offsetHeight * s) + 'px';
 }
 function zeichnen(){
-  var name = BEISPIEL ? window.BERICHT_BEISPIEL.name : ($('name').value.trim() || 'Dein Bericht');
-  var daten = { name:name, date:BEISPIEL ? window.BERICHT_BEISPIEL.date : heute(), tests:tests };
+  var name = BEISPIEL ? BSP.name : ($('name').value.trim() || 'Dein Bericht');
+  var daten = { name:name, date:BEISPIEL ? BSP.date : heute(), tests:tests };
   $('v-hell').setAttribute('aria-pressed', !dunkel); $('v-dunkel').setAttribute('aria-pressed', dunkel);
   var mein = laeuft = window.OrdinumBericht.render(daten, { root:$('report'), dunkel:dunkel, seiten:frei ? 0 : VORSCHAU }).then(function(info){
     if (mein !== laeuft) return;
@@ -282,7 +296,7 @@ $('codeform').addEventListener('submit', function(ev){
 });
 $('pdf').onclick = function(){
   var t = document.title;
-  document.title = 'Ordinum-Bericht ' + (BEISPIEL ? 'Beispiel' : ($('name').value.trim() || '')) + (dunkel ? ' dunkel' : ' hell');
+  document.title = 'Ordinum-Bericht ' + (BEISPIEL ? 'Beispiel ' + BSP.name : ($('name').value.trim() || '')) + (dunkel ? ' dunkel' : ' hell');
   window.print();
   setTimeout(function(){ document.title = t; }, 1000);
 };
