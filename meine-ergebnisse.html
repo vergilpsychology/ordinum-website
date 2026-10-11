@@ -295,7 +295,7 @@ footer nav{display:flex;flex-wrap:wrap;gap:10px 20px}
   <div class="empty" id="empty" hidden>
     <h3 style="font-size:22px">Noch keine Ergebnisse auf diesem Gerät</h3>
     <p>Du hast einen persönlichen Link gespeichert? Öffne ihn einfach, dann siehst du dein Ergebnis wieder und kannst es hier ablegen.</p>
-    <div class="cta-row"><a class="btn primary" href="persoenlichkeitstest.html">Persönlichkeitstest machen</a><a class="btn" href="persoenlichkeit-facetten.html">Persönlichkeit ausführlich</a><a class="btn" href="staerkentest.html">Charakterstärken-Test machen</a><a class="btn" href="wohlbefinden.html">Wohlbefinden-Test machen</a><a class="btn" href="stresstest.html">Stresstest machen</a><a class="btn" href="emotionen.html">Emotionstest machen</a><a class="btn" href="beziehungsstil.html">Beziehungsstil-Test machen</a></div>
+    <div class="cta-row"><a class="btn primary" href="persoenlichkeitstest.html">Persönlichkeitstest machen</a><a class="btn" href="persoenlichkeit-facetten.html">Persönlichkeit ausführlich</a><a class="btn" href="staerkentest.html">Charakterstärken-Test machen</a><a class="btn" href="wohlbefinden.html">Wohlbefinden-Test machen</a><a class="btn" href="stresstest.html">Stresstest machen</a><a class="btn" href="emotionen.html">Emotionstest machen</a><a class="btn" href="beziehungsstil.html">Beziehungsstil-Test machen</a><a class="btn" href="werte.html">Werte-Test machen</a></div>
   </div>
   <p class="fine" id="clearrow" hidden><button class="linkbtn" id="clear" type="button">Alle Ergebnisse von diesem Gerät löschen</button></p>
 </main>
@@ -326,6 +326,17 @@ var TESTS = {big5: {name: 'Persönlichkeitstest · Big Five', page: 'persoenlich
     if (Math.sqrt(x*x + y*y) / 2 < 12) return 'Schwerpunkt: ausgewogen';
     var a = (Math.round(Math.atan2(y, x) * 180 / Math.PI / 45) * 45 + 360) % 360;
     return 'Schwerpunkt: ' + this.names[k.filter(function(f){ return ang[f] === a; })[0]];
+  }},
+  // note: Schwerpunkt im Wertekreis (gleiche Rechnung wie auf der Testseite), dazu die drei wichtigsten Werte
+  werte: {name: 'Werte', page: 'werte.html', key: 'ordinum-werte', top: 3, order: ['ST','SD','UN','BE','TR','CO','SE','PO','AC','HE'],
+  names: {ST:'Abwechslung', SD:'Freiheit', UN:'Verbundenheit', BE:'Fürsorge', TR:'Tradition', CO:'Rücksicht', SE:'Sicherheit', PO:'Einfluss', AC:'Leistung', HE:'Genuss'},
+  note: function(sc){
+    var ang = {UN:18, SD:54, ST:90, HE:126, AC:162, PO:198, SE:234, CO:270, TR:306, BE:342}, k = Object.keys(ang), m = 0, x = 0, y = 0;
+    k.forEach(function(f){ m += sc[f] / 10; });
+    k.forEach(function(f){ var t = ang[f] * Math.PI / 180; x += (sc[f] - m) * Math.cos(t); y += (sc[f] - m) * Math.sin(t); });
+    if (Math.sqrt(x*x + y*y) / 2.5 < 12) return 'Schwerpunkt: ausgewogen';
+    var a = (Math.atan2(y, x) * 180 / Math.PI + 360) % 360;
+    return 'Schwerpunkt: ' + (a >= 315 || a < 45 ? 'Über dich hinaus' : a < 135 ? 'Offen für Neues' : a < 225 ? 'Eigene Ziele' : 'Beständigkeit');
   }},
   neo120: {name: 'Persönlichkeit ausführlich · 30 Facetten', page: 'persoenlichkeit-facetten.html', key: 'ordinum-neo120', order: ['O','C','E','A','N'],
   names: {O:'Offenheit', C:'Gewissenhaftigkeit', E:'Extraversion', A:'Verträglichkeit', N:'Neurotizismus'}},
