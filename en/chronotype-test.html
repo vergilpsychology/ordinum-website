@@ -1,0 +1,561 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chronotype test · Ordinum</title>
+<meta name="description" content="Free chronotype test: 12 questions, about 3 minutes, your instant type between morning and evening person, your daily peak and your social jet lag.">
+<meta name="theme-color" content="#0a0d0c">
+<link rel="canonical" href="https://ordinum.de/en/chronotype-test.html">
+<link rel="alternate" hreflang="de" href="https://ordinum.de/chronotyp.html">
+<link rel="alternate" hreflang="en" href="https://ordinum.de/en/chronotype-test.html">
+<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="stylesheet" href="../fonts.css">
+<style>
+/* Layout: dark, quiet canvas; a slow liquid of green and violet pours behind the hero; content in a 1120px column with hairline structure. */
+:root{
+  --bg:#0a0d0c;
+  --surface:#111513;
+  --line:#1f2724;
+  --fg:#e7ece9;
+  --muted:#8e9a95;
+  --green:#c4de76;
+  --green-soft:#7d9440;
+  --green-l:#5a7417;
+  --green-soft-l:#d3e6a0;
+  --violet:#b9a3f2;
+  --violet-soft:#7c69b4;
+  --glow:rgba(160,180,220,.10);
+  --display:"Unbounded", "Segoe UI", system-ui, sans-serif;
+  --body:"Hanken Grotesk", "Segoe UI", system-ui, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:clamp(16px,4vw,40px)}
+h1,h2,h3{font-family:var(--display);font-weight:300;letter-spacing:-.02em;text-wrap:balance;margin:0}
+p{margin:0}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--green)}
+.eyebrow.v{color:var(--violet)}
+.muted{color:var(--muted)}
+.grad{background:linear-gradient(100deg,var(--green) 10%,var(--violet) 90%);-webkit-background-clip:text;background-clip:text;color:transparent}
+:focus-visible{outline:2px solid var(--violet);outline-offset:3px;border-radius:6px}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:rgba(10,13,12,.74);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-block:12px}
+.logo{display:flex;align-items:center;text-decoration:none}
+.logo svg{flex:none;width:auto;height:42px;display:block}
+.nav ul{display:flex;gap:28px;list-style:none;margin:0;padding:0;font-size:15px}
+.nav ul a{text-decoration:none;color:var(--muted);transition:color .2s}
+.nav ul a:hover{color:var(--fg)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:999px;font:500 15px var(--body);text-decoration:none;border:1px solid var(--line);background:transparent;color:var(--fg);cursor:pointer;transition:border-color .2s,background .2s,box-shadow .3s}
+.btn:hover{border-color:var(--violet-soft)}
+.btn.primary{background:linear-gradient(100deg,var(--green),#9fb2f6 55%,var(--violet));color:#0b0f14;border-color:transparent}
+.btn.primary:hover{box-shadow:0 0 28px rgba(185,163,242,.35)}
+.nav .btn{padding:9px 16px;font-size:14px;white-space:nowrap}
+@media (max-width:820px){.nav ul{display:none}}
+@media (max-width:440px){.logo svg{height:34px}.nav .btn{padding:8px 12px;font-size:13px}}
+
+/* hero */
+.hero{position:relative;overflow:hidden}
+#liquid{position:absolute;inset:-10%;width:120%;height:120%;filter:blur(46px) saturate(1.15);opacity:.85}
+#lines{position:absolute;inset:0;width:100%;height:100%}
+#liquid,#lines{-webkit-mask-image:linear-gradient(to bottom,#000 55%,rgba(0,0,0,.35) 88%,rgba(0,0,0,.25));mask-image:linear-gradient(to bottom,#000 55%,rgba(0,0,0,.35) 88%,rgba(0,0,0,.25))}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 25% 45%,rgba(10,13,12,.55) 0,rgba(10,13,12,.2) 45%,transparent 70%);pointer-events:none}
+.hero .wrap{position:relative;z-index:1;padding-block:clamp(80px,13vw,150px) clamp(64px,9vw,104px);display:grid;gap:28px}
+.hero h1{font-size:clamp(38px,6.6vw,80px);line-height:1.04;max-width:13ch}
+.hero .lead{font-size:clamp(17px,2vw,20px);color:#b7c2bd;max-width:54ch}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px}
+.facts{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:12px;font-family:var(--mono);font-size:13px;color:var(--muted)}
+.facts span::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--violet);margin-right:10px;vertical-align:middle;box-shadow:0 0 10px var(--violet)}
+.facts span:nth-child(odd)::before{background:var(--green);box-shadow:0 0 10px var(--green)}
+.pour{display:block;width:100%;height:auto;margin-top:-1px}
+
+section{padding-block:clamp(64px,9vw,112px);border-bottom:1px solid var(--line)}
+.head{display:grid;gap:16px;margin-bottom:48px;max-width:720px}
+.head h2{font-size:clamp(28px,3.8vw,44px);line-height:1.12}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line)}
+.stepc{padding:32px 28px 8px 0;display:grid;gap:12px;align-content:start;min-width:0}
+.stepc + .stepc{padding-left:28px;border-left:1px solid var(--line)}
+.stepc .n{font-family:var(--mono);font-size:12px;color:var(--violet)}
+.stepc h3{font-size:22px}
+.stepc p{color:var(--muted);font-size:16px}
+@media (max-width:820px){.steps{grid-template-columns:1fr}.stepc,.stepc + .stepc{padding:28px 0;border-left:0;border-bottom:1px solid var(--line)}}
+
+/* test library */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.chip{font:500 14px var(--body);padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer}
+.chip[aria-pressed="true"]{color:var(--fg);border-color:var(--violet-soft);background:rgba(185,163,242,.08)}
+.tests{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.test{position:relative;border:1px solid var(--line);border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:10px;background:var(--surface);min-width:0;overflow:hidden;transition:border-color .25s,transform .25s}
+.test:hover{border-color:var(--violet-soft);transform:translateY(-2px)}
+.test::before{content:"";position:absolute;width:160px;height:160px;right:-60px;top:-70px;border-radius:50%;background:radial-gradient(circle,var(--c,rgba(126,168,248,.22)),transparent 70%);pointer-events:none}
+.test .meta{display:flex;justify-content:space-between;gap:8px;font-family:var(--mono);font-size:12px;color:var(--muted)}
+.test h3{font-family:var(--body);font-weight:600;font-size:19px;letter-spacing:0}
+.test p{color:var(--muted);font-size:15px;flex:1}
+.test .basis{font-family:var(--mono);font-size:11px;color:var(--muted);border-top:1px solid var(--line);padding-top:10px}
+.badge{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid var(--line)}
+.badge.free{color:var(--green);border-color:var(--green-soft)}
+.badge.new{color:var(--violet);border-color:var(--violet-soft)}
+
+/* mini test */
+.mini{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,64px);align-items:start}
+.mini > *{min-width:0}
+@media (max-width:860px){.mini{grid-template-columns:1fr}}
+.q{display:grid;gap:10px;padding:18px 0;border-top:1px solid var(--line)}
+.q p{font-size:17px}
+.scale{display:flex;gap:8px;flex-wrap:wrap}
+.scale button{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--muted);font:500 15px var(--mono);cursor:pointer;transition:all .2s}
+.scale button[aria-pressed="true"]{background:var(--violet);color:#0b0f14;border-color:var(--violet)}
+.scale-l{display:flex;justify-content:space-between;max-width:260px;font-size:12px;color:var(--muted);font-family:var(--mono)}
+.result{border:1px solid var(--line);border-radius:20px;padding:28px;background:linear-gradient(160deg,rgba(126,168,248,.07),rgba(185,163,242,.09)),var(--surface);display:grid;gap:14px}
+.result .score{font-family:var(--display);font-weight:300;font-size:52px;line-height:1;font-variant-numeric:tabular-nums}
+.result .score small{font-size:16px;color:var(--muted)}
+.meter{height:8px;border-radius:8px;background:var(--line);overflow:hidden}
+.meter span{display:block;height:100%;width:0;border-radius:8px;background:linear-gradient(90deg,var(--green),var(--violet));transition:width .6s ease}
+.result p{color:var(--muted)}
+.note{font-family:var(--mono);font-size:12px;color:var(--muted)}
+
+/* report preview */
+.report{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:22px;overflow:hidden}
+.report::before{content:"";position:absolute;inset:-40% -20% auto auto;width:520px;height:520px;background:radial-gradient(circle at 40% 40%,rgba(185,163,242,.18),transparent 60%),radial-gradient(circle at 70% 70%,rgba(126,168,248,.14),transparent 60%);filter:blur(10px);pointer-events:none}
+.report-top{position:relative;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:18px 26px;border-bottom:1px solid var(--line)}
+.report-top .t{font-family:var(--display);font-size:16px;font-weight:400}
+.tag{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.report-body{position:relative;display:grid;grid-template-columns:1fr 1.15fr}
+.report-body > div{padding:26px;min-width:0}
+.report-body > div + div{border-left:1px solid var(--line)}
+@media (max-width:820px){.report-body{grid-template-columns:1fr}.report-body > div + div{border-left:0;border-top:1px solid var(--line)}}
+.label{font-family:var(--mono);font-size:12px;color:var(--muted);margin-bottom:16px}
+.bars{display:grid;gap:14px}
+.bar{display:grid;grid-template-columns:10em 1fr 2.4em;gap:12px;align-items:center;font-size:15px}
+.bar .track{height:6px;border-radius:6px;background:var(--line);overflow:hidden}
+.bar .fill{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--green),var(--violet))}
+.bar .v{font-family:var(--mono);font-size:13px;color:var(--muted);text-align:right;font-variant-numeric:tabular-nums}
+@media (max-width:420px){.bar{grid-template-columns:8em 1fr 2.2em;font-size:14px}}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.chips span{font-size:13px;padding:6px 12px;border-radius:999px;border:1px solid var(--line);color:var(--fg)}
+.chips span:nth-child(odd){border-color:var(--green-soft)}
+.chips span:nth-child(even){border-color:var(--violet-soft)}
+.excerpt{display:grid;gap:18px}
+.excerpt h3{font-size:22px;line-height:1.25}
+.excerpt p{color:#bcc6c1}
+.excerpt blockquote{margin:0;padding:16px 18px;border-radius:14px;background:rgba(185,163,242,.07);border:1px solid rgba(185,163,242,.2);font-size:15px;color:var(--fg)}
+.excerpt blockquote b{display:block;font-family:var(--mono);font-weight:400;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--violet);margin-bottom:6px}
+.toc{display:flex;flex-wrap:wrap;gap:6px 18px;font-family:var(--mono);font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:16px}
+
+/* pricing */
+.packs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media (max-width:900px){.packs{grid-template-columns:1fr}}
+.pack{border:1px solid var(--line);border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:16px;background:var(--bg);min-width:0}
+.pack.feature{background:linear-gradient(170deg,rgba(185,163,242,.12),rgba(126,168,248,.05) 55%,transparent),var(--surface);border-color:var(--violet-soft)}
+.pack h3{font-size:22px;font-weight:400}
+.pack .price{font-family:var(--display);font-weight:300;font-size:30px;font-variant-numeric:tabular-nums}
+.pack .price small{font-family:var(--body);font-size:14px;color:var(--muted);margin-left:4px}
+.pack ul{list-style:none;margin:0;padding:0;display:grid;gap:10px;font-size:15px;color:var(--muted);flex:1}
+.pack li{display:flex;gap:10px}
+.pack li::before{content:"";flex:none;width:14px;height:14px;margin-top:5px;border-radius:50%;border:1px solid var(--violet-soft);background:radial-gradient(circle,var(--green) 0 2.5px,transparent 3px)}
+
+/* flow / wissen */
+.split{display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(32px,6vw,80px);align-items:center}
+.split > *{min-width:0}
+@media (max-width:860px){.split{grid-template-columns:1fr}}
+.flowcard{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:24px;margin:0}
+.flowcard svg{width:100%;height:auto;display:block}
+.flowcard figcaption{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:12px}
+.prose{display:grid;gap:18px;max-width:56ch}
+.prose p{color:var(--muted)}
+.articles{display:grid;gap:0;margin-top:6px}
+.articles a{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-top:1px solid var(--line);text-decoration:none;transition:color .2s}
+.articles a:hover{color:var(--violet)}
+.articles span:last-child{font-family:var(--mono);font-size:12px;color:var(--muted);white-space:nowrap}
+
+/* trust */
+.trust{display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid var(--line)}
+.trust > div{padding:28px 28px 28px 0;border-bottom:1px solid var(--line);display:grid;gap:8px;min-width:0}
+.trust > div:nth-child(even){padding-left:28px;border-left:1px solid var(--line)}
+.trust h3{font-family:var(--body);font-weight:600;font-size:18px;letter-spacing:0}
+.trust p{color:var(--muted);font-size:15px}
+@media (max-width:760px){.trust{grid-template-columns:1fr}.trust > div,.trust > div:nth-child(even){padding:24px 0;border-left:0}}
+
+/* newsletter */
+.news{display:flex;justify-content:space-between;align-items:center;gap:28px;flex-wrap:wrap}
+.news h2{font-size:clamp(24px,3vw,34px);max-width:20ch}
+.news p{color:var(--muted);max-width:48ch;margin-top:12px}
+form{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+input{font:inherit;font-size:16px;color:var(--fg);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:12px 18px;min-width:0;width:min(320px,100%)}
+input:focus{outline:none;border-color:var(--violet-soft);box-shadow:0 0 0 3px rgba(185,163,242,.15)}
+.done{font-family:var(--mono);font-size:13px;color:var(--green);flex-basis:100%}
+
+footer{padding-block:40px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:14px;color:var(--muted)}
+footer nav{display:flex;flex-wrap:wrap;gap:10px 20px}
+
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+.soon{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--violet);border:1px solid var(--violet-soft);border-radius:999px;padding:6px 14px;width:max-content;max-width:100%}
+.soon::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--violet);box-shadow:0 0 10px var(--violet)}
+
+.test-wrap{max-width:760px;margin:0 auto;padding-inline:clamp(16px,4vw,40px);padding-block:clamp(48px,8vw,96px)}
+.intro{display:grid;gap:18px}
+.intro h1{font-size:clamp(32px,5vw,52px);line-height:1.08}
+.intro p{color:var(--muted)}
+.meta-row{display:flex;flex-wrap:wrap;gap:10px 24px;font-family:var(--mono);font-size:13px;color:var(--muted)}
+.progress{height:4px;border-radius:4px;background:var(--line);overflow:hidden;margin-bottom:12px}
+.progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--violet));transition:width .3s ease}
+.pcount{font-family:var(--mono);font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:12px}
+.qcard{margin-top:28px;border:1px solid var(--line);border-radius:22px;padding:clamp(24px,5vw,40px);background:linear-gradient(160deg,rgba(126,168,248,.05),rgba(185,163,242,.07)),var(--surface);display:grid;gap:28px}
+.qtext{font-family:var(--display);font-weight:300;font-size:clamp(22px,3.4vw,30px);line-height:1.25;text-wrap:balance;min-height:2.5em}
+.opts{display:grid;gap:10px}
+.opt{display:flex;align-items:center;gap:14px;width:100%;text-align:left;padding:14px 18px;border-radius:14px;border:1px solid var(--line);background:var(--bg);color:var(--fg);font:500 16px var(--body);cursor:pointer;transition:border-color .2s,background .2s}
+.opt:hover{border-color:var(--violet-soft)}
+.opt[aria-pressed="true"]{border-color:var(--violet);background:rgba(185,163,242,.1)}
+.opt kbd{font-family:var(--mono);font-size:12px;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:2px 7px}
+.nav-row{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.res-head{display:grid;gap:14px;margin-bottom:36px}
+.res-head h1{font-size:clamp(30px,4.6vw,48px);line-height:1.1}
+.overall{display:grid;gap:12px;padding:28px;margin-bottom:12px;border:1px solid var(--violet-soft);border-radius:22px;background:linear-gradient(160deg,rgba(126,168,248,.08),rgba(185,163,242,.12)),var(--surface)}
+.overall .big{font-family:var(--display);font-weight:300;font-size:64px;line-height:1;font-variant-numeric:tabular-nums}
+.overall .big small{font-size:18px;color:var(--muted)}
+.overall p{color:#c3ccc8}
+.care{margin-top:28px;border:1px solid rgba(185,163,242,.35);border-radius:18px;padding:22px;background:rgba(185,163,242,.06);display:grid;gap:8px}
+.care h3{font-family:var(--body);font-weight:600;font-size:17px;letter-spacing:0}
+.care p{color:#c3ccc8;font-size:15px}
+.care a{color:var(--fg)}
+.trait{padding:24px 0;border-top:1px solid var(--line);display:grid;gap:10px}
+.trait-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.trait h2{font-family:var(--body);font-weight:600;font-size:20px;letter-spacing:0}
+.lvl{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:999px;border:1px solid var(--violet-soft);color:var(--violet)}
+.tbar{display:grid;grid-template-columns:1fr 3em;gap:12px;align-items:center}
+.tbar .track{height:8px;border-radius:8px;background:var(--line);overflow:hidden}
+.tbar .fill{display:block;height:100%;border-radius:8px;background:linear-gradient(90deg,var(--green),var(--violet))}
+.tbar .v{font-family:var(--mono);font-size:14px;text-align:right;font-variant-numeric:tabular-nums}
+.trait .what{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.trait p.desc{color:#c3ccc8}
+.cta-box{margin-top:40px;border:1px solid var(--violet-soft);border-radius:20px;padding:28px;display:grid;gap:14px;background:linear-gradient(170deg,rgba(185,163,242,.10),transparent 60%),var(--surface)}
+.cta-box h3{font-size:22px;font-weight:400}
+.cta-box p{color:var(--muted)}
+@media (hover:none){.keyhint{display:none}}
+.fine{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:28px;line-height:1.7}
+.res-date{font-family:var(--mono);font-size:13px;color:var(--muted)}
+.save-box{margin-top:40px;border:1px solid var(--line);border-radius:20px;padding:28px;display:grid;gap:14px;background:linear-gradient(170deg,rgba(126,168,248,.07),transparent 60%),var(--surface)}
+.save-box h3{font-size:22px;font-weight:400}
+.save-box p{color:var(--muted)}
+.save-box .fine{margin-top:0}
+.save-box .fine a{color:var(--fg)}
+.toast{font-family:var(--mono);font-size:13px;color:var(--green);min-height:1.2em}
+.nav-links{display:flex;align-items:center;gap:20px}
+.nav-links .txt{font-size:15px;color:var(--muted);text-decoration:none;white-space:nowrap;transition:color .2s}
+.nav-links .txt:hover{color:var(--fg)}
+@media (max-width:440px){.nav-links{gap:12px}.nav-links .txt{font-size:14px}}
+@media (max-width:400px){.nav-links .btn{display:none}}
+
+/* Tageskurve */
+.ct-spec{stroke-width:4;stroke-linecap:round}
+.ct-a{stop-color:var(--green)}
+.ct-b{stop-color:var(--violet)}
+.ct-tick{stroke:var(--muted);stroke-opacity:.5;stroke-width:1}
+.ct-sun{fill:none;stroke:var(--green);stroke-width:1.6}
+.ct-ray{stroke:var(--green);stroke-width:1.6;stroke-linecap:round}
+.ct-moon{fill:none;stroke:var(--violet);stroke-width:1.6}
+.ct-curve{fill:none;stroke:var(--green);stroke-width:2.2;stroke-linejoin:round}
+.ct-win{fill:var(--green);fill-opacity:.07;stroke:var(--green);stroke-opacity:.25;stroke-dasharray:3 4}
+.ct-h{fill:var(--muted);font:500 10.5px var(--mono)}
+:root[data-theme="light"] .ct-win{fill-opacity:.1}
+.circ{display:grid;gap:6px;margin-bottom:12px;padding:clamp(12px,3.5vw,28px) clamp(4px,2vw,28px) clamp(14px,3vw,24px);border:1px solid var(--line);border-radius:22px;background:radial-gradient(circle at 50% 46%,rgba(196,222,118,.09),transparent 62%),var(--surface)}
+.circ svg{display:block;width:100%;max-width:560px;height:auto;margin:0 auto;overflow:visible}
+.circ figcaption{font-family:var(--mono);font-size:12px;color:var(--muted);text-align:center;padding-inline:12px}
+.cz-ring{fill:none;stroke:var(--line);stroke-width:1}
+.cz-axis{stroke:var(--muted);stroke-opacity:.45;stroke-width:1;stroke-dasharray:2 5}
+.cz-track{fill:var(--green);fill-opacity:.06}
+.cz-seg{fill:url(#czfill);stroke:var(--green);stroke-opacity:.55;stroke-width:1}
+.cz-seg.on{fill:url(#czfillon);stroke-opacity:1}
+.cz-stop{stop-color:var(--green)}
+.cz-name{fill:var(--fg);font:500 14px var(--body)}
+.cz-name.on{fill:var(--green);font-weight:700}
+.cz-ax{fill:var(--muted);font:500 10.5px var(--mono);letter-spacing:.12em}
+.cz-ray{stroke:var(--green);stroke-width:1.5;stroke-opacity:.7;stroke-dasharray:3 3}
+.cz-dot{fill:#fff;stroke:var(--green);stroke-width:3}
+.cz-pulse{fill:none;stroke:var(--green);stroke-width:1.5;transform-box:fill-box;transform-origin:center;animation:czpulse 2.6s ease-out infinite}
+@keyframes czpulse{0%{opacity:.8;transform:scale(.6)}100%{opacity:0;transform:scale(2.2)}}
+:root[data-theme="light"] .cz-track{fill-opacity:.07}
+:root[data-theme="light"] .cz-axis{stroke-opacity:.5}
+:root[data-theme="light"] .circ{background:radial-gradient(circle at 50% 46%,rgba(90,116,23,.07),transparent 62%),var(--surface);box-shadow:0 1px 2px rgba(20,30,25,.04),0 8px 24px -12px rgba(20,30,25,.12)}
+.focus{display:grid;gap:12px;padding:28px;margin-bottom:12px;border:1px solid var(--violet-soft);border-radius:22px;background:linear-gradient(160deg,rgba(196,222,118,.08),rgba(185,163,242,.10)),var(--surface)}
+.focus h2{font-size:clamp(28px,4.4vw,40px);line-height:1.1}
+.focus .strength{font-family:var(--mono);font-size:13px;color:var(--muted)}
+.focus p.desc{color:#c3ccc8}
+.focus .top3{font-weight:600}
+:root[data-theme="light"] .focus p.desc{color:#36423d}
+:root[data-theme="light"] .focus .strength{color:var(--muted)}
+.styles-head{display:grid;gap:8px;margin:44px 0 8px}
+.styles-head h2{font-size:clamp(22px,3vw,28px);line-height:1.2}
+.styles-head p{color:var(--muted)}
+:root[data-theme="light"] .styles-head p{color:var(--muted)}
+@media print{
+  :root{--bg:#fff;--surface:#fff;--green:#2f7a52;--line:#d5dbd8;--fg:#111;--muted:#555;--violet:#5b4a99;--violet-soft:#5b4a99;color-scheme:light}
+  .nav,footer,.save-box,.cta-box,#start,#quiz{display:none!important}
+  .test-wrap{padding:0}
+  .grad{color:#111;background:none}
+  .trait,.overall,.care,.circ,.focus{break-inside:avoid}
+  .cz-pulse{display:none}
+  .circ svg *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .trait p.desc{color:#222}
+  .tbar .fill,.tbar .track{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+<link rel="stylesheet" href="../theme.css">
+<script>try{if(localStorage.getItem('ordinum-theme')==='light')document.documentElement.dataset.theme='light'}catch(e){}</script>
+<script data-goatcounter="https://ordinum.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="./" aria-label="Ordinum home"><img class="logo-mark" src="../logo-ringe.svg" alt="" width="45" height="40"><span class="logo-word">ORD<span class="logo-i">I</span>NUM</span></a>
+    <div class="nav-links"><a class="txt" href="../meine-ergebnisse.html">My results</a><a class="btn" href="./#warteliste">Waitlist</a></div>
+  </div>
+</header>
+<main class="test-wrap">
+  <section id="start" class="intro" style="border:0;padding:0">
+    <p class="eyebrow">Chronotype</p>
+    <h1>When does your <span class="grad">inner clock</span> tick?</h1>
+    <p>12 short questions about your sleep, your waking up and when you feel most alert. At the end you see whether you lean towards morning or evening, when your mind is probably clearest and how well your daily life fits your rhythm. Think of a completely normal period, not a holiday or an exceptional phase.</p>
+    <div class="meta-row"><span>about 3 minutes</span><span>12 questions</span><span>Instant results</span><span>Answers stay in your browser</span></div>
+    <div class="cta-row"><button class="btn primary" id="go" type="button">Start test</button><button class="btn" id="resume" type="button" hidden>Continue</button></div>
+  </section>
+
+  <section id="quiz" hidden style="border:0;padding:0">
+    <div class="progress"><span id="bar"></span></div>
+    <div class="pcount"><span id="count">Question 1 of 12</span><span class="keyhint">Keys 1–5 work too</span></div>
+    <div class="qcard">
+      <p class="qtext" id="qtext" aria-live="polite"></p>
+      <div class="opts" id="opts" role="group" aria-label="Answer"></div>
+      <div class="nav-row"><button class="btn" id="back" type="button">Back</button></div>
+    </div>
+  </section>
+
+  <section id="result" hidden style="border:0;padding:0">
+    <div class="res-head">
+      <p class="eyebrow">Your result</p>
+      <h1>Your chronotype</h1>
+      <p class="muted">Your chronotype describes when your inner clock makes you alert and when it makes you tired. It is largely innate and shifts over a lifetime: it gets later in adolescence and earlier again with age. No type is better than another; what matters is how well your daily life fits it.</p>
+      <p class="res-date" id="resdate"></p>
+    </div>
+    <figure class="circ" style="margin:0 0 12px"><div id="circle"></div><figcaption id="cap"></figcaption></figure>
+    <div class="focus"><p class="eyebrow">Your chronotype</p><h2 id="fname"></h2><span class="strength" id="fstrength"></span><p class="desc" id="ftext"></p><p class="top3" id="ftop"></p></div>
+    <div class="styles-head"><h2>What this means for your day</h2><p>Small adjustments to your rhythm often do more than discipline.</p></div>
+    <div id="traits"></div>
+    <div class="save-box">
+      <h3>Find your result again</h3>
+      <p id="savetext">Your result is saved in this browser under “My results”. To find it on other devices too, or after clearing your browser data, save your personal link or a PDF.</p>
+      <div class="cta-row">
+        <button class="btn primary" id="copylink" type="button">Copy link</button>
+        <a class="btn" id="maillink" href="#">Email it to me</a>
+        <button class="btn" id="pdf" type="button">Save as PDF</button>
+        <button class="btn" id="keep" type="button" hidden>Save on this device</button>
+      </div>
+      <p class="toast" id="toast" aria-live="polite"></p>
+      <p class="fine">Anyone with your personal link can see your result, so only share it if you want to. <a href="../meine-ergebnisse.html">All my results</a></p>
+    </div>
+    <div class="cta-box">
+      <h3>Rhythm and well-being together</h3>
+      <p>How well your daily life fits your rhythm affects your energy and mood. The well-being test shows how you are doing overall right now. Soon your personal Ordinum report will bring all tests together into a detailed picture of you.</p>
+      <div class="cta-row"><a class="btn primary" href="well-being-test.html">Take the well-being test</a><a class="btn" href="./#warteliste">Join the waitlist</a><button class="btn" id="again" type="button">Restart test</button></div>
+    </div>
+    <p class="fine">Based on: findings from chronobiology on morning and evening types (for example Horne and Östberg, 1976) and on social jet lag (Wittmann, Dinich, Merrow and Roenneberg, 2006). The twelve questions are Ordinum's own wording and have not yet been scientifically validated. Evening tendency is the average of eleven questions; social jet lag is roughly estimated from your wake-up times on free days and on days with commitments. The daily curve is an illustration, not a measurement. Ordinum is meant for self-understanding and does not replace sleep medicine or psychological assessment.</p>
+  </section>
+</main>
+<footer>
+  <div class="wrap">
+    <span>© 2026 Ordinum · Psychology for self-understanding. No diagnosis or therapy.</span>
+    <nav><a href="../meine-ergebnisse.html">My results</a><a href="../impressum.html" hreflang="de">Legal notice</a><a href="../datenschutz.html" hreflang="de">Privacy</a></nav>
+  </div>
+</footer>
+<script>
+var ITEMS = [{"t": "On free days without an alarm: when do you wake up by yourself?", "o": ["before 6:30 am", "6:30 to 7:30 am", "7:30 to 8:30 am", "8:30 to 9:30 am", "after 9:30 am"], "f": "E", "free": 1}, {"t": "On free days: when do you naturally get tired in the evening?", "o": ["before 10 pm", "10 to 11 pm", "11 pm to midnight", "midnight to 1 am", "after 1 am"], "f": "E"}, {"t": "On days with commitments (work, studies, children): when do you usually get up?", "o": ["before 5:30 am", "5:30 to 6:30 am", "6:30 to 7:30 am", "7:30 to 8:30 am", "after 8:30 am"], "f": "W"}, {"t": "How much do you need an alarm on those days?", "o": ["not at all, I wake up before it", "rarely", "sometimes", "mostly", "always, often several times"], "f": "E"}, {"t": "How do you feel in the first half hour after getting up?", "o": ["wide awake", "fairly fresh", "so-so", "rather tired", "foggy"], "f": "E"}, {"t": "How much appetite do you have right after getting up?", "o": ["very hungry", "fairly hungry", "a little", "hardly any", "none at all"], "f": "E"}, {"t": "When is your mind clearest?", "o": ["early morning (6 to 9 am)", "late morning (9 am to noon)", "midday to afternoon (noon to 4 pm)", "late afternoon to evening (4 to 8 pm)", "late evening or night (after 8 pm)"], "f": "E"}, {"t": "When do exercise or sport come easiest to you?", "o": ["early morning", "late morning", "afternoon", "early evening", "late evening"], "f": "E"}, {"t": "Until when do you still have real energy in the evening, for friends or hobbies?", "o": ["until about 8 pm", "until about 9 pm", "until about 10 pm", "until about 11 pm", "until late at night"], "f": "E"}, {"t": "If you had to go to sleep at 10:30 pm: how easily could you fall asleep?", "o": ["very easily", "fairly easily", "so-so", "with difficulty", "hardly at all"], "f": "E"}, {"t": "If you had to get up at 6 am on a free day: how hard would that be?", "o": ["very easy", "fairly easy", "so-so", "fairly hard", "very hard"], "f": "E"}, {"t": "How would you describe yourself?", "o": ["definitely a morning person", "more of a morning person", "neither", "more of an evening person", "definitely an evening person"], "f": "E"}];
+var TYPES = [{"name": "Distinct morning type", "short": "morning type", "text": "Your inner day starts early. You wake up easily, your mind is clear quickly in the morning, and you get tired comparatively early in the evening. In a world that starts early, this often makes things easier for you; long evenings cost you more energy.", "day": "Put tasks that need a lot of concentration into the early morning where you can. The afternoon works well for routines, conversations and exercise.", "eve": "An early, quiet evening does you good. Plan late appointments sparingly, and do not take on too much the morning after."}, {"name": "Moderate morning type", "short": "moderate morning type", "text": "You tend to be up early and especially alert in the morning. Your energy fades a little earlier in the evening than for many others, but you can manage the occasional late night.", "day": "Use the morning for what matters most to you. After the post-lunch dip, the afternoon suits exchange and lighter tasks.", "eve": "A steady rhythm without too late a bedtime helps you make full use of your best time in the morning."}, {"name": "Intermediate type", "short": "intermediate type", "text": "You sit between morning and evening types, like many people. Your rhythm is fairly adaptable: you cope with early appointments as well as the occasional late evening.", "day": "Your peak usually falls between late morning and early afternoon. Watch out for the post-lunch dip and plan breaks or lighter tasks there.", "eve": "Keep your sleep times roughly the same at weekends too, so your rhythm stays stable and flexible."}, {"name": "Moderate evening type", "short": "moderate evening type", "text": "You get going slowly in the morning and become more alert as the day goes on. In the evening you often still have good energy. Early appointments cost you more than they cost others.", "day": "Put concentration tasks in the late morning or afternoon. In the morning, daylight and movement help you wake up faster.", "eve": "Bright light in the evening pushes your rhythm even later. Dimmed light and less screen time in the last hour before bed make falling asleep easier."}, {"name": "Distinct evening type", "short": "evening type", "text": "Your inner day starts late. In the morning you need time to arrive, and you often only become truly alert and creative in the afternoon or evening. An early daily routine does not fit your rhythm well; that is not a matter of discipline but of your inner clock.", "day": "Where possible, put demanding tasks in the afternoon or early evening. In the morning, plenty of daylight, movement and a gentle start without important decisions help.", "eve": "You have a lot of energy in the evening, but too little sleep adds up quickly. Dimming lights, reducing screens and keeping sleep times as regular as possible help you most."}];
+var JET = [{"lvl": "minimal", "text": "Your wake-up times on free days and on days with commitments are close together. Your daily life fits your inner rhythm well."}, {"lvl": "mild", "text": "On free days you wake up about an hour later than usual. That is common and usually easy to handle. If you feel tired on Mondays, it helps not to sleep much longer at weekends."}, {"lvl": "clear", "text": "On free days you wake up about two hours later. Your body is probably catching up on sleep, and the switch feels a bit like a small time-zone change. More daylight in the morning and slightly earlier evenings during the week can narrow the gap."}, {"lvl": "strong", "text": "On free days you wake up three hours or more later. Your daily life runs clearly against your inner clock, and over time that can drain energy and mood. Where you have room, it is worth adapting your schedule more to your rhythm."}];
+var L = {"count": "Question {n} of {t}", "date": "Result from {d}", "strength": "Evening tendency {e} out of 100", "peakTxt": "Your peak: about {a} to {b}", "peakLbl": "PEAK", "ends": ["MORNING TYPE", "EVENING TYPE"], "hours": ["6 am", "9", "noon", "3", "6", "9", "midnight"], "cap": "A rough guide: how alertness runs through the day for your chronotype, not a measurement.", "svg": "Spectrum from morning type to evening type and a daily alertness curve. Your type: {t}. {p}.", "rows": ["Your day", "Social jet lag", "Evening and sleep"], "whats": ["Evening tendency from 0 (distinct morning type) to 100 (distinct evening type)", "How far your daily life and your inner clock are apart, estimated from your wake-up times", "What does your rhythm good in the evening"], "hrs": "{h} h", "hrs0": "< 1 h", "mailSub": "My Ordinum chronotype", "mailBody": "My result in the Ordinum chronotype test from {d}:\n{l}", "saved": "Saved. You can now find it under “My results”."};
+function fmtH(h){ h = (h + 24) % 24; var H = Math.floor(h); if (h === 12) return 'noon'; return (H % 12 || 12) + (h % 1 ? ':30' : '') + (H < 12 ? ' am' : ' pm'); }
+var KEY = 'ordinum-chronotyp';
+var HIST = 'ordinum-ergebnisse', ABC = 'abcdefghijklmnopqrstuvwxy';
+var ans = new Array(ITEMS.length).fill(null), cur = 0, curLink = '';
+function $(id){ return document.getElementById(id); }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(ans)); }catch(e){} }
+function load(){ try{ var a = JSON.parse(localStorage.getItem(KEY)); if (Array.isArray(a) && a.length === ITEMS.length) return a; }catch(e){} return null; }
+// Personal link: every two answers (1–5) become one letter a–y, plus date: #r=<16 chars>-YYYYMMDD
+function encode(a){ a = a.length % 2 ? a.concat([1]) : a; var s = ''; for (var i = 0; i < a.length; i += 2) s += ABC[(a[i]-1)*5 + (a[i+1]-1)]; return s; }
+function decode(c){ var a = []; for (var i = 0; i < c.length; i++){ var n = ABC.indexOf(c[i]); a.push(Math.floor(n/5)+1, n%5+1); } return a.slice(0, ITEMS.length); }
+function parseHash(){ var m = /^#r=([a-y]{6})(?:-(\d{8}))?$/.exec(location.hash); return m ? {code:m[1], date:m[2] || null} : null; }
+function today(){ var d = new Date(); return '' + d.getFullYear() + String(d.getMonth()+1).padStart(2,'0') + String(d.getDate()).padStart(2,'0'); }
+function fmtDate(s){ return new Date(+s.slice(0,4), +s.slice(4,6)-1, +s.slice(6,8)).toLocaleDateString('en-GB', {day:'numeric', month:'long', year:'numeric'}); }
+function loadHist(){ try{ var h = JSON.parse(localStorage.getItem(HIST)); if (Array.isArray(h)) return h; }catch(e){} return []; }
+function saveHist(h){ try{ localStorage.setItem(HIST, JSON.stringify(h.slice(0,50))); }catch(e){} }
+function findHist(code){ return loadHist().filter(function(r){ return r.code === code; })[0] || null; }
+function addHist(code, date){ var h = loadHist(); if (h.some(function(r){ return r.code === code; })) return; h.unshift({test:'chronotyp', date:date, code:code, scores:scores(decode(code))}); saveHist(h); }
+// E: Abendtendenz 0–100 (Mittel der elf E-Fragen). J: sozialer Jetlag, 25 Punkte pro Stunde, ab 4 Stunden 100.
+// Aufwachzeit frei: Bandmitte 6–10 Uhr; Aufstehen mit Verpflichtungen: 5–9 Uhr.
+function scores(a){
+  var t = 0, n = 0, fr = null, wk = null;
+  ITEMS.forEach(function(it, i){
+    var v = a[i]; if (v == null) return;
+    if (it.f === 'E') { t += (v - 1) / 4 * 100; n++; }
+    if (it.free) fr = 5 + v;
+    if (it.f === 'W') wk = 4 + v;
+  });
+  var jh = fr != null && wk != null ? Math.max(0, fr - wk) : 0;
+  return {E: Math.round(t / n), J: Math.min(100, jh * 25)};
+}
+function typeIdx(e){ return e < 20 ? 0 : e < 40 ? 1 : e <= 60 ? 2 : e <= 80 ? 3 : 4; }
+// Leistungshoch je nach Abendtendenz zwischen 8:30 und 16:30 Uhr (Mitte), auf halbe Stunden gerundet
+function peak(e){ return Math.round((8.5 + e / 100 * 8) * 2) / 2; }
+function g(h, m, s){ return Math.exp(-Math.pow((h - m) / s, 2)); }
+function sig(x){ return 1 / (1 + Math.exp(-x)); }
+// Veranschaulichung der Wachheit über den Tag: Hoch, Mittagstief, zweites Hoch am Abend, Aufwachen und Müdewerden
+function alert(h, p){
+  var wake = p - 3.5, bed = p + 12.5;
+  return (0.15 + g(h, p, 3.2) + 0.7 * g(h, p + 7, 2.6) - 0.35 * g(h, p + 3.8, 1.3)) * sig((h - wake) / 0.7) * sig((bed - h) / 0.9);
+}
+var NS = 'http://www.w3.org/2000/svg';
+function el(tag, attrs, parent){ var e = document.createElementNS(NS, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
+function f1(v){ return Math.round(v * 10) / 10; }
+function drawDay(sc){
+  var box = $('circle'); box.innerHTML = '';
+  var p = peak(sc.E), X = function(h){ return 34 + (h - 6) / 18 * 336; }, Y0 = 196, H = 104;
+  var svg = el('svg', {viewBox: '0 0 400 236', role: 'img', 'aria-label': L.svg.replace('{t}', TYPES[typeIdx(sc.E)].name).replace('{p}', L.peakTxt.replace('{a}', fmtH(p - 1.5)).replace('{b}', fmtH(p + 1.5)))}, box);
+  var defs = el('defs', {}, svg);
+  var lg = el('linearGradient', {id: 'ctline', x1: 60, x2: 340, y1: 0, y2: 0, gradientUnits: 'userSpaceOnUse'}, defs);
+  el('stop', {offset: '0', 'class': 'ct-a'}, lg); el('stop', {offset: '1', 'class': 'ct-b'}, lg);
+  var ag = el('linearGradient', {id: 'ctarea', x1: 0, x2: 0, y1: 0, y2: 1}, defs);
+  el('stop', {offset: '0', 'class': 'cz-stop', 'stop-opacity': '.42'}, ag); el('stop', {offset: '1', 'class': 'cz-stop', 'stop-opacity': '0'}, ag);
+  // Spektrum Morgentyp bis Abendtyp
+  var sx = function(e){ return 60 + e / 100 * 280; };
+  el('line', {x1: 60, y1: 26, x2: 340, y2: 26, stroke: 'url(#ctline)', 'class': 'ct-spec'}, svg);
+  [0, 20, 40, 60, 80, 100].forEach(function(e){ el('line', {x1: sx(e), y1: 21, x2: sx(e), y2: 31, 'class': 'ct-tick'}, svg); });
+  el('circle', {cx: 40, cy: 26, r: 6.5, 'class': 'ct-sun'}, svg);
+  [0, 45, 90, 135, 180, 225, 270, 315].forEach(function(a){ var t = a * Math.PI / 180; el('line', {x1: f1(40 + 9 * Math.cos(t)), y1: f1(26 + 9 * Math.sin(t)), x2: f1(40 + 12 * Math.cos(t)), y2: f1(26 + 12 * Math.sin(t)), 'class': 'ct-ray'}, svg); });
+  el('path', {d: 'M364 18.5a8 8 0 1 0 0 15 6.4 6.4 0 0 1 0-15Z', 'class': 'ct-moon'}, svg);
+  var tl = el('text', {x: 60, y: 50, 'text-anchor': 'start', 'class': 'cz-ax'}, svg); tl.textContent = L.ends[0];
+  var tr = el('text', {x: 340, y: 50, 'text-anchor': 'end', 'class': 'cz-ax'}, svg); tr.textContent = L.ends[1];
+  el('circle', {cx: f1(sx(sc.E)), cy: 26, r: 16, fill: 'url(#czhalo)'}, svg);
+  var hl = el('radialGradient', {id: 'czhalo'}, defs);
+  el('stop', {offset: '0', 'class': 'cz-stop', 'stop-opacity': '.75'}, hl); el('stop', {offset: '1', 'class': 'cz-stop', 'stop-opacity': '0'}, hl);
+  el('circle', {cx: f1(sx(sc.E)), cy: 26, r: 7, 'class': 'cz-pulse'}, svg);
+  el('circle', {cx: f1(sx(sc.E)), cy: 26, r: 6, 'class': 'cz-dot'}, svg);
+  // Tageskurve
+  var pts = [], mx = 0, h;
+  for (h = 6; h <= 24.001; h += 0.25) { var v = alert(h, p); pts.push([h, v]); if (v > mx) mx = v; }
+  var line = pts.map(function(q, i){ return (i ? 'L' : 'M') + f1(X(q[0])) + ' ' + f1(Y0 - q[1] / mx * H); }).join('');
+  el('rect', {x: f1(X(p - 1.5)), y: Y0 - H - 8, width: f1(X(p + 1.5) - X(p - 1.5)), height: H + 8, rx: 6, 'class': 'ct-win'}, svg);
+  el('path', {d: line + 'L' + X(24) + ' ' + Y0 + 'L' + X(6) + ' ' + Y0 + 'Z', fill: 'url(#ctarea)'}, svg);
+  el('path', {d: line, 'class': 'ct-curve'}, svg);
+  el('line', {x1: X(6), y1: Y0, x2: X(24), y2: Y0, 'class': 'cz-ring'}, svg);
+  [6, 9, 12, 15, 18, 21, 24].forEach(function(hh){
+    el('line', {x1: X(hh), y1: Y0, x2: X(hh), y2: Y0 + 4, 'class': 'ct-tick'}, svg);
+    var t = el('text', {x: X(hh), y: Y0 + 18, 'text-anchor': 'middle', 'class': 'ct-h'}, svg); t.textContent = L.hours[[6, 9, 12, 15, 18, 21, 24].indexOf(hh)];
+  });
+  var pl = el('text', {x: f1(Math.min(Math.max(X(p), 70), 330)), y: Y0 - H - 14, 'text-anchor': 'middle', 'class': 'cz-ax'}, svg); pl.textContent = L.peakLbl;
+}
+function toast(t){ $('toast').textContent = t; }
+function show(id){ ['start','quiz','result'].forEach(function(s){ $(s).hidden = s !== id; }); window.scrollTo(0,0); }
+function render(){
+  var it = ITEMS[cur];
+  $('qtext').textContent = it.t;
+  $('count').textContent = L.count.replace('{n}', cur+1).replace('{t}', ITEMS.length);
+  $('bar').style.width = (cur/ITEMS.length*100) + '%';
+  var o = $('opts'); o.innerHTML = '';
+  it.o.forEach(function(lbl, i){
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'opt'; b.id = 'opt-' + (i+1);
+    b.setAttribute('aria-pressed', ans[cur] === i+1 ? 'true' : 'false');
+    b.innerHTML = '<kbd>' + (i+1) + '</kbd><span></span>';
+    b.lastChild.textContent = lbl;
+    b.addEventListener('click', function(){ pick(i+1); });
+    o.appendChild(b);
+  });
+  $('back').disabled = cur === 0;
+}
+function pick(v){
+  ans[cur] = v; save();
+  if (cur < ITEMS.length - 1) { cur++; render(); }
+  else results();
+}
+// linkDate set: result comes from a personal link and is not saved automatically
+function results(linkDate){
+  var sc = scores(ans), code = encode(ans), known = findHist(code);
+  if (!known && linkDate === undefined) { addHist(code, today()); known = findHist(code); }
+  var date = linkDate || (known && known.date) || today();
+  history.replaceState(null, '', '#r=' + code + '-' + date);
+  curLink = location.href;
+  $('resdate').textContent = L.date.replace('{d}', fmtDate(date));
+  $('keep').hidden = !!known;
+  $('keep').onclick = function(){ addHist(code, date); $('keep').hidden = true; toast(L.saved); };
+  $('savetext').hidden = !known;
+  $('maillink').href = 'mailto:?subject=' + encodeURIComponent(L.mailSub) + '&body=' + encodeURIComponent(L.mailBody.replace('{d}', fmtDate(date)).replace('{l}', curLink));
+  toast('');
+  var ti = typeIdx(sc.E), T = TYPES[ti], p = peak(sc.E), jh = sc.J / 25, ji = Math.min(3, jh);
+  drawDay(sc);
+  $('cap').textContent = L.cap;
+  $('fname').textContent = T.name;
+  $('fstrength').textContent = L.strength.replace('{e}', sc.E);
+  $('ftext').textContent = T.text;
+  $('ftop').textContent = L.peakTxt.replace('{a}', fmtH(p - 1.5)).replace('{b}', fmtH(p + 1.5));
+  var box = $('traits'); box.innerHTML = '';
+  [[L.rows[0], T.short, sc.E, sc.E, L.whats[0], T.day], [L.rows[1], JET[ji].lvl, sc.J, jh ? L.hrs.replace('{h}', jh) : L.hrs0, L.whats[1], JET[ji].text], [L.rows[2], null, null, null, L.whats[2], T.eve]].forEach(function(r){
+    var el = document.createElement('div');
+    el.className = 'trait';
+    el.innerHTML = '<div class="trait-top"><h2></h2><span class="lvl"></span></div>' +
+      '<div class="tbar"><span class="track"><span class="fill"></span></span><span class="v"></span></div>' +
+      '<p class="what"></p><p class="desc"></p>';
+    el.querySelector('h2').textContent = r[0];
+    if (r[1] == null) el.querySelector('.lvl').remove(); else el.querySelector('.lvl').textContent = r[1];
+    if (r[2] == null) el.querySelector('.tbar').remove(); else { el.querySelector('.tbar').style.gridTemplateColumns = '1fr 4.5em'; el.querySelector('.fill').style.width = r[2] + '%'; el.querySelector('.v').textContent = r[3]; }
+    el.querySelector('.what').textContent = r[4];
+    el.querySelector('.desc').textContent = r[5];
+    box.appendChild(el);
+  });
+  show('result');
+}
+function restart(){ ans = new Array(ITEMS.length).fill(null); cur = 0; save(); history.replaceState(null, '', location.pathname); show('quiz'); render(); }
+$('go').addEventListener('click', restart);
+$('resume').addEventListener('click', function(){ cur = ans.indexOf(null); if (cur < 0) { results(); return; } show('quiz'); render(); });
+$('back').addEventListener('click', function(){ if (cur > 0) { cur--; render(); } });
+$('again').addEventListener('click', restart);
+$('copylink').addEventListener('click', function(){
+  var done = function(){ toast('Link copied. Save it as a bookmark or in your notes, for example.'); };
+  if (navigator.clipboard) navigator.clipboard.writeText(curLink).then(done, function(){ window.prompt('Your personal link:', curLink); });
+  else window.prompt('Your personal link:', curLink);
+});
+$('pdf').addEventListener('click', function(){ window.print(); });
+document.addEventListener('keydown', function(e){
+  if ($('quiz').hidden) return;
+  var k = parseInt(e.key, 10);
+  if (k >= 1 && k <= 5) pick(k);
+  else if (e.key === 'Backspace' || e.key === 'ArrowLeft') { if (cur > 0) { cur--; render(); } }
+});
+function route(){
+  var r = parseHash();
+  if (r) { ans = decode(r.code); results(r.date); return true; }
+  return false;
+}
+window.addEventListener('hashchange', function(){ if (!location.hash.indexOf('#r=')) route(); });
+(function(){
+  var a = load();
+  // Backfill finished tests that are not yet in the results list
+  if (a && a.indexOf(null) < 0) addHist(encode(a), today());
+  if (route()) return;
+  if (a && a.some(function(x){ return x != null; })) { ans = a; $('resume').hidden = false; $('resume').textContent = a.indexOf(null) < 0 ? 'View last result' : 'Continue'; }
+})();
+</script>
+<script src="../theme.js"></script>
+</body>
+</html>
