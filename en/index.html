@@ -168,14 +168,14 @@ section{padding-block:clamp(64px,9vw,112px);border-bottom:1px solid var(--line)}
 .toc{display:flex;flex-wrap:wrap;gap:6px 18px;font-family:var(--mono);font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:16px}
 
 /* pricing */
-.packs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.packs{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;max-width:820px;margin-inline:auto}
 @media (max-width:900px){.packs{grid-template-columns:1fr}}
 .pack{border:1px solid var(--line);border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:16px;background:var(--bg);min-width:0}
 .pack.feature{background:linear-gradient(170deg,rgba(185,163,242,.12),rgba(143,209,169,.05) 55%,transparent),var(--surface);border-color:var(--violet-soft)}
 .pack h3{font-size:22px;font-weight:400}
 .pack .price{font-family:var(--display);font-weight:300;font-size:30px;font-variant-numeric:tabular-nums}
 .pack .price small{font-family:var(--body);font-size:14px;color:var(--muted);margin-left:4px}
-.pack ul{list-style:none;margin:0;padding:0;display:grid;gap:10px;font-size:15px;color:var(--muted);flex:1}
+.pack ul{list-style:none;margin:0;padding:0;display:grid;align-content:start;gap:10px;font-size:15px;color:var(--muted);flex:1}
 .pack li{display:flex;gap:10px}
 .pack li::before{content:"";flex:none;width:14px;height:14px;margin-top:5px;border-radius:50%;border:1px solid var(--violet-soft);background:radial-gradient(circle,var(--green) 0 2.5px,transparent 3px)}
 
@@ -647,7 +647,7 @@ section > .wrap{position:relative}
             <blockquote><b>Try this</b>Give a new project a fixed, short block of 45 minutes a day and only decide in that moment what exactly you will work on. That way you combine structure with the freedom you need.</blockquote>
           </div>
           <div class="rp-more">
-            <span>+ 27 more pages with your patterns, sources of energy and exercises</span>
+            <span>+ 13 more pages with your patterns, sources of energy and exercises</span>
             <a class="btn primary" href="#warteliste">Reserve your report</a>
           </div>
         </div>
@@ -733,21 +733,16 @@ section > .wrap{position:relative}
         <article class="pack">
           <h3>Free</h3>
           <div class="price">€0</div>
-          <ul><li>Six tests, no sign-up</li><li>Short result for every test</li><li>All articles</li></ul>
+          <ul><li>Seven tests, no sign-up</li><li>Short result for every test</li><li>All articles</li></ul>
           <a class="btn" href="#warteliste">Reserve</a>
         </article>
         <article class="pack feature">
-          <span class="tag" style="align-self:flex-start;color:var(--violet);border-color:var(--violet-soft)">Popular</span>
+          <span class="tag" style="align-self:flex-start;color:var(--violet);border-color:var(--violet-soft)">Launch price</span>
           <h3>Personal report</h3>
-          <div class="price">€29<small>one-time</small></div>
-          <ul><li>All ten tests</li><li>In-depth report that connects all your results</li><li>Concrete exercises for everyday life</li><li>A PDF to keep</li></ul>
+          <div class="price">€19<small>launch price, then €29</small></div>
+          <ul><li>Connects your results from up to seven tests</li><li>Your patterns, sources of energy and impulses for everyday life</li><li>A PDF to keep, light or dark (currently in German)</li></ul>
           <a class="btn primary" href="#warteliste">Reserve</a>
-        </article>
-        <article class="pack">
-          <h3>Ordinum Plus</h3>
-          <div class="price">€6<small>per month</small></div>
-          <ul><li>Everything in the report</li><li>New tests every month</li><li>History: how you change over time</li></ul>
-          <a class="btn" href="#warteliste">Reserve</a>
+          <a class="btn" href="../bericht.html?beispiel">See a sample report (German)</a>
         </article>
       </div>
     </div>
