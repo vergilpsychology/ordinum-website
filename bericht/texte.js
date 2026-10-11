@@ -7,7 +7,8 @@ window.TEXTE = {
   zahlen: 'Ein Wert zwischen 0 und 100 zeigt, wie sehr du den Aussagen im Test zugestimmt hast. Er ist kein Vergleich mit anderen Menschen und keine Note.',
   uebersicht: { topStaerken: 'Deine Top-Stärken', deutlichst: 'Am deutlichsten', wenigsten: 'Am wenigsten ausgeprägt', facetten: 'Ausgeprägteste Facetten',
     seltener: 'Seltener genutzt', wb: 'Wohlbefinden', belastbarkeit: 'Belastbarkeit', wbStark: 'Am stärksten', fordert: 'Fordert dich am meisten',
-    schwerpunkt: 'Dein Schwerpunkt', ausgewogen: 'Ohne klaren Schwerpunkt', stileTop: 'Stärkste Stile', muster: 'Deine Muster' },
+    schwerpunkt: 'Dein Schwerpunkt', ausgewogen: 'Ohne klaren Schwerpunkt', stileTop: 'Stärkste Stile', muster: 'Deine Muster',
+    wichtig: 'Am wichtigsten', rhythmus: 'Tagesrhythmus', chronotyp: 'Dein Chronotyp', hoch: 'Leistungshoch', jetlag: 'Sozialer Jetlag' },
   profil: 'Hier siehst du deine Werte in den fünf großen Bereichen der Persönlichkeitsforschung, aus deinem {quelle} vom {datum}.',
   netz: 'Je weiter ein Punkt nach außen reicht, desto mehr hast du den Aussagen dieses Bereichs zugestimmt. Der helle Ring markiert den mittleren Bereich zwischen 40 und 60.',
 
@@ -17,7 +18,9 @@ window.TEXTE = {
     { nr: 3, titel: 'Energiequellen' },
     { nr: 4, titel: 'Wie es dir gerade geht' },
     { nr: 5, titel: 'Fühlen und Begegnen' },
-    { nr: 6, titel: 'Nächste Schritte' }
+    { nr: 6, titel: 'Nächste Schritte' },
+    { nr: 7, titel: 'Was dir wichtig ist' },
+    { nr: 8, titel: 'Dein Tagesrhythmus' }
   ],
 
   // Kapitel 1: je Bereich "Im Alltag", "Kraftquelle", "Stolperstein" und "Frage an dich".
@@ -243,6 +246,44 @@ window.TEXTE = {
     frage: 'Wie würde ein Mensch, der dich gut kennt, deine Art beschreiben, anderen zu begegnen?'
   },
 
+  // Werte: Schwerpunkt, Einzeltexte und Namen kommen aus der Testseite (QUELLE.werte)
+  werte: {
+    intro: 'Werte beschreiben, was dir im Leben wichtig ist. Sie sind Orientierungspunkte: Sie zeigen, wofür du gern Zeit und Kraft aufbringst und was dich zufrieden macht, wenn du danach lebst.',
+    kreis: 'Je weiter ein Feld nach außen reicht, desto wichtiger ist dir dieser Wert. Werte, die im Kreis nebeneinander liegen, gehen oft gut zusammen; gegenüberliegende stehen eher in Spannung.',
+    schwerpunkt: 'Dein Schwerpunkt',
+    staerke: ['ausgewogen', 'leicht ausgeprägt', 'deutlich ausgeprägt', 'stark ausgeprägt'],
+    wichtigste: 'Was dir am wichtigsten ist',
+    hinten: 'Weniger im Vordergrund',
+    hintenText: '{w} steht bei dir eher hinten. {t}',
+    mitStaerken: 'Werte und Stärken',
+    // Welche Charakterstärken einem Wert besonders dienen können
+    passt: { SD:['ori','cur','jud','val'], ST:['cur','val','zes','lov'], HE:['zes','hum','app','gra'], AC:['ind','lov','per','zes'], PO:['lea','val','soc'],
+      SE:['pru','sel','ind'], CO:['pru','mod','sel','cit'], TR:['mod','gra','spi'], BE:['kin','cap','for','int'], UN:['equ','app','per','spi','kin'] },
+    wofuer: { SD:'eigene Wege zu finden und zu gehen', ST:'Neues zu entdecken und dich darauf einzulassen', HE:'Freude zu erleben und schöne Momente wahrzunehmen',
+      AC:'Ziele zu verfolgen und gut in dem zu werden, was du tust', PO:'mitzugestalten und Dinge in Bewegung zu bringen', SE:'Halt und Verlässlichkeit in dein Leben zu bringen',
+      CO:'achtsam mit anderen umzugehen und Absprachen zu tragen', TR:'das zu pflegen, was dich geprägt hat', BE:'für die Menschen da zu sein, die dir nahestehen',
+      UN:'deinen Blick über dein eigenes Umfeld hinaus zu richten' },
+    passtEins: 'Zu {w} passt unter deinen Top-Stärken besonders {s}. Diese Stärke hilft dir, {f}.',
+    passtMehr: 'Zu {w} passen unter deinen Top-Stärken besonders {s}. Diese Stärken helfen dir, {f}.',
+    nochEins: 'Auch {w} findet Rückhalt in deinen Stärken, vor allem in {s}. Diese Stärke kann dir helfen, {f}.',
+    nochMehr: 'Auch {w} findet Rückhalt in deinen Stärken, vor allem in {s}. Sie können dir helfen, {f}.',
+    passtKeins: 'Unter deinen Top-Stärken ist keine, die direkt zu {w} gehört. Das ist kein Widerspruch: Was dir wichtig ist und was dir leichtfällt, muss nicht dasselbe sein. Vielleicht lohnt sich die Frage, wie dir {s} helfen kann, {w} mehr Raum zu geben.',
+    frage: 'Wann hast du zuletzt ganz nach dem gelebt, was dir wichtig ist? Was war in diesem Moment anders?',
+    quelle: 'Der Werte-Test ist ein eigener Fragebogen von Ordinum auf Grundlage der Theorie der zehn Grundwerte nach Shalom H. Schwartz. Er ist noch nicht wissenschaftlich überprüft.'
+  },
+
+  // Chronotyp: Typ-, Tages- und Jetlag-Texte kommen aus der Testseite (QUELLE.chrono)
+  rhythmus: {
+    intro: 'Dein Chronotyp beschreibt, wann deine innere Uhr dich wach und wann sie dich müde werden lässt. Er ist zu einem guten Teil biologisch angelegt, verändert sich im Lauf des Lebens und ist keine Frage von Disziplin.',
+    hoch: 'Dein Leistungshoch: etwa {a} bis {b} Uhr',
+    kurve: 'Grobe Orientierung: So verläuft die Wachheit über den Tag bei deinem Chronotyp. Die Kurve ist keine Messung.',
+    tag: 'Dein Tag',
+    abend: 'Abend und Schlaf',
+    jetlag: 'Sozialer Jetlag',
+    frage: 'Zu welcher Tageszeit fühlst du dich am meisten wie du selbst? Wie viel davon hat gerade Platz in deinem Alltag?',
+    quelle: 'Der Chronotyp-Test ist ein eigener Fragebogen von Ordinum und als Orientierung gedacht. Er ist noch nicht wissenschaftlich überprüft.'
+  },
+
   schritte: {
     intro: 'Aus allen Ideen in diesem Bericht haben wir {n} ausgewählt, die besonders gut zu deinen Ergebnissen passen. Fang mit der an, die dich am meisten anspricht.',
     blaetter: {
@@ -256,6 +297,12 @@ window.TEXTE = {
   },
 
   schluss: 'Dieser Bericht ist eine Momentaufnahme. Menschen verändern sich, und manche Ergebnisse sehen in einem halben Jahr anders aus. Wenn du magst, wiederhole die Tests später und schau, was sich bewegt hat. Und vor allem: Vertraue dem, was du über dich selbst weißt, auch dort, wo es über diese Seiten hinausgeht.',
+  // Nur wenn Werte oder Chronotyp eingeflossen sind, nach dem ersten Absatz
+  hinweisEigen: {
+    werte: 'Der Werte-Test ist ein eigener Fragebogen von Ordinum, noch nicht wissenschaftlich überprüft und als Orientierung gedacht.',
+    chrono: 'Der Chronotyp-Test ist ein eigener Fragebogen von Ordinum, noch nicht wissenschaftlich überprüft und als Orientierung gedacht.',
+    beide: 'Der Werte-Test und der Chronotyp-Test sind eigene Fragebögen von Ordinum, noch nicht wissenschaftlich überprüft und als Orientierung gedacht.'
+  },
   hinweis: [
     'Die Tests beruhen auf frei verfügbaren Fragebögen aus der psychologischen Forschung (International Personality Item Pool, ipip.ori.org). Die deutschen Fassungen sind eigene Übersetzungen. Die Ergebnisse beschreiben, wie du dich zum Zeitpunkt des Tests selbst eingeschätzt hast. Sie sind keine Diagnose und ersetzen keine Beratung oder Behandlung.',
     'Deine Antworten wurden in deinem Browser ausgewertet und dort gespeichert. An uns wurden sie nicht übertragen.',

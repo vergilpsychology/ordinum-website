@@ -10,6 +10,14 @@
   var bezNames = { PA:'Bestimmend', BC:'Direkt', DE:'Nüchtern', FG:'Reserviert', HI:'Leise', JK:'Nachsichtig', LM:'Warmherzig', NO:'Gesellig' };
   function B(m){ return { test: 'beziehung', label: 'Schwerpunkt', value: m.bez.focus === 'AUS' ? 'ausgewogen' : bezNames[m.bez.focus] }; }
   var hasF = function(m){ return m.P && m.P.facets; };
+  // Werte und Chronotyp
+  function wName(f){ return window.QUELLE.werte.texte[f].name; }
+  function wTop(m, keys){ if (!m.werte) return null; for (var i = 0; i < m.werte.top.length; i++) if (keys.indexOf(m.werte.top[i]) >= 0) return m.werte.top[i]; return null; }
+  function wHinten(m, f){ return m.werte && m.werte.rk.slice(-3).indexOf(f) >= 0 && m.werte.lv(f) === 'low'; }
+  function W(m, f){ return { test: 'werte', label: wName(f), value: m.werte.sc[f] }; }
+  function CE(m){ return { test: 'chronotyp', label: 'Abendtendenz', value: m.chrono.E }; }
+  function CJ(m){ return { test: 'chronotyp', label: 'Sozialer Jetlag', value: m.chrono.jh ? 'etwa ' + m.chrono.jh + ' Std.' : 'kaum' }; }
+  function uhr(h){ h = (h + 24) % 24; return Math.floor(h) + (h % 1 ? ':30' : ''); }
 
   window.MUSTER = [
     { id:'M1', main:['O'], ok: function(m){ return m.P && m.P.O > 60 && m.P.C <= 60; },
@@ -241,7 +249,71 @@
       titel: 'Du bewegst dich in vielen Bereichen in der Mitte.',
       text: function(){ return 'Fast alle deine Persönlichkeitswerte liegen zwischen 40 und 60. Das heißt oft, dass du dich je nach Situation sehr unterschiedlich verhältst: mal gesellig, mal für dich, mal geplant, mal spontan. Umso mehr verraten deine Charakterstärken darüber, was dir Energie gibt.'; },
       uebung: 'Beobachte eine Woche lang, wann du eher so und wann eher anders bist, und was den Unterschied macht.',
-      kurz: 'Beobachten, was den Unterschied macht' }
+      kurz: 'Beobachten, was den Unterschied macht' },
+
+    // Werte mit anderen Tests
+    { id:'W1', main:['Leistung'], ok: function(m){ return wTop(m, ['AC']) && m.P && m.P.C < 40; },
+      pills: function(m){ return [W(m,'AC'), P(m,'C')]; },
+      titel: 'Du willst viel erreichen und brauchst deinen eigenen Weg zur Struktur.',
+      text: function(){ return 'Leistung gehört zu den Werten, die dir am wichtigsten sind. Gleichzeitig liegt deine Gewissenhaftigkeit eher niedrig: Feste Pläne und Routinen sind nicht unbedingt dein natürliches Werkzeug. Das kann sich anfühlen, als stündest du dir manchmal selbst im Weg. Oft hilft es, Struktur nicht als Pflicht zu sehen, sondern als Abkürzung zu dem, was dir wichtig ist.'; },
+      uebung: 'Wähl ein Ziel, das dir gerade wirklich etwas bedeutet, und leg nur den allerersten Schritt fest: was, wann und wo. Mehr Plan braucht es für diese Woche nicht.',
+      kurz: 'Den ersten Schritt festlegen' },
+    { id:'W2', main:['Sicherheit'], ok: function(m){ return wTop(m, ['SE']) && m.P && m.P.O > 60; },
+      pills: function(m){ return [W(m,'SE'), P(m,'O')]; },
+      titel: 'Du suchst Halt und bist zugleich neugierig.',
+      text: function(){ return 'Sicherheit gehört zu deinen wichtigsten Werten, und gleichzeitig zieht dich Neues an. Das ist kein Widerspruch: Ein sicherer Boden macht es oft leichter, sich auf Unbekanntes einzulassen. Vermutlich erkundest du am liebsten von einem festen Ausgangspunkt aus.'; },
+      uebung: 'Probier diese Woche etwas Neues in einem vertrauten Rahmen aus: ein neues Rezept in deiner Küche, einen unbekannten Weg in deiner Gegend oder ein neues Thema mit einem vertrauten Menschen.',
+      kurz: 'Neues im vertrauten Rahmen' },
+    { id:'W3', b:true, main:['Fürsorge'], ok: function(m){ return wTop(m, ['BE']) && ((m.stress && m.stress.U > 60) || (m.wb && m.wb.ov < 40)); },
+      pills: function(m){ return [W(m,'BE'), m.stress && m.stress.U > 60 ? { test:'stress', label:'Überforderung', value:m.stress.U } : { test:'wohlbefinden', label:'Wohlbefinden', value:m.wb.ov }]; },
+      titel: 'Du bist gern für andere da. Wer ist gerade für dich da?',
+      text: function(){ return 'Fürsorge gehört zu dem, was dir am wichtigsten ist. Gleichzeitig zeigen deine Ergebnisse, dass dich gerade einiges fordert. Wem andere sehr am Herzen liegen, stellt sich selbst oft hintenan. Fürsorge darf auch dir selbst gelten.'; },
+      uebung: 'Bitte diese Woche einen Menschen, dem du vertraust, um eine kleine Unterstützung: zuhören, etwas abnehmen oder einfach da sein.',
+      kurz: 'Um Unterstützung bitten' },
+    { id:'W4', b:true, main:['Genuss'], ok: function(m){ return wHinten(m, 'HE') && m.stress && m.stress.A > 60; },
+      pills: function(m){ return [W(m,'HE'), { test:'stress', label:'Anspannung', value:m.stress.A }]; },
+      titel: 'Genuss kommt bei dir gerade vielleicht zu kurz.',
+      text: function(){ return 'Genuss steht bei deinen Werten eher hinten, und gleichzeitig erlebst du deutlich Anspannung. Das muss nicht zusammenhängen. Doch wo Freude und Erholung wenig Raum haben, fehlt in vollen Zeiten oft etwas, woraus sich Kraft schöpfen lässt.'; },
+      uebung: 'Plan diese Woche eine halbe Stunde nur für etwas, das dir einfach Freude macht, ohne Nutzen und ohne schlechtes Gewissen. Trag sie ein wie einen Termin.',
+      kurz: 'Eine halbe Stunde Freude' },
+    { id:'W5', main:['Gestalten'], ok: function(m){ return wTop(m, ['PO','AC']) && m.bez && (m.bez.focus === 'PA' || m.bez.focus === 'BC'); },
+      pills: function(m){ return [W(m, wTop(m, ['PO','AC'])), B(m)]; },
+      titel: 'Gestalten ist dir wichtig, und du gehst gern voran.',
+      text: function(m){ return wName(wTop(m, ['PO','AC'])) + ' gehört zu deinen wichtigsten Werten, und im Kontakt mit anderen übernimmst du oft die Führung. Das passt zusammen: Du willst etwas bewegen und scheust dich nicht, den ersten Schritt zu machen. Am meisten erreichst du vermutlich dort, wo andere deine Richtung mittragen.'; },
+      uebung: 'Überleg dir bei deinem nächsten Vorhaben, wen du dafür gewinnen möchtest, und erzähl dieser Person zuerst, warum es dir wichtig ist, bevor du sagst, was zu tun ist.',
+      kurz: 'Erst das Warum teilen' },
+    { id:'W6', main:['Mitgefühl'], ok: function(m){ return wTop(m, ['BE','UN']) && m.P && m.P.A > 60; },
+      pills: function(m){ return [W(m, wTop(m, ['BE','UN'])), P(m,'A')]; },
+      titel: 'Was dir wichtig ist, zeigt sich auch in deiner Art.',
+      text: function(m){ return wName(wTop(m, ['BE','UN'])) + ' gehört zu dem, was dir am wichtigsten ist, und auch in deiner Persönlichkeit zeigt sich viel Verträglichkeit. Deine Werte und dein Verhalten passen hier gut zusammen. Das gibt anderen Halt und dir vermutlich das Gefühl, im Einklang mit dir zu sein.'; },
+      uebung: 'Achte diese Woche darauf, wann du anderen etwas Gutes tust, und frag dich einmal am Tag: Was davon würde ich auch für mich selbst tun?',
+      kurz: 'Das Gute auch für mich' },
+
+    // Chronotyp mit anderen Tests
+    { id:'C1', b:true, main:['Rhythmus'], ok: function(m){ return m.chrono && m.chrono.J >= 50 && ((m.wb && (m.wb.V < 40 || m.wb.ov < 40)) || (m.stress && m.stress.U > 60)); },
+      pills: function(m){ return [CJ(m), m.wb && (m.wb.V < 40 || m.wb.ov < 40) ? { test:'wohlbefinden', label:'Lebendigkeit', value:m.wb.V } : { test:'stress', label:'Überforderung', value:m.stress.U }]; },
+      titel: 'Dein Alltag läuft gegen deine innere Uhr.',
+      text: function(m){ var wb = m.wb && (m.wb.V < 40 || m.wb.ov < 40); return 'An freien Tagen wachst du etwa ' + (['zwei','drei','vier'][m.chrono.jh - 2] || m.chrono.jh) + ' Stunden später auf als an Tagen mit Verpflichtungen. Gleichzeitig ' + (wb ? 'fühlst du dich gerade eher wenig lebendig' : 'erlebst du gerade deutlich Überforderung') + '. Wenn der Alltag dauerhaft gegen den eigenen Rhythmus läuft, kostet das Energie, ähnlich wie eine kleine Zeitverschiebung jede Woche.'; },
+      uebung: 'Geh diese Woche an drei Abenden eine halbe Stunde früher ins Bett und hol dir in der ersten Stunde nach dem Aufstehen Tageslicht, am besten draußen.',
+      kurz: 'Früher ins Bett, Licht am Morgen' },
+    { id:'C2', main:['Uhrzeit'], ok: function(m){ return m.chrono && m.chrono.E > 60 && m.P && m.P.C <= 50; },
+      pills: function(m){ return [CE(m), P(m,'C')]; },
+      titel: 'Was nach Aufschieben aussieht, ist manchmal nur die falsche Uhrzeit.',
+      text: function(m){ return 'Du bist eher ein Abendtyp, und deine Gewissenhaftigkeit liegt ' + (m.P.C < 40 ? 'eher niedrig' : 'im mittleren Bereich') + '. Morgens fällt es Abendtypen oft schwer, in Gang zu kommen, und Aufgaben bleiben dann eher liegen. Das ist keine Frage des Willens: Zu deiner wachen Zeit fällt dir Struktur vermutlich leichter.'; },
+      uebung: function(m){ var p = m.chrono.peak; return 'Leg die Aufgabe, die du gerade am meisten vor dir herschiebst, bewusst in dein Leistungshoch, etwa zwischen ' + uhr(p - 1.5) + ' und ' + uhr(p + 1.5) + ' Uhr, und schau, ob sie dann leichter geht.'; },
+      kurz: 'Aufgabe ins Leistungshoch legen' },
+    { id:'C3', main:['Ideen'], ok: function(m){ return m.chrono && m.chrono.E > 60 && m.P && m.P.O > 60; },
+      pills: function(m){ return [CE(m), P(m,'O')]; },
+      titel: 'Deine Ideen kommen vermutlich eher spät.',
+      text: function(){ return 'Du bist eher ein Abendtyp und offen für Neues. Viele Menschen mit diesem Rhythmus erleben am Abend, wenn es ruhiger wird, ihre kreativsten Stunden. Es kann sich lohnen, diese Zeit bewusst für eigene Ideen zu nutzen, statt sie nur mit Erledigungen zu füllen.'; },
+      uebung: 'Leg dir für zwei Abende diese Woche ein Notizbuch bereit und nimm dir zwanzig Minuten für eine Idee, die dich gerade beschäftigt. Hör auf, bevor es zu spät wird, damit dein Schlaf nicht zu kurz kommt.',
+      kurz: 'Zwanzig Minuten Ideenzeit' },
+    { id:'C4', main:['Morgen'], ok: function(m){ return m.chrono && m.chrono.E < 40 && m.P && m.P.C > 60; },
+      pills: function(m){ return [CE(m), P(m,'C')]; },
+      titel: 'Dein Morgen ist deine stärkste Zeit.',
+      text: function(){ return 'Du bist eher ein Morgentyp und gewissenhaft. Am Vormittag bist du vermutlich besonders klar und kannst viel schaffen. Wichtig ist, dass du dir diese Zeit nicht mit Kleinkram füllen lässt.'; },
+      uebung: 'Halte dir an drei Tagen diese Woche die erste Stunde deines Arbeitstags für die wichtigste Aufgabe frei: keine Mails, keine Nachrichten.',
+      kurz: 'Erste Stunde für das Wichtigste' }
   ];
 
   // Grundmuster: füllen auf, wenn weniger als drei Muster zutreffen, und stehen nie unter „Weitere Verbindungen“.
@@ -298,6 +370,15 @@
     var slots = firstB ? 4 : 5, chosen = [], used = {}, bs = [];
     res.forEach(function(r){ if (chosen.length < slots && !r.main.some(function(k){ return used[k]; })) { chosen.push(r); r.main.forEach(function(k){ used[k] = 1; }); } });
     res.forEach(function(r){ if (chosen.length < slots && chosen.indexOf(r) < 0) chosen.push(r); });
+    // Werte und Chronotyp sollen mit einem Muster vertreten sein, wenn eines passt: es ersetzt das letzte Muster ohne diese Tests
+    var nutzt = function(r, t){ try { return r.pills(m).some(function(p){ return p.test === t; }); } catch(e){ return false; } };
+    var neu = function(r){ return nutzt(r, 'werte') || nutzt(r, 'chronotyp'); };
+    ['werte', 'chronotyp'].forEach(function(t){
+      if (chosen.some(function(r){ return nutzt(r, t); })) return;
+      var kand = res.filter(function(r){ return nutzt(r, t) && chosen.indexOf(r) < 0; })[0]; if (!kand) return;
+      if (chosen.length < slots) { chosen.push(kand); return; }
+      for (var i = chosen.length - 1; i >= 0; i--) if (!neu(chosen[i])) { chosen[i] = kand; return; }
+    });
     if (firstB) bs.push(firstB);
     if (chosen.length + bs.length < 5) { var second = bur.filter(function(r){ return r !== firstB; })[0]; if (second) bs.push(second); }
     var pair = function(r){ try { return r.pills(m).map(function(p){ return p.label; }).sort().join('|'); } catch(e){ return ''; } };
