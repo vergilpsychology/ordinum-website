@@ -7,12 +7,12 @@ var DK, K, FCOL;
 function kk(o){ var r = {}; Object.keys(o).forEach(function(k){ r[k] = o[k][DK ? 1 : 0]; }); return r; }
 // Farben der Grafiken je Variante (hell | dunkel)
 var PAL = {
-  ink:['#18201c','#eef2f0'], tick:['#8b958f','#7d8a84'], knob:['#fff','#111513'], zt:['#edf1ee','#1a211e'], zm:['#e2e8e4','#2a3430'],
-  fz:['#eef2ef','#161d1a'], fo:['#e0e6e1','#2a3430'], fs:['#f1f4f2','#141a17'], fl:['#3d4843','#b9c3be'], fc:['#fbfcfa','#0a0d0c'],
+  ink:['#18201c','#eef2f0'], tick:['#8b958f','#8e9a95'], knob:['#fff','#111513'], zt:['#edf1ee','#1a211e'], zm:['#e2e8e4','#2a3430'],
+  fz:['#eef2ef','#161d1a'], fo:['#e0e6e1','#2a3430'], fs:['#f1f4f2','#141a17'], fl:['#3d4843','#cdd5d1'], fc:['#fbfcfa','#0a0d0c'],
   rt:['#e7ebe8','#1f2724'],
   wbase:['#dfe5e1','#2a3430'], wbeam:['#9aa59f','#5d6964'], wpl:['#f6c8bf','rgba(240,138,126,.4)'], wpr:['#bfe3cf','rgba(108,196,151,.4)'], wstr:['#c9d1cc','#3a4440'], wf:['#b4543f','#f08a7e'], ws:['#2f7a52','#8fd1a9'],
   ef:['#fff','#111513'], eb:['#f1f4f2','#171d1a'], ed:['#d3dbd6','#2f3934'], eq1:['#4a5550','#c9d2cd'], eq2:['#8b958f','#7d8a84'], ea:['#5d6964','#8e9a95'], ep:['#b03c8c','#ec8cce'],
-  cb:['#f3f8f6','rgba(95,208,184,.05)'], cs:['#dbe7e2','#26302c'], cf:['#1f8a73','#5fd0b8'], co:['#5fd0b8','#3a9e89'], ca:['#a9bdb6','#3a4642'], cc:['#c9d9d3','#2a3430'], cl:['#26312c','#d5ddd9'], cv:['#18201c','#f2f6f4'], ccap:['#7d8a84','#66726d'],
+  cb:['#f3f8f6','rgba(95,208,184,.05)'], cs:['#dbe7e2','#26302c'], cf:['#1f8a73','#5fd0b8'], co:['#5fd0b8','#3a9e89'], ca:['#a9bdb6','#3a4642'], cc:['#c9d9d3','#2a3430'], cl:['#26312c','#d5ddd9'], cv:['#18201c','#f2f6f4'], ccap:['#5d6964','#97a39e'],
   fbar:['#eef1ef','#1a211e'], fname:['#4a5550','#a3aea9'], ebar:['#f8e9f3','#2a1f27'], care:['#7a66c9','#b9a3f2'], wm:['#6c56c4','#b9a3f2'], logo:['saturate(1.25) brightness(.82)','none'],
   // Übersicht und Deckblatt im Stil der Website (hell: Light Mode der Startseite)
   g1:['#2b8257','#8fd1a9'], g2:['#6650bd','#b9a3f2'], otr:['#e1e6e2','#1f2724'], owb:['#c9a72a','#e8d27a'], ost:['#5b86e0','#7ea8f8'],
@@ -133,7 +133,7 @@ function zoneBar(v, c, opts){
 }
 
 function facetWheel(F){
-  var doms = ['O','C','E','A','N'], W = 780, H = 720, cx = 390, cy = 360, r0 = 66, R = 196, gap = 6, slot = 11, bw = 9;
+  var doms = ['O','C','E','A','N'], W = 820, H = 780, cx = 410, cy = 390, r0 = 66, R = 196, gap = 6, slot = 11, bw = 9;
   var rr = function(v){ return r0 + (R - r0) * v / 100; };
   var s = sector(cx, cy, rr(40), rr(60), 0, 359.99, K.fz);
   s += '<circle cx="' + cx + '" cy="' + cy + '" r="' + R + '" fill="none" stroke="' + K.fo + '" stroke-width="1"/>';
@@ -143,12 +143,12 @@ function facetWheel(F){
       s += sector(cx, cy, r0, R, a0, a1, K.fs);
       s += sector(cx, cy, r0, rr(v), a0, a1, FCOL[d]);
       var am = (a0 + a1) / 2, rad = am * Math.PI / 180, lx = cx + Math.cos(rad) * (R + 9), ly = cy + Math.sin(rad) * (R + 9), flip = Math.cos(rad) < -0.0001;
-      s += '<text x="' + r1(lx) + '" y="' + r1(ly) + '" transform="rotate(' + r1(flip ? am + 180 : am) + ' ' + r1(lx) + ' ' + r1(ly) + ')" text-anchor="' + (flip ? 'end' : 'start') + '" dominant-baseline="middle" font-family="Hanken Grotesk" font-size="12.5" fill="' + K.fl + '">' + esc(Q.facetten[f].name) + ' <tspan font-family="JetBrains Mono" font-size="11.5" font-weight="700" fill="' + K.ink + '">' + v + '</tspan></text>';
+      s += '<text x="' + r1(lx) + '" y="' + r1(ly) + '" transform="rotate(' + r1(flip ? am + 180 : am) + ' ' + r1(lx) + ' ' + r1(ly) + ')" text-anchor="' + (flip ? 'end' : 'start') + '" dominant-baseline="middle" font-family="Hanken Grotesk" font-size="14.5" fill="' + K.fl + '">' + esc(Q.facetten[f].name) + ' <tspan font-family="JetBrains Mono" font-size="13" font-weight="700" fill="' + K.ink + '">' + v + '</tspan></text>';
     }
   });
   s += '<circle cx="' + cx + '" cy="' + cy + '" r="' + (r0 - 6) + '" fill="' + K.fc + '" stroke="' + K.fo + '"/>';
   s += txt(cx, cy + 4, '30', { display:1, size:30, weight:300, anchor:'middle' }) + txt(cx, cy + 24, 'FACETTEN', { mono:1, size:9, fill:K.tick, anchor:'middle', ls:2 });
-  return svg(W, H, s, '', 'width:136mm;display:block;margin:0 auto');
+  return svg(W, H, s, '', 'width:168mm;display:block;margin:0 auto');
 }
 
 // Rangliste aller 24 Charakterstärken: die fünf stärksten hervorgehoben, die drei am wenigsten ausgeprägten abgesetzt
@@ -481,8 +481,14 @@ function chapters(m){
   b2.push(opener(k2.nr, k2.titel, esc(T.muster.intro)));
   if (!mu.gezeigt.length) b2.push('<p>' + esc(T.muster.keins) + '</p>');
   mu.gezeigt.forEach(function(r, i){
-    b2.push('<div class="pattern"><p class="pnr">Muster ' + (i + 1) + ' von ' + mu.gezeigt.length + '</p>' + conn(r.pills(m)) + '<h2>' + esc(val(r.titel, m)) + '</h2><p>' + esc(r.text(m)) + '</p><div class="try"><p class="lbl">Ausprobieren</p><p>' + esc(val(r.uebung, m)) + '</p></div></div>');
+    b2.push('<div class="pattern"><p class="pnr">Muster ' + (i + 1) + ' von ' + mu.gezeigt.length + '</p>' + conn(r.pills(m)) + '<h2>' + esc(val(r.titel, m)) + '</h2><p>' + esc(r.text(m)) + '</p><div class="try"><p class="lbl">Ausprobieren</p><p>' + esc(val(r.uebung, m)) + '</p></div>' + q(val(r.frage, m)) + '</div>');
   });
+  // Spannungsfelder: Ergebnisse, die in verschiedene Richtungen ziehen
+  var sp = window.waehleSpannungen(m);
+  if (sp.length) {
+    b2.push('<div class="sub"><p class="ey">Kapitel ' + k2.nr + ' · ' + k2.titel + '</p><h2 class="h2b">' + T.muster.spannung + '</h2><p class="muted" style="margin:0">' + esc(T.muster.spannungIntro) + '</p></div>');
+    sp.forEach(function(r, i){ b2.push({ keep: i === 0, html:'<div class="pattern spannung"><p class="pnr">Spannungsfeld ' + (i + 1) + ' von ' + sp.length + '</p>' + conn(r.pills(m)) + '<h2>' + esc(val(r.titel, m)) + '</h2><p>' + esc(r.text(m)) + '</p>' + q(r.frage) + '</div>' }); });
+  }
   // Höchstens vier weitere Verbindungen, damit das Kapitel kompakt bleibt
   if (mu.weitere.length) b2.push('<p class="lbl" style="margin-top:2mm">' + T.muster.weitere + '</p><div class="more">' + mu.weitere.slice(0, 4).map(function(r){ var p = r.pills(m); return '<div>' + esc(val(r.titel, m)) + ' <span>' + esc(p[0].label) + ' · ' + esc(p[1].label) + '</span></div>'; }).join('') + '</div>');
   b2.push({ keep:1, html:ask(T.muster.frage) });
@@ -492,11 +498,15 @@ function chapters(m){
   if (m.st) {
     var k3 = kap(2), b3 = k3.blocks;
     b3.push(opener(k3.nr, k3.titel, esc(T.staerken.intro)) + strengthRanking(m) + '<p style="margin:3mm 0 0">' + esc(T.staerken.seltener) + '</p>');
+    window.waehleBlick(m).forEach(function(r){ var x = m.st.filter(function(y){ return y.k === r.k; })[0];
+      b3.push('<div class="blick"><p class="lbl">' + T.staerken.blick + ' · ' + esc(Q.staerken[r.k].name) + ' ' + x.v + '</p><p>' + esc(r.text(m)) + '</p>' + q(r.frage) + '</div>'); });
     b3.push('<div class="sep" style="margin:5mm 0 4mm"></div><p class="lbl">' + T.staerken.verbindet.titel + '</p><p style="margin:0">' + esc(gruppen(m)) + '</p>');
-    b3.push({ brk:1, html:'<p class="ey">Kapitel ' + k3.nr + ' · ' + k3.titel + '</p><h2 style="font-size:15pt;font-weight:300;margin-bottom:4mm">Ideen für diese Woche</h2>' });
-    m.top.forEach(function(x, i){ var S = Q.staerken[x.k]; b3.push('<div class="idea" style="margin-bottom:3mm"><div class="box"></div><div><p class="lbl">Platz ' + (i + 1) + ' · ' + x.v + '</p><h3>' + esc(S.name) + '</h3><p class="w">' + esc(S.what) + '</p><p>' + esc(T.staerken.ideen[x.k]) + '</p></div></div>'); });
+    // Kein fester Seitenwechsel mehr: die Überschrift wandert mit der ersten Idee, falls der Platz nicht reicht
+    b3.push('<div class="sub"><p class="ey">Kapitel ' + k3.nr + ' · ' + k3.titel + '</p><h2 class="h2b" style="margin-bottom:4mm">Ideen für diese Woche</h2></div>');
+    m.top.forEach(function(x, i){ var S = Q.staerken[x.k]; b3.push({ keep: i === 0, html:'<div class="idea" style="margin-bottom:3mm"><div class="box"></div><div><p class="lbl">Platz ' + (i + 1) + ' · ' + x.v + '</p><h3>' + esc(S.name) + '</h3><p class="w">' + esc(S.what) + '</p><p>' + esc(T.staerken.ideen[x.k]) + '</p></div></div>' }); });
     b3.push('<p class="muted" style="margin-top:3mm">' + esc(T.staerken.forschung) + '</p>');
     b3.push({ keep:1, html:ask(T.staerken.frage) });
+    b3.push({ fill:'notes' });
     C.push(k3);
   }
 
@@ -577,7 +587,7 @@ function chapters(m){
       var st = T.fuehlen.stile[m.bez.focus];
       b5.push((m.emo ? '<div class="sep" style="margin:4mm 0 3mm"></div>' : '') + '<h2>Wie du anderen begegnest</h2><div class="two" style="grid-template-columns:1fr 96mm;gap:5mm;align-items:center"><div>' +
         '<p class="lbl">Dein Schwerpunkt: ' + BEZ[m.bez.focus] + '</p><p style="font-size:10.4pt">' + esc(st.text) + '</p>' + (st.einladung ? '<p><b>Eine Einladung:</b> ' + esc(st.einladung) + '</p>' : '') +
-        '<p class="muted small" style="margin:0">Deine drei stärksten Stile: ' + m.bez.top3.map(function(k){ return BEZ[k] + ' (' + m.bez.sc[k] + ')'; }).join(', ') + '</p></div>' + circumplex(m.bez) + '</div>');
+        '<p class="muted small" style="margin:0 0 2mm">Deine drei stärksten Stile: ' + m.bez.top3.map(function(k){ return BEZ[k] + ' (' + m.bez.sc[k] + ')'; }).join(', ') + '</p><p class="muted small" style="margin:0">' + esc(T.fuehlen.achsen) + '</p></div>' + circumplex(m.bez) + '</div>');
     }
     b5.push({ keep:1, html:ask(T.fuehlen.frage) });
     C.push(k5);
@@ -599,8 +609,7 @@ function chapters(m){
   var k6 = kap(5), b6 = k6.blocks;
   b6.push(opener(k6.nr, k6.titel, esc(T.schritte.intro.replace('{n}', zahl(steps.length)))));
   steps.forEach(function(s, i){ b6.push('<div class="step" style="margin-bottom:3.4mm"><div class="num">' + (i + 1) + '</div><div><p class="k">' + esc(s.k) + '</p><h3>' + esc(s.h) + '</h3><p>' + esc(s.p) + '</p></div></div>'); });
-  b6.push('<div class="sep" style="margin:5mm 0 3mm"></div><p class="lbl">' + esc(T.schritte.begleiter) + '</p><table class="track"><tr><th style="text-align:left">Vorhaben</th>' + ['Mo','Di','Mi','Do','Fr','Sa','So'].map(function(d){ return '<th>' + d + '</th>'; }).join('') + '</tr>' +
-    steps.map(function(s){ return '<tr><td>' + esc(s.kurz) + '</td>' + [1,2,3,4,5,6,7].map(function(){ return '<td class="d"><span></span></td>'; }).join('') + '</tr>'; }).join('') + '</table>');
+  b6.push({ keep:1, html:'<div class="ask" style="margin-top:5mm"><p class="lbl">' + esc(T.schritte.rueckblick) + '</p><p>' + esc(T.schritte.rueckblickFrage) + '</p><div class="ln"></div><div class="ln"></div></div>' });
   b6.push({ fill:'notes' });
   C.push(k6);
 
@@ -608,7 +617,7 @@ function chapters(m){
   C.push({ head:'Zum Schluss', blocks:[
     '<p class="ey">Zum Schluss</p><h1>Eine Momentaufnahme</h1><p class="end">' + esc(T.schluss) + '</p>',
     '<div class="sep" style="margin:8mm 0 5mm"></div><p class="lbl">Eingeflossene Tests</p><div class="src">' + m.tests.map(function(k){ return '<span>' + esc(TESTS[k].name) + '</span><span>' + fmt(m.t[k].date) + '</span>'; }).join('') + '</div>',
-    '<div class="sep" style="margin:6mm 0 5mm"></div><p class="lbl">Hinweis</p>' + hinweise(m).map(function(p){ return '<p class="fine">' + esc(p) + '</p>'; }).join(''),
+    '<div class="einordnung"><p class="lbl">' + esc(T.einordnung) + '</p>' + hinweise(m).map(function(p){ return '<p class="fine">' + esc(p) + '</p>'; }).join('') + '</div>',
     { pin:1, html:'<div style="margin-top:10mm;display:flex;align-items:center;gap:3mm;border-top:.25mm solid var(--line);padding-top:5mm"><img src="' + LOGO + '" style="height:9mm;filter:' + K.logo + '"><span class="wm" style="color:' + K.wm + ';font-size:11pt">ORD<i>I</i>NUM</span><span class="muted small" style="margin-left:auto;text-align:right">' + esc(T.autor) + '<br>ordinum.de</span></div>' }
   ]});
   return C;
@@ -678,7 +687,7 @@ function render(root){
   root.querySelector('#pc').textContent = pages.length;
   C.forEach(function(ch){ var el = ch.nr && root.querySelector('#toc' + ch.nr); if (el) el.textContent = String(ch.page).padStart(2, '0'); });
   Array.prototype.forEach.call(root.querySelectorAll('.pref'), function(el){ var ch = C.filter(function(c){ return c.idx === +el.getAttribute('data-kap'); })[0]; if (ch) el.textContent = 'S. ' + ch.page; });
-  window.BERICHT = { seiten: pages.length, warnungen: warn, muster: m.muster.gezeigt.map(function(r){ return r.id; }), weitere: m.muster.weitere.map(function(r){ return r.id; }), kapitel: C.map(function(ch){ return ch.head + ' → S. ' + ch.page; }),
+  window.BERICHT = { seiten: pages.length, warnungen: warn, muster: m.muster.gezeigt.map(function(r){ return r.id; }), weitere: m.muster.weitere.map(function(r){ return r.id; }), spannungen: window.waehleSpannungen(m).map(function(r){ return r.id; }), blick: window.waehleBlick(m).map(function(r){ return r.id; }), kapitel: C.map(function(ch){ return ch.head + ' → S. ' + ch.page; }),
     fuellung: Array.prototype.map.call(pages, function(p, i){ var inn = p.querySelector('.inner'); return inn ? (i + 1) + ': ' + Math.round(used(inn) / MM) + '/' + Math.round(inn.clientHeight / MM) + 'mm' + ' [' + Array.prototype.map.call(inn.children, function(c){ return Math.round(c.offsetHeight / MM); }).join(',') + ']' : (i + 1) + ': Deckblatt'; }) };
 }
 // Schriften explizit laden, damit die Seitenaufteilung mit den echten Schriften gemessen wird

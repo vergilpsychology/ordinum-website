@@ -10,7 +10,7 @@ window.TEXTE = {
     schwerpunkt: 'Dein Schwerpunkt', ausgewogen: 'Ohne klaren Schwerpunkt', stileTop: 'Stärkste Stile', muster: 'Deine Muster',
     wichtig: 'Am wichtigsten', rhythmus: 'Tagesrhythmus', chronotyp: 'Dein Chronotyp', hoch: 'Leistungshoch', jetlag: 'Sozialer Jetlag' },
   profil: 'Hier siehst du deine Werte in den fünf großen Bereichen der Persönlichkeitsforschung, aus deinem {quelle} vom {datum}.',
-  netz: 'Je weiter ein Punkt nach außen reicht, desto mehr hast du den Aussagen dieses Bereichs zugestimmt. Der helle Ring markiert den mittleren Bereich zwischen 40 und 60.',
+  netz: 'Je weiter ein Punkt nach außen reicht, desto mehr hast du den Aussagen dieses Bereichs zugestimmt. Der helle Ring markiert den mittleren Bereich zwischen 40 und 60. Sehr hohe oder sehr niedrige Werte heißen, dass du dich in den Aussagen sehr deutlich wiedererkannt hast oder eben nicht.',
 
   kapitel: [
     { nr: 1, titel: 'Dein Profil auf einen Blick' },
@@ -139,7 +139,9 @@ window.TEXTE = {
     intro: 'Hier treffen sich deine Ergebnisse, meist aus zwei verschiedenen Tests. Jedes Muster ist ein Angebot zum Nachdenken, kein Urteil. Nimm mit, was für dich stimmt.',
     weitere: 'Weitere Verbindungen in deinen Ergebnissen',
     keins: 'Zwischen deinen Tests zeigt sich keine der Verbindungen, nach denen dieser Bericht sucht. Das heißt nicht, dass es keine gibt: Oft entdeckt man die eigenen Muster am besten selbst. Leg die Kapitel nebeneinander und frag dich, wo du dich wiedererkennst und was dich überrascht.',
-    frage: 'Welches dieser Muster erkennst du sofort wieder, und welches überrascht dich?'
+    frage: 'Welches dieser Muster erkennst du sofort wieder, und welches überrascht dich?',
+    spannung: 'Wo es in dir zieht',
+    spannungIntro: 'Manche Ergebnisse ziehen in verschiedene Richtungen. Solche Spannungen sind keine Fehler. Oft liegt gerade dort eine Entwicklungsaufgabe: die Frage, wie beide Seiten zu ihrem Recht kommen.'
   },
 
   staerken: {
@@ -185,7 +187,8 @@ window.TEXTE = {
       'Mäßigung': { name: 'Mäßigung', kurz: 'die dir Maß und Ruhe geben', text: 'Diese Stärken schützen vor dem Zuviel: Besonnenheit, Selbststeuerung, Bescheidenheit und die Fähigkeit zu verzeihen. Energie gibt dir vermutlich, mit Ruhe und Bedacht zu handeln und dir selbst treu zu bleiben.' },
       'Transzendenz': { name: 'Transzendenz', kurz: 'die deinem Alltag Leichtigkeit und Tiefe geben', text: 'Diese Stärken richten deinen Blick über das Alltägliche hinaus: auf Schönes, auf Dankbarkeit, Hoffnung, Humor oder Sinn. Energie gibt dir vermutlich alles, was dich staunen, lachen oder zuversichtlich nach vorn schauen lässt.' }
     },
-    seltener: 'Diese drei sind bei dir derzeit am wenigsten ausgeprägt. Das sind keine Schwächen, sondern Seiten, die du seltener einsetzt. Manchmal lohnt es sich, eine davon bewusst auszuprobieren, wenn eine Situation sie braucht.',
+    seltener: 'Diese drei setzt du derzeit am seltensten ein. Sie sind kein Mangel, aber auch nicht bedeutungslos: Manchmal fehlt eine Stärke genau dort, wo eine Situation sie bräuchte. Es lohnt sich, ehrlich hinzuschauen, wo das bei dir der Fall ist.',
+    blick: 'Ein zweiter Blick',
     frage: 'Wann hast du zuletzt erlebt, wie eine deiner Stärken dich getragen hat?'
   },
 
@@ -243,6 +246,7 @@ window.TEXTE = {
       NO: { text: 'Du gehst gern auf Menschen zu, fängst Gespräche an und bringst Leben in eine Runde.', einladung: 'Gönn dir neben allem Austausch auch einzelne, tiefe Gespräche und ruhige Momente für dich.' },
       AUS: { text: 'Dein Beziehungsstil hat keinen klaren Schwerpunkt. Du kannst je nach Situation führen oder folgen, Nähe suchen oder Abstand halten. Diese Beweglichkeit hilft dir im Umgang mit sehr unterschiedlichen Menschen.', einladung: '' }
     },
+    achsen: 'Der Kreis hat zwei Achsen: Senkrecht geht es darum, wie sehr du im Kontakt Einfluss nimmst oder anderen Raum lässt, waagrecht darum, wie viel Nähe oder Abstand du suchst. Der Punkt zeigt, wohin deine Antworten insgesamt weisen.',
     frage: 'Wie würde ein Mensch, der dich gut kennt, deine Art beschreiben, anderen zu begegnen?'
   },
 
@@ -292,7 +296,8 @@ window.TEXTE = {
       gute: { name: 'Drei gute Dinge', text: 'Jeden Abend drei Dinge notieren, die gut waren.' },
       traum: { name: 'Traumtagebuch', text: 'Träume festhalten und nach Bildern und Themen schauen.' }
     },
-    begleiter: 'Dein 7-Tage-Begleiter: Kreuze an, an welchen Tagen du es ausprobiert hast.',
+    rueckblick: 'Rückblick nach einer Woche',
+    rueckblickFrage: 'Wann hat sich einer dieser Schritte in den letzten Tagen besonders stimmig oder besonders schwer angefühlt? Was sagt dir das?',
     notizen: 'Platz für deine Gedanken'
   },
 
@@ -304,6 +309,7 @@ window.TEXTE = {
     chrono: 'Der Chronotyp-Test ist ein eigener Fragebogen von Ordinum, noch nicht wissenschaftlich überprüft und als Orientierung gedacht.',
     beide: 'Der Werte-Test und der Chronotyp-Test sind eigene Fragebögen von Ordinum, noch nicht wissenschaftlich überprüft und als Orientierung gedacht.'
   },
+  einordnung: 'Ein Wort zur Einordnung',
   hinweis: [
     'Die Tests beruhen auf frei verfügbaren Fragebögen aus der psychologischen Forschung (International Personality Item Pool, ipip.ori.org). Die deutschen Fassungen sind eigene Übersetzungen. Die Ergebnisse beschreiben, wie du dich zum Zeitpunkt des Tests selbst eingeschätzt hast. Sie sind keine Diagnose und ersetzen keine Beratung oder Behandlung.',
     'Deine Antworten wurden in deinem Browser ausgewertet und dort gespeichert. An uns wurden sie nicht übertragen.',
