@@ -287,6 +287,23 @@ footer nav{display:flex;flex-wrap:wrap;gap:10px 20px}
 .offen{margin-top:28px;border:1px dashed var(--line);border-radius:20px;padding:clamp(18px,3.5vw,24px)}
 .offen .cta-row{margin-top:12px}
 .offen .btn{padding:8px 14px;font-size:14px}
+.ringe{--ra:#e8d9b5;--rb:#7f78c8;--rl:#a9a4d8;--rt:#c9c2b0;--rn:rgba(238,242,238,.07);margin-top:36px;border:1px solid var(--line);border-radius:22px;padding:clamp(20px,4vw,32px);background:radial-gradient(520px 320px at 85% 0%,rgba(127,120,200,.10),transparent 70%),radial-gradient(480px 300px at 0% 100%,rgba(232,217,181,.07),transparent 70%),var(--surface)}
+:root[data-theme="light"] .ringe{--ra:#9a7b3c;--rb:#5b54b0;--rl:#5b54b0;--rt:#6e5a2e;--rn:rgba(20,24,22,.09)}
+.ringe[hidden]{display:none}
+.ringe-grid{display:grid;gap:clamp(12px,3vw,24px);margin-top:8px}
+.ringe-bild{max-width:540px;width:100%;margin:0 auto}
+.ringe-bild svg{width:100%;height:auto;display:block}
+.ringe h2{font-family:var(--display);font-weight:300;font-size:clamp(22px,3.4vw,30px);line-height:1.15;margin:0 0 16px}
+.ringe .dlbl{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0}
+.ringe .dyn{font-family:var(--display);font-weight:300;font-size:clamp(20px,3vw,26px);margin:6px 0 16px;line-height:1.3}
+.ringe .dyn .a{color:var(--ra)}.ringe .dyn .b{color:var(--rl)}.ringe .dyn .x{color:var(--muted);margin:0 .35em}
+.ringe-text p{margin:0 0 12px}
+.ringe-text .fine{color:var(--muted);font-size:14px}
+.ringe-text .fine a{color:inherit}
+.ringe details{font-size:14px;color:var(--muted)}
+.ringe details summary{cursor:pointer}
+.ringe details summary:hover{color:var(--fg)}
+.ringe details p{margin:8px 0 0}
 </style>
 <link rel="stylesheet" href="theme.css">
 <script>try{if(localStorage.getItem('ordinum-theme')==='light')document.documentElement.dataset.theme='light'}catch(e){}</script>
@@ -306,6 +323,22 @@ footer nav{display:flex;flex-wrap:wrap;gap:10px 20px}
     <p>Hier findest du alle Tests, die du in diesem Browser gemacht hast. Sie werden nur auf deinem Gerät gespeichert, nicht bei uns. Für andere Geräte nutzt du den persönlichen Link, den du bei jedem Ergebnis kopieren oder dir per E-Mail schicken kannst.</p>
   </section>
   <a class="mein-bericht" id="berichtbox" href="bericht.html" hidden><span><span class="eyebrow">Dein Bericht</span><h2>Dein individualisierter Bericht</h2><p id="bbtext"></p></span><span class="btn primary">Bericht öffnen</span></a>
+  <section class="ringe" id="ringe" hidden>
+    <p class="eyebrow">Deine zwei Ringe</p>
+    <div class="ringe-grid">
+      <div class="ringe-bild" id="ringebild"></div>
+      <div class="ringe-text">
+        <h2>Was du lebst und was leiser bleibt</h2>
+        <p class="dlbl">Deine stärkste innere Dynamik</p>
+        <p class="dyn" id="ringedyn"></p>
+        <p id="ringeerkl"></p>
+        <p id="ringebal"></p>
+        <p class="fine" id="ringefehlt" hidden></p>
+        <details><summary>Wie die Ringe entstehen</summary><p id="ringewie"></p></details>
+      </div>
+    </div>
+    <div id="ringeteilen"></div>
+  </section>
   <div class="rlist" id="list"></div>
   <div class="empty" id="empty" hidden>
     <h3 style="font-size:22px">Noch keine Ergebnisse auf diesem Gerät</h3>
@@ -325,6 +358,8 @@ footer nav{display:flex;flex-wrap:wrap;gap:10px 20px}
     <nav><a href="meine-ergebnisse.html">Meine Ergebnisse</a><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></nav>
   </div>
 </footer>
+<script src="zwei-ringe.js"></script>
+<script src="teilen.js"></script>
 <script>
 var HIST = 'ordinum-ergebnisse', ABC = 'abcdefghijklmnopqrstuvwxy';
 // key: gespeicherter Testfortschritt; top: nur die stärksten n Werte zeigen, absteigend sortiert
@@ -436,6 +471,38 @@ function render(){
   offen.forEach(function(t){ var a = document.createElement('a'); a.className = 'btn'; a.href = TESTS[t].page; a.textContent = TESTS[t].name.split(' · ')[0]; $('offenlist').appendChild(a); });
   $('zahl').textContent = order.length + ' von ' + Object.keys(TESTS).length + ' Tests';
   bericht(groups);
+  ringe(groups);
+}
+// Zwei Ringe aus dem jeweils neuesten Ergebnis von Persönlichkeit, Werten und Beziehungsstil
+function ringe(groups){
+  var Z = window.OrdinumRinge, box = $('ringe'), t = {};
+  ['big5', 'neo120', 'werte', 'beziehung'].forEach(function(k){
+    if (groups[k]) t[k] = groups[k].slice().sort(function(a, b){ return a.date < b.date ? 1 : -1; })[0].scores;
+  });
+  var m = Z.modell(t);
+  box.hidden = m.achsen < 4 || !m.dyn; if (box.hidden) return;
+  var F = {a: 'var(--ra)', b: 'var(--rb)', netz: 'var(--rn)', text: 'var(--rt)', leise: 'var(--rl)'};
+  $('ringebild').innerHTML = Z.svg(m, {size: 360, labels: true, farben: F, fontSize: 16});
+  $('ringedyn').innerHTML = '<span class="a"></span><span class="x">⇄</span><span class="b"></span>';
+  $('ringedyn').querySelector('.a').textContent = m.dyn.stark;
+  $('ringedyn').querySelector('.b').textContent = m.dyn.leise;
+  $('ringeerkl').textContent = Z.TEXT.erklaerung;
+  $('ringebal').textContent = Z.TEXT.balance[m.balance];
+  $('ringewie').textContent = Z.TEXT.wie;
+  var f = $('ringefehlt'); f.hidden = !m.fehlendeTests.length; f.innerHTML = '';
+  if (m.fehlendeTests.length) {
+    f.appendChild(document.createTextNode('Gestrichelte Achsen werden genauer, sobald du '));
+    m.fehlendeTests.forEach(function(k, i){
+      if (i) f.appendChild(document.createTextNode(i === m.fehlendeTests.length - 1 ? ' und den ' : ', den '));
+      else f.appendChild(document.createTextNode('den '));
+      var a = document.createElement('a'); a.href = Z.TEXT.testSeite[k]; a.textContent = Z.TEXT.testName[k]; f.appendChild(a);
+    });
+    f.appendChild(document.createTextNode(' machst.'));
+  }
+  if (window.OrdinumShare) OrdinumShare.show({kind: 'ringe', ringe: m, anchor: $('ringeteilen'), file: 'ordinum-zwei-ringe',
+    eyebrow: 'Meine zwei Ringe', title: 'Was ich lebe und was leiser bleibt', colors: ['#e8d9b5', '#7f78c8'],
+    sub: 'Meine stärkste innere Dynamik', h: 'Deine zwei Ringe als Bild teilen',
+    p: 'Speichere deine Ringe als Bild für deine Instagram-Story oder deinen Feed. Das Bild entsteht direkt hier in deinem Browser und enthält keine einzelnen Testwerte.'});
 }
 // Ist auf diesem Gerät ein Bericht freigeschaltet, steht er als Feld über den Ergebnissen
 function bericht(groups){

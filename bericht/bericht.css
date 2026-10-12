@@ -347,3 +347,10 @@
 #report .pattern.last:before{background:#d9a35f}
 #report .pattern.spannung:before{background:linear-gradient(180deg,#b9a3f2 0,#b9a3f2 50%,#e3907a 50%,#e3907a 100%)}
 #report[data-rt=dark] .pattern.kraft:before{background:#5fae86}
+/* Zwei Ringe: auf dem Deckblatt oben rechts und als erster Block im Kapitel Licht und Schatten */
+#report .cover .zrc{position:absolute;right:14mm;top:26mm;width:74mm;opacity:.95}
+#report .cover .zrc svg,#report .zrb svg{width:100%;height:auto;display:block}
+#report .zrb{display:grid;grid-template-columns:84mm 1fr;gap:6mm;align-items:center;margin:2mm 0 5mm}
+#report .zrb p{margin:0 0 2.4mm}
+#report .zdyn{font-family:var(--display);font-weight:300;font-size:15pt;line-height:1.25;margin:1mm 0 3mm!important}
+#report .zdyn i{font-style:normal;color:#8e9a95;margin:0 1.2mm}
