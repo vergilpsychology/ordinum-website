@@ -420,7 +420,7 @@
     { id:'T1', ok: function(m){ return hasF(m) && FV(m,'C4') >= 65 && (FV(m,'C2') <= 40 || FV(m,'C5') <= 40); },
       f: function(m){ return ['C4', FV(m,'C2') <= FV(m,'C5') ? 'C2' : 'C5']; },
       titel: 'Du willst viel erreichen, und Struktur ist nicht dein natürliches Werkzeug.',
-      text: function(m){ return 'Du setzt dir hohe Ziele und willst mehr schaffen, als von dir erwartet wird. ' + (FV(m,'C2') <= FV(m,'C5') ? 'Feste Ordnung und Systeme' : 'Dich zu etwas zu zwingen, das gerade keine Lust macht, und') + ' ziehen dich dagegen wenig an. Diese Mischung gibt dir Schwung und Freiheit. Sie kann dich aber Kraft kosten, wenn große Vorhaben an den kleinen Alltagsschritten hängen bleiben. Die Aufgabe ist dann nicht, ein ordentlicherer Mensch zu werden, sondern herauszufinden, wie viel Struktur dein Ehrgeiz wirklich braucht.'; },
+      text: function(m){ return 'Du setzt dir hohe Ziele und willst mehr schaffen, als von dir erwartet wird. ' + (FV(m,'C2') <= FV(m,'C5') ? 'Feste Ordnung und Systeme ziehen dich dagegen wenig an.' : 'Dich zu Dingen zu zwingen, die gerade keine Lust machen, liegt dir dagegen wenig.') + ' Diese Mischung gibt dir Schwung und Freiheit. Sie kann dich aber Kraft kosten, wenn große Vorhaben an den kleinen Alltagsschritten hängen bleiben. Die Aufgabe ist dann nicht, ein ordentlicherer Mensch zu werden, sondern herauszufinden, wie viel Struktur dein Ehrgeiz wirklich braucht.'; },
       frage: 'Wo bremst dich gerade fehlende Struktur bei etwas, das dir wirklich wichtig ist?' },
     { id:'T2', ok: function(m){ return hasF(m) && FV(m,'E3') >= 65 && FV(m,'A4') >= 65; },
       f: function(){ return ['E3','A4']; },
