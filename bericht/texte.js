@@ -296,6 +296,7 @@ window.TEXTE = {
     notizen: 'Platz für deine Gedanken'
   },
 
+  autor: 'Konzept und Texte: Jannik Wessling, M.Sc. Psychologie',
   schluss: 'Dieser Bericht ist eine Momentaufnahme. Menschen verändern sich, und manche Ergebnisse sehen in einem halben Jahr anders aus. Wenn du magst, wiederhole die Tests später und schau, was sich bewegt hat. Und vor allem: Vertraue dem, was du über dich selbst weißt, auch dort, wo es über diese Seiten hinausgeht.',
   // Nur wenn Werte oder Chronotyp eingeflossen sind, nach dem ersten Absatz
   hinweisEigen: {

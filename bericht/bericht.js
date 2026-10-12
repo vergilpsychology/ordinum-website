@@ -609,7 +609,7 @@ function chapters(m){
     '<p class="ey">Zum Schluss</p><h1>Eine Momentaufnahme</h1><p class="end">' + esc(T.schluss) + '</p>',
     '<div class="sep" style="margin:8mm 0 5mm"></div><p class="lbl">Eingeflossene Tests</p><div class="src">' + m.tests.map(function(k){ return '<span>' + esc(TESTS[k].name) + '</span><span>' + fmt(m.t[k].date) + '</span>'; }).join('') + '</div>',
     '<div class="sep" style="margin:6mm 0 5mm"></div><p class="lbl">Hinweis</p>' + hinweise(m).map(function(p){ return '<p class="fine">' + esc(p) + '</p>'; }).join(''),
-    { pin:1, html:'<div style="margin-top:10mm;display:flex;align-items:center;gap:3mm;border-top:.25mm solid var(--line);padding-top:5mm"><img src="' + LOGO + '" style="height:9mm;filter:' + K.logo + '"><span class="wm" style="color:' + K.wm + ';font-size:11pt">ORD<i>I</i>NUM</span><span class="muted small" style="margin-left:auto">ordinum.de</span></div>' }
+    { pin:1, html:'<div style="margin-top:10mm;display:flex;align-items:center;gap:3mm;border-top:.25mm solid var(--line);padding-top:5mm"><img src="' + LOGO + '" style="height:9mm;filter:' + K.logo + '"><span class="wm" style="color:' + K.wm + ';font-size:11pt">ORD<i>I</i>NUM</span><span class="muted small" style="margin-left:auto;text-align:right">' + esc(T.autor) + '<br>ordinum.de</span></div>' }
   ]});
   return C;
 }
