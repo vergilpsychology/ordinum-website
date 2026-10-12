@@ -158,7 +158,7 @@ function strengthRanking(m){
   var head = function(label, scale){ return '<div class="sr head"><span></span><span class="lbl">' + label + '</span>' + (scale ? '<div class="sscale"><span>eher niedrig</span><span>mittel</span><span>eher hoch</span></div>' : '<span></span>') + '<span></span></div>'; };
   return '<div class="srank">' + head('Deine fünf stärksten', 1) + m.st.slice(0, 5).map(function(x, i){ return row(x, i, ' top'); }).join('') +
     head('Weitere Stärken') + m.st.slice(5, n - 3).map(function(x, i){ return row(x, i + 5, ''); }).join('') +
-    head('Seltener genutzt') + m.st.slice(n - 3).map(function(x, i){ return row(x, i + n - 3, ' low'); }).join('') + '</div>';
+    head(T.uebersicht.seltener) + m.st.slice(n - 3).map(function(x, i){ return row(x, i + n - 3, ' low'); }).join('') + '</div>';
 }
 
 function ring(v, c, label){
@@ -286,7 +286,7 @@ function q(text){ return '<div class="q"><p><span class="rl">Frage an dich</span
 function ask(text){ return '<div class="ask"><p class="lbl">Frage an dich</p><p>' + esc(text) + '</p><div class="ln"></div><div class="ln"></div></div>'; }
 function opener(nr, titel, lead){ return '<p class="ey">' + (nr ? 'Kapitel ' + nr : 'Zu Beginn') + '</p><h1>' + esc(titel) + '</h1>' + (lead ? '<p class="lead">' + lead + '</p>' : ''); }
 function pill(p){ var c = TESTS[p.test]; return '<div class="cp" style="--c:' + c.f + '"><div class="ct"><i></i>' + esc(c.name) + '</div><div class="cl">' + esc(p.label) + '<b>' + esc(p.value) + '</b></div></div>'; }
-function conn(pills){ var a = TESTS[pills[0].test], b = TESTS[pills[1].test]; return '<div class="conn">' + pill(pills[0]) + '<div class="cline" style="background:linear-gradient(90deg,' + a.f + ',' + b.f + ')"></div>' + pill(pills[1]) + '</div>'; }
+function conn(pills){ var h = pill(pills[0]); for (var i = 1; i < pills.length; i++){ var a = TESTS[pills[i - 1].test], b = TESTS[pills[i].test]; h += '<div class="cline" style="background:linear-gradient(90deg,' + a.f + ',' + b.f + ')"></div>' + pill(pills[i]); } return '<div class="conn' + (pills.length > 2 ? ' drei' : '') + '">' + h + '</div>'; }
 /* ---------- Übersicht: dunkle Seite im Stil der Website ---------- */
 // Netzgrafik der fünf Bereiche; dunkel für die Übersicht, hell für den Kapitelanfang
 function radar2(P, dark){

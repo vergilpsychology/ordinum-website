@@ -27,7 +27,7 @@
       uebung: 'Gib einem neuen Projekt einen festen, kurzen Block von 45 Minuten pro Tag und entscheide erst in diesem Moment, woran genau du arbeitest. So verbindest du Struktur mit der Freiheit, die du brauchst.',
       frage: 'Wo hält dich das Spiel mit immer neuen Möglichkeiten davon ab, dich auf eine davon festzulegen?',
       kurz: '45 Minuten Projektzeit' },
-    { id:'M2', main:['O'], ok: function(m){ return m.P && m.P.O > 60 && top(m, ['cur','lov']); },
+    { id:'M2', best:true, main:['O'], ok: function(m){ return m.P && m.P.O > 60 && top(m, ['cur','lov']); },
       pills: function(m){ return [P(m,'O'), S(m, top(m, ['cur','lov']).k)]; },
       titel: 'Dein Interesse an Neuem zeigt sich doppelt.',
       text: function(){ return 'Es steckt in deiner Persönlichkeit und in deinen Charakterstärken: Du blühst auf, wenn du etwas verstehen, entdecken oder durchdenken darfst. Routinen ohne Lernmoment können dich auf Dauer ermüden.'; },
@@ -90,7 +90,7 @@
       uebung: 'Schreib bei der nächsten Entscheidung zuerst auf, was dein Bauch sagt, dann die Argumente. Wo beide sich widersprechen, lohnt ein genauerer Blick, denn dort steckt oft die eigentliche Frage.',
       frage: 'Wann hast du zuletzt gegen dein Bauchgefühl entschieden, und was hast du daraus gelernt?',
       kurz: 'Bauch und Argumente aufschreiben' },
-    { id:'M11', main:['Bez'], ok: function(m){ return m.P && m.bez && (m.bez.focus === 'LM' || m.bez.focus === 'NO') && m.P.A > 60; },
+    { id:'M11', best:true, main:['Bez'], ok: function(m){ return m.P && m.bez && (m.bez.focus === 'LM' || m.bez.focus === 'NO') && m.P.A > 60; },
       pills: function(m){ return [B(m), P(m,'A')]; },
       titel: 'Du gehst offen und herzlich auf andere zu.',
       text: function(){ return 'Das zeigt sich in zwei Tests: in deiner Persönlichkeit und in der Art, wie du anderen begegnest.'; },
@@ -104,7 +104,7 @@
       uebung: 'Gib in der nächsten Runde bewusst eine Aufgabe ab, die du sonst selbst übernehmen würdest, und schau, was die anderen daraus machen.',
       frage: 'Was würde in dir passieren, wenn du in einer Gruppe einmal nicht die Richtung vorgibst?',
       kurz: 'Eine Aufgabe abgeben' },
-    { id:'M13', main:['O2'], ok: function(m){ return hasF(m) && m.P.facets.O2 > 60 && top(m, ['app']); },
+    { id:'M13', best:true, main:['O2'], ok: function(m){ return hasF(m) && m.P.facets.O2 > 60 && top(m, ['app']); },
       pills: function(m){ return [F(m,'O2'), S(m,'app')]; },
       titel: 'Schönheit ist für dich eine Kraftquelle.',
       text: function(){ return 'Kunst, Natur und gelungene Formen berühren dich, das zeigt sich in deiner Persönlichkeit und in deinen Stärken. Zeit mit Schönem ist für dich keine Nebensache.'; },
@@ -118,7 +118,7 @@
       uebung: 'Geh in eine neue Situation mit einer kleinen, festen Aufgabe, zum Beispiel einer Frage, die du jemandem stellst. Eine klare Rolle macht den Einstieg oft leichter.',
       frage: 'Was würdest du von dir zeigen, wenn du dich nicht beobachtet fühltest?',
       kurz: 'Mit einer kleinen Aufgabe starten' },
-    { id:'M15', main:['O3'], ok: function(m){ return hasF(m) && m.emo && m.P.facets.O3 > 60 && m.emo.W > 60; },
+    { id:'M15', best:true, main:['O3'], ok: function(m){ return hasF(m) && m.emo && m.P.facets.O3 > 60 && m.emo.W > 60; },
       pills: function(m){ return [F(m,'O3'), { test:'emotionen', label:'Gefühle wahrnehmen', value:m.emo.W }]; },
       titel: 'Dein Innenleben ist dir nah.',
       text: function(){ return 'Zwei Tests zeigen dasselbe: Deine Gefühle sind dir wichtig, und du nimmst sie bewusst wahr. Das ist eine gute Grundlage für Selbsterkundung.'; },
@@ -147,8 +147,45 @@
       frage: 'Was von dem, was gerade ansteht, musst wirklich du tragen?',
       kurz: 'Eine Sache streichen oder abgeben' },
 
+    // Muster aus der zweiten Experten-Runde: Funktion und Preis einer Eigenschaft
+    { id:'M19', main:['C'], ok: function(m){ return m.P && m.P.C > 65 && (hasF(m) ? m.P.facets.N1 >= 60 : m.P.S < 40); },
+      pills: function(m){ return [P(m,'C'), hasF(m) ? F(m,'N1') : P(m,'S')]; },
+      titel: 'Gründlichkeit gibt dir Sicherheit.',
+      text: function(){ return 'Du bereitest Dinge sorgfältig vor und denkst sie gründlich durch, und zugleich machst du dir leicht Sorgen. Oft hängt beides zusammen: Wer gut vorbereitet ist, muss weniger fürchten, dass etwas schiefgeht. Das macht dich verlässlich. Es kostet aber viel Kraft, wenn alles gleich gründlich sein muss.'; },
+      uebung: 'Erlaube dir bei einer unwichtigen Aufgabe diese Woche bewusst, nur achtzig Prozent zu geben, und beobachte, was in dir passiert.',
+      frage: 'Wovor soll dich deine Gründlichkeit eigentlich bewahren?',
+      kurz: 'Einmal achtzig Prozent' },
+    { id:'M20', main:['E'], ok: function(m){ return m.P && m.P.E < 40 && top(m, ['soc']); },
+      pills: function(m){ return [P(m,'E'), S(m,'soc')]; },
+      titel: 'Du beobachtest genau, statt die Bühne zu suchen.',
+      text: function(){ return 'Stimmungen und Zwischentöne zwischen Menschen nimmst du fein wahr, in Gruppen hältst du dich aber eher zurück. Deine Stärke liegt nicht in lauter Präsenz, sondern darin, Menschen und Situationen aus etwas Abstand gut einzuschätzen. Der Abstand hat aber auch einen Preis: Andere erfahren wenig von dem, was du siehst.'; },
+      uebung: 'Teile eine Beobachtung, die du über eine Situation oder einen Menschen gemacht hast, diese Woche in einem ruhigen Gespräch zu zweit.',
+      frage: 'Wann hilft dir das Beobachten, selbst nicht gesehen zu werden?',
+      kurz: 'Eine Beobachtung teilen' },
+    { id:'M21', main:['A'], ok: function(m){ return m.P && m.P.A > 65 && (hasF(m) ? m.P.facets.N1 >= 60 || m.P.facets.N6 >= 60 : m.P.S < 40); },
+      pills: function(m){ return [P(m,'A'), hasF(m) ? (m.P.facets.N1 >= m.P.facets.N6 ? F(m,'N1') : F(m,'N6')) : P(m,'S')]; },
+      titel: 'Harmonie gibt dir auch Halt.',
+      text: function(){ return 'Du gehst einfühlsam und entgegenkommend auf andere zu. Gleichzeitig nehmen dich Sorgen oder Druck deutlich mit. Manchmal steckt hinter dem Entgegenkommen deshalb auch der Wunsch, Streit und die Unruhe danach gar nicht erst entstehen zu lassen. Das hält Beziehungen ruhig, kann aber bedeuten, dass du öfter zustimmst, als du eigentlich willst.'; },
+      uebung: 'Sag diese Woche bei einer kleinen Bitte freundlich Nein, ohne lange Begründung.',
+      frage: 'Wo stimmst du anderen zu, obwohl sich in dir etwas dagegen regt?',
+      kurz: 'Einmal freundlich Nein sagen' },
+    { id:'M22', b:true, main:['V'], ok: function(m){ return m.wb && m.wb.V < 40 && m.P && (hasF(m) ? m.P.facets.C3 >= 65 : m.P.C > 65); },
+      pills: function(m){ return [hasF(m) ? F(m,'C3') : P(m,'C'), { test:'wohlbefinden', label:'Lebendigkeit', value:m.wb.V }]; },
+      titel: 'Die Pflicht läuft weiter, auch wenn die Energie fehlt.',
+      text: function(){ return 'Du erledigst zuverlässig, was ansteht, doch der innere Schwung bleibt gerade auf der Strecke. Dein Pflichtgefühl sorgt dafür, dass du weitermachst, auch wenn die Reserven längst knapp sind. Das hält vieles am Laufen. Auf Dauer zehrt es aber an dir.'; },
+      uebung: 'Streich diese Woche eine geplante Pflicht ersatzlos und nutze die Zeit für etwas ohne jeden Zweck.',
+      frage: 'Was müsste passieren, damit du dir erlaubst, ohne schlechtes Gewissen aufzutanken?',
+      kurz: 'Eine Pflicht streichen' },
+    { id:'M23', main:['Abend'], ok: function(m){ return hasF(m) && m.chrono && m.chrono.E > 65 && m.P.facets.N5 >= 60; },
+      pills: function(m){ return [CE(m), F(m,'N5')]; },
+      titel: 'Die späten Stunden verführen dich.',
+      text: function(){ return 'Wenn der Tag zur Ruhe kommt und der Druck nachlässt, wirst du wach, und es fällt dir schwer, ein Ende zu finden. Der späte Abend fühlt sich nach Freiheit an. Er lädt aber auch dazu ein, über das eigene Maß hinauszugehen, und der nächste Morgen zahlt dafür.'; },
+      uebung: 'Leg für zwei Abende diese Woche eine feste Uhrzeit fest, zu der alle Bildschirme ausgehen.',
+      frage: 'Welches Bedürfnis meldet sich spät abends, das tagsüber zu kurz kommt?',
+      kurz: 'Feste Bildschirm-Uhrzeit' },
+
     // Neue Muster (Analyse vom 11. Oktober 2026): vor allem Persönlichkeit und Charakterstärken, die in jedem Bericht vorliegen.
-    { id:'N1', main:['C'], ok: function(m){ return m.P && m.P.C > 60 && top(m, ['ind','pru','sel']); },
+    { id:'N1', best:true, main:['C'], ok: function(m){ return m.P && m.P.C > 60 && top(m, ['ind','pru','sel']); },
       pills: function(m){ return [P(m,'C'), S(m, top(m, ['ind','pru','sel']).k)]; },
       titel: 'Auf dich ist Verlass, auch dir selbst gegenüber.',
       text: function(m){ return 'Planvoll vorzugehen gehört zu deiner Persönlichkeit, und ' + sName(top(m, ['ind','pru','sel']).k) + ' zählt zu deinen stärksten Seiten. Wenn du dir etwas vornimmst, setzt du es mit guter Wahrscheinlichkeit auch um.'; },
@@ -162,7 +199,7 @@
       uebung: 'Achte eine Woche lang darauf, nach welchen Begegnungen du selbst mehr Energie hast und nach welchen weniger.',
       frage: 'Wie geht es dir, wenn du allein bist und niemand Schwung von dir erwartet?',
       kurz: 'Energie nach Begegnungen beobachten' },
-    { id:'N3', main:['A'], ok: function(m){ return m.P && m.P.A > 60 && top(m, ['kin','cap','for','cit','equ']); },
+    { id:'N3', best:true, main:['A'], ok: function(m){ return m.P && m.P.A > 60 && top(m, ['kin','cap','for','cit','equ']); },
       pills: function(m){ return [P(m,'A'), S(m, top(m, ['kin','cap','for','cit','equ']).k)]; },
       titel: 'Fürsorge ist bei dir doppelt verankert.',
       text: function(m){ return 'Sie zeigt sich in deiner Persönlichkeit und in deinen Stärken, etwa in ' + sName(top(m, ['kin','cap','for','cit','equ']).k) + '. Menschen spüren vermutlich, dass sie dir wichtig sind. Achte darauf, dass dabei auch für dich selbst etwas bleibt.'; },
@@ -176,7 +213,7 @@
       uebung: 'Teile einen Gedanken, über den du länger nachgedacht hast, mit einem Menschen, dem du vertraust, und hör, was er dazu sagt.',
       frage: 'Welche deiner Gedanken hast du noch nie mit jemandem geteilt, und was hält dich davon ab?',
       kurz: 'Einen Gedanken teilen' },
-    { id:'N5', main:['O'], ok: function(m){ return m.P && m.P.O > 60 && top(m, ['ori','app']); },
+    { id:'N5', best:true, main:['O'], ok: function(m){ return m.P && m.P.O > 60 && top(m, ['ori','app']); },
       pills: function(m){ return [P(m,'O'), S(m, top(m, ['ori','app']).k)]; },
       titel: 'Du gestaltest gern auf deine eigene Art.',
       text: function(m){ return 'Offenheit für Neues und ' + sName(top(m, ['ori','app']).k) + ' kommen bei dir zusammen. Du siehst gern Möglichkeiten jenseits des Üblichen und hast Freude daran, Dinge neu zu denken oder schön zu gestalten.'; },
@@ -286,7 +323,7 @@
       titel: 'Du bewegst dich in vielen Bereichen in der Mitte.',
       text: function(){ return 'Fast alle deine Persönlichkeitswerte liegen zwischen 40 und 60. Das heißt oft, dass du dich je nach Situation sehr unterschiedlich verhältst: mal gesellig, mal für dich, mal geplant, mal spontan. Umso mehr verraten deine Charakterstärken darüber, was dir Energie gibt.'; },
       uebung: 'Beobachte eine Woche lang, wann du eher so und wann eher anders bist, und was den Unterschied macht.',
-      frage: 'In welchen Situationen fühlst du dich am meisten wie du selbst?',
+      frage: 'Wo passt du dich so sehr an das an, was eine Situation erwartet, dass deine eigenen Impulse leise bleiben?',
       kurz: 'Beobachten, was den Unterschied macht' },
 
     // Werte mit anderen Tests
@@ -364,8 +401,8 @@
       kurz: 'Erste Stunde für das Wichtigste' }
   ];
 
-  // Grundmuster: füllen auf, wenn weniger als drei Muster zutreffen, und stehen nie unter „Weitere Verbindungen“.
-  // Sie greifen nur bei deutlichen Werten (über 60 oder unter 40). Bleiben danach weniger als drei Muster, zeigt der Bericht weniger.
+  // Grundmuster: füllen auf, wenn weniger als zwei Muster zutreffen, und stehen nie unter „Weitere Verbindungen“.
+  // Sie greifen nur bei deutlichen Werten (über 60 oder unter 40). Bleiben danach weniger als zwei, zeigt der Bericht weniger.
   var WBN = { F:'Lebensfreude', M:'Ausgeglichene Stimmung', O:'Zuversicht', S:'Selbstwert', V:'Lebendigkeit' };
   var LAST = { A:'Anspannung', R:'Reizbarkeit', U:'Überforderung' };
   function topDom(m){ return ['O','C','E','A','S'].sort(function(a, b){ return m.P[b] - m.P[a]; })[0]; }
@@ -410,13 +447,18 @@
       kurz: function(m){ return sName(m.top[2].k) + ' in vollen Zeiten'; } }
   ];
 
-  // Spannungsfelder (Kapitel Licht und Schatten): Ergebnisse, die in verschiedene Richtungen ziehen. Höchstens fünf, jedes Ergebnis nur einmal.
+  // Spannungsfelder (Kapitel Licht und Schatten): Ergebnisse, die in verschiedene Richtungen ziehen. Höchstens drei, die deutlichsten zuerst, jedes Ergebnis nur einmal.
   function FV(m, f){ return m.P.facets[f]; }
   function hiF(m, a, b){ return FV(m, a) >= FV(m, b) ? a : b; }
   function SL(m, k){ for (var i = 0; i < m.st.length; i++) if (m.st[i].k === k) return { test:'staerken', label:sName(k), value:m.st[i].v }; }
   function low3(m, k){ return m.low3 && m.low3.some(function(x){ return x.k === k; }); }
   function wIn(m, keys){ return m.werte ? m.werte.top.filter(function(f){ return keys.indexOf(f) >= 0; })[0] : null; }
   window.SPANNUNGEN = [
+    { id:'T20', ok: function(m){ return hasF(m) && m.P.O >= 70 && FV(m,'C2') <= 35 && FV(m,'C4') >= 65; },
+      pills: function(m){ return [P(m,'O'), F(m,'C4'), F(m,'C2')]; },
+      titel: 'Viele Ideen, großer Ehrgeiz und wenig Lust auf Ordnung.',
+      text: function(){ return 'Du sprühst vor Ideen und willst etwas Bedeutendes auf die Beine stellen. Feste Abläufe und Ordnung ziehen dich dagegen kaum an. Daraus entsteht viel Schwung, aber auch Reibung: Du verrennst dich leicht in deinen Möglichkeiten, und auf dem Weg vom Einfall zum Ergebnis verpufft Energie. Die Aufgabe ist nicht, ordentlicher zu werden, sondern einen Rahmen zu finden, der deine Ideen trägt, statt sie einzuengen.'; },
+      frage: 'Wer oder was könnte dir helfen, deine Ideen in die Wirklichkeit zu bringen, ohne dich einzuschränken?' },
     { id:'T1', ok: function(m){ return hasF(m) && FV(m,'C4') >= 65 && (FV(m,'C2') <= 40 || FV(m,'C5') <= 40); },
       f: function(m){ return ['C4', FV(m,'C2') <= FV(m,'C5') ? 'C2' : 'C5']; },
       titel: 'Du willst viel erreichen, und Struktur ist nicht dein natürliches Werkzeug.',
@@ -502,6 +544,16 @@
       titel: 'Du bleibst gelassen, und Gefühle kommen bei dir eher leise an.',
       text: function(){ return 'Dich bringt so schnell nichts aus der Ruhe, und auf dein Innenleben achtest du eher wenig. Diese Ruhe ist echt und wertvoll. Manchmal heißt sie aber auch, dass du erst spät merkst, was dich eigentlich bewegt.'; },
       frage: 'Woran merkst du, dass dich etwas mehr beschäftigt, als du zunächst dachtest?' },
+    { id:'T18', ok: function(m){ return hasF(m) && m.wb && FV(m,'C4') >= 65 && m.wb.S < 45; },
+      pills: function(m){ return [F(m,'C4'), { test:'wohlbefinden', label:'Selbstwert', value:m.wb.S }]; },
+      titel: 'Du leistest viel, und das Erreichte beruhigt dich nur kurz.',
+      text: function(){ return 'Du treibst dich zu hohen Leistungen an, doch dein Selbstwert liegt gerade eher niedrig. Oft speist sich ein solcher Antrieb aus dem Gefühl, noch nicht genug zu sein oder sich den eigenen Wert erst verdienen zu müssen. Dann bringt jeder Erfolg nur kurz Ruhe, und das nächste Ziel wartet schon.'; },
+      frage: 'Wer oder was in dir entscheidet, wann deine Leistung genug ist?' },
+    { id:'T19', ok: function(m){ return m.bez && wIn(m, ['SD']) && Math.max(m.bez.sc.LM, m.bez.sc.JK) >= 65; },
+      pills: function(m){ return [W(m,'SD'), { test:'beziehung', label: m.bez.sc.LM >= m.bez.sc.JK ? 'Warmherzig' : 'Nachsichtig', value: Math.max(m.bez.sc.LM, m.bez.sc.JK) }]; },
+      titel: 'Du suchst Verbundenheit und brauchst zugleich Freiraum.',
+      text: function(){ return 'Warme, nahe Beziehungen liegen dir, und Freiheit gehört zu deinen wichtigsten Werten. Beides zusammen kann ein Hin und Her erzeugen: Du gehst auf andere zu und spürst dann das Bedürfnis nach Abstand, sobald es eng wird.'; },
+      frage: 'Wie viel Nähe kannst du zulassen, ohne das Gefühl zu bekommen, dich selbst zu verlieren?' },
     { id:'X1', ok: function(m){ return wIn(m, ['SD','ST']) && wIn(m, ['SE','TR']); },
       w: function(m){ return [wIn(m, ['SD','ST']), wIn(m, ['SE','TR'])]; },
       titel: 'Ein Teil von dir will aufbrechen, ein anderer sucht Halt.',
@@ -515,16 +567,29 @@
     { id:'X3', ok: function(m){ return wIn(m, ['AC']) && m.st && ['sel','ind','pru'].some(function(k){ return low3(m, k); }); },
       w: function(){ return ['AC']; }, s: function(m){ return ['sel','ind','pru'].filter(function(k){ return low3(m, k); })[0]; },
       titel: 'Dein Wunsch zu erreichen und dein Alltag gehen nicht immer zusammen.',
-      text: function(m){ return 'Leistung gehört zu deinen wichtigsten Werten. ' + sName(['sel','ind','pru'].filter(function(k){ return low3(m, k); })[0]) + ' gehört dagegen zu den Stärken, die du am seltensten einsetzt. Zwischen dem, was du erreichen willst, und dem, was du im Alltag dafür tust, kann so eine Lücke entstehen. Sie ist kein Beweis für fehlenden Willen, eher ein Hinweis, dass dein Weg zum Ziel anders aussehen darf als der übliche.'; },
+      text: function(m){ return 'Leistung gehört zu deinen wichtigsten Werten. ' + sName(['sel','ind','pru'].filter(function(k){ return low3(m, k); })[0]) + ' gehört dagegen zu deinen am wenigsten ausgeprägten Stärken. Zwischen dem, was du erreichen willst, und dem, was du im Alltag dafür tust, kann so eine Lücke entstehen. Sie ist kein Beweis für fehlenden Willen, eher ein Hinweis, dass dein Weg zum Ziel anders aussehen darf als der übliche.'; },
       frage: 'Was müsste passieren, damit dein Wunsch nach Erreichen und dein Alltag näher zusammenrücken?' }
   ];
+  // Prägnanz: wie deutlich die verbundenen Ergebnisse vom mittleren Wert 50 abweichen (Mittel der Abstände)
+  function zahlwert(m, p){
+    if (typeof p.value === 'number') return p.value;
+    if (p.test === 'staerken') { for (var i = 0; i < m.st.length; i++) if (sName(m.st[i].k) === p.label) return m.st[i].v; }
+    if (p.test === 'beziehung') return m.bez.focus === 'AUS' ? 50 : m.bez.sc[m.bez.focus];
+    if (p.test === 'chronotyp') return m.chrono.J;
+    return 50;
+  }
+  window.praegnanz = function(r, m){ try { var p = r.pills(m); return p.reduce(function(a, x){ return a + Math.abs(zahlwert(m, x) - 50); }, 0) / p.length; } catch(e){ return 0; } };
+  function nachPraegnanz(list, m){ return list.map(function(r, i){ return { r:r, i:i, p:window.praegnanz(r, m) }; }).sort(function(a, b){ return b.p - a.p || a.i - b.i; }).map(function(x){ return x.r; }); }
   window.SPANNUNGEN.forEach(function(r){
     if (!r.pills) r.pills = function(m){ var p = []; if (r.f) r.f(m).forEach(function(f){ p.push(F(m, f)); }); if (r.w) r.w(m).forEach(function(f){ p.push(W(m, f)); }); if (r.s) p.push(SL(m, r.s(m))); return p; };
   });
   window.waehleSpannungen = function(m){
     var out = [], used = {};
-    window.SPANNUNGEN.forEach(function(r){
-      var ok; try { ok = !!r.ok(m); } catch(e){ ok = false; } if (!ok || out.length >= 5) return;
+    // Die deutlichsten zuerst, höchstens drei; das Dreier-Spannungsfeld (T20) hat Vorrang
+    var hits = window.SPANNUNGEN.filter(function(r){ try { return !!r.ok(m); } catch(e){ return false; } });
+    hits = hits.filter(function(r){ return r.id === 'T20'; }).concat(nachPraegnanz(hits.filter(function(r){ return r.id !== 'T20'; }), m));
+    hits.forEach(function(r){
+      if (out.length >= 3) return;
       var keys = r.pills(m).map(function(p){ return p.label; }); if (keys.some(function(k){ return used[k]; })) return;
       keys.forEach(function(k){ used[k] = 1; }); out.push(r);
     });
@@ -536,19 +601,19 @@
     { id:'Z1', k:'pru', ok: function(m){ var F = hasF(m) && m.P.facets; return low3(m, 'pru') && (F ? F.E5 >= 70 || F.N5 >= 65 || F.O4 >= 80 || F.C6 <= 35 : (m.P && m.P.C < 40) || !!top(m, ['zes','val'])); },
       text: function(m){ var F = hasF(m) && m.P.facets, w = 'und Spontaneität liegt dir';
         if (F) w = F.E5 >= 70 ? 'und zugleich ist dein Erlebnishunger hoch (' + F.E5 + ')' : F.N5 >= 65 ? 'und zugleich fällt es dir schwer, Verlockungen zu widerstehen (Unmäßigkeit ' + F.N5 + ')' : F.O4 >= 80 ? 'und zugleich suchst du gern Neues (Abenteuerlust ' + F.O4 + ')' : 'und auch deine Besonnenheit liegt niedrig (' + F.C6 + ')';
-        return 'Umsicht gehört zu den Stärken, die du am seltensten einsetzt, ' + w + '. Spontaneität kann dich lebendig machen und Türen öffnen. Ihre Schattenseite: Warnsignale werden leichter überhört, und manche Entscheidung trifft der Impuls, bevor du sie triffst. Achte darauf, in welchen Momenten Innehalten wichtiger wäre als der nächste Schritt.'; },
+        return 'Umsicht gehört zu deinen am wenigsten ausgeprägten Stärken, ' + w + '. Spontaneität kann dich lebendig machen und Türen öffnen. Ihre Schattenseite: Warnsignale werden leichter überhört, und manche Entscheidung trifft der Impuls, bevor du sie triffst. Achte darauf, in welchen Momenten Innehalten wichtiger wäre als der nächste Schritt.'; },
       frage: 'Welche Entscheidung hättest du im Rückblick lieber eine Nacht liegen lassen?' },
     { id:'Z2', k:'sel', ok: function(m){ var F = hasF(m) && m.P.facets; return low3(m, 'sel') && ((F && (F.N5 >= 60 || F.C5 <= 40)) || (m.stress && m.stress.R > 60) || (m.P && m.P.C < 40)); },
-      text: function(){ return 'Selbstregulation gehört zu den Stärken, die du am seltensten einsetzt. Stimmungen und Impulse bekommen bei dir also schnell Raum. Das kann dich echt und lebendig wirken lassen. Es kann aber auch bedeuten, dass du dich manchmal von deinen eigenen Vorsätzen entfernst und dich später darüber ärgerst.'; },
+      text: function(){ return 'Selbstregulation gehört zu deinen am wenigsten ausgeprägten Stärken. Stimmungen und Impulse bekommen bei dir also schnell Raum. Das kann dich echt und lebendig wirken lassen. Es kann aber auch bedeuten, dass du dich manchmal von deinen eigenen Vorsätzen entfernst und dich später darüber ärgerst.'; },
       frage: 'Welcher Impuls hat zuletzt für dich entschieden, wo du lieber selbst entschieden hättest?' },
     { id:'Z3', k:'cap', ok: function(m){ return low3(m, 'cap'); },
-      text: function(){ return 'Die Fähigkeit zu lieben, also Nähe zu geben und anzunehmen, gehört zu den Stärken, die du am seltensten einsetzt. Das sagt nichts darüber, wie viel dir Menschen bedeuten. Es kann aber ein Hinweis sein, dass Nähe für dich mit Vorsicht verbunden ist, sei es aus Erfahrung oder weil dir Eigenständigkeit viel bedeutet. Beides ist verständlich, und doch kann es sein, dass du dich dadurch weniger verbunden fühlst, als du es dir wünschst.'; },
+      text: function(){ return 'Die Fähigkeit zu lieben, also Nähe zu geben und anzunehmen, gehört zu deinen am wenigsten ausgeprägten Stärken. Das sagt nichts darüber, wie viel dir Menschen bedeuten. Es kann aber ein Hinweis sein, dass Nähe für dich mit Vorsicht verbunden ist, sei es aus Erfahrung oder weil dir Eigenständigkeit viel bedeutet. Beides ist verständlich, und doch kann es sein, dass du dich dadurch weniger verbunden fühlst, als du es dir wünschst.'; },
       frage: 'Wo hältst du Nähe auf Abstand, und was schützt du damit?' },
     { id:'Z4', k:'for', ok: function(m){ var F = hasF(m) && m.P.facets; return low3(m, 'for') && ((m.stress && m.stress.R > 60) || (F && F.N2 >= 60)); },
-      text: function(){ return 'Vergebung gehört zu den Stärken, die du am seltensten einsetzt, und gleichzeitig wirst du leichter gereizt. Nicht zu vergeben kann eine Grenze schützen, die verletzt wurde. Alter Ärger bindet aber auch Kraft, und oft trägt ihn am Ende vor allem der, der ihn festhält.'; },
+      text: function(){ return 'Vergebung gehört zu deinen am wenigsten ausgeprägten Stärken, und gleichzeitig wirst du leichter gereizt. Nicht zu vergeben kann eine Grenze schützen, die verletzt wurde. Alter Ärger bindet aber auch Kraft, und oft trägt ihn am Ende vor allem der, der ihn festhält.'; },
       frage: 'Wem trägst du noch etwas nach, und was müsste geschehen, damit du es ablegen kannst?' },
     { id:'Z5', k:'int', ok: function(m){ return low3(m, 'int'); },
-      text: function(){ return 'Ehrlichkeit gehört zu den Stärken, die du am seltensten einsetzt. Im Test geht es dabei vor allem darum, Wort zu halten und den eigenen Werten treu zu bleiben. Wo das weniger ausgeprägt ist, gibt man manchmal den Erwartungen anderer nach, auch wenn man selbst etwas anderes für richtig hält.'; },
+      text: function(){ return 'Ehrlichkeit gehört zu deinen am wenigsten ausgeprägten Stärken. Im Test geht es dabei vor allem darum, Wort zu halten und den eigenen Werten treu zu bleiben. Wo das weniger ausgeprägt ist, gibt man manchmal den Erwartungen anderer nach, auch wenn man selbst etwas anderes für richtig hält.'; },
       frage: 'Wo zeigst du eine Seite von dir, die nicht ganz deine ist?' }
   ];
   window.waehleBlick = function(m){
@@ -559,15 +624,16 @@
 
   // Auswahl: bis zu fünf ausführlich. Stärkende zuerst (jedes Hauptthema möglichst nur einmal),
   // ein Platz für das erste Muster mit Belastungsbezug (M18 hat Vorrang), ein zweites nur bei freiem Platz.
-  // Sind es weniger als drei, füllen Grundmuster auf; sie stehen vor den Mustern mit Belastungsbezug.
+  // Sind es weniger als zwei, füllen Grundmuster auf; sie stehen vor den Mustern mit Belastungsbezug.
   window.waehleMuster = function(m){
     var test = function(r){ try { return !!r.ok(m); } catch(e){ return false; } };
-    var hits = window.MUSTER.filter(test);
-    var res = hits.filter(function(r){ return !r.b; }), bur = hits.filter(function(r){ return r.b; });
+    // Die deutlichsten Verbindungen zuerst (Prägnanz). Bestätigende Muster (zwei Tests messen Ähnliches) nur, wenn sonst zu wenig da ist.
+    var hits = nachPraegnanz(window.MUSTER.filter(test), m);
+    var res = hits.filter(function(r){ return !r.b && !r.best; }).concat(hits.filter(function(r){ return !r.b && r.best; })), bur = hits.filter(function(r){ return r.b; });
     var firstB = bur.filter(function(r){ return r.id === 'M18'; })[0] || bur[0] || null;
     var slots = firstB ? 4 : 5, chosen = [], used = {}, bs = [];
-    res.forEach(function(r){ if (chosen.length < slots && !r.main.some(function(k){ return used[k]; })) { chosen.push(r); r.main.forEach(function(k){ used[k] = 1; }); } });
-    res.forEach(function(r){ if (chosen.length < slots && chosen.indexOf(r) < 0) chosen.push(r); });
+    res.forEach(function(r){ if (chosen.length < slots && !r.best && !r.main.some(function(k){ return used[k]; })) { chosen.push(r); r.main.forEach(function(k){ used[k] = 1; }); } });
+    res.forEach(function(r){ if (chosen.length < slots && chosen.indexOf(r) < 0 && (!r.best || chosen.length < 3)) chosen.push(r); });
     // Werte und Chronotyp sollen mit einem Muster vertreten sein, wenn eines passt: es ersetzt das letzte Muster ohne diese Tests
     var nutzt = function(r, t){ try { return r.pills(m).some(function(p){ return p.test === t; }); } catch(e){ return false; } };
     var neu = function(r){ return nutzt(r, 'werte') || nutzt(r, 'chronotyp'); };
@@ -581,7 +647,7 @@
     if (chosen.length + bs.length < 5) { var second = bur.filter(function(r){ return r !== firstB; })[0]; if (second) bs.push(second); }
     var pair = function(r){ try { return r.pills(m).map(function(p){ return p.label; }).sort().join('|'); } catch(e){ return ''; } };
     var taken = chosen.concat(bs).map(pair);
-    window.GRUNDMUSTER.forEach(function(r){ if (chosen.length + bs.length < 3 && test(r) && taken.indexOf(pair(r)) < 0) chosen.push(r); });
+    window.GRUNDMUSTER.forEach(function(r){ if (chosen.length + bs.length < 2 && test(r) && taken.indexOf(pair(r)) < 0) chosen.push(r); });
     chosen = chosen.concat(bs);
     return { gezeigt: chosen, weitere: hits.filter(function(r){ return chosen.indexOf(r) < 0; }) };
   };
