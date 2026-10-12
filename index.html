@@ -355,6 +355,14 @@ section > .wrap{position:relative}
 
 /* Beispielbericht: Bühne mit Kipp-Effekt und Einblend-Animationen */
 .rp-sec{position:relative;overflow:hidden;padding-top:clamp(20px,3vw,40px)}
+/* Eigener Bericht: erscheint, sobald auf diesem Gerät ein Bericht freigeschaltet wurde */
+.mein-bericht{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;margin:0 auto clamp(28px,4vw,44px);max-width:860px;padding:clamp(18px,3vw,24px) clamp(20px,3.5vw,28px);border:1px solid var(--violet-soft);border-radius:22px;background:linear-gradient(160deg,rgba(143,209,169,.08),rgba(185,163,242,.12)),var(--surface);color:var(--fg);text-decoration:none;transition:box-shadow .3s,border-color .2s}
+.mein-bericht[hidden]{display:none}
+.mein-bericht:hover{box-shadow:0 0 0 1px var(--violet-soft),0 12px 40px -18px rgba(185,163,242,.55)}
+.mein-bericht>span:first-child{display:grid;gap:4px}
+.mein-bericht .eyebrow{margin:0}
+.mein-bericht b{font-size:clamp(18px,2.4vw,21px);font-weight:600}
+.mein-bericht b+span{color:var(--muted);font-size:15px}
 .rp-stage{position:relative;perspective:1600px;margin-top:8px}
 .rp-stage::before{content:"";position:absolute;left:50%;top:50%;width:min(1100px,120%);height:80%;transform:translate(-50%,-50%);background:radial-gradient(ellipse at 30% 50%,rgba(143,209,169,.22),transparent 60%),radial-gradient(ellipse at 72% 50%,rgba(185,163,242,.24),transparent 60%);filter:blur(60px);animation:rpbreathe 9s ease-in-out infinite alternate;pointer-events:none;z-index:-1}
 @keyframes rpbreathe{0%{opacity:.55;transform:translate(-50%,-50%) scale(.92)}100%{opacity:1;transform:translate(-50%,-50%) scale(1.06)}}
@@ -486,6 +494,19 @@ section > .wrap{position:relative}
   </div>
 </header>
 
+<script>
+// Ist auf diesem Gerät ein Bericht freigeschaltet, führt „Dein Bericht“ direkt zu ihm
+(function(){ try{ if (!localStorage.getItem('ordinum-bericht-code')) return; }catch(e){ return; }
+  var a = document.querySelector('.nav ul a[href="#bericht"]'); if (a) a.href = 'bericht.html';
+  document.addEventListener('DOMContentLoaded', function(){
+    var box = document.getElementById('meinbericht'), n = ''; if (!box) return;
+    try{ n = (localStorage.getItem('ordinum-bericht-name') || '').trim(); }catch(e){}
+    if (n) document.getElementById('mbtitel').textContent = n + ', dein Bericht ist bereit.';
+    box.hidden = false;
+  });
+})();
+</script>
+
 <main id="top">
   <div class="hero">
     <canvas id="liquid" aria-hidden="true"></canvas>
@@ -602,6 +623,7 @@ section > .wrap{position:relative}
 
   <section id="bericht" class="rp-sec">
     <div class="wrap">
+      <a class="mein-bericht" id="meinbericht" href="bericht.html" hidden><span><span class="eyebrow">Dein Bericht</span><b id="mbtitel">Dein eigener Bericht ist bereit.</b><span>Er entsteht aus den Ergebnissen auf diesem Gerät und nimmt neue Tests automatisch auf.</span></span><span class="btn primary">Bericht öffnen</span></a>
       <div class="head center">
         <p class="eyebrow">Ein Blick in deinen Bericht</p>
         <h2>Nicht fünf Einzelergebnisse, sondern ein Bild von dir.</h2>

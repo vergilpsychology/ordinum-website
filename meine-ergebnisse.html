@@ -278,6 +278,12 @@ footer nav{display:flex;flex-wrap:wrap;gap:10px 20px}
 .older summary:hover{color:var(--fg)}
 .orow{display:flex;gap:16px;align-items:center;margin-top:10px;flex-wrap:wrap}
 .orow span{min-width:11em}
+.mein-bericht{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-top:36px;padding:clamp(20px,4vw,28px);border:1px solid var(--violet-soft);border-radius:20px;background:linear-gradient(160deg,rgba(143,209,169,.08),rgba(185,163,242,.12)),var(--surface);color:var(--fg);text-decoration:none;transition:box-shadow .3s}
+.mein-bericht[hidden]{display:none}
+.mein-bericht:hover{box-shadow:0 0 0 1px var(--violet-soft),0 12px 40px -18px rgba(185,163,242,.55)}
+.mein-bericht>span:first-child{display:grid;gap:6px;flex:1 1 300px}
+.mein-bericht h2{font-family:var(--body);font-weight:600;font-size:20px;letter-spacing:0}
+.mein-bericht p{color:var(--muted);font-size:15px;margin:0}
 .offen{margin-top:28px;border:1px dashed var(--line);border-radius:20px;padding:clamp(18px,3.5vw,24px)}
 .offen .cta-row{margin-top:12px}
 .offen .btn{padding:8px 14px;font-size:14px}
@@ -299,6 +305,7 @@ footer nav{display:flex;flex-wrap:wrap;gap:10px 20px}
     <h1>Deine <span class="grad">Ergebnisse</span></h1>
     <p>Hier findest du alle Tests, die du in diesem Browser gemacht hast. Sie werden nur auf deinem Gerät gespeichert, nicht bei uns. Für andere Geräte nutzt du den persönlichen Link, den du bei jedem Ergebnis kopieren oder dir per E-Mail schicken kannst.</p>
   </section>
+  <a class="mein-bericht" id="berichtbox" href="bericht.html" hidden><span><span class="eyebrow">Dein Bericht</span><h2>Dein individualisierter Bericht</h2><p id="bbtext"></p></span><span class="btn primary">Bericht öffnen</span></a>
   <div class="rlist" id="list"></div>
   <div class="empty" id="empty" hidden>
     <h3 style="font-size:22px">Noch keine Ergebnisse auf diesem Gerät</h3>
@@ -428,6 +435,18 @@ function render(){
   $('offenlist').innerHTML = '';
   offen.forEach(function(t){ var a = document.createElement('a'); a.className = 'btn'; a.href = TESTS[t].page; a.textContent = TESTS[t].name.split(' · ')[0]; $('offenlist').appendChild(a); });
   $('zahl').textContent = order.length + ' von ' + Object.keys(TESTS).length + ' Tests';
+  bericht(groups);
+}
+// Ist auf diesem Gerät ein Bericht freigeschaltet, steht er als Feld über den Ergebnissen
+function bericht(groups){
+  var code = null, zuletzt = null; try{ code = localStorage.getItem('ordinum-bericht-code'); zuletzt = localStorage.getItem('ordinum-bericht-zuletzt'); }catch(e){}
+  var box = $('berichtbox'); box.hidden = !code; if (!code) return;
+  // Beide Persönlichkeitstests zählen im Bericht als einer
+  var n = Object.keys(groups).filter(function(t){ return !(t === 'big5' && groups.neo120); }).length;
+  var reicht = (groups.big5 || groups.neo120) && groups.staerken && Object.keys(groups).length >= 3;
+  $('bbtext').textContent = reicht
+    ? 'Er verbindet deine Ergebnisse aus ' + n + ' Tests und nimmt neue Tests automatisch auf.' + (zuletzt && /^\d{8}$/.test(zuletzt) ? ' Zuletzt geöffnet am ' + fmtDate(zuletzt) + '.' : '')
+    : 'Für deinen Bericht brauchst du mindestens drei Tests, darunter einen Persönlichkeitstest und den Charakterstärken-Test.';
 }
 $('clear').addEventListener('click', function(){
   if (!confirm('Wirklich alle Ergebnisse von diesem Gerät löschen? Persönliche Links, die du gespeichert hast, funktionieren weiterhin.')) return;

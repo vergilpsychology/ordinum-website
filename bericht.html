@@ -281,6 +281,7 @@ function zeichnen(){
   var mein = laeuft = window.OrdinumBericht.render(daten, { root:$('report'), dunkel:dunkel, seiten:frei ? 0 : VORSCHAU }).then(function(info){
     if (mein !== laeuft) return;
     seiten = info.seiten;
+    if (frei && !BEISPIEL) set('ordinum-bericht-zuletzt', heute()); // für „Meine Ergebnisse“
     $('pdfrow').hidden = !frei; $('lock').hidden = frei;
     if (!frei) $('locktext').textContent = 'Das waren die ersten ' + VORSCHAU + ' von ' + seiten + ' Seiten. Mit deinem Freischaltcode siehst du den ganzen Bericht und kannst ihn als PDF speichern, hell oder dunkel.';
     anpassen();
