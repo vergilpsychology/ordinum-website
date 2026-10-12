@@ -483,12 +483,6 @@ function chapters(m){
   mu.gezeigt.forEach(function(r, i){
     b2.push('<div class="pattern"><p class="pnr">Muster ' + (i + 1) + ' von ' + mu.gezeigt.length + '</p>' + conn(r.pills(m)) + '<h2>' + esc(val(r.titel, m)) + '</h2><p>' + esc(r.text(m)) + '</p><div class="try"><p class="lbl">Ausprobieren</p><p>' + esc(val(r.uebung, m)) + '</p></div>' + q(val(r.frage, m)) + '</div>');
   });
-  // Spannungsfelder: Ergebnisse, die in verschiedene Richtungen ziehen
-  var sp = window.waehleSpannungen(m);
-  if (sp.length) {
-    b2.push('<div class="sub"><p class="ey">Kapitel ' + k2.nr + ' · ' + k2.titel + '</p><h2 class="h2b">' + T.muster.spannung + '</h2><p class="muted" style="margin:0">' + esc(T.muster.spannungIntro) + '</p></div>');
-    sp.forEach(function(r, i){ b2.push({ keep: i === 0, html:'<div class="pattern spannung"><p class="pnr">Spannungsfeld ' + (i + 1) + ' von ' + sp.length + '</p>' + conn(r.pills(m)) + '<h2>' + esc(val(r.titel, m)) + '</h2><p>' + esc(r.text(m)) + '</p>' + q(r.frage) + '</div>' }); });
-  }
   // Höchstens vier weitere Verbindungen, damit das Kapitel kompakt bleibt
   if (mu.weitere.length) b2.push('<p class="lbl" style="margin-top:2mm">' + T.muster.weitere + '</p><div class="more">' + mu.weitere.slice(0, 4).map(function(r){ var p = r.pills(m); return '<div>' + esc(val(r.titel, m)) + ' <span>' + esc(p[0].label) + ' · ' + esc(p[1].label) + '</span></div>'; }).join('') + '</div>');
   b2.push({ keep:1, html:ask(T.muster.frage) });
@@ -498,8 +492,6 @@ function chapters(m){
   if (m.st) {
     var k3 = kap(2), b3 = k3.blocks;
     b3.push(opener(k3.nr, k3.titel, esc(T.staerken.intro)) + strengthRanking(m) + '<p style="margin:3mm 0 0">' + esc(T.staerken.seltener) + '</p>');
-    window.waehleBlick(m).forEach(function(r){ var x = m.st.filter(function(y){ return y.k === r.k; })[0];
-      b3.push('<div class="blick"><p class="lbl">' + T.staerken.blick + ' · ' + esc(Q.staerken[r.k].name) + ' ' + x.v + '</p><p>' + esc(r.text(m)) + '</p>' + q(r.frage) + '</div>'); });
     b3.push('<div class="sep" style="margin:5mm 0 4mm"></div><p class="lbl">' + T.staerken.verbindet.titel + '</p><p style="margin:0">' + esc(gruppen(m)) + '</p>');
     // Kein fester Seitenwechsel mehr: die Überschrift wandert mit der ersten Idee, falls der Platz nicht reicht
     b3.push('<div class="sub"><p class="ey">Kapitel ' + k3.nr + ' · ' + k3.titel + '</p><h2 class="h2b" style="margin-bottom:4mm">Ideen für diese Woche</h2></div>');
@@ -508,6 +500,31 @@ function chapters(m){
     b3.push({ keep:1, html:ask(T.staerken.frage) });
     b3.push({ fill:'notes' });
     C.push(k3);
+  }
+
+  // Licht und Schatten: Kehrseiten der stärksten Stärken, was leiser ist, Spannungsfelder
+  if (m.st) {
+    var ks = kap(8), bs = ks.blocks, SH = T.schatten, blick = window.waehleBlick(m), sp = window.waehleSpannungen(m);
+    var zeile = function(lbl, name, v, farbe, text, frage){ return '<div class="shrow"><div><p class="lbl">' + lbl + '</p><h3 style="color:' + farbe + '">' + esc(name) + ' <span class="shv">' + v + '</span></h3></div><div><p>' + esc(text) + '</p>' + (frage ? q(frage) : '') + '</div></div>'; };
+    bs.push(opener(ks.nr, ks.titel, esc(SH.intro)));
+    bs.push('<h2 class="h2b" style="margin-top:2mm">' + SH.zuViel + '</h2><p class="muted" style="margin:0 0 1mm">' + esc(SH.zuVielIntro) + '</p>');
+    m.top.slice(0, 3).forEach(function(x, i){ bs.push({ keep: i === 0, html: zeile(SH.kehrseite, Q.staerken[x.k].name, x.v, DK ? '#b9a3f2' : '#6b55c4', SH.viel[x.k]) }); });
+    bs.push('<div class="sub"><h2 class="h2b">' + SH.leiser + '</h2><p class="muted" style="margin:0 0 1mm">' + esc(SH.leiserIntro) + '</p></div>');
+    m.low3.slice().reverse().forEach(function(x, i){ var b = blick.filter(function(r){ return r.k === x.k; })[0];
+      bs.push({ keep: i === 0, html: zeile(SH.staerkeLabel, Q.staerken[x.k].name, x.v, K.fname, b ? b.text(m) : SH.wenig[x.k], b && b.frage) }); });
+    if (m.P && m.P.facets) {
+      // Facetten, die schon ein Spannungsfeld zeigt, stehen hier nicht noch einmal
+      var inSp = [].concat.apply([], sp.map(function(r){ return r.pills(m).map(function(p){ return p.label; }); }));
+      var F = m.P.facets, lowF = Object.keys(SH.facette).map(function(f){ return { f:f, v:F[f] }; }).filter(function(x){ return x.v <= 35 && inSp.indexOf(Q.facetten[x.f].name) < 0; }).sort(function(a, b){ return a.v - b.v; }).slice(0, 3);
+      lowF.forEach(function(x){ bs.push(zeile(SH.facetteLabel + ' · ' + T.bereiche[x.f.charAt(0)].name, Q.facetten[x.f].name, x.v, FCOL[x.f.charAt(0)], SH.facette[x.f])); });
+    }
+    if (sp.length) {
+      bs.push('<div class="sub"><h2 class="h2b">' + T.muster.spannung + '</h2><p class="muted" style="margin:0">' + esc(T.muster.spannungIntro) + '</p></div>');
+      sp.forEach(function(r, i){ bs.push({ keep: i === 0, html:'<div class="pattern spannung"><p class="pnr">Spannungsfeld ' + (i + 1) + ' von ' + sp.length + '</p>' + conn(r.pills(m)) + '<h2>' + esc(val(r.titel, m)) + '</h2><p>' + esc(r.text(m)) + '</p>' + q(r.frage) + '</div>' }); });
+    }
+    bs.push({ keep:1, html:ask(SH.frage) });
+    bs.push({ fill:'notes' });
+    C.push(ks);
   }
 
   // Werte

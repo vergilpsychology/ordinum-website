@@ -410,7 +410,7 @@
       kurz: function(m){ return sName(m.top[2].k) + ' in vollen Zeiten'; } }
   ];
 
-  // Spannungsfelder (Kapitel Muster): Ergebnisse, die in verschiedene Richtungen ziehen. Höchstens drei, jede Facette nur einmal.
+  // Spannungsfelder (Kapitel Licht und Schatten): Ergebnisse, die in verschiedene Richtungen ziehen. Höchstens fünf, jedes Ergebnis nur einmal.
   function FV(m, f){ return m.P.facets[f]; }
   function hiF(m, a, b){ return FV(m, a) >= FV(m, b) ? a : b; }
   function SL(m, k){ for (var i = 0; i < m.st.length; i++) if (m.st[i].k === k) return { test:'staerken', label:sName(k), value:m.st[i].v }; }
@@ -467,6 +467,41 @@
       titel: 'Du willst viel erreichen und stellst dich ungern in den Vordergrund.',
       text: function(){ return 'Leistung ist dir wichtig, doch über deine Erfolge sprichst du nicht gern. Diese Zurückhaltung macht dich angenehm im Umgang. Sie kann aber bedeuten, dass deine Leistungen leiser für dich sprechen, als sie könnten, und dass du dir selbst selten zugestehst, stolz zu sein.'; },
       frage: 'Worauf dürftest du in letzter Zeit stolz sein, und wem hast du davon erzählt?' },
+    { id:'T11', ok: function(m){ return m.P && m.bez && m.P.E > 65 && ['HI','FG','DE'].indexOf(m.bez.focus) >= 0; },
+      pills: function(m){ return [P(m,'E'), B(m)]; },
+      titel: 'Du gehst gern unter Menschen und nimmst dich im Kontakt doch zurück.',
+      text: function(){ return 'In deiner Persönlichkeit zeigt sich viel Extraversion, im Beziehungsstil eher Zurückhaltung. Vielleicht genießt du Gesellschaft, ohne dich selbst in den Mittelpunkt zu stellen. Vielleicht zeigst du in Gruppen aber auch weniger von dir, als du eigentlich möchtest.'; },
+      frage: 'Wann warst du zuletzt unter Menschen und hast dir gewünscht, mehr von dir zu zeigen?' },
+    { id:'T12', ok: function(m){ return m.wb && m.stress && m.wb.ov > 60 && m.stress.U > 60; },
+      pills: function(m){ return [{ test:'wohlbefinden', label:'Wohlbefinden', value:m.wb.ov }, { test:'stress', label:'Überforderung', value:m.stress.U }]; },
+      titel: 'Es geht dir gut, und trotzdem ist es gerade viel.',
+      text: function(){ return 'Insgesamt fühlst du dich wohl, und gleichzeitig wird dir vieles zu viel. Das passt zusammen, solange das Gute trägt. Es kann aber auch heißen, dass du die Last noch gut wegsteckst und erst spät merkst, wenn es kippt.'; },
+      frage: 'Was müsste sich ändern, damit es auch in einem halben Jahr noch so gut geht?' },
+    { id:'T13', ok: function(m){ return m.P && m.chrono && m.P.C > 65 && m.chrono.E > 65; },
+      pills: function(m){ return [P(m,'C'), CE(m)]; },
+      titel: 'Dein Pflichtgefühl arbeitet gegen deine innere Uhr.',
+      text: function(){ return 'Du nimmst Aufgaben ernst und bist zugleich eher ein Abendtyp. Wenn Pflichten früh am Tag liegen, kämpfst du womöglich oft gegen deinen eigenen Rhythmus, und dein Pflichtgefühl gewinnt auf Kosten deiner Energie.'; },
+      frage: 'Welche Pflicht könntest du in eine Tageszeit verlegen, in der du wirklich wach bist?' },
+    { id:'T14', ok: function(m){ return m.emo && m.emo.W > 65 && m.emo.P < 45 && m.emo.N < 45; },
+      pills: function(m){ return [{ test:'emotionen', label:'Gefühle wahrnehmen', value:m.emo.W }, { test:'emotionen', label:'Freude und Schweres zeigen', value:Math.round((m.emo.P + m.emo.N) / 2) }]; },
+      titel: 'Du fühlst viel und zeigst wenig davon.',
+      text: function(){ return 'Was in dir vorgeht, nimmst du deutlich wahr. Nach außen dringt davon aber wenig, ob Freude oder Schweres. So bleibt viel in dir, und andere ahnen vielleicht nicht, wie bewegt du eigentlich bist.'; },
+      frage: 'Wer dürfte mehr davon erfahren, was in dir vorgeht?' },
+    { id:'T15', ok: function(m){ return m.wb && m.wb.ov < 40 && top(m, ['hum','zes','hop']); },
+      pills: function(m){ return [S(m, top(m, ['hum','zes','hop']).k), { test:'wohlbefinden', label:'Wohlbefinden', value:m.wb.ov }]; },
+      titel: 'Nach außen wirkst du vielleicht leichter, als du dich fühlst.',
+      text: function(m){ return sName(top(m, ['hum','zes','hop']).k) + ' gehört zu deinen stärksten Seiten, und doch geht es dir gerade eher nicht gut. Andere erleben dich womöglich unbeschwerter, als dir zumute ist. Das kann helfen, durch eine Zeit zu kommen. Es kann aber auch einsam machen.'; },
+      frage: 'Wem würdest du gern zeigen, wie es dir wirklich geht?' },
+    { id:'T16', ok: function(m){ return m.P && m.P.A > 65 && wIn(m, ['SD']); },
+      pills: function(m){ return [P(m,'A'), W(m,'SD')]; },
+      titel: 'Du nimmst viel Rücksicht, und Freiheit ist dir besonders wichtig.',
+      text: function(){ return 'Du kommst anderen gern entgegen, und Freiheit gehört zu deinen wichtigsten Werten. Das kann ziehen, wenn die Rücksicht dich an Dinge bindet, die du eigentlich nicht willst. Dann sagst du Ja und fühlst dich hinterher eingeengt.'; },
+      frage: 'Wo hast du zuletzt aus Rücksicht zugesagt, obwohl du lieber frei geblieben wärst?' },
+    { id:'T17', ok: function(m){ return m.P && m.emo && m.P.S > 65 && m.emo.W < 40; },
+      pills: function(m){ return [P(m,'S'), { test:'emotionen', label:'Gefühle wahrnehmen', value:m.emo.W }]; },
+      titel: 'Du bleibst gelassen, und Gefühle kommen bei dir eher leise an.',
+      text: function(){ return 'Dich bringt so schnell nichts aus der Ruhe, und auf dein Innenleben achtest du eher wenig. Diese Ruhe ist echt und wertvoll. Manchmal heißt sie aber auch, dass du erst spät merkst, was dich eigentlich bewegt.'; },
+      frage: 'Woran merkst du, dass dich etwas mehr beschäftigt, als du zunächst dachtest?' },
     { id:'X1', ok: function(m){ return wIn(m, ['SD','ST']) && wIn(m, ['SE','TR']); },
       w: function(m){ return [wIn(m, ['SD','ST']), wIn(m, ['SE','TR'])]; },
       titel: 'Ein Teil von dir will aufbrechen, ein anderer sucht Halt.',
@@ -484,19 +519,19 @@
       frage: 'Was müsste passieren, damit dein Wunsch nach Erreichen und dein Alltag näher zusammenrücken?' }
   ];
   window.SPANNUNGEN.forEach(function(r){
-    r.pills = function(m){ var p = []; if (r.f) r.f(m).forEach(function(f){ p.push(F(m, f)); }); if (r.w) r.w(m).forEach(function(f){ p.push(W(m, f)); }); if (r.s) p.push(SL(m, r.s(m))); return p; };
+    if (!r.pills) r.pills = function(m){ var p = []; if (r.f) r.f(m).forEach(function(f){ p.push(F(m, f)); }); if (r.w) r.w(m).forEach(function(f){ p.push(W(m, f)); }); if (r.s) p.push(SL(m, r.s(m))); return p; };
   });
   window.waehleSpannungen = function(m){
     var out = [], used = {};
     window.SPANNUNGEN.forEach(function(r){
-      var ok; try { ok = !!r.ok(m); } catch(e){ ok = false; } if (!ok || out.length >= 3) return;
+      var ok; try { ok = !!r.ok(m); } catch(e){ ok = false; } if (!ok || out.length >= 5) return;
       var keys = r.pills(m).map(function(p){ return p.label; }); if (keys.some(function(k){ return used[k]; })) return;
       keys.forEach(function(k){ used[k] = 1; }); out.push(r);
     });
     return out;
   };
 
-  // Ein zweiter Blick (Kapitel Charakterstärken): wenn eine selten genutzte Stärke zu anderen Ergebnissen passt. Höchstens zwei.
+  // Ein zweiter Blick (Kapitel Licht und Schatten): wenn eine selten genutzte Stärke zu anderen Ergebnissen passt, ersetzt dieser Text den allgemeinen.
   window.BLICK = [
     { id:'Z1', k:'pru', ok: function(m){ var F = hasF(m) && m.P.facets; return low3(m, 'pru') && (F ? F.E5 >= 70 || F.N5 >= 65 || F.O4 >= 80 || F.C6 <= 35 : (m.P && m.P.C < 40) || !!top(m, ['zes','val'])); },
       text: function(m){ var F = hasF(m) && m.P.facets, w = 'und Spontaneität liegt dir';
@@ -519,8 +554,7 @@
   window.waehleBlick = function(m){
     if (!m.st) return [];
     var out = window.BLICK.filter(function(r){ try { return !!r.ok(m); } catch(e){ return false; } });
-    if (out.some(function(r){ return r.id === 'Z1'; })) out = out.filter(function(r){ return r.id !== 'Z2'; }); // beide beschreiben Impulse
-    return out.slice(0, 2);
+    return out; // je selten genutzter Stärke höchstens ein Baustein, er ersetzt dort den allgemeinen Text
   };
 
   // Auswahl: bis zu fünf ausführlich. Stärkende zuerst (jedes Hauptthema möglichst nur einmal),
