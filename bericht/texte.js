@@ -10,7 +10,7 @@ window.TEXTE = {
     schwerpunkt: 'Dein Schwerpunkt', ausgewogen: 'Ohne klaren Schwerpunkt', stileTop: 'Stärkste Stile', muster: 'Deine Muster',
     wichtig: 'Am wichtigsten', rhythmus: 'Tagesrhythmus', chronotyp: 'Dein Chronotyp', hoch: 'Leistungshoch', jetlag: 'Sozialer Jetlag' },
   profil: 'Hier siehst du deine Werte in den fünf großen Bereichen der Persönlichkeitsforschung, aus deinem {quelle} vom {datum}.',
-  netz: 'Je weiter ein Punkt nach außen reicht, desto mehr hast du den Aussagen dieses Bereichs zugestimmt. Der helle Ring markiert den mittleren Bereich zwischen 40 und 60.',
+  netz: 'Je weiter ein Punkt nach außen reicht, desto mehr hast du den Aussagen dieses Bereichs zugestimmt. Der helle Ring markiert den mittleren Bereich zwischen 40 und 60. Sehr hohe oder sehr niedrige Werte heißen, dass du dich in den Aussagen sehr deutlich wiedererkannt hast oder eben nicht.',
 
   kapitel: [
     { nr: 1, titel: 'Dein Profil auf einen Blick' },
@@ -20,7 +20,8 @@ window.TEXTE = {
     { nr: 5, titel: 'Fühlen und Begegnen' },
     { nr: 6, titel: 'Nächste Schritte' },
     { nr: 7, titel: 'Was dir wichtig ist' },
-    { nr: 8, titel: 'Dein Tagesrhythmus' }
+    { nr: 8, titel: 'Dein Tagesrhythmus' },
+    { nr: 9, titel: 'Licht und Schatten' }
   ],
 
   // Kapitel 1: je Bereich "Im Alltag", "Kraftquelle", "Stolperstein" und "Frage an dich".
@@ -139,7 +140,9 @@ window.TEXTE = {
     intro: 'Hier treffen sich deine Ergebnisse, meist aus zwei verschiedenen Tests. Jedes Muster ist ein Angebot zum Nachdenken, kein Urteil. Nimm mit, was für dich stimmt.',
     weitere: 'Weitere Verbindungen in deinen Ergebnissen',
     keins: 'Zwischen deinen Tests zeigt sich keine der Verbindungen, nach denen dieser Bericht sucht. Das heißt nicht, dass es keine gibt: Oft entdeckt man die eigenen Muster am besten selbst. Leg die Kapitel nebeneinander und frag dich, wo du dich wiedererkennst und was dich überrascht.',
-    frage: 'Welches dieser Muster erkennst du sofort wieder, und welches überrascht dich?'
+    frage: 'Welches dieser Muster erkennst du sofort wieder, und welches überrascht dich?',
+    spannung: 'Wo es in dir zieht',
+    spannungIntro: 'Manche Ergebnisse ziehen in verschiedene Richtungen. Solche Spannungen sind keine Fehler. Oft liegt gerade dort eine Entwicklungsaufgabe: die Frage, wie beide Seiten zu ihrem Recht kommen.'
   },
 
   staerken: {
@@ -185,7 +188,8 @@ window.TEXTE = {
       'Mäßigung': { name: 'Mäßigung', kurz: 'die dir Maß und Ruhe geben', text: 'Diese Stärken schützen vor dem Zuviel: Besonnenheit, Selbststeuerung, Bescheidenheit und die Fähigkeit zu verzeihen. Energie gibt dir vermutlich, mit Ruhe und Bedacht zu handeln und dir selbst treu zu bleiben.' },
       'Transzendenz': { name: 'Transzendenz', kurz: 'die deinem Alltag Leichtigkeit und Tiefe geben', text: 'Diese Stärken richten deinen Blick über das Alltägliche hinaus: auf Schönes, auf Dankbarkeit, Hoffnung, Humor oder Sinn. Energie gibt dir vermutlich alles, was dich staunen, lachen oder zuversichtlich nach vorn schauen lässt.' }
     },
-    seltener: 'Diese drei sind bei dir derzeit am wenigsten ausgeprägt. Das sind keine Schwächen, sondern Seiten, die du seltener einsetzt. Manchmal lohnt es sich, eine davon bewusst auszuprobieren, wenn eine Situation sie braucht.',
+    seltener: 'Diese drei setzt du derzeit am seltensten ein. Sie sind kein Mangel, aber auch nicht bedeutungslos: Manchmal fehlt eine Stärke genau dort, wo eine Situation sie bräuchte. Es lohnt sich, ehrlich hinzuschauen, wo das bei dir der Fall ist.',
+    blick: 'Ein zweiter Blick',
     frage: 'Wann hast du zuletzt erlebt, wie eine deiner Stärken dich getragen hat?'
   },
 
@@ -243,6 +247,7 @@ window.TEXTE = {
       NO: { text: 'Du gehst gern auf Menschen zu, fängst Gespräche an und bringst Leben in eine Runde.', einladung: 'Gönn dir neben allem Austausch auch einzelne, tiefe Gespräche und ruhige Momente für dich.' },
       AUS: { text: 'Dein Beziehungsstil hat keinen klaren Schwerpunkt. Du kannst je nach Situation führen oder folgen, Nähe suchen oder Abstand halten. Diese Beweglichkeit hilft dir im Umgang mit sehr unterschiedlichen Menschen.', einladung: '' }
     },
+    achsen: 'Der Kreis hat zwei Achsen: Senkrecht geht es darum, wie sehr du im Kontakt Einfluss nimmst oder anderen Raum lässt, waagrecht darum, wie viel Nähe oder Abstand du suchst. Der Punkt zeigt, wohin deine Antworten insgesamt weisen.',
     frage: 'Wie würde ein Mensch, der dich gut kennt, deine Art beschreiben, anderen zu begegnen?'
   },
 
@@ -292,8 +297,103 @@ window.TEXTE = {
       gute: { name: 'Drei gute Dinge', text: 'Jeden Abend drei Dinge notieren, die gut waren.' },
       traum: { name: 'Traumtagebuch', text: 'Träume festhalten und nach Bildern und Themen schauen.' }
     },
-    begleiter: 'Dein 7-Tage-Begleiter: Kreuze an, an welchen Tagen du es ausprobiert hast.',
+    rueckblick: 'Rückblick nach einer Woche',
+    rueckblickFrage: 'Wann hat sich einer dieser Schritte in den letzten Tagen besonders stimmig oder besonders schwer angefühlt? Was sagt dir das?',
     notizen: 'Platz für deine Gedanken'
+  },
+
+  // Kapitel Licht und Schatten: Kehrseiten der Stärken, was leiser ist, Spannungsfelder
+  schatten: {
+    intro: 'Jede Stärke hat eine Kehrseite, und was bei dir leiser ist, hat oft auch einen Nutzen. Dieses Kapitel schaut auf beides: wo deine Stärken zu viel werden können, was bei dir weniger ausgeprägt ist und wo sich Ergebnisse beißen. Es geht nicht um Fehler, sondern um einen ehrlicheren Blick.',
+    zuViel: 'Wenn Stärken zu viel werden',
+    zuVielIntro: 'Was dich trägt, kann in manchen Situationen auch im Weg stehen. Meist dann, wenn eine Stärke zur Gewohnheit wird und nicht mehr gefragt wird, ob sie gerade passt.',
+    kehrseite: 'Kehrseite',
+    leiser: 'Was bei dir leiser ist',
+    leiserIntro: 'Niedrige Werte sind keine Mängel. Sie zeigen aber, wo dir etwas fehlen kann, wenn eine Situation es braucht.',
+    staerkeLabel: 'Charakterstärke',
+    facetteLabel: 'Facette',
+    frage: 'Welche dieser Kehrseiten kennst du am besten, und woran merkst du, dass sie sich gerade zeigt?',
+    // Wenn eine Charakterstärke zu viel wird (für die drei stärksten)
+    viel: {
+      ori: 'Kann zu viel werden, wenn alles neu erfunden werden muss und Bewährtes keine Chance bekommt. Dann bleiben Dinge im Entwurf, statt fertig zu werden.',
+      val: 'Kann in Leichtsinn kippen oder in Kämpfe, die gar nicht deine sind. Nicht jede Unstimmigkeit braucht deinen Einsatz.',
+      cap: 'Kann bedeuten, dass du dich in Beziehungen verlierst und Nähe wichtiger wird als deine eigenen Grenzen.',
+      equ: 'Kann starr werden, wenn Regeln wichtiger werden als der Mensch vor dir. Manchmal braucht eine Situation Nachsicht statt Gleichbehandlung.',
+      for: 'Kann dazu führen, dass du zu schnell verzeihst und keine Grenze ziehst, wo eine nötig wäre.',
+      app: 'Kann in hohe Ansprüche umschlagen: Wenn das Unvollkommene stört, wirkt der gewöhnliche Alltag schnell zu wenig.',
+      cur: 'Kann zerstreuen: Immer neue Fragen lassen wenig Zeit, bei einer zu bleiben. Manchmal wird Neugier auch zum Ausweg vor dem, was gerade langweilig, aber wichtig ist.',
+      ind: 'Kann zu Sturheit werden: Du bleibst an Dingen dran, die du längst loslassen dürftest.',
+      kin: 'Kann dich erschöpfen, wenn du mehr gibst, als du hast, oder hilfst, wo niemand darum gebeten hat.',
+      lea: 'Kann anderen den Raum nehmen, selbst Verantwortung zu übernehmen. Wer immer vorangeht, merkt nicht immer, wer zurückbleibt.',
+      mod: 'Kann dich unsichtbar machen: Was du leistest, bleibt ungesehen, manchmal sogar von dir selbst.',
+      gra: 'Kann dazu führen, dass du dich mit zu wenig zufriedengibst oder berechtigte Wünsche kleinredest.',
+      jud: 'Kann in endloses Abwägen münden: Wer alles von allen Seiten prüft, entscheidet manchmal zu spät oder gar nicht.',
+      int: 'Kann verletzen, wenn eine Wahrheit ohne Gespür für den Moment ausgesprochen wird. Nicht alles, was stimmt, muss jetzt gesagt werden.',
+      soc: 'Kann dazu führen, dass du dich ständig nach anderen ausrichtest und Stimmungen auffängst, die nicht deine Aufgabe sind.',
+      cit: 'Kann bedeuten, dass du dich der Gruppe anpasst, auch wenn du eigentlich anderer Meinung bist.',
+      pru: 'Kann bremsen: Wer jedes Risiko vermeiden will, lässt auch manche Gelegenheit vorbeiziehen.',
+      hop: 'Kann den Blick für Warnzeichen trüben. Wer fest mit einem guten Ausgang rechnet, plant manchmal zu wenig für den anderen Fall.',
+      lov: 'Kann zum Aufschieben werden: noch ein Kurs, noch ein Buch, bevor du anfängst. Wissen ersetzt nicht das Tun.',
+      zes: 'Kann dich auslaugen, wenn du keine Pausen einplanst, und andere überrollen, die ein anderes Tempo brauchen.',
+      sel: 'Kann starr werden: Wer sich ständig im Griff hat, erlaubt sich wenig Spontaneität und Genuss.',
+      hum: 'Kann zum Ausweichen werden: Ein Witz lockert vieles, aber manches braucht Ernst, auch dir selbst gegenüber.',
+      per: 'Kann abgehoben wirken, wenn der Blick aufs Große die kleinen, konkreten Sorgen anderer übersieht. Auch ein guter Rat ist nicht immer gefragt.',
+      spi: 'Kann dazu verleiten, Schweres schnell mit Sinn zu überdecken, statt es erst einmal schwer sein zu lassen.'
+    },
+    // Wenn eine Charakterstärke leise ist (für die drei am seltensten genutzten)
+    wenig: {
+      ori: 'Neues zu erfinden, ist gerade nicht deine erste Wahl. Das macht dich verlässlich im Bewährten. Es kann aber bedeuten, dass du eigene Lösungen gar nicht erst ausprobierst.',
+      val: 'Für etwas einzustehen, auch gegen Widerstand, liegt dir derzeit weniger. Das erspart dir Konflikte. Manchmal bleibt dabei aber etwas ungesagt, das dir wichtig wäre.',
+      cap: 'Nähe zu geben und anzunehmen, setzt du derzeit selten ein. Das sagt nichts darüber, wie viel dir Menschen bedeuten. Es kann aber heißen, dass Nähe für dich mit Vorsicht verbunden ist und du dich weniger verbunden fühlst, als du es dir wünschst.',
+      equ: 'Gleichbehandlung steht bei dir nicht im Vordergrund. Du entscheidest eher nach Lage und Sympathie. Das kann beweglich sein, andere erleben es aber vielleicht als ungerecht.',
+      for: 'Verzeihen fällt dir nicht leicht. Das kann deine Grenzen schützen. Alter Ärger bindet aber auch Kraft, und oft trägt ihn am Ende vor allem der, der ihn festhält.',
+      app: 'Schönheit im Alltag fällt dir derzeit selten auf. Vielleicht ist gerade wenig Raum dafür. Damit fehlt aber auch eine leise Quelle von Erholung.',
+      cur: 'Neugier treibt dich derzeit wenig an. Das gibt dir Fokus. Es kann aber auch heißen, dass Neues an dir vorbeizieht, das dich bereichern würde.',
+      ind: 'Dranbleiben, wenn es zäh wird, fällt dir schwerer. Du merkst früh, wenn etwas nicht mehr passt. Manches Ziel bleibt dadurch aber kurz vor dem Ende liegen.',
+      kin: 'Anderen Gutes zu tun, steht bei dir gerade nicht im Vordergrund. Vielleicht brauchst du deine Kraft im Moment für dich. Andere könnten dich aber distanzierter erleben, als du bist.',
+      lea: 'Gruppen zu lenken, ist nicht deine Rolle. So lässt du anderen Raum. Manchmal wartest du aber vielleicht, bis jemand anders entscheidet, obwohl du eine klare Meinung hast.',
+      mod: 'Bescheidenheit setzt du selten ein. Du zeigst, was du kannst, und das ist erst einmal gut. Achte darauf, dass daneben Raum für die Beiträge anderer bleibt.',
+      gra: 'Dankbarkeit bemerkst du derzeit selten. Vielleicht ist gerade viel schwer. Wer das Gute kaum sieht, dem fehlt aber leicht ein Gegengewicht zu dem, was belastet.',
+      jud: 'Gründliches Abwägen ist nicht deine erste Wahl. Du entscheidest schnell und aus dem Moment. Bei folgenreichen Fragen kann ein zweiter Blick vor Fehlern bewahren.',
+      int: 'Wort halten und den eigenen Werten treu bleiben, setzt du derzeit seltener ein. Manchmal gibt man dann den Erwartungen anderer nach, auch wenn man selbst etwas anderes für richtig hält.',
+      soc: 'Stimmungen anderer zu lesen, fällt dir nicht leicht. Du nimmst Menschen eher beim Wort. Das ist ehrlich, aber Ungesagtes entgeht dir dabei leichter.',
+      cit: 'Im Team zu arbeiten, ist nicht deine liebste Form. Du gehst lieber eigene Wege. Das schafft Unabhängigkeit, manchmal aber auch Abstand zu Menschen, die mit dir an einem Strang ziehen wollen.',
+      pru: 'Vorsicht und Bedacht setzt du selten ein. Das macht dich spontan und offen für Gelegenheiten. Warnsignale werden dabei aber leichter überhört.',
+      hop: 'Zuversicht trägt dich derzeit wenig. Du rechnest eher mit Schwierigkeiten, und das kann dich gut vorbereiten. Es kann dir aber auch die Kraft nehmen, Neues anzufangen.',
+      lov: 'Gezielt Neues zu lernen, reizt dich derzeit wenig. Du verlässt dich auf das, was du kannst. Das spart Energie, kann dich aber auch auf der Stelle treten lassen.',
+      zes: 'Tatendrang ist bei dir gerade leise. Vielleicht brauchst du Ruhe, vielleicht fehlt etwas, das dich wirklich begeistert. Beides lohnt einen ehrlichen Blick.',
+      sel: 'Selbstregulation setzt du selten ein. Stimmungen und Impulse bekommen bei dir schnell Raum. Das wirkt echt und lebendig, kann dich aber von deinen eigenen Vorsätzen entfernen.',
+      hum: 'Humor setzt du selten ein. Du nimmst die Dinge ernst, und das verdient Respekt. In schweren Momenten kann ein wenig Leichtigkeit aber Abstand schaffen.',
+      per: 'Das große Ganze im Blick zu behalten, ist nicht deine stärkste Seite. Du bist eher im Konkreten zuhause. Dabei kann aus dem Blick geraten, wozu etwas eigentlich dient.',
+      spi: 'Spiritualität spielt für dich derzeit keine große Rolle. Sinn findest du vermutlich eher im Konkreten. Die Frage, was dich über den Alltag hinaus trägt, kann trotzdem lohnen.'
+    },
+    // Niedrige Facetten (nur ausführlicher Persönlichkeitstest, ohne emotionale Stabilität)
+    facette: {
+      O1: 'Du bleibst lieber bei den Tatsachen. Das macht dich klar und bodenständig. Es kann aber schwerfallen, dir Dinge vorzustellen, die es noch nicht gibt.',
+      O2: 'Kunst und Schönheit sprechen dich wenig an. Dir entgeht dadurch vielleicht eine Quelle von Erholung und Berührung.',
+      O3: 'Deine Gefühle stehen bei dir nicht im Vordergrund. Das hält dich stabil. Es kann aber dazu führen, dass du erst spät merkst, was in dir vorgeht.',
+      O4: 'Vertrautes ist dir lieber als Neues. Das gibt dir Sicherheit. Es kann aber bedeuten, dass dein Leben enger wird, als es sein müsste.',
+      O5: 'Abstrakte Gedankenspiele reizen dich wenig. Du gehst die Dinge praktisch an. Manchmal fehlt dadurch aber die Geduld für Fragen, die keine schnelle Antwort haben.',
+      O6: 'Du hältst an Bewährtem und an Regeln fest. Das gibt Orientierung. Es kann aber schwerfallen, Sichtweisen gelten zu lassen, die deinen widersprechen.',
+      C1: 'Du traust dir weniger zu, als du vielleicht kannst. Das macht vorsichtig, kann aber Chancen verhindern, bevor du sie überhaupt prüfst.',
+      C2: 'Ordnung und Systeme sind dir nicht wichtig. Das macht dich beweglich. Im Alltag kann es aber Kraft kosten, Dinge zu suchen und den Überblick zu behalten.',
+      C3: 'Regeln und Verpflichtungen nimmst du eher locker. Das gibt dir Freiheit. Andere verlassen sich aber vielleicht auf Zusagen, die für dich weniger Gewicht haben.',
+      C4: 'Ehrgeiz treibt dich wenig. Das schützt vor Druck. Es kann aber bedeuten, dass du unter deinen Möglichkeiten bleibst, gerade dort, wo dir etwas wirklich wichtig wäre.',
+      C5: 'Dich zu etwas zu zwingen, liegt dir nicht. Was keinen Spaß macht, bleibt eher liegen, und das kann sich irgendwann stapeln.',
+      C6: 'Du entscheidest schnell und aus dem Bauch. Das macht dich spontan. Manche Entscheidung hättest du im Nachhinein aber lieber länger bedacht.',
+      E1: 'Du zeigst Zuneigung eher zurückhaltend. Wer dich kennt, weiß, was du meinst. Andere könnten dich aber kühler erleben, als du bist.',
+      E2: 'Große Runden meidest du eher. Du brauchst sie nicht. Es kann aber sein, dass dir dadurch Begegnungen fehlen, die dir gutgetan hätten.',
+      E3: 'Mit deiner Meinung hältst du dich eher zurück. Das schafft Raum für andere. Es kann aber bedeuten, dass deine Sicht in Entscheidungen zu kurz kommt.',
+      E4: 'Du lässt es lieber ruhig angehen. Das schützt vor Hektik. Manchmal bleiben aber Dinge liegen, die mit etwas mehr Schwung leichter gingen.',
+      E5: 'Aufregung und Nervenkitzel suchst du nicht. Das macht dich besonnen. Es kann aber sein, dass dein Alltag weniger Farbe hat, als du dir eigentlich wünschst.',
+      E6: 'Überschwängliche Freude zeigst du selten. Vielleicht ist deine Freude eher still. Es lohnt sich aber zu prüfen, ob gerade genug da ist, das dich freut.',
+      A1: 'Du schenkst Vertrauen nicht leicht. Das schützt dich vor Enttäuschungen. Es kann aber auch Nähe verhindern, die dir guttun würde.',
+      A2: 'Du weißt, wie man andere für sich gewinnt, und setzt das auch gezielt ein. Das kann wirksam sein. Andere spüren aber oft, wenn etwas nicht ganz offen ist.',
+      A3: 'Du hilfst nicht ohne Weiteres. Deine Kraft bleibt bei dir. Andere könnten das aber als Desinteresse missverstehen.',
+      A4: 'Konflikten gehst du nicht aus dem Weg. Das macht dich klar. Es kann Beziehungen aber belasten, wenn jeder Streit ausgetragen werden muss.',
+      A5: 'Du stehst offen zu dem, was du kannst. Das ist erst einmal gesund. Andere können es aber als Überlegenheit erleben.',
+      A6: 'Das Leid anderer bewegt dich wenig. Das schützt dich vor Überforderung. Es kann aber Abstand zu Menschen schaffen, die gerade Zuwendung bräuchten.'
+    }
   },
 
   autor: 'Konzept und Texte: Jannik Wessling, M.Sc. Psychologie',
@@ -304,6 +404,7 @@ window.TEXTE = {
     chrono: 'Der Chronotyp-Test ist ein eigener Fragebogen von Ordinum, noch nicht wissenschaftlich überprüft und als Orientierung gedacht.',
     beide: 'Der Werte-Test und der Chronotyp-Test sind eigene Fragebögen von Ordinum, noch nicht wissenschaftlich überprüft und als Orientierung gedacht.'
   },
+  einordnung: 'Ein Wort zur Einordnung',
   hinweis: [
     'Die Tests beruhen auf frei verfügbaren Fragebögen aus der psychologischen Forschung (International Personality Item Pool, ipip.ori.org). Die deutschen Fassungen sind eigene Übersetzungen. Die Ergebnisse beschreiben, wie du dich zum Zeitpunkt des Tests selbst eingeschätzt hast. Sie sind keine Diagnose und ersetzen keine Beratung oder Behandlung.',
     'Deine Antworten wurden in deinem Browser ausgewertet und dort gespeichert. An uns wurden sie nicht übertragen.',
