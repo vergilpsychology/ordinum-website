@@ -281,10 +281,31 @@ function tagKurve(c){
   return svg(620, 280, s, '', 'width:126mm;display:block;margin:0 auto');
 }
 
+/* ---------- Symbole: feine Linien, Farbe über currentColor ---------- */
+var ICO = {
+  pentagon: '<path d="M12 3l8.6 6.2-3.3 10.1H6.7L3.4 9.2z"/><path d="M12 3v9m8.6-2.8L12 12m5.3 7.3L12 12m-5.3 7.3L12 12M3.4 9.2L12 12" opacity=".5"/>',
+  ringe: '<circle cx="9" cy="12" r="6"/><circle cx="15" cy="12" r="6"/>',
+  sonne: '<circle cx="12" cy="12" r="3.6"/><path d="M18.5 12H21M16.6 16.6l1.8 1.8M12 18.5V21M7.4 16.6l-1.8 1.8M5.5 12H3M7.4 7.4L5.6 5.6M12 5.5V3M16.6 7.4l1.8-1.8"/>',
+  welle: '<circle cx="12" cy="12" r="9"/><path d="M4.5 12c1.9-3.2 3.8-3.2 5 0s3.1 3.2 5 0 3.1-3.2 5 0"/>',
+  bahn: '<path d="M12 3v18M3 12h18" opacity=".5"/><circle cx="12" cy="12" r="7"/><circle cx="16.95" cy="7.05" r="1.5" fill="currentColor"/><circle cx="7.05" cy="16.95" r="1.1" fill="currentColor"/>',
+  weg: '<circle cx="5" cy="18" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="6" r="1.6"/><path d="M6.3 16.9l4.4-3.8m2.6-2.2l4.4-3.8" stroke-dasharray="1.2 1.8"/>',
+  stern: '<path d="M12 2.5l2 7.5 7.5 2-7.5 2-2 7.5-2-7.5-7.5-2 7.5-2z"/><circle cx="12" cy="12" r=".9" fill="currentColor"/>',
+  rhythmus: '<path d="M9.5 4.5A7.5 7.5 0 0 0 9.5 19.5A9 9 0 0 1 9.5 4.5z"/><circle cx="16.5" cy="12" r="3.4"/>',
+  halb: '<circle cx="12" cy="12" r="8.5"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor" fill-opacity=".35" stroke="none"/><path d="M12 3.5v17"/>',
+  fleck: '<circle cx="12" cy="12" r="8.5"/><path d="M4.6 16.2A8.5 8.5 0 0 0 19.4 16.2z" fill="currentColor" fill-opacity=".4" stroke="none"/>',
+  kompass: '<circle cx="12" cy="12" r="8.5"/><path d="M12 6l2.2 6h-4.4z" fill="currentColor" stroke="none"/><path d="M12 18l2.2-6h-4.4z"/>',
+  funke: '<path d="M12 3c.6 4.6 3.4 7.4 9 9-5.6 1.6-8.4 4.4-9 9-.6-4.6-3.4-7.4-9-9 5.6-1.6 8.4-4.4 9-9z"/>',
+  zug: '<path d="M4 9h15m-3.5-3.5L19 9l-3.5 3.5M20 15H5m3.5-3.5L5 15l3.5 3.5"/>',
+  buch: '<path d="M12 6.5c-2.2-1.6-5-2-8-1.6v13c3-.4 5.8 0 8 1.6 2.2-1.6 5-2 8-1.6v-13c-3-.4-5.8 0-8 1.6zM12 6.5v13"/>'
+};
+// Kapitelsymbole in der Reihenfolge von T.kapitel
+var KICO = ['pentagon', 'ringe', 'sonne', 'welle', 'bahn', 'weg', 'stern', 'rhythmus', 'halb'];
+function ico(n, c){ return '<svg class="ico' + (c ? ' ' + c : '') + '" viewBox="0 0 24 24" aria-hidden="true">' + ICO[n] + '</svg>'; }
+
 /* ---------- HTML-Bausteine ---------- */
-function q(text){ return '<div class="q"><p><span class="rl">Frage an dich</span>' + esc(text) + '</p></div>'; }
-function ask(text){ return '<div class="ask"><p class="lbl">Frage an dich</p><p>' + esc(text) + '</p><div class="ln"></div><div class="ln"></div></div>'; }
-function opener(nr, titel, lead){ return '<p class="ey">' + (nr ? 'Kapitel ' + nr : 'Zu Beginn') + '</p><h1>' + esc(titel) + '</h1>' + (lead ? '<p class="lead">' + lead + '</p>' : ''); }
+function q(text){ return '<div class="q"><p><span class="rl">' + ico('kompass') + 'Frage an dich</span>' + esc(text) + '</p></div>'; }
+function ask(text, sym){ return '<div class="ask"><p class="lbl">' + ico(sym || 'kompass') + 'Frage an dich</p><p>' + esc(text) + '</p><div class="ln"></div><div class="ln"></div></div>'; }
+function opener(nr, titel, lead){ var k = T.kapitel.map(function(x){ return x.titel; }).indexOf(titel); return '<p class="ey">' + (k >= 0 ? ico(KICO[k], 'kico') : '') + (nr ? 'Kapitel ' + nr : 'Zu Beginn') + '</p><h1>' + esc(titel) + '</h1>' + (lead ? '<p class="lead">' + lead + '</p>' : ''); }
 function pill(p){ var c = TESTS[p.test]; return '<div class="cp" style="--c:' + c.f + '"><div class="ct"><i></i>' + esc(c.name) + '</div><div class="cl">' + esc(p.label) + '<b>' + esc(p.value) + '</b></div></div>'; }
 function conn(pills){ var h = pill(pills[0]); for (var i = 1; i < pills.length; i++){ var a = TESTS[pills[i - 1].test], b = TESTS[pills[i].test]; h += '<div class="cline" style="background:linear-gradient(90deg,' + a.f + ',' + b.f + ')"></div>' + pill(pills[i]); } return '<div class="conn' + (pills.length > 2 ? ' drei' : '') + '">' + h + '</div>'; }
 /* ---------- Übersicht: dunkle Seite im Stil der Website ---------- */
@@ -481,7 +502,7 @@ function chapters(m){
   b2.push(opener(k2.nr, k2.titel, esc(T.muster.intro)));
   if (!mu.gezeigt.length) b2.push('<p>' + esc(T.muster.keins) + '</p>');
   mu.gezeigt.forEach(function(r, i){
-    b2.push('<div class="pattern"><p class="pnr">Muster ' + (i + 1) + ' von ' + mu.gezeigt.length + '</p>' + conn(r.pills(m)) + '<h2>' + esc(val(r.titel, m)) + '</h2><p>' + esc(r.text(m)) + '</p><div class="try"><p class="lbl">Ausprobieren</p><p>' + esc(val(r.uebung, m)) + '</p></div>' + q(val(r.frage, m)) + '</div>');
+    b2.push('<div class="pattern ' + (r.b ? 'last' : 'kraft') + '"><p class="pnr">' + ico('ringe') + 'Muster ' + (i + 1) + ' von ' + mu.gezeigt.length + '</p>' + conn(r.pills(m)) + '<h2>' + esc(val(r.titel, m)) + '</h2><p>' + esc(r.text(m)) + '</p><div class="try"><p class="lbl">' + ico('funke') + 'Ausprobieren</p><p>' + esc(val(r.uebung, m)) + '</p></div>' + q(val(r.frage, m)) + '</div>');
   });
   // Höchstens vier weitere Verbindungen, damit das Kapitel kompakt bleibt
   if (mu.weitere.length) b2.push('<p class="lbl" style="margin-top:2mm">' + T.muster.weitere + '</p><div class="more">' + mu.weitere.slice(0, 4).map(function(r){ var p = r.pills(m); return '<div>' + esc(val(r.titel, m)) + ' <span>' + esc(p[0].label) + ' · ' + esc(p[1].label) + '</span></div>'; }).join('') + '</div>');
@@ -507,9 +528,9 @@ function chapters(m){
     var ks = kap(8), bs = ks.blocks, SH = T.schatten, blick = window.waehleBlick(m), sp = window.waehleSpannungen(m);
     var zeile = function(lbl, name, v, farbe, text, frage){ return '<div class="shrow"><div><p class="lbl">' + lbl + '</p><h3 style="color:' + farbe + '">' + esc(name) + ' <span class="shv">' + v + '</span></h3></div><div><p>' + esc(text) + '</p>' + (frage ? q(frage) : '') + '</div></div>'; };
     bs.push(opener(ks.nr, ks.titel, esc(SH.intro)));
-    bs.push('<h2 class="h2b" style="margin-top:2mm">' + SH.zuViel + '</h2><p class="muted" style="margin:0 0 1mm">' + esc(SH.zuVielIntro) + '</p>');
+    bs.push('<h2 class="h2b" style="margin-top:2mm">' + ico('sonne', 'hico') + SH.zuViel + '</h2><p class="muted" style="margin:0 0 1mm">' + esc(SH.zuVielIntro) + '</p>');
     m.top.slice(0, 3).forEach(function(x, i){ bs.push({ keep: i === 0, html: zeile(SH.kehrseite, Q.staerken[x.k].name, x.v, DK ? '#b9a3f2' : '#6b55c4', SH.viel[x.k]) }); });
-    bs.push('<div class="sub"><h2 class="h2b">' + SH.leiser + '</h2><p class="muted" style="margin:0 0 1mm">' + esc(SH.leiserIntro) + '</p></div>');
+    bs.push('<div class="sub"><h2 class="h2b">' + ico('fleck', 'hico') + SH.leiser + '</h2><p class="muted" style="margin:0 0 1mm">' + esc(SH.leiserIntro) + '</p></div>');
     m.low3.slice().reverse().forEach(function(x, i){ var b = blick.filter(function(r){ return r.k === x.k; })[0];
       bs.push({ keep: i === 0, html: zeile(SH.staerkeLabel, Q.staerken[x.k].name, x.v, K.fname, b ? b.text(m) : SH.wenig[x.k], b && b.frage) }); });
     if (m.P && m.P.facets) {
@@ -519,8 +540,8 @@ function chapters(m){
       lowF.forEach(function(x){ bs.push(zeile(SH.facetteLabel + ' · ' + T.bereiche[x.f.charAt(0)].name, Q.facetten[x.f].name, x.v, FCOL[x.f.charAt(0)], SH.facette[x.f])); });
     }
     if (sp.length) {
-      bs.push('<div class="sub"><h2 class="h2b">' + T.muster.spannung + '</h2><p class="muted" style="margin:0">' + esc(T.muster.spannungIntro) + '</p></div>');
-      sp.forEach(function(r, i){ bs.push({ keep: i === 0, html:'<div class="pattern spannung"><p class="pnr">Spannungsfeld ' + (i + 1) + ' von ' + sp.length + '</p>' + conn(r.pills(m)) + '<h2>' + esc(val(r.titel, m)) + '</h2><p>' + esc(r.text(m)) + '</p>' + q(r.frage) + '</div>' }); });
+      bs.push('<div class="sub"><h2 class="h2b">' + ico('zug', 'hico') + T.muster.spannung + '</h2><p class="muted" style="margin:0">' + esc(T.muster.spannungIntro) + '</p></div>');
+      sp.forEach(function(r, i){ bs.push({ keep: i === 0, html:'<div class="pattern spannung"><p class="pnr">' + ico('zug') + 'Spannungsfeld ' + (i + 1) + ' von ' + sp.length + '</p>' + conn(r.pills(m)) + '<h2>' + esc(val(r.titel, m)) + '</h2><p>' + esc(r.text(m)) + '</p>' + q(r.frage) + '</div>' }); });
     }
     bs.push({ keep:1, html:ask(SH.frage) });
     bs.push({ fill:'notes' });
@@ -626,7 +647,7 @@ function chapters(m){
   var k6 = kap(5), b6 = k6.blocks;
   b6.push(opener(k6.nr, k6.titel, esc(T.schritte.intro.replace('{n}', zahl(steps.length)))));
   steps.forEach(function(s, i){ b6.push('<div class="step" style="margin-bottom:3.4mm"><div class="num">' + (i + 1) + '</div><div><p class="k">' + esc(s.k) + '</p><h3>' + esc(s.h) + '</h3><p>' + esc(s.p) + '</p></div></div>'); });
-  b6.push({ keep:1, html:'<div class="ask" style="margin-top:5mm"><p class="lbl">' + esc(T.schritte.rueckblick) + '</p><p>' + esc(T.schritte.rueckblickFrage) + '</p><div class="ln"></div><div class="ln"></div></div>' });
+  b6.push({ keep:1, html:'<div class="ask" style="margin-top:5mm"><p class="lbl">' + ico('buch') + esc(T.schritte.rueckblick) + '</p><p>' + esc(T.schritte.rueckblickFrage) + '</p><div class="ln"></div><div class="ln"></div></div>' });
   b6.push({ fill:'notes' });
   C.push(k6);
 
@@ -649,7 +670,7 @@ function cover(m, C){
   return '<section class="page cover"><div class="bg"></div>' + lines +
     '<div class="brand"><img src="' + LOGO + '" alt=""><span class="wm">ORD<i>I</i>NUM</span></div>' +
     '<div class="title"><p class="ey">Individualisierter Bericht</p><div class="name">' + esc(m.name) + '</div><div class="meta">' + monat(m.date) + ' · ' + m.tests.length + ' Tests · <span id="pc"></span> Seiten</div></div>' +
-    '<div class="toc">' + C.filter(function(ch){ return ch.nr; }).map(function(ch){ return '<div><b>' + String(ch.nr).padStart(2, '0') + '</b>' + esc(ch.titel) + '<span id="toc' + ch.nr + '"></span></div>'; }).join('') + '</div></section>';
+    '<div class="toc">' + C.filter(function(ch){ return ch.nr; }).map(function(ch){ return '<div><b>' + String(ch.nr).padStart(2, '0') + '</b>' + ico(KICO[ch.idx], 'tico') + esc(ch.titel) + '<span id="toc' + ch.nr + '"></span></div>'; }).join('') + '</div></section>';
 }
 // Dunkle Seite: weiche Lichtflecken und drei feine Linien wie auf der Startseite
 // Dunkle Seite: weiche Lichtflecken wie auf dem Deckblatt

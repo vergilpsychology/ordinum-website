@@ -194,8 +194,12 @@
 #report .ks p.st{border-left-color:#f2b8a8}
 #report .ks p.st{margin:0}
 #report .ks .rl{display:block;margin:0 0 .3mm}
-#report .sub{margin-top:6mm;padding-top:5mm;border-top:.25mm solid var(--line)}
-#report .inner>div:first-child>.sub{margin-top:0;padding-top:0;border-top:0}
+#report .sub{margin-top:6mm;padding-top:5mm;position:relative}
+/* Trennlinie mit kleiner Raute in der Mitte */
+#report .sub:before{content:'';position:absolute;top:0;left:0;right:0;height:.25mm;background:linear-gradient(90deg,var(--line) calc(50% - 3.2mm),transparent calc(50% - 3.2mm),transparent calc(50% + 3.2mm),var(--line) calc(50% + 3.2mm))}
+#report .sub:after{content:'';position:absolute;top:-.85mm;left:50%;width:1.7mm;height:1.7mm;margin-left:-.85mm;border:.25mm solid var(--faint);transform:rotate(45deg);box-sizing:border-box;opacity:.8}
+#report .inner>div:first-child>.sub{margin-top:0;padding-top:0}
+#report .inner>div:first-child>.sub:before,#report .inner>div:first-child>.sub:after{display:none}
 #report .h2b{font-size:15pt;font-weight:300;margin-bottom:2mm}
 #report .frow{display:grid;grid-template-columns:72mm 1fr;gap:7mm;padding:3.2mm 0;border-top:.25mm solid var(--line)}
 #report .inner>div:first-child>.frow{border-top:0;padding-top:0}
@@ -329,3 +333,17 @@
 #report[data-rt=dark] .end{color:#e7ece9}
 #report[data-rt=dark] .notes .ln{border-bottom-color:#2f3934}
 #report td{color:inherit}
+
+/* Symbole: feine Linien in der jeweiligen Textfarbe */
+#report svg.ico{width:3mm;height:3mm;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;vertical-align:-.65mm;margin-right:1.5mm;flex:none}
+#report .ey svg.kico{width:5mm;height:5mm;stroke-width:1.25;vertical-align:-1.55mm;margin-right:2.4mm}
+#report h2 svg.hico{width:4.4mm;height:4.4mm;stroke-width:1.3;vertical-align:-.6mm;margin-right:2.2mm;color:var(--violet)}
+#report .cover .toc svg.tico{width:3.6mm;height:3.6mm;stroke-width:1.4;margin-right:2.4mm;color:#8fd1a9;opacity:.8;align-self:center}
+#report[data-rt=light] .cover .toc svg.tico{color:#2b8257}
+#report .ask p.lbl svg.ico{vertical-align:-.75mm}
+/* Muster: feiner Akzent links, grün für Kraftquellen, ocker für Belastung, zweifarbig für Spannungsfelder */
+#report .pattern{position:relative;padding-left:4.2mm}
+#report .pattern:before{content:'';position:absolute;left:0;top:.6mm;bottom:0;width:.7mm;border-radius:.35mm;background:#8fd1a9}
+#report .pattern.last:before{background:#d9a35f}
+#report .pattern.spannung:before{background:linear-gradient(180deg,#b9a3f2 0,#b9a3f2 50%,#e3907a 50%,#e3907a 100%)}
+#report[data-rt=dark] .pattern.kraft:before{background:#5fae86}
