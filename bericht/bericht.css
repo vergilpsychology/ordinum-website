@@ -209,6 +209,8 @@
 #report .cp .cl{font-size:9pt;font-weight:500}
 #report .cp .cl b{font-family:var(--mono);font-weight:500;font-size:8.4pt;margin-left:1.4mm}
 #report .cline{flex:1;height:.6mm;position:relative;min-width:14mm}
+#report .conn.drei .cp{min-width:0;flex:0 1 auto}
+#report .conn.drei .cline{min-width:8mm}
 #report .cline:after{content:'';position:absolute;left:50%;top:50%;width:2.4mm;height:2.4mm;border-radius:50%;background:#fff;border:.5mm solid #9d86ea;transform:translate(-50%,-50%)}
 #report .more{display:grid;gap:2mm;margin-top:2mm}
 #report .more div{display:flex;align-items:center;gap:3mm;border:.25mm solid var(--line);border-radius:2.6mm;background:#fff;padding:2.4mm 3.6mm;font-size:9.2pt}
