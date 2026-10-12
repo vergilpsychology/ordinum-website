@@ -102,6 +102,9 @@ function model(D){
   // Liegen beide Persönlichkeitstests vor, fließt nur der ausführliche ein und wird gezählt
   m.tests = Object.keys(TESTS).filter(function(k){ return t[k] && !(k === 'big5' && t.neo120); });
   m.muster = window.waehleMuster(m);
+  // Zwei Ringe (zwei-ringe.js): erst ab vier belegten Achsen
+  var zr = window.OrdinumRinge && window.OrdinumRinge.modell(t);
+  if (zr && zr.achsen >= 4 && zr.dyn) m.ringe = zr;
   return m;
 }
 
@@ -528,6 +531,12 @@ function chapters(m){
     var ks = kap(8), bs = ks.blocks, SH = T.schatten, blick = window.waehleBlick(m), sp = window.waehleSpannungen(m);
     var zeile = function(lbl, name, v, farbe, text, frage){ return '<div class="shrow"><div><p class="lbl">' + lbl + '</p><h3 style="color:' + farbe + '">' + esc(name) + ' <span class="shv">' + v + '</span></h3></div><div><p>' + esc(text) + '</p>' + (frage ? q(frage) : '') + '</div></div>'; };
     bs.push(opener(ks.nr, ks.titel, esc(SH.intro)));
+    if (m.ringe) {
+      var Z = window.OrdinumRinge, ZT = Z.TEXT, zf = Z.FARBEN[DK ? 'dunkel' : 'hell'];
+      bs.push('<div class="zrb"><div>' + Z.svg(m.ringe, { size:300, labels:true, dunkel:DK, fontSize:12.5 }) + '</div><div><p class="lbl">' + ZT.titel + '</p><h2 class="h2b" style="margin:0 0 3mm">' + ZT.ueber + '</h2>' +
+        '<p class="lbl" style="margin:0">' + ZT.dynamik + '</p><p class="zdyn"><span style="color:' + zf.a + '">' + esc(m.ringe.dyn.stark) + '</span> <i>⇄</i> <span style="color:' + zf.leise + '">' + esc(m.ringe.dyn.leise) + '</span></p>' +
+        '<p>' + esc(ZT.erklaerung) + '</p><p>' + esc(ZT.balance[m.ringe.balance]) + '</p><p class="muted small" style="margin:0">' + esc(ZT.wie) + (m.ringe.fehlendeTests.length ? ' ' + esc(ZT.fehlt.replace('{tests}', m.ringe.fehlendeTests.map(function(k){ return ZT.testName[k]; }).join(' und '))) : '') + '</p></div></div>');
+    }
     bs.push('<h2 class="h2b" style="margin-top:2mm">' + ico('sonne', 'hico') + SH.zuViel + '</h2><p class="muted" style="margin:0 0 1mm">' + esc(SH.zuVielIntro) + '</p>');
     m.top.slice(0, 3).forEach(function(x, i){ bs.push({ keep: i === 0, html: zeile(SH.kehrseite, Q.staerken[x.k].name, x.v, DK ? '#b9a3f2' : '#6b55c4', SH.viel[x.k]) }); });
     bs.push('<div class="sub"><h2 class="h2b">' + ico('fleck', 'hico') + SH.leiser + '</h2><p class="muted" style="margin:0 0 1mm">' + esc(SH.leiserIntro) + '</p></div>');
@@ -669,6 +678,7 @@ function cover(m, C){
     '<path d="M-10 212 C 45 200, 100 236, 150 216 S 210 194, 230 206" fill="none" stroke="url(#cl)" stroke-width=".2" opacity=".25"/></svg>';
   return '<section class="page cover"><div class="bg"></div>' + lines +
     '<div class="brand"><img src="' + LOGO + '" alt=""><span class="wm">ORD<i>I</i>NUM</span></div>' +
+    (m.ringe ? '<div class="zrc">' + window.OrdinumRinge.svg(m.ringe, { size:300, dunkel:DK }) + '</div>' : '') +
     '<div class="title"><p class="ey">Individualisierter Bericht</p><div class="name">' + esc(m.name) + '</div><div class="meta">' + monat(m.date) + ' · ' + m.tests.length + ' Tests · <span id="pc"></span> Seiten</div></div>' +
     '<div class="toc">' + C.filter(function(ch){ return ch.nr; }).map(function(ch){ return '<div><b>' + String(ch.nr).padStart(2, '0') + '</b>' + ico(KICO[ch.idx], 'tico') + esc(ch.titel) + '<span id="toc' + ch.nr + '"></span></div>'; }).join('') + '</div></section>';
 }

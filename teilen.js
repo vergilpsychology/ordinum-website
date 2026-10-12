@@ -130,6 +130,7 @@
     // Inhalt mittig zwischen Kopf und Fuß
     var avail = footTop - headEnd;
     if (opts.kind === 'circle') drawCircle(ctx, P, W, headEnd, avail);
+    else if (opts.kind === 'ringe') drawRinge(ctx, P, W, headEnd, avail, dark);
     else drawRows(ctx, P, W, M, headEnd, avail);
     return cv;
   }
@@ -196,6 +197,25 @@
     ctx.textAlign = 'left';
   }
 
+  // Zwei Ringe (zwei-ringe.js): die Ringe mittig, darunter die stärkste innere Dynamik in den Farben der Ringe
+  function drawRinge(ctx, P, W, y0, avail, dark){
+    var Z = window.OrdinumRinge, m = opts.ringe, F = Z.FARBEN[dark ? 'dunkel' : 'hell'], story = st.fmt === 'story';
+    var R = story ? 290 : 220, below = story ? 230 : 190, cx = W / 2, cy = y0 + (avail - below) / 2;
+    Z.zeichne(ctx, m, cx, cy, R, F);
+    if (!m.dyn) return;
+    var ty = cy + R * 1.32 + (story ? 130 : 100), sep = '  ⇄  ';
+    ctx.font = '300 58px Unbounded, sans-serif'; ctx.textAlign = 'left';
+    var wa = ctx.measureText(m.dyn.stark).width, ws = ctx.measureText(sep).width, wb = ctx.measureText(m.dyn.leise).width, k = Math.min(1, (W - 160) / (wa + ws + wb));
+    if (k < 1) { ctx.font = '300 ' + Math.floor(58 * k) + 'px Unbounded, sans-serif'; wa *= k; ws *= k; wb *= k; }
+    var x = cx - (wa + ws + wb) / 2;
+    ctx.fillStyle = F.a; ctx.fillText(m.dyn.stark, x, ty);
+    ctx.fillStyle = P.mut; ctx.fillText(sep, x + wa, ty);
+    ctx.fillStyle = dark ? F.leise : F.b; ctx.fillText(m.dyn.leise, x + wa + ws, ty);
+    ctx.textAlign = 'center'; ctx.fillStyle = P.mut; ctx.font = '400 32px "Hanken Grotesk", sans-serif';
+    ctx.fillText(opts.sub || '', cx, ty + 62);
+    ctx.textAlign = 'left';
+  }
+
   function toBlob(cv){
     return new Promise(function(res, rej){
       try { cv.toBlob(function(b){ b ? res(b) : rej(); }, 'image/png'); } catch(e){ rej(e); }
@@ -249,8 +269,8 @@
     }
     box = document.createElement('div'); box.className = 'share-box';
     box.innerHTML = '<h3></h3><p></p><div class="share-grid"><img class="share-prev" alt=""><div class="share-opts"><div class="share-btns"></div><p class="share-toast" aria-live="polite"></p></div></div>';
-    box.querySelector('h3').textContent = T.h;
-    box.querySelector('p').textContent = T.p;
+    box.querySelector('h3').textContent = opts.h || T.h;
+    box.querySelector('p').textContent = opts.p || T.p;
     box.querySelector('.share-prev').alt = T.alt;
     var o = box.querySelector('.share-opts'), btns = box.querySelector('.share-btns');
     o.insertBefore(seg('theme', [['dark', T.dark], ['light', T.light]]), btns);
@@ -269,7 +289,8 @@
     dl.addEventListener('click', download);
     btns.appendChild(dl);
     var anchor = document.querySelector('#result .save-box');
-    if (anchor) anchor.parentNode.insertBefore(box, anchor); else document.getElementById('result').appendChild(box);
+    if (opts.anchor) opts.anchor.appendChild(box);
+    else if (anchor) anchor.parentNode.insertBefore(box, anchor); else document.getElementById('result').appendChild(box);
   }
 
   window.OrdinumShare = {
